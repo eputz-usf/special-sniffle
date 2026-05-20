@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+# CIC Support Platform MVP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+This project is an MVP for a role-based support platform connected to the larger CIC-funded initiative. The goal of the platform is to help different user groups access relevant resources, recommendations, and progress tracking through personalized dashboards.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The MVP focuses on account creation, role-based onboarding, saved user type information, personalized dashboards, and a guided recommendation flow. The recommendation system will begin as a rule-based decision-tree model and can later be expanded into a more advanced AI-supported system.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project Goal
 
-## Expanding the ESLint configuration
+The main goal of this MVP is to create a working platform where users can:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Create an account or log in
+- Select their user type during first-time onboarding
+- Have their user type saved to their account
+- Automatically land on their correct role-based dashboard after login
+- View personalized resources, recommendations, and progress
+- Use a guided recommendation flow to find relevant support
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## User Groups
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The current MVP is planned around these user groups:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. Students
+2. Faculty
+3. Advisors / Staff
+4. Administrators
+5. CIC / College Stakeholders
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Each user group will have a different dashboard, set of features, and recommended resources.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## MVP User Flow
+
+```text
+Create Account / Log In
+        ↓
+First-Time User?
+        ↓
+Select User Type
+        ↓
+Save User Type to Account
+        ↓
+Redirect to Role-Based Dashboard
+        ↓
+View Features, Resources, Recommendations, and Progress
