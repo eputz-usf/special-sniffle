@@ -11,22 +11,11 @@
 - Planned Supabase for future authentication and database storage.
 - Added placeholder pages for account access, user type selection, and role-based dashboards.
 - Added React Router routes for the account page, user type selection, and dashboards.
-- Built a temporary create account flow:
-
-```text
-Account Page -> Create Account -> Select User Type -> Chosen Dashboard
-```
-
-- Built a temporary login flow:
-
-```text
-Account Page -> Login -> Saved User Type -> Matching Dashboard
-```
-
+- Built a temporary create account flow
 - Used `localStorage` for temporary browser-only user type storage.
 - Separated temporary auth and user type logic into utility files so Supabase can be added later.
 
-## Update 3: Auth and User Group Page Design
+## Update 2: Auth and User Group Page Design
 
 **Date:** May 21, 2026
 
@@ -36,9 +25,19 @@ Account Page -> Login -> Saved User Type -> Matching Dashboard
 - Added the USF logo and refined the site header.
 - Redesigned the user group selection page with a card-based layout.
 
+## Update 3: USF Login Placeholder and Profile Page
+
+**Date:** May 21, 2026
+
+### Completed
+
+- Changed authentication direction to assume external USF login.
+- Replaced the account form with a `Continue with USF Login` placeholder.
+- Added a profile page after login.
+- Profile page prompts users to select a user group if no profile exists.
+
 ### What I will do next
 
-- Work on real account creation logic.
-- Integrate account creation and login with Supabase.
-- Save the selected user group through Supabase instead of temporary browser storage.
+- Redesign the profile page/ work on profile page wireframe
+- Store profile and user group data through Supabase.
 - Start creating wireframes for the other pages and dashboards.

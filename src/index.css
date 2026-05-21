@@ -171,6 +171,36 @@ section {
   color: #111421;
 }
 
+.auth-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.auth-actions button {
+  width: 100%;
+  max-width: 320px;
+}
+
+.profile-prompt {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+  padding: 20px;
+  border: 1px solid #c4beb7;
+  border-radius: 18px;
+  background-color: #ffffff;
+}
+
+.profile-prompt h2,
+.profile-prompt p {
+  margin: 0;
+}
+
+.profile-prompt h2 {
+  color: #086242;
+  font-size: 24px;
+}
+
 form {
   display: grid;
   gap: 16px;
@@ -229,8 +259,77 @@ button {
   cursor: pointer;
 }
 
+.secondary-button {
+  background-color: #e4ded6;
+  color: #111421;
+}
+
 form > button[type="submit"] {
   margin-top: 8px;
+}
+
+.profile-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1efee;
+}
+
+.profile-card {
+  width: min(100%, 620px);
+  margin: 0;
+  padding: 42px;
+  border: 1px solid #c4beb7;
+  border-radius: 24px;
+  background-color: #ffffff;
+}
+
+.profile-card h1,
+.profile-card p {
+  margin-top: 0;
+}
+
+.profile-card h1 {
+  color: #086242;
+  font-size: clamp(32px, 5vw, 44px);
+}
+
+.profile-card p {
+  color: #30343d;
+  line-height: 1.5;
+}
+
+.profile-eyebrow {
+  margin-bottom: 10px;
+  color: #086242;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.profile-detail {
+  display: grid;
+  gap: 8px;
+  margin: 28px 0;
+  padding: 18px;
+  border-radius: 16px;
+  background-color: #f1efee;
+}
+
+.profile-detail span {
+  color: #5f665f;
+  font-size: 14px;
+}
+
+.profile-detail strong {
+  color: #111421;
+  font-size: 20px;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .user-select-page {

@@ -4,6 +4,7 @@ import AdvisorDashboard from './pages/AdvisorDashboard';
 import FacultyDashboard from './pages/FacultyDashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
 import SelectUserType from './pages/SelectUserType';
 import StudentDashboard from './pages/StudentDashboard';
 import usfLogo from './assets/usflogo.png';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/select-user-type" element={<SelectUserType />} />
         <Route path="/dashboard/student" element={<StudentDashboard />} />
         <Route path="/dashboard/faculty" element={<FacultyDashboard />} />
