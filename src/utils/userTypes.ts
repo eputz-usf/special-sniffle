@@ -5,26 +5,31 @@ export const userTypeOptions: UserTypeOption[] = [
     id: 'prospective-student',
     label: 'High School / Prospective Student',
     dashboardRoute: '/dashboard/student',
+    icon: 'backpack',
   },
   {
     id: 'current-usf-student',
-    label: 'Current USF Student in Another Major',
+    label: 'Current USF Student not in Bellini College',
     dashboardRoute: '/dashboard/student',
+    icon: 'university',
   },
   {
     id: 'current-bellini-student',
     label: 'Current Bellini College Student Considering Switching Degrees',
     dashboardRoute: '/dashboard/student',
+    icon: 'cpu',
   },
   {
     id: 'transfer-student',
-    label: 'Transfer Student from a Community or State College',
+    label: 'Non USF student',
     dashboardRoute: '/dashboard/student',
+    icon: 'graduation-cap',
   },
   {
     id: 'advisor-staff',
     label: 'Academic Advisor / College Staff',
     dashboardRoute: '/dashboard/advisor',
+    icon: 'notebook-pen',
   },
 ];
 

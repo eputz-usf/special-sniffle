@@ -1,3 +1,10 @@
+import {
+  Backpack,
+  Cpu,
+  GraduationCap,
+  NotebookPen,
+  University,
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { saveUserType } from '../utils/auth';
 import type { UserTypeOption } from '../types/user';
@@ -12,23 +19,51 @@ function SelectUserType() {
   }
 
   return (
-    <main>
+    <main className="user-select-page">
       <h1>Select User Group</h1>
-      <p>
-        First-time users will select the group that best matches them. This
-        will be saved to their account for future dashboard routing.
-      </p>
+      <p>Select one of the groups that best fits you to get to continue to the dashboard!</p>
 
       <section>
-        <h2>Available User Groups</h2>
         <ul className="user-type-list">
           {userTypeOptions.map((userType) => (
             <li key={userType.id}>
               <button
+                className="user-type-card"
                 type="button"
                 onClick={() => handleUserTypeSelection(userType)}
               >
-                {userType.label}
+                <span
+                  className={`user-type-logo${
+                    userType.icon || userType.logoSrc ? ' has-visual' : ''
+                  }`}
+                  aria-hidden={!userType.logoSrc}
+                >
+                  {userType.icon === 'backpack' && (
+                    <Backpack className="user-type-icon" aria-hidden="true" />
+                  )}
+                  {userType.icon === 'graduation-cap' && (
+                    <GraduationCap
+                      className="user-type-icon graduation-cap-icon"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {userType.icon === 'notebook-pen' && (
+                    <NotebookPen
+                      className="user-type-icon"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {userType.icon === 'cpu' && (
+                    <Cpu className="user-type-icon" aria-hidden="true" />
+                  )}
+                  {userType.icon === 'university' && (
+                    <University className="user-type-icon" aria-hidden="true" />
+                  )}
+                  {userType.logoSrc && (
+                    <img src={userType.logoSrc} alt={userType.logoAlt ?? ''} />
+                  )}
+                </span>
+                <span>{userType.label}</span>
               </button>
             </li>
           ))}

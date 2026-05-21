@@ -6,7 +6,9 @@
 
 body {
   margin: 0;
-  font-family: "Epilogue", Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
   background-color: #f5f0e8;
   color: #19202b;
 }
@@ -16,10 +18,19 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  min-height: 70px;
-  padding: 20px 48px;
+  min-height: 44px;
+  padding: 6px 28px 6px 48px;
   background-color: #f5f0e8;
   border-bottom: 1px solid #201d18;
+}
+
+.site-header.user-select-header {
+  background-color: #086242;
+  border-bottom-color: #086242;
+}
+
+.site-header.user-select-header .site-logo {
+  color: #ffffff;
 }
 
 .site-logo {
@@ -30,6 +41,14 @@ body {
   letter-spacing: 0;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.usf-logo {
+  display: block;
+  width: 110px;
+  height: auto;
+  object-fit: contain;
+  transform: translateX(18px);
 }
 
 nav {
@@ -73,21 +92,38 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ada28f;
+  background:
+    radial-gradient(circle at 0% 0%, #086242, transparent 55%),
+    radial-gradient(circle at 100% 0%, #55a757, transparent 55%),
+    radial-gradient(circle at 0% 100%, #c2d58d, transparent 55%),
+    radial-gradient(circle at 100% 100%, #5dad2b, transparent 42%),
+    radial-gradient(circle at 50% 50%, #a69b72, transparent 38%),
+    #086242;
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease-in-out infinite alternate;
 }
 
 .auth-panel {
   width: min(100%, 580px);
   margin: 0;
-  padding: 48px;
-  background-color: #101421;
+  padding: 36px 44px;
+  background-color: #f1efee;
   border: 1px solid #293241;
   border-radius: 26px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+}
+
+@keyframes gradientMove {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 100% 100%;
+  }
 }
 
 .auth-heading {
-  margin: 0 0 32px;
+  margin: 0 0 24px;
   text-align: center;
 }
 
@@ -95,7 +131,7 @@ section {
   margin: 0 0 18px;
   color: #086242;
   font-family: "Anton", Impact, sans-serif;
-  font-size: clamp(34px, 5vw, 30px);
+  font-size: clamp(30px, 5vw, 34px);
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
@@ -104,8 +140,8 @@ section {
 .auth-heading p {
   max-width: 560px;
   margin: 0 auto;
-  color: #d5deea;
-  font-size: 18px;
+  color: #30343d;
+  font-size: 16px;
   line-height: 1.45;
 }
 
@@ -122,38 +158,46 @@ section {
   background-color: transparent;
   border-bottom: 3px solid transparent;
   border-radius: 0;
-  color: #8f9aae;
-  font-size: 22px;
+  color: #697181;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .auth-switcher button.active {
   background-color: transparent;
   border-bottom-color: #086242;
-  color: #ffffff;
+  color: #111421;
 }
 
 form {
   display: grid;
-  gap: 22px;
+  gap: 16px;
   margin-top: 0;
 }
 
 label {
   display: grid;
   gap: 8px;
-  color: #eef3f8;
-  font-size: 18px;
-  font-weight: 700;
+  color: #111421;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 input {
   width: 100%;
-  padding: 18px 20px;
-  border: 1px solid #3b4658;
+  padding: 14px 18px;
+  border: 1px solid #c4beb7;
   border-radius: 14px;
-  background-color: #0a0f1b;
-  color: #ffffff;
-  font: inherit;
+  background-color: #ffffff;
+  color: #111421;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 input::placeholder {
@@ -177,34 +221,128 @@ button {
   border: 0;
   border-radius: 14px;
   background-color: #086242;
-  color: #172013;
-  font: inherit;
-  font-weight: 700;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #ffd979;
+form > button[type="submit"] {
+  margin-top: 8px;
+}
+
+.user-select-page {
+  background-color: #f1efee;
+}
+
+.user-select-page h1,
+.user-select-page p {
+  text-align: center;
+}
+
+.user-select-page h1 {
+  color: #086242;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1;
+}
+
+.user-select-page p {
+  margin: 0;
+  color: #30343d;
+  font-size: 18px;
 }
 
 .user-type-list {
   display: grid;
-  gap: 12px;
-  max-width: 420px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 980px;
+  margin: 0 auto;
   padding-left: 0;
   list-style: none;
 }
 
+.user-type-list li {
+  grid-column: span 2;
+}
+
+.user-type-list li:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.user-type-list li:nth-child(5) {
+  grid-column: 4 / span 2;
+}
+
 .user-type-list button {
   width: 100%;
-  text-align: left;
+}
+
+.user-type-card {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 18px;
+  min-height: 210px;
+  padding: 24px;
+  border: 1px solid #c4beb7;
+  border-radius: 18px;
+  background-color: #ffffff;
+  color: #111421;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(21, 28, 20, 0.12);
+}
+
+.user-type-card:hover {
+  background-color: #ffffff;
+  border-color: #086242;
+  transform: translateY(-3px);
+}
+
+.user-type-logo {
+  display: grid;
+  place-items: center;
+  width: 128px;
+  height: 96px;
+  border: 2px dashed #9ba58f;
+  border-radius: 18px;
+  background-color: #f1efee;
+}
+
+.user-type-logo.has-visual {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.user-type-logo img {
+  display: block;
+  width: 112px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.user-type-icon {
+  width: 70px;
+  height: 67px;
+  color: #086242;
+}
+
+.graduation-cap-icon {
+  width: 82px;
+  height: 82px;
 }
 
 @media (max-width: 760px) {
   .site-header {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
     padding: 18px 24px;
+  }
+
+  .usf-logo {
+    width: 76px;
+    transform: none;
   }
 
   main {
@@ -222,5 +360,16 @@ button:hover {
 
   .auth-switcher button {
     font-size: 18px;
+  }
+
+  .user-type-list {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+
+  .user-type-list li,
+  .user-type-list li:nth-child(4),
+  .user-type-list li:nth-child(5) {
+    grid-column: auto;
   }
 }

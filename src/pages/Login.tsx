@@ -55,11 +55,11 @@ function Login() {
     <main className="auth-page">
       <section className="auth-panel" aria-label="Account access form">
         <div className="auth-heading">
-          <h1>CIC Support Platform</h1>
+          <h1>Welcome!</h1>
           <p>
             {isCreatingAccount
-              ? 'New users will create an account first, then choose their user group during onboarding.'
-              : 'Returning users will log in and be sent to the correct dashboard based on their saved user group.'}
+              ? 'Create a new account to start using the platform! Already have an account? Go to Log in'
+              : 'Log in to return to your dashboard.'}
           </p>
         </div>
 
