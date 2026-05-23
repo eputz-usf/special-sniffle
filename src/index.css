@@ -96,9 +96,9 @@ section {
     radial-gradient(circle at 0% 0%, #086242, transparent 55%),
     radial-gradient(circle at 100% 0%, #55a757, transparent 55%),
     radial-gradient(circle at 0% 100%, #c2d58d, transparent 55%),
-    radial-gradient(circle at 100% 100%, #5dad2b, transparent 42%),
-    radial-gradient(circle at 50% 50%, #a69b72, transparent 38%),
-    #086242;
+    radial-gradient(circle at 100% 100%, #80ef80, transparent 42%),
+    radial-gradient(circle at 50% 50%, #ffee8c, transparent 38%),
+    #9ecb91;
   background-size: 400% 400%;
   animation: gradientMove 10s ease-in-out infinite alternate;
 }
@@ -259,6 +259,21 @@ button {
   cursor: pointer;
 }
 
+.button-link {
+  display: inline-block;
+  width: fit-content;
+  padding: 16px 24px;
+  border-radius: 14px;
+  background-color: #086242;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+}
+
 .secondary-button {
   background-color: #e4ded6;
   color: #111421;
@@ -272,7 +287,15 @@ form > button[type="submit"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f1efee;
+  background:
+    radial-gradient(circle at 0% 0%, #086242, transparent 55%),
+    radial-gradient(circle at 100% 0%, #55a757, transparent 55%),
+    radial-gradient(circle at 0% 100%, #c2d58d, transparent 55%),
+    radial-gradient(circle at 100% 100%, #80ef80, transparent 42%),
+    radial-gradient(circle at 50% 50%, #ffee8c, transparent 38%),
+    #739966;
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease-in-out infinite alternate;
 }
 
 .profile-card {
@@ -355,24 +378,12 @@ form > button[type="submit"] {
 
 .user-type-list {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
-  max-width: 980px;
+  max-width: 900px;
   margin: 0 auto;
   padding-left: 0;
   list-style: none;
-}
-
-.user-type-list li {
-  grid-column: span 2;
-}
-
-.user-type-list li:nth-child(4) {
-  grid-column: 2 / span 2;
-}
-
-.user-type-list li:nth-child(5) {
-  grid-column: 4 / span 2;
 }
 
 .user-type-list button {
@@ -398,6 +409,14 @@ form > button[type="submit"] {
   background-color: #ffffff;
   border-color: #086242;
   transform: translateY(-3px);
+}
+
+.user-type-list li:nth-child(-n + 2) .user-type-card:hover {
+  border-color: #ffd700;
+}
+
+.user-type-list li:nth-child(-n + 2) .user-type-icon {
+  color: #ffd700;
 }
 
 .user-type-logo {
@@ -466,9 +485,4 @@ form > button[type="submit"] {
     max-width: 420px;
   }
 
-  .user-type-list li,
-  .user-type-list li:nth-child(4),
-  .user-type-list li:nth-child(5) {
-    grid-column: auto;
-  }
 }

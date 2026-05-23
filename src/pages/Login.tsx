@@ -1,11 +1,22 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getSavedUserType } from '../utils/auth';
+import { getDashboardRoute } from '../utils/userTypes';
 
 function Login() {
-  const navigate = useNavigate();
+  const [dashboardRoute, setDashboardRoute] = useState('/');
 
-  function handleContinueWithUsfLogin() {
-    navigate('/profile');
-  }
+  useEffect(() => {
+    async function loadSelectedGroup() {
+      const savedUserType = await getSavedUserType();
+      const savedDashboardRoute = savedUserType
+        ? getDashboardRoute(savedUserType)
+        : '';
+
+      setDashboardRoute(savedDashboardRoute || '/');
+    }
+
+    loadSelectedGroup();
+  }, []);
 
   return (
     <main className="auth-page">
@@ -14,14 +25,14 @@ function Login() {
           <h1>Welcome!</h1>
           <p>
             Continue with your USF login to access the platform. After login,
-            you will be directed to your profile.
+            you will be directed to your dashboard.
           </p>
         </div>
 
         <div className="auth-actions">
-          <button type="button" onClick={handleContinueWithUsfLogin}>
+          <a className="button-link" href={dashboardRoute}>
             Continue with USF Login
-          </button>
+          </a>
         </div>
       </section>
     </main>

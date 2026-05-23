@@ -2,7 +2,6 @@ import {
   Backpack,
   Cpu,
   GraduationCap,
-  NotebookPen,
   University,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +14,7 @@ function SelectUserType() {
 
   async function handleUserTypeSelection(userType: UserTypeOption) {
     await saveUserType(userType.id);
-    navigate(userType.dashboardRoute);
+    navigate(userType.requiresUsfLogin ? '/login' : userType.dashboardRoute);
   }
 
   return (
@@ -44,12 +43,6 @@ function SelectUserType() {
                   {userType.icon === 'graduation-cap' && (
                     <GraduationCap
                       className="user-type-icon graduation-cap-icon"
-                      aria-hidden="true"
-                    />
-                  )}
-                  {userType.icon === 'notebook-pen' && (
-                    <NotebookPen
-                      className="user-type-icon"
                       aria-hidden="true"
                     />
                   )}

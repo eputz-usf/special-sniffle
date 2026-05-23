@@ -8,7 +8,7 @@
 
 - Created the GitHub repository for project
 - Initialized the project with React, Vite, and TypeScript and created folder structure.
-- Planned Supabase for future authentication and database storage.
+- Planned Supabase for database storage.
 - Added placeholder pages for account access, user type selection, and role-based dashboards.
 - Added React Router routes for the account page, user type selection, and dashboards.
 - Built a temporary create account flow
