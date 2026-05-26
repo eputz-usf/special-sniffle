@@ -47,8 +47,25 @@
 - Started a reusable dashboard template for the prospective/high school group.
 - Moved dashboard-specific styling into its own CSS file.
 
+## Update 5: Degree Detail Pages and Catalog Links
+
+**Date:** May 25, 2026
+
+### Completed
+
+- Continued working on the degree information/detail pages.
+- Added `View More Details in the Catalog` buttons to the learn-more sections for the main majors.
+- Linked each main major page to its official USF catalog page
+- Updated the learn-more page structure so users can first read the summarized app content and then open the full catalog page for complete requirements.
+- Made the catalog button consistent across the major pages so the experience feels uniform.
+- Used external catalog links for each program instead of leaving users only with the in-app summary.
+- Ensured the catalog button appears at the very end of the learn-more content, after the degree overview and other details.
+- Repeated the update across multiple degree entries in `DegreeDetail.tsx`.
+- Checked that each catalog link points to the correct program page based on the provided USF catalog URLs.
+
 ### What I will do next
 
-- Continue working on the dashboard template.
-- Finish shaping the dashboard sections and layout.
-- After the template is stronger, start building the actual features.
+- Continue adding catalog links for the remaining majors and interdisciplinary programs.
+- Keep improving the degree detail page layout so information is easier to scan.
+- Start organizing the degree information into clearer sections, such as overview, plans of study, electives, notes, and catalog links.
+
