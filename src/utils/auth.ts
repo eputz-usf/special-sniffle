@@ -1,5 +1,5 @@
 import type { UserType } from '../types/user';
-import { isUserType } from './userTypes';
+import { userSessionStore } from './userSession';
 
 type CreateAccountInput = {
   fullName: string;
@@ -13,7 +13,6 @@ type LoginInput = {
 };
 
 const accountCreatedKey = 'cicAccountCreated';
-const userTypeKey = 'cicUserType';
 
 export async function createAccount(input: CreateAccountInput) {
   localStorage.setItem(accountCreatedKey, 'true');
@@ -34,11 +33,9 @@ export async function login(input: LoginInput) {
 }
 
 export async function saveUserType(userType: UserType) {
-  localStorage.setItem(userTypeKey, userType);
+  return userSessionStore.saveUserType(userType);
 }
 
 export async function getSavedUserType() {
-  const savedUserType = localStorage.getItem(userTypeKey);
-
-  return isUserType(savedUserType) ? savedUserType : null;
+  return userSessionStore.getUserType();
 }

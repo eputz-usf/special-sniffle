@@ -63,9 +63,19 @@
 - Repeated the update across multiple degree entries in `DegreeDetail.tsx`.
 - Checked that each catalog link points to the correct program page based on the provided USF catalog URLs.
 
+## Update 6: Degree Detail Pages and Catalog Links
+
+**Date:** May 25, 2026
+
+### Completed
+
+- Completed Degree Information Page and all features/ pages 
+- Completed the full frontend design of this page as well
+- Completed degree comparison feature
+- Added Bachelor’s/Master’s pathways, available minors, dashboard return navigation, and a two-degree compare flow using the existing `degrees.ts` data.
+- Kept temporary user type storage in `localStorage` for now, but wrapped it in a replaceable session storage utility for future backend integration.
+
 ### What I will do next
 
-- Continue adding catalog links for the remaining majors and interdisciplinary programs.
-- Keep improving the degree detail page layout so information is easier to scan.
-- Start organizing the degree information into clearer sections, such as overview, plans of study, electives, notes, and catalog links.
-
+- intake quiz design (plan and get more clarification on how to design it) to implement the recommendation system 
+- start working on high school base group features and custom dashboard

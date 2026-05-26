@@ -45,7 +45,7 @@ function DashboardTemplate({ headline, intro }: DashboardTemplateProps) {
     <main className="dashboard-page">
       <header className="dashboard-header">
         <Link className="dashboard-logo" to="/">
-          CIC Support Platform
+          CIC Support 
         </Link>
 
         <nav className="dashboard-nav" aria-label="Dashboard navigation">
@@ -59,19 +59,17 @@ function DashboardTemplate({ headline, intro }: DashboardTemplateProps) {
             href="#majors"
             onClick={(event) => handleSectionLinkClick(event, 'majors')}
           >
-            Majors
+            Degree Infographics
           </a>
           <a
             href="#services"
             onClick={(event) => handleSectionLinkClick(event, 'services')}
           >
-            Services
+            Future Features
           </a>
         </nav>
 
-        <Link className="dashboard-profile-link" to="/profile">
-          Your Profile
-        </Link>
+        
       </header>
 
       <section className="dashboard-hero scroll-reveal">
@@ -111,20 +109,20 @@ function DashboardTemplate({ headline, intro }: DashboardTemplateProps) {
 
       <section className="dashboard-majors-section scroll-reveal" id="majors">
         <div className="dashboard-section-rule dashboard-section-rule-light"></div>
-        <h2>What We Offer</h2>
+        <h2>Tools to Help you out</h2>
 
         <div className="dashboard-major-cards">
           <Link className="dashboard-major-card" to="/degrees">
-            <span>Degree Infographics</span>
-            <p>View all the degree informations here</p>
+            <span>Degree Infographics and Comparison</span>
+            <p>Explore degree options at the Bellini College and compare two programs side by side to see 
+              which path best fits your interests, goals, and next steps.</p>
             <img src={quizImage} alt="" />
           </Link>
 
           <button className="dashboard-major-card" type="button">
-            <span>Transition Analyzer</span>
+            <span>Transition Planner</span>
             <p>
-              Find out the timeline and how transitioning into the path you
-              have chosen will look like for you
+              Plan out your transition smoothly! 
             </p>
             <img src={majorsImage} alt="" />
           </button>
