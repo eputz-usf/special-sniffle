@@ -114,11 +114,11 @@ function DashboardTemplate({ headline, intro }: DashboardTemplateProps) {
         <h2>What We Offer</h2>
 
         <div className="dashboard-major-cards">
-          <button className="dashboard-major-card" type="button">
+          <Link className="dashboard-major-card" to="/degrees">
             <span>Degree Infographics</span>
             <p>View all the degree informations here</p>
             <img src={quizImage} alt="" />
-          </button>
+          </Link>
 
           <button className="dashboard-major-card" type="button">
             <span>Transition Analyzer</span>

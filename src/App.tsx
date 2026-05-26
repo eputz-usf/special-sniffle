@@ -1,6 +1,9 @@
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import BelliniStudentDashboard from './pages/BelliniStudentDashboard';
 import CurrentUsfDashboard from './pages/CurrentUsfDashboard';
+import DegreeDetail from './pages/DegreeDetail';
+import DegreeInformation from './pages/DegreeInformation';
+import FutureDegreeOptions from './pages/FutureDegreeOptions';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -36,6 +39,9 @@ function App() {
         <Route path="/signup" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/quiz" element={<QuizPlaceholder />} />
+        <Route path="/degrees" element={<DegreeInformation />} />
+        <Route path="/degrees/future-options" element={<FutureDegreeOptions />} />
+        <Route path="/degrees/:degreeSlug" element={<DegreeDetail />} />
         <Route path="/select-user-type" element={<SelectUserType />} />
         <Route
           path="/dashboard/prospective-student"

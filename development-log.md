@@ -36,8 +36,19 @@
 - Added a profile page after login.
 - Profile page prompts users to select a user group if no profile exists.
 
+## Update 4: Dashboard Template Start
+
+**Date:** May 23, 2026
+
+### Completed
+
+- Updated the app flow so the site starts on the user group selection page.
+- Reduced the user groups to four cards and separated dashboard routes by group.
+- Started a reusable dashboard template for the prospective/high school group.
+- Moved dashboard-specific styling into its own CSS file.
+
 ### What I will do next
 
-- Redesign the profile page/ work on profile page wireframe
-- Store profile and user group data through Supabase.
-- Start creating wireframes for the other pages and dashboards.
+- Continue working on the dashboard template.
+- Finish shaping the dashboard sections and layout.
+- After the template is stronger, start building the actual features.
