@@ -1893,7 +1893,6 @@ function InformationTechnologyDegreeDetail() {
             Compare This Degree
           </button>
         </div>
-        
       </section>
 
       <section className="degree-detail-section">
@@ -1905,6 +1904,13 @@ function InformationTechnologyDegreeDetail() {
         </ul>
       </section>
 
+      <p className="degrees-disclaimer">
+        This page is for exploration and planning only. Degree requirements,
+        course availability, electives, catalog rules, permits, and graduation
+        plans should be confirmed using the official USF undergraduate catalog
+        and Bellini College advising resources.
+      </p>
+
       <div className="degree-detail-actions degree-catalog-action">
         <a
           href="https://catalog.usf.edu/preview_program.php?catoid=25&poid=13071"
@@ -1914,13 +1920,6 @@ function InformationTechnologyDegreeDetail() {
           View More Details in the Catalog ↗
         </a>
       </div>
-
-      <p className="degrees-disclaimer">
-        This page is for exploration and planning only. Degree requirements,
-        course availability, electives, catalog rules, permits, and graduation
-        plans should be confirmed using the official USF undergraduate catalog
-        and Bellini College advising resources.
-      </p>
     </main>
   );
 }

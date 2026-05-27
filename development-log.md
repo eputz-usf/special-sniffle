@@ -4,78 +4,95 @@
 
 **Date:** May 20, 2026
 
-### Completed
-
-- Created the GitHub repository for project
-- Initialized the project with React, Vite, and TypeScript and created folder structure.
-- Planned Supabase for database storage.
-- Added placeholder pages for account access, user type selection, and role-based dashboards.
-- Added React Router routes for the account page, user type selection, and dashboards.
-- Built a temporary create account flow
-- Used `localStorage` for temporary browser-only user type storage.
-- Separated temporary auth and user type logic into utility files so Supabase can be added later.
+- Created the GitHub repository.
+- Initialized React, Vite, TypeScript, and base folder structure.
+- Added placeholder pages, routes, role dashboards, and temporary localStorage user type handling.
+- Planned Supabase for later database, auth, and profile persistence.
 
 ## Update 2: Auth and User Group Page Design
 
 **Date:** May 21, 2026
 
-### Completed
-
-- Designed the account access page with updated branding, typography, and layout.
-- Added the USF logo and refined the site header.
-- Redesigned the user group selection page with a card-based layout.
+- Redesigned the account access page, header, USF logo treatment, and user group selection cards.
 
 ## Update 3: USF Login Placeholder and Profile Page
 
 **Date:** May 21, 2026
 
-### Completed
-
-- Changed authentication direction to assume external USF login.
-- Replaced the account form with a `Continue with USF Login` placeholder.
-- Added a profile page after login.
-- Profile page prompts users to select a user group if no profile exists.
+- Switched account flow toward an external USF login placeholder.
+- Added profile page behavior for users without a selected group.
 
 ## Update 4: Dashboard Template Start
 
 **Date:** May 23, 2026
 
-### Completed
-
-- Updated the app flow so the site starts on the user group selection page.
-- Reduced the user groups to four cards and separated dashboard routes by group.
-- Started a reusable dashboard template for the prospective/high school group.
-- Moved dashboard-specific styling into its own CSS file.
+- Made the app start on user group selection.
+- Reduced groups to four cards and separated dashboard routes.
+- Started the reusable dashboard template and dashboard-specific stylesheet.
 
 ## Update 5: Degree Detail Pages and Catalog Links
 
 **Date:** May 25, 2026
 
-### Completed
+- Continued degree detail pages.
+- Added official catalog buttons and links for the main majors.
+- Kept summarized app content before sending users to full catalog requirements.
 
-- Continued working on the degree information/detail pages.
-- Added `View More Details in the Catalog` buttons to the learn-more sections for the main majors.
-- Linked each main major page to its official USF catalog page
-- Updated the learn-more page structure so users can first read the summarized app content and then open the full catalog page for complete requirements.
-- Made the catalog button consistent across the major pages so the experience feels uniform.
-- Used external catalog links for each program instead of leaving users only with the in-app summary.
-- Ensured the catalog button appears at the very end of the learn-more content, after the degree overview and other details.
-- Repeated the update across multiple degree entries in `DegreeDetail.tsx`.
-- Checked that each catalog link points to the correct program page based on the provided USF catalog URLs.
-
-## Update 6: Degree Detail Pages and Catalog Links
+## Update 6: Degree Explorer and Comparison
 
 **Date:** May 25, 2026
 
-### Completed
+- Completed the Degree Information page frontend.
+- Added two-degree comparison, Bachelor’s/Master’s pathways, available minors, and dashboard return navigation.
+- Wrapped temporary user type localStorage in a replaceable session utility.
 
-- Completed Degree Information Page and all features/ pages 
-- Completed the full frontend design of this page as well
-- Completed degree comparison feature
-- Added Bachelor’s/Master’s pathways, available minors, dashboard return navigation, and a two-degree compare flow using the existing `degrees.ts` data.
-- Kept temporary user type storage in `localStorage` for now, but wrapped it in a replaceable session storage utility for future backend integration.
+## Update 7: High School Dashboard Start
 
-### What I will do next
+**Date:** May 27, 2026
 
-- intake quiz design (plan and get more clarification on how to design it) to implement the recommendation system 
-- start working on high school base group features and custom dashboard
+- Replaced the generic prospective dashboard with a custom high school/prospective dashboard.
+- Kept `/dashboard/prospective-student` and the existing user group flow intact.
+- Added high school dashboard sections, working green actions, and red placeholder tools.
+- Added a temporary general dashboard button and route.
+- Moved high school dashboard styles into `src/styles/highSchoolDashboard.css`.
+- Kept `src/styles/dashboard.css` focused on shared dashboard/template styles.
+
+## Update 9: Reusable Intake Quiz Template
+
+**Date:** May 27, 2026
+
+- Replaced the quiz placeholder with `src/components/QuizTemplate.tsx`.
+- Added progress, one-question flow, answer cards, Back / Next controls, helper text, and a placeholder completion screen.
+- Added `src/styles/quiz.css` and filler quiz questions for styling reuse.
+- Used the reusable quiz template for the high school/prospective intake quiz.
+- Added questions for college stage, interests, work style, favorite subjects, coding comfort, math comfort, career curiosity, decision confidence, and programs to compare.
+
+## Update 10: Public Quiz Supabase Save Flow
+
+**Date:** May 27, 2026
+
+- Added anonymous public quiz session handling with `crypto.randomUUID()` and localStorage.
+- Added final-submit Supabase saving for public quiz sessions, responses, and results.
+- Added local high school recommendation scoring before saving results.
+- Added a recommendation results screen after submit.
+- Added `supabase/public-quiz-schema.sql` for the public quiz tables and insert policies.
+- Changed the public high school quiz from final-only saving to session-based autosave.
+- Saved `session_id`, answers, and current question progress in localStorage for browser resume.
+- Upserted each answer to Supabase by `session_id` and `question_id` so changed answers do not duplicate rows.
+- Updated the Supabase schema with unique constraints, `updated_at`, and anonymous insert/update policies.
+
+## Update 11: Hosted Supabase Quiz Debugging
+
+**Date:** May 27, 2026
+
+- Moved Supabase env configuration to the project root `.env.local` so Vite can read it.
+- Confirmed hosted Supabase requests were reaching the project.
+- Updated the public quiz schema to be rerunnable and include explicit anonymous insert/update grants.
+- Resolved the row-level security issue that blocked public quiz session writes.
+
+## What I Will Focus On Next
+
+- Continue refining the high school intake quiz flow.
+- Plan how quiz answers should map to recommended degrees, comparison links, and next-step cards.
+- Keep working on the quiz experience and recommendation result flow.
+- Target additional high school dashboard features after the quiz is stable.

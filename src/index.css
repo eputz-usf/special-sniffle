@@ -376,6 +376,26 @@ form > button[type="submit"] {
   font-size: 18px;
 }
 
+.temporary-dashboard-link {
+  display: flex;
+  width: fit-content;
+  margin: 24px auto 0;
+  padding: 12px 18px;
+  border: 2px solid #b41f2a;
+  border-radius: 8px;
+  background-color: #f7e3e0;
+  color: #7b161d;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.temporary-dashboard-link:hover {
+  background-color: #fff3f1;
+  text-decoration: none;
+}
+
 .user-type-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

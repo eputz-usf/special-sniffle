@@ -6,11 +6,13 @@ import DegreeComparison from './pages/DegreeComparison';
 import DegreeDetail from './pages/DegreeDetail';
 import DegreeInformation from './pages/DegreeInformation';
 import FutureDegreeOptions from './pages/FutureDegreeOptions';
+import GeneralDashboard from './pages/GeneralDashboard';
+import HighSchoolIntakeQuiz from './pages/HighSchoolIntakeQuiz';
+import HighSchoolQuizResults from './pages/HighSchoolQuizResults';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import ProspectiveStudentDashboard from './pages/ProspectiveStudentDashboard';
-import QuizPlaceholder from './pages/QuizPlaceholder';
 import SelectUserType from './pages/SelectUserType';
 import TransferStudentDashboard from './pages/TransferStudentDashboard';
 import usfLogo from './assets/usflogo.png';
@@ -40,7 +42,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/quiz" element={<QuizPlaceholder />} />
+        <Route path="/quiz" element={<HighSchoolIntakeQuiz />} />
+        <Route path="/quiz/results" element={<HighSchoolQuizResults />} />
         <Route path="/degrees" element={<DegreeInformation />} />
         <Route path="/degrees/compare" element={<DegreeComparison />} />
         <Route
@@ -50,6 +53,7 @@ function App() {
         <Route path="/degrees/future-options" element={<FutureDegreeOptions />} />
         <Route path="/degrees/:degreeSlug" element={<DegreeDetail />} />
         <Route path="/select-user-type" element={<SelectUserType />} />
+        <Route path="/dashboard/general" element={<GeneralDashboard />} />
         <Route
           path="/dashboard/prospective-student"
           element={<ProspectiveStudentDashboard />}
