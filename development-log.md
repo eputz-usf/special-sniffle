@@ -90,6 +90,23 @@
 - Updated the public quiz schema to be rerunnable and include explicit anonymous insert/update grants.
 - Resolved the row-level security issue that blocked public quiz session writes.
 
+## Update 12: Degree Explorer Cleanup
+
+**Date:** June 1, 2026
+
+- Removed the Computer Engineering, BSCP explorer card and detail page.
+- Removed BSCP-specific comparison, quiz recommendation, and pathway references.
+- Removed the empty Hardware explorer filter.
+
+## Update 13: High School Degree Module Copy
+
+**Date:** June 1, 2026
+
+- Preserved the original `/degrees` module for the general dashboard.
+- Added a separate high school degree module under `src/pages/highSchoolDegrees/`.
+- Copied degree explorer data into `src/data/highSchoolDegrees.ts` for future high school-specific changes.
+- Linked the high school dashboard and quiz results to `/high-school/degrees`.
+
 ## What I Will Focus On Next
 
 - Continue refining the high school intake quiz flow.

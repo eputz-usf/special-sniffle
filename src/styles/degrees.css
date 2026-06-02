@@ -365,6 +365,41 @@
   color: #086343;
 }
 
+.degree-next-steps .degree-detail-actions a,
+.degree-catalog-action a {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: transparent;
+  color: #086343;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.degree-next-steps .degree-detail-actions a::before,
+.degree-catalog-action a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: #086343;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+.degree-next-steps .degree-detail-actions a:hover,
+.degree-catalog-action a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.degree-next-steps .degree-detail-actions a:hover::before,
+.degree-catalog-action a:hover::before {
+  transform: scaleX(1);
+}
+
 .degree-detail-actions .placeholder-button {
   border: 2px solid #b42318;
   background-color: #b42318;
@@ -494,7 +529,9 @@
 .career-card h3 {
   margin: 0 0 10px;
   color: #086343;
+  font-family: 'Anton', Impact, sans-serif;
   font-size: 22px;
+  font-weight: 400;
 }
 
 .career-card p,
@@ -502,6 +539,237 @@
   margin: 0;
   color: #25352d;
   line-height: 1.5;
+}
+
+.career-card .career-card-salary {
+  margin-top: 12px;
+}
+
+.job-market-highlights {
+  margin-top: 34px;
+}
+
+.job-market-highlights h3 {
+  margin: 0 0 16px;
+  color: #086343;
+  font-size: 26px;
+}
+
+.job-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.job-market-highlights > p + .job-stat-grid {
+  margin-top: 16px;
+}
+
+.job-stat-card {
+  padding: 18px;
+  border: 1px solid #d7ccb0;
+  border-radius: 12px;
+  background-color: #f5f0e8;
+}
+
+.job-stat-card strong {
+  display: block;
+  color: #086343;
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.job-stat-card h4,
+.employment-trend-card h4,
+.job-market-explanation h4 {
+  margin: 6px 0;
+  color: #25352d;
+  font-size: 18px;
+}
+
+.job-stat-card p,
+.employment-trend-card p,
+.job-market-explanation p {
+  margin: 0;
+  color: #516057;
+  line-height: 1.45;
+}
+
+.employment-trend-card {
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid #d7ccb0;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+.employment-trend-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 18px;
+}
+
+.employment-trend-chart line {
+  stroke: #d7ccb0;
+  stroke-width: 2;
+}
+
+.employment-trend-chart polyline {
+  fill: none;
+  stroke: #086343;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 7;
+}
+
+.employment-trend-chart circle {
+  fill: #f4c542;
+  stroke: #086343;
+  stroke-width: 3;
+}
+
+.cs-employment-chart,
+.cse-employment-chart {
+  width: min(100%, 760px);
+  margin: 0 auto;
+}
+
+.cs-employment-chart .chart-grid-line,
+.cse-employment-chart .chart-grid-line {
+  stroke: #d4d4d4;
+  stroke-width: 1;
+}
+
+.cs-employment-chart .chart-grid-line.vertical,
+.cse-employment-chart .chart-grid-line.vertical {
+  stroke-opacity: 0.72;
+}
+
+.cs-employment-chart .historical-line,
+.cs-employment-chart .projected-line,
+.cse-employment-chart .historical-line,
+.cse-employment-chart .projected-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 6;
+}
+
+.cs-employment-chart .historical-line,
+.cse-employment-chart .historical-line {
+  stroke: #00704a;
+}
+
+.cs-employment-chart .projected-line,
+.cse-employment-chart .projected-line {
+  stroke: #9b9b9b;
+  stroke-dasharray: 16 12;
+}
+
+.cs-employment-chart .historical-point,
+.cse-employment-chart .historical-point {
+  fill: #00704a;
+  stroke: #00704a;
+}
+
+.cs-employment-chart .projected-point,
+.cse-employment-chart .projected-point {
+  fill: #9b9b9b;
+  stroke: #9b9b9b;
+}
+
+.cs-employment-chart .chart-axis-label,
+.cse-employment-chart .chart-axis-label {
+  fill: #666666;
+  font-size: 19px;
+  text-anchor: end;
+}
+
+.cs-employment-chart .chart-axis-label.year,
+.cse-employment-chart .chart-axis-label.year {
+  text-anchor: middle;
+}
+
+.cs-employment-chart .chart-title,
+.cse-employment-chart .chart-title {
+  fill: #00704a;
+  font-size: 28px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.employment-trend-years {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  color: #516057;
+  font-size: 13px;
+  text-align: center;
+}
+
+.growth-snapshot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.growth-snapshot.single {
+  grid-template-columns: 1fr;
+}
+
+.growth-snapshot article {
+  padding: 18px;
+  border-left: 5px solid #086343;
+  background-color: #e8f2ec;
+}
+
+.growth-snapshot strong,
+.growth-snapshot span {
+  display: block;
+}
+
+.growth-snapshot strong {
+  color: #086343;
+  font-size: 28px;
+}
+
+.growth-snapshot span {
+  margin-top: 4px;
+  color: #25352d;
+  font-weight: 700;
+}
+
+.growth-snapshot small {
+  display: block;
+  margin-top: 4px;
+  color: #516057;
+}
+
+.job-market-explanation {
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid #d7ccb0;
+  border-radius: 12px;
+  background-color: #fff9e8;
+}
+
+.degree-detail-section .tampa-income-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.tampa-income-list li {
+  padding: 13px 16px;
+  border: 2px solid #086343;
+  border-radius: 8px;
+  background-color: #e8f2ec;
+  color: #086343;
+  font-weight: 700;
 }
 
 .degrees-quiz-callout {
@@ -1208,6 +1476,7 @@
   .future-degree-grid.featured,
   .pathway-card-grid,
   .minor-card-grid,
+  .job-stat-grid,
   .career-card-grid,
   .resource-card-grid,
   .resource-card-grid.compact {
@@ -1283,9 +1552,11 @@
   }
 
   .degree-fit-grid,
+  .job-stat-grid,
   .career-card-grid,
   .resource-card-grid,
   .resource-card-grid.compact {
     grid-template-columns: 1fr;
   }
+
 }

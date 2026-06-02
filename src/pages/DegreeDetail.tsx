@@ -2,6 +2,31 @@ import { Link, useParams } from 'react-router-dom';
 import { getDegreeBySlug } from '../data/degrees';
 import '../styles/degrees.css';
 
+type CompareFeatureNoteProps = {
+  degreeName: string;
+  compareWith: string;
+};
+
+function CompareFeatureNote({
+  degreeName,
+  compareWith,
+}: CompareFeatureNoteProps) {
+  return (
+    <>
+      <h2>Want to Compare {degreeName}?</h2>
+      <p>
+        Use the Degree Explorer comparison feature to compare {degreeName} with{' '}
+        {compareWith}. From the Degree Explorer page, choose Add to Compare on
+        two degree cards, then open the side-by-side comparison to review focus
+        areas, skills, fit, sample topics, next steps, and official links.
+      </p>
+      <div className="degree-detail-actions">
+        <Link to="/degrees">Back to Degree Explorer</Link>
+      </div>
+    </>
+  );
+}
+
 const computerScienceSkills = [
   'Programming',
   'Algorithms',
@@ -36,18 +61,7 @@ const computerScienceChallengeItems = [
 ];
 
 const flowchartResources = [
-  {
-    label: '2022-23 Flowchart',
-    url: 'https://usf.box.com/s/zmkmijeacm1l26zhzf1jjpqsjlm6k5qa',
-  },
-  {
-    label: '2023-24 Flowchart',
-    url: 'https://usf.box.com/s/6twh50000swm5gruk7r3m5y45q9ck1mg',
-  },
-  {
-    label: '2024-25 Flowchart',
-    url: 'https://usf.box.com/s/6m5d2ylsx639swpsiy6n9qvnlre0xxw4',
-  },
+  
   {
     label: '2025-26 Flowchart',
     url: 'https://usf.box.com/s/19fmhum9p6w2nezr4f2d1hi5fdlbohvr',
@@ -128,135 +142,6 @@ const advisorQuestions = [
   'Are there Bachelor’s/Master’s pathway options connected to this degree?',
 ];
 
-const computerEngineeringSkills = [
-  'Programming',
-  'Engineering Problem Solving',
-  'Computer Architecture',
-  'Hardware Design',
-  'Digital Systems',
-  'Embedded Systems',
-  'Circuits and Electronics Concepts',
-  'Laboratory Skills',
-  'Systems Design',
-  'Technical Testing',
-  'Firmware Pathway Skills',
-  'Hardware/Software Integration',
-];
-
-const computerEngineeringFitItems = [
-  'Are interested in both hardware and software',
-  'Like electronics, circuits, devices, or physical computing systems',
-  'Want to understand how computers work at a lower level',
-  'Are interested in embedded systems, robotics, firmware, or hardware design',
-  'Enjoy hands-on lab work and engineering-style problem solving',
-  'Like building or testing systems, not just writing software',
-  'Are comfortable with math, technical design, and detailed problem solving',
-];
-
-const computerEngineeringChallengeItems = [
-  'Prefer only software, apps, or web development',
-  'Do not enjoy hardware, circuits, or engineering topics',
-  'Want a less math-heavy or less lab-based computing path',
-  'Prefer applied IT, user support, or business technology over engineering design',
-];
-
-const computerEngineeringFlowcharts = [
-  {
-    label: '2022-23 Flowchart',
-    url: 'https://usf.box.com/s/uqbg799j8iovit8sdqk2t6qe7nr08c94',
-  },
-  {
-    label: '2023-24 Flowchart',
-    url: 'https://usf.box.com/s/71dm39m5uq4hsdrn8p2u0oet9jjej9z5',
-  },
-  {
-    label: '2024-25 Flowchart',
-    url: 'https://usf.box.com/s/z6f628b9p6jkdt38flfxgfhu7in16dp7',
-  },
-  {
-    label: '2025-26 Flowchart',
-    url: 'https://usf.box.com/s/7ulrr1au7emt9t4fbd2k2830f0xorwva',
-  },
-  {
-    label: '2026-27 Flowchart',
-    url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cpe-flowchart-2026.pdf',
-  },
-];
-
-const computerEngineeringResources = [
-  {
-    title: 'Computer Engineering B.S.C.P. - 2 Year Plan of Study',
-    description:
-      'Use this for students who want to see a shorter planning pathway, especially transfer students or students entering with many completed credits.',
-    buttonLabel: 'View 2-Year Plan',
-    url: 'https://catalog.usf.edu/mime/media/23/6734/Computer+Engineering+B.S.C.P.+-+2+Year+Plan+of+Study.pdf',
-  },
-  {
-    title: 'Computer Engineering B.S.C.P. - 4 Year Plan of Study',
-    description:
-      'Use this for students who want to see a full four-year degree path from first year through graduation.',
-    buttonLabel: 'View 4-Year Plan',
-    url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cpe-curriculum-2026.pdf',
-  },
-  {
-    title: 'Computer Engineering Related Electives',
-    description:
-      'Use this for students who want to explore advanced course options and interest areas within Computer Engineering.',
-    buttonLabel: 'View Related Electives',
-    url: 'https://usflearn.instructure.com/courses/2040876/files/202229912/download?download_frd=1',
-  },
-];
-
-const computerEngineeringCareers = [
-  {
-    title: 'Computer Engineer',
-    description:
-      'Designs, develops, and tests computing hardware and software systems.',
-  },
-  {
-    title: 'Embedded Systems Engineer',
-    description:
-      'Works on computing systems inside devices, machines, vehicles, sensors, robotics, or connected products.',
-  },
-  {
-    title: 'Firmware Developer',
-    description:
-      'Writes low-level software that helps hardware devices operate correctly.',
-  },
-  {
-    title: 'Hardware Engineer Pathway',
-    description:
-      'Works on the design, testing, or improvement of computer hardware, chips, circuits, or devices.',
-  },
-  {
-    title: 'Robotics Systems Pathway',
-    description:
-      'Combines hardware, software, sensors, and control systems to support robotic or automated systems.',
-  },
-  {
-    title: 'IoT Systems Engineer Pathway',
-    description:
-      'Works with connected devices, smart systems, sensors, and hardware/software integration.',
-  },
-  {
-    title: 'Systems Engineer',
-    description:
-      'Designs and tests complex technical systems that combine hardware, software, and engineering requirements.',
-  },
-];
-
-const computerEngineeringAdvisorQuestions = [
-  'Which catalog year and plan of study should I follow?',
-  'How much programming, math, and hardware background should I have before starting?',
-  'Which courses include laboratory work?',
-  'Which courses are only offered in fall or spring?',
-  'How is Computer Engineering different from Computer Science at USF?',
-  'How is Computer Engineering different from Computer Science and Engineering?',
-  'Which electives would help me explore embedded systems, hardware design, robotics, or firmware?',
-  'What internships or projects should I look for as a Computer Engineering student?',
-  'Are there Bachelor’s/Master’s pathway options connected to this degree?',
-];
-
 const computerScienceEngineeringSkills = [
   'Programming',
   'Software Development',
@@ -277,7 +162,7 @@ const computerScienceEngineeringFitItems = [
   'Want to understand complete computing systems from low-level hardware to advanced applications',
   'Like programming, systems, and engineering-style problem solving',
   'Are interested in computer architecture, embedded systems, robotics, AI, or intelligent applications',
-  'Want a degree that combines ideas from Computer Science and Computer Engineering',
+  'Want a degree that combines software foundations with systems and engineering concepts',
   'Enjoy technical design and understanding how different parts of a system work together',
   'Are comfortable with math, programming, and detailed technical problem solving',
 ];
@@ -340,7 +225,7 @@ const computerScienceEngineeringCareers = [
   {
     title: 'Graduate School / Research Pathway',
     description:
-      'Uses the degree as preparation for advanced study in computer science, computer engineering, robotics, AI, or systems-related fields.',
+      'Uses the degree as preparation for advanced study in computer science, robotics, AI, or systems-related fields.',
   },
 ];
 
@@ -348,7 +233,6 @@ const computerScienceEngineeringAdvisorQuestions = [
   'Which catalog year and plan of study should I follow?',
   'Since the current catalog does not yet include BSCSE, what official requirements should I use for planning?',
   'How is Computer Science and Engineering different from Computer Science?',
-  'How is Computer Science and Engineering different from Computer Engineering?',
   'How much hardware, software, and engineering coursework should I expect?',
   'What kinds of electives or focus areas are available in this program?',
   'Is this degree a good fit if I am interested in robotics, AI systems, embedded systems, or systems engineering?',
@@ -511,18 +395,7 @@ const cybersecurityChallengeItems = [
 ];
 
 const cybersecurityFlowcharts = [
-  {
-    label: '2022-23 Flowchart',
-    url: 'https://usf.box.com/s/80bt0yrz7e734n8ijese1imnxi59atmv',
-  },
-  {
-    label: '2023-24 Flowchart',
-    url: 'https://usf.box.com/s/kmbw5cg8kddgvzq4dzyspywwt9cxninm',
-  },
-  {
-    label: '2024-25 Flowchart',
-    url: 'https://usf.box.com/s/vt6sc67bi5zxygx49xxtxzsh1b80z3fg',
-  },
+  
   {
     label: '2025-26 Flowchart',
     url: 'https://usf.box.com/s/aed8ui6i6bxltaeylljbal6ez5o3vj7r',
@@ -642,18 +515,7 @@ const informationTechnologyChallengeItems = [
 ];
 
 const informationTechnologyFlowcharts = [
-  {
-    label: '2022-23 Flowchart',
-    url: 'https://usf.box.com/s/4jaujioydvlkk3vbk6hy5oc96958hfec',
-  },
-  {
-    label: '2023-24 Flowchart',
-    url: 'https://usf.box.com/s/zlod8t70db2p917pamazpdp7uyudbe2p',
-  },
-  {
-    label: '2024-25 Flowchart',
-    url: 'https://usf.box.com/s/kfinhdyjajy3viiq6038cqrjnh5kotez',
-  },
+
   {
     label: '2025-26 Flowchart',
     url: 'https://usf.box.com/s/jbvyp3m2br29tu3nyp27imtz0xj6skgo',
@@ -747,7 +609,7 @@ function ComputerScienceDegreeDetail() {
 
       <section className="degree-detail-hero cs-hero">
         <p className="degrees-eyebrow">Software • Programming • Algorithms</p>
-        <h1>Computer Science, BSCS</h1>
+        <h1>Computer Science</h1>
         <p>
           A strong software-focused computing degree for students interested in
           programming, problem solving, algorithms, systems, artificial
@@ -868,17 +730,10 @@ function ComputerScienceDegreeDetail() {
       </section>
 
       <section className="degree-detail-section degree-next-steps">
-        <h2>Want to Compare Computer Science?</h2>
-        <p>
-          Want to compare Computer Science with Artificial Intelligence,
-          Cybersecurity, Information Technology, Computer Engineering, or
-          Computer Science and Engineering?
-        </p>
-        <div className="degree-detail-actions">
-          <button className="placeholder-button" type="button">
-            Compare This Degree
-          </button>
-        </div>
+        <CompareFeatureNote
+          degreeName="Computer Science"
+          compareWith="Artificial Intelligence, Cybersecurity, Information Technology, or Computer Science and Engineering"
+        />
       </section>
 
       <section className="degree-detail-section">
@@ -900,203 +755,6 @@ function ComputerScienceDegreeDetail() {
       <div className="degree-detail-actions degree-catalog-action">
         <a
           href="https://catalog.usf.edu/preview_program.php?catoid=25&poid=13067"
-          rel="noreferrer"
-          target="_blank"
-        >
-          View More Details in the Catalog ↗
-        </a>
-      </div>
-    </main>
-  );
-}
-
-function ComputerEngineeringDegreeDetail() {
-  return (
-    <main className="degree-detail-page computer-science-detail">
-      <Link className="degree-back-link" to="/degrees">
-        Back to Degree Explorer
-      </Link>
-
-      <section className="degree-detail-hero cs-hero">
-        <p className="degrees-eyebrow">
-          Hardware • Software • Engineering • Embedded Systems
-        </p>
-        <h1>Computer Engineering, BSCP</h1>
-        <p>
-          A hardware-and-software computing degree for students interested in
-          how computers, devices, circuits, embedded systems, and computing
-          hardware are designed and built.
-        </p>
-
-        <div className="degree-tag-list">
-          <span>Hardware</span>
-          <span>Software</span>
-          <span>Engineering</span>
-          <span>Computer Architecture</span>
-          <span>Embedded Systems</span>
-          <span>Lab Work</span>
-        </div>
-
-        <div className="degree-detail-actions">
-          <a href="#official-resources">View Official Requirements</a>
-        </div>
-      </section>
-
-      <section className="degree-detail-section degree-overview-card">
-        <h2>What This Degree Focuses On</h2>
-        <p>
-          Computer Engineering applies engineering principles to computing.
-          Students learn how computer hardware and software work together, with
-          additional focus on computer architecture, hardware design, and
-          hands-on laboratory work.
-        </p>
-        <p>
-          This degree is a strong fit for students who want to understand both
-          the software side of computing and the physical systems that make
-          computing possible. It connects programming with engineering topics,
-          hardware design, circuits, computer systems, and embedded technology.
-        </p>
-      </section>
-
-      <section className="degree-fit-grid">
-        <article className="degree-detail-section">
-          <h2>This Degree May Be a Good Fit If You...</h2>
-          <ul>
-            {computerEngineeringFitItems.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-
-        <article className="degree-detail-section">
-          <h2>This Degree May Feel Challenging If You...</h2>
-          <ul>
-            {computerEngineeringChallengeItems.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-      </section>
-
-      <section className="degree-detail-section">
-        <h2>Skills Students May Build</h2>
-        <div className="degree-skill-chips">
-          {computerEngineeringSkills.map((skill) => (
-            <span key={skill}>{skill}</span>
-          ))}
-        </div>
-      </section>
-
-      <section className="degree-detail-section" id="official-resources">
-        <h2>Flowcharts, Plans, and Electives</h2>
-
-        <div className="resource-group">
-          <h3>Program Flowcharts</h3>
-          <div className="resource-card-grid compact">
-            {computerEngineeringFlowcharts.map((resource) => (
-              <a
-                className="resource-card"
-                href={resource.url}
-                key={resource.label}
-                rel="noreferrer"
-                target="_blank"
-              >
-                <span>{resource.label}</span>
-                <small>Open official resource ↗</small>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div className="resource-group">
-          <h3>Current Catalog Year Resources</h3>
-          <div className="resource-card-grid">
-            {computerEngineeringResources.map((resource) => (
-              <a
-                className="resource-card"
-                href={resource.url}
-                key={resource.title}
-                rel="noreferrer"
-                target="_blank"
-              >
-                <span>{resource.title}</span>
-                <p>{resource.description}</p>
-                <strong>{resource.buttonLabel} ↗</strong>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="degree-detail-section">
-        <h2>Possible Career Paths</h2>
-        <div className="career-card-grid">
-          {computerEngineeringCareers.map((career) => (
-            <article className="career-card" key={career.title}>
-              <h3>{career.title}</h3>
-              <p>{career.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="degree-detail-section degree-alert-note">
-        <h2>Important Course Notes</h2>
-        <h3>Semester-Specific Course Availability</h3>
-        <p>
-          Some Computer Engineering courses may only be offered in specific
-          semesters.
-        </p>
-        <ul>
-          <li>
-            CDA 4213 / CDA 4213L CMOS VLSI Design and Lab are offered in the
-            fall only.
-          </li>
-          <li>
-            CDA 4203 / CDA 4203L Computer System Design and Lab are offered in
-            the spring only.
-          </li>
-        </ul>
-        <p>
-          Because some required or elective courses may be offered only once per
-          year, Computer Engineering students should review the official
-          flowchart and confirm their plan with advising.
-        </p>
-      </section>
-
-      <section className="degree-detail-section degree-next-steps">
-        <h2>Want to Compare Computer Engineering?</h2>
-        <p>
-          Want to compare Computer Engineering with Computer Science, Computer
-          Science and Engineering, Artificial Intelligence, Cybersecurity, or
-          Information Technology?
-        </p>
-        <div className="degree-detail-actions">
-          <button className="placeholder-button" type="button">
-            Compare This Degree
-          </button>
-        </div>
-      </section>
-
-      <section className="degree-detail-section">
-        <h2>Questions to Ask an Advisor</h2>
-        <ul>
-          {computerEngineeringAdvisorQuestions.map((question) => (
-            <li key={question}>{question}</li>
-          ))}
-        </ul>
-      </section>
-
-      <p className="degrees-disclaimer">
-        This page is for exploration and planning only. Degree requirements,
-        course availability, electives, catalog rules, and graduation plans
-        should be confirmed using the official USF undergraduate catalog and
-        Bellini College advising resources.
-      </p>
-
-      <div className="degree-detail-actions degree-catalog-action">
-        <a
-          href="https://catalog.usf.edu/preview_program.php?catoid=25&poid=13066"
           rel="noreferrer"
           target="_blank"
         >
@@ -1142,9 +800,9 @@ function ComputerScienceEngineeringDegreeDetail() {
       <section className="degree-detail-section degree-overview-card">
         <h2>What This Degree Focuses On</h2>
         <p>
-          Computer Science and Engineering blends the strengths of Computer
-          Science and Computer Engineering into one unified degree. Students
-          learn how to think about complete computing systems, including
+          Computer Science and Engineering blends software foundations with
+          systems and engineering concepts. Students learn how to think about
+          complete computing systems, including
           lower-level hardware concepts, computer systems, software design, and
           advanced computing applications.
         </p>
@@ -1258,17 +916,10 @@ function ComputerScienceEngineeringDegreeDetail() {
       </section>
 
       <section className="degree-detail-section degree-next-steps">
-        <h2>Want to Compare Computer Science and Engineering?</h2>
-        <p>
-          Want to compare Computer Science and Engineering with Computer
-          Science, Computer Engineering, Artificial Intelligence, Cybersecurity,
-          or Information Technology?
-        </p>
-        <div className="degree-detail-actions">
-          <button className="placeholder-button" type="button">
-            Compare This Degree
-          </button>
-        </div>
+        <CompareFeatureNote
+          degreeName="Computer Science and Engineering"
+          compareWith="Computer Science, Artificial Intelligence, Cybersecurity, or Information Technology"
+        />
       </section>
 
       <section className="degree-detail-section">
@@ -1453,17 +1104,10 @@ function ArtificialIntelligenceDegreeDetail() {
       </section>
 
       <section className="degree-detail-section degree-next-steps">
-        <h2>Want to Compare Artificial Intelligence?</h2>
-        <p>
-          Want to compare Artificial Intelligence with Computer Science,
-          Cybersecurity, Information Technology, Computer Engineering, or
-          Computer Science and Engineering?
-        </p>
-        <div className="degree-detail-actions">
-          <button className="placeholder-button" type="button">
-            Compare This Degree
-          </button>
-        </div>
+        <CompareFeatureNote
+          degreeName="Artificial Intelligence"
+          compareWith="Computer Science, Cybersecurity, Information Technology, or Computer Science and Engineering"
+        />
       </section>
 
       <section className="degree-detail-section">
@@ -1670,17 +1314,10 @@ function CybersecurityDegreeDetail() {
       </section>
 
       <section className="degree-detail-section degree-next-steps">
-        <h2>Want to Compare Cybersecurity?</h2>
-        <p>
-          Want to compare Cybersecurity with Computer Science, Artificial
-          Intelligence, Information Technology, Computer Engineering, or
-          Computer Science and Engineering?
-        </p>
-        <div className="degree-detail-actions">
-          <button className="placeholder-button" type="button">
-            Compare This Degree
-          </button>
-        </div>
+        <CompareFeatureNote
+          degreeName="Cybersecurity"
+          compareWith="Computer Science, Artificial Intelligence, Information Technology, or Computer Science and Engineering"
+        />
       </section>
 
       <section className="degree-detail-section">
@@ -1882,17 +1519,10 @@ function InformationTechnologyDegreeDetail() {
       </section>
 
       <section className="degree-detail-section degree-next-steps">
-        <h2>Want to Compare Information Technology?</h2>
-        <p>
-          Want to compare Information Technology with Computer Science,
-          Cybersecurity, Artificial Intelligence, Computer Engineering, or
-          Computer Science and Engineering?
-        </p>
-        <div className="degree-detail-actions">
-          <button className="placeholder-button" type="button">
-            Compare This Degree
-          </button>
-        </div>
+        <CompareFeatureNote
+          degreeName="Information Technology"
+          compareWith="Computer Science, Cybersecurity, Artificial Intelligence, or Computer Science and Engineering"
+        />
       </section>
 
       <section className="degree-detail-section">
@@ -1942,10 +1572,6 @@ function DegreeDetail() {
 
   if (degree.slug === 'computer-science') {
     return <ComputerScienceDegreeDetail />;
-  }
-
-  if (degree.slug === 'computer-engineering') {
-    return <ComputerEngineeringDegreeDetail />;
   }
 
   if (degree.slug === 'computer-science-and-engineering') {

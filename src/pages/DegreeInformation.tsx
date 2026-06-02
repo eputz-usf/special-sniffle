@@ -1,8 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { degrees } from '../data/degrees';
-import { getSavedUserType } from '../utils/auth';
-import { getDashboardRoute } from '../utils/userTypes';
 import '../styles/degrees.css';
 
 const filters = [
@@ -10,7 +8,6 @@ const filters = [
   'Software',
   'AI/Data',
   'Cybersecurity',
-  'Hardware',
   'IT/Systems',
 ] as const;
 
@@ -22,7 +19,6 @@ const futureDegreeSlugs = new Set([
 
 const completedDegreePages = new Set([
   'computer-science',
-  'computer-engineering',
   'computer-science-and-engineering',
   'artificial-intelligence',
   'cybersecurity',
@@ -31,25 +27,11 @@ const completedDegreePages = new Set([
 
 function DegreeInformation() {
   const navigate = useNavigate();
-  const [dashboardRoute, setDashboardRoute] = useState('/');
   const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>(
     'All',
   );
   const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState('');
-
-  useEffect(() => {
-    async function loadDashboardRoute() {
-      const savedUserType = await getSavedUserType();
-      const savedDashboardRoute = savedUserType
-        ? getDashboardRoute(savedUserType)
-        : '';
-
-      setDashboardRoute(savedDashboardRoute || '/');
-    }
-
-    loadDashboardRoute();
-  }, []);
 
   const visibleDegrees = useMemo(() => {
     const currentDegrees = degrees.filter(
@@ -111,7 +93,7 @@ function DegreeInformation() {
           <p className="degrees-eyebrow">Bellini College Degree Explorer</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to={dashboardRoute}
+            to="/dashboard/general"
           >
             Back to Dashboard
           </Link>

@@ -45,7 +45,7 @@ function HighSchoolQuizResults() {
                   : 'Supabase is not configured yet, so this result is only shown locally.'}
               </p>
               <div className="quiz-results-actions">
-                <Link to="/degrees">Explore degrees</Link>
+                <Link to="/high-school/degrees">Explore degrees</Link>
                 <Link to="/quiz">Review or change answers</Link>
                 <button type="button" onClick={handleStartOver}>
                   Start over

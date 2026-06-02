@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import BelliniStudentDashboard from './pages/BelliniStudentDashboard';
 import BachelorsMastersPathways from './pages/BachelorsMastersPathways';
@@ -9,6 +10,11 @@ import FutureDegreeOptions from './pages/FutureDegreeOptions';
 import GeneralDashboard from './pages/GeneralDashboard';
 import HighSchoolIntakeQuiz from './pages/HighSchoolIntakeQuiz';
 import HighSchoolQuizResults from './pages/HighSchoolQuizResults';
+import HighSchoolBachelorsMastersPathways from './pages/highSchoolDegrees/HighSchoolBachelorsMastersPathways';
+import HighSchoolDegreeComparison from './pages/highSchoolDegrees/HighSchoolDegreeComparison';
+import HighSchoolDegreeDetail from './pages/highSchoolDegrees/HighSchoolDegreeDetail';
+import HighSchoolDegreeInformation from './pages/highSchoolDegrees/HighSchoolDegreeInformation';
+import HighSchoolFutureDegreeOptions from './pages/highSchoolDegrees/HighSchoolFutureDegreeOptions';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -22,6 +28,10 @@ function App() {
   const isSelectingUserType =
     location.pathname === '/' || location.pathname === '/select-user-type';
   const isDashboard = location.pathname.startsWith('/dashboard');
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname]);
 
   return (
     <>
@@ -52,6 +62,26 @@ function App() {
         />
         <Route path="/degrees/future-options" element={<FutureDegreeOptions />} />
         <Route path="/degrees/:degreeSlug" element={<DegreeDetail />} />
+        <Route
+          path="/high-school/degrees"
+          element={<HighSchoolDegreeInformation />}
+        />
+        <Route
+          path="/high-school/degrees/compare"
+          element={<HighSchoolDegreeComparison />}
+        />
+        <Route
+          path="/high-school/degrees/bachelors-masters-pathways"
+          element={<HighSchoolBachelorsMastersPathways />}
+        />
+        <Route
+          path="/high-school/degrees/future-options"
+          element={<HighSchoolFutureDegreeOptions />}
+        />
+        <Route
+          path="/high-school/degrees/:degreeSlug"
+          element={<HighSchoolDegreeDetail />}
+        />
         <Route path="/select-user-type" element={<SelectUserType />} />
         <Route path="/dashboard/general" element={<GeneralDashboard />} />
         <Route

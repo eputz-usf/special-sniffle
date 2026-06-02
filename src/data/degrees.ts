@@ -2,7 +2,6 @@ export type DegreeCategory =
   | 'Software'
   | 'AI/Data'
   | 'Cybersecurity'
-  | 'Hardware'
   | 'IT/Systems'
   | 'Business + Interdisciplinary';
 
@@ -96,66 +95,6 @@ export const degrees: Degree[] = [
     },
   },
   {
-    slug: 'computer-engineering',
-    name: 'Computer Engineering',
-    credential: 'BSCP',
-    category: 'Hardware',
-    bestFor: 'Hardware, embedded systems, devices',
-    description:
-      'Connects computing with electrical engineering, hardware design, and computer systems.',
-    skills: 'Circuits • Embedded Systems • Computer Architecture',
-    overview:
-      'Computer Engineering connects software with physical computing systems, devices, circuits, and embedded technology.',
-    goodFit: [
-      'You are interested in both hardware and software.',
-      'You want to understand how computers and devices are built.',
-      'You like systems, electronics, and applied engineering problems.',
-    ],
-    sampleTopics: ['Computer architecture', 'Embedded systems', 'Circuits'],
-    nextSteps: [
-      'Compare this degree with Computer Science and Engineering.',
-      'Talk with advising about math, science, and engineering course planning.',
-    ],
-    officialLinks: {
-      flowcharts: [
-        {
-          label: '2022-23 Flowchart',
-          url: 'https://usf.box.com/s/uqbg799j8iovit8sdqk2t6qe7nr08c94',
-        },
-        {
-          label: '2023-24 Flowchart',
-          url: 'https://usf.box.com/s/71dm39m5uq4hsdrn8p2u0oet9jjej9z5',
-        },
-        {
-          label: '2024-25 Flowchart',
-          url: 'https://usf.box.com/s/z6f628b9p6jkdt38flfxgfhu7in16dp7',
-        },
-        {
-          label: '2025-26 Flowchart',
-          url: 'https://usf.box.com/s/7ulrr1au7emt9t4fbd2k2830f0xorwva',
-        },
-        {
-          label: '2026-27 Flowchart',
-          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cpe-flowchart-2026.pdf',
-        },
-      ],
-      plans: [
-        {
-          label: '2 Year Plan of Study',
-          url: 'https://catalog.usf.edu/mime/media/23/6734/Computer+Engineering+B.S.C.P.+-+2+Year+Plan+of+Study.pdf',
-        },
-        {
-          label: '4 Year Plan of Study',
-          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cpe-curriculum-2026.pdf',
-        },
-      ],
-      electives: {
-        label: 'Computer Engineering Related Electives',
-        url: 'https://usflearn.instructure.com/courses/2040876/files/202229912/download?download_frd=1',
-      },
-    },
-  },
-  {
     slug: 'computer-science-and-engineering',
     name: 'Computer Science and Engineering',
     credential: 'BSCSE',
@@ -168,12 +107,12 @@ export const degrees: Degree[] = [
       'Computer Science and Engineering is for students who want a computing degree with an engineering-oriented systems perspective.',
     goodFit: [
       'You want software skills with more systems and engineering context.',
-      'You are comparing Computer Science and Computer Engineering.',
+      'You are comparing software-focused and systems-focused computing paths.',
       'You like technical design, systems thinking, and implementation.',
     ],
     sampleTopics: ['Systems programming', 'Engineering design', 'Software foundations'],
     nextSteps: [
-      'Compare this option with Computer Science and Computer Engineering.',
+      'Compare this option with Computer Science.',
       'Use the transition analyzer later if you are switching from another major.',
     ],
   },

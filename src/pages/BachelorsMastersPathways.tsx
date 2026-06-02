@@ -14,10 +14,6 @@ const pathwayPrograms = [
     name: 'BS in Artificial Intelligence to MS in Computer Science',
     url: 'https://usf.to/BS-MS-Pathway',
   },
-  {
-    name: 'BS in Computer Engineering to MS in Computer Engineering',
-    url: 'https://usf.to/BS-MS-Pathway',
-  },
 ];
 
 const availableMinors = [

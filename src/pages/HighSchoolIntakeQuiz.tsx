@@ -401,9 +401,9 @@ const highSchoolIntakeQuestions: QuizQuestion[] = [
         icon: 'wrench',
       },
       {
-        id: 'computer-engineering-program',
-        label: 'Computer Engineering',
-        description: 'Hardware, software, embedded systems, and devices.',
+        id: 'computer-science-and-engineering',
+        label: 'Computer Science and Engineering',
+        description: 'Software, systems, engineering design, and computing foundations.',
         icon: 'cpu',
       },
       {

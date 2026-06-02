@@ -31,6 +31,7 @@
 .high-school-hero h1 {
   width: min(100% - 96px, 980px);
   margin: 0 auto 56px;
+  transform: translateX(-42px);
   color: #086242;
   font-size: clamp(44px, 5.6vw, 60px);
   line-height: 0.98;
@@ -40,6 +41,7 @@
 .high-school-hero-copy {
   width: min(100% - 96px, 980px);
   margin: 52px auto 0;
+  transform: translateX(-42px);
 }
 
 .high-school-hero-copy p:not(.dashboard-eyebrow) {
@@ -251,6 +253,7 @@
   .high-school-hero h1 {
     width: calc(100% - 48px);
     margin-bottom: 36px;
+    transform: none;
   }
 
   .high-school-hero-image {
@@ -261,6 +264,7 @@
   .high-school-hero-copy {
     width: calc(100% - 48px);
     margin-top: 40px;
+    transform: none;
   }
 
   .high-school-path,

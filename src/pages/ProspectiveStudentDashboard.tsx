@@ -170,7 +170,10 @@ function ProspectiveStudentDashboard() {
         </div>
 
         <div className="dashboard-major-cards high-school-tool-grid">
-          <Link className="dashboard-major-card high-school-tool-card" to="/degrees">
+          <Link
+            className="dashboard-major-card high-school-tool-card"
+            to="/high-school/degrees"
+          >
             <BookOpenCheck size={30} aria-hidden="true" />
             <span>Degree explorer and comparison</span>
             <p>
