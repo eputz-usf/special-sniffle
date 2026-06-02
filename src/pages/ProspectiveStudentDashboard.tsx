@@ -4,13 +4,14 @@ import {
   Briefcase,
   CalendarCheck,
   ClipboardList,
+  MessageCircleQuestion,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import classroomImage from '../assets/bellini.jpeg';
-import majorsImage from '../assets/plho1.avif';
 import quizImage from '../assets/quiz.avif';
 import '../styles/dashboard.css';
 import '../styles/highSchoolDashboard.css';
+import { loadPublicQuizResult } from '../utils/publicQuizSession';
 
 const launchSteps = [
   {
@@ -36,13 +37,16 @@ const launchSteps = [
 ];
 
 const readinessItems = [
-  'Computer science, AI, cybersecurity, hardware, and IT interests',
-  'Degree fit based on skills you want to build',
-  'Questions to bring to family, counselors, or Bellini contacts',
-  'Resources to revisit before application or orientation steps',
+  'If you have not already done so - take the intake quiz to find possible major matches.',
+  'Make a list of your top liked majors.',
+  'Review degree details and career outlooks.',
+  'Write down any questions you have.',
+  'Contact USF Admissions or Bellini College for your next step!',
 ];
 
 function ProspectiveStudentDashboard() {
+  const hasPreviousQuizResult = Boolean(loadPublicQuizResult());
+
   function handleSectionLinkClick(
     event: MouseEvent<HTMLAnchorElement>,
     sectionId: string,
@@ -148,10 +152,40 @@ function ProspectiveStudentDashboard() {
               Not sure which computing major matches your interests? Answer a few quick questions to explore 
               possible Bellini College programs, compare degree options, and prepare next steps for admissions or advising.
             </p>
-            <Link className="dashboard-quiz-button compact" to="/quiz">
-              <ClipboardList size={20} aria-hidden="true" />
-              Take the quiz
-            </Link>
+            <div className="dashboard-quiz-actions">
+              <Link className="dashboard-quiz-button compact" to="/quiz">
+                <ClipboardList size={20} aria-hidden="true" />
+                Take the quiz
+              </Link>
+              {hasPreviousQuizResult ? (
+                <Link className="dashboard-quiz-button compact secondary" to="/quiz/results">
+                  <BookOpenCheck size={20} aria-hidden="true" />
+                  View previous result
+                </Link>
+              ) : (
+                <span
+                  className="dashboard-disabled-result-control"
+                  tabIndex={0}
+                  aria-describedby="previous-result-tooltip"
+                >
+                  <button
+                    className="dashboard-quiz-button compact secondary"
+                    type="button"
+                    disabled
+                  >
+                    <BookOpenCheck size={20} aria-hidden="true" />
+                    View previous result
+                  </button>
+                  <span
+                    className="dashboard-disabled-result-tooltip"
+                    id="previous-result-tooltip"
+                    role="tooltip"
+                  >
+                    Finish the quiz first to generate a recommendation.
+                  </span>
+                </span>
+              )}
+            </div>
           </div>
 
           <img
@@ -180,21 +214,31 @@ function ProspectiveStudentDashboard() {
               Browse Bellini College degrees and compare two programs side by
               side by focus, skills, fit, topics, and next steps.
             </p>
-            <img src={majorsImage} alt="" />
           </Link>
 
-          <button
-            className="dashboard-major-card high-school-tool-card placeholder-tool-card"
-            type="button"
+          <Link
+            className="dashboard-major-card high-school-tool-card"
+            to="/high-school/career-paths"
           >
             <Briefcase size={30} aria-hidden="true" />
-            <span>Careers and internship paths</span>
+            <span>Possible Careers Paths</span>
             <p>
-              This future tool will show beginner-friendly career paths,
-              internship ideas, and examples connected to each degree.
+              Choose a major and jump to its career outlook, salary examples,
+              and employment information in the Tampa Bay area.
             </p>
-            <small>Placeholder</small>
-          </button>
+          </Link>
+
+          <Link
+            className="dashboard-major-card high-school-tool-card"
+            to="/high-school/parent-info"
+          >
+            <MessageCircleQuestion size={30} aria-hidden="true" />
+            <span>Parent-friendly information</span>
+            <p>
+              Review prospective student FAQs and questions to bring to
+              admissions or advising conversations.
+            </p>
+          </Link>
 
           <button
             className="dashboard-major-card high-school-tool-card placeholder-tool-card"
@@ -215,12 +259,12 @@ function ProspectiveStudentDashboard() {
         <div className="dashboard-section-rule"></div>
         <div className="high-school-feature-row">
           <div>
-            <p className="dashboard-eyebrow">Planning checklist</p>
+            <p className="dashboard-eyebrow">Next Steps & Admissions Questions</p>
             <h2>Keep your exploration focused</h2>
             <p>
-              High school students usually need a smaller set of clear choices
-              before they need full advising detail. This dashboard keeps the
-              first pass centered on fit, questions, and next actions.
+              If you are done exploring the dashboard and available features in
+              the toolbox - your next step is to turn that information into a
+              simple action plan.
             </p>
           </div>
 

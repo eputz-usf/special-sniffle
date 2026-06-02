@@ -5,13 +5,19 @@ export type DegreeCategory =
   | 'IT/Systems'
   | 'Business + Interdisciplinary';
 
+export type CareerOption = {
+  title: string;
+  description: string;
+  salary: string;
+};
+
 export type Degree = {
   slug: string;
   name: string;
   credential: string;
   category: DegreeCategory;
   bestFor: string;
-  careerOptions?: string[];
+  careerOptions?: CareerOption[];
   description: string;
   skills: string;
   overview: string;
@@ -42,11 +48,31 @@ export const degrees: Degree[] = [
     category: 'Software',
     bestFor: 'Students who like coding, apps, websites, games, or solving puzzles.',
     careerOptions: [
-      'Software Engineer — about $88,479 per year',
-      'Cybersecurity Analyst — about $96,898 per year',
-      'Data Scientist — about $85,667 per year',
-      'Systems Architect — about $101,678 per year',
-      'Research Scientist — about $85,667 per year',
+      {
+        title: 'Software Engineer',
+        description: 'Builds apps, websites, and software.',
+        salary: 'About $88,479 per year',
+      },
+      {
+        title: 'Cybersecurity Analyst',
+        description: 'Helps keep computers and information safe.',
+        salary: 'About $96,898 per year',
+      },
+      {
+        title: 'Data Scientist',
+        description: 'Uses data to find patterns and answer questions.',
+        salary: 'About $85,667 per year',
+      },
+      {
+        title: 'Systems Architect',
+        description: 'Plans how parts of a computer system work together.',
+        salary: 'About $101,678 per year',
+      },
+      {
+        title: 'Research Scientist',
+        description: 'Studies new ideas in computing.',
+        salary: 'About $85,667 per year',
+      },
     ],
     description:
       'Learn how to tell computers what to do. This major helps you build programs, create software, and solve problems using technology.',
@@ -99,11 +125,31 @@ export const degrees: Degree[] = [
     bestFor:
       'Students who like coding and are curious about how computers and devices work.',
     careerOptions: [
-      'Hardware Engineer — about $128,932 per year',
-      'Software Engineer — about $101,678 per year',
-      'Embedded Systems Engineer — about $101,678 per year',
-      'Cybersecurity Engineer — about $128,932 per year',
-      'AI Infrastructure Engineer — about $127,420 per year',
+      {
+        title: 'Hardware Engineer',
+        description: 'Works with the physical parts inside computers and devices.',
+        salary: 'About $128,932 per year',
+      },
+      {
+        title: 'Software Engineer',
+        description: 'Builds apps, tools, and software systems.',
+        salary: 'About $101,678 per year',
+      },
+      {
+        title: 'Embedded Systems Engineer',
+        description: 'Builds software for devices such as cars or robots.',
+        salary: 'About $101,678 per year',
+      },
+      {
+        title: 'Cybersecurity Engineer',
+        description: 'Helps protect computers, networks, and devices.',
+        salary: 'About $128,932 per year',
+      },
+      {
+        title: 'AI Infrastructure Engineer',
+        description: 'Builds systems that help AI tools run.',
+        salary: 'About $127,420 per year',
+      },
     ],
     description:
 'Learn how to build software and understand the systems inside computers, devices, and technology.',
@@ -143,11 +189,31 @@ export const degrees: Degree[] = [
     category: 'AI/Data',
     bestFor: 'Students who are curious about AI, data, and smart technology.',
     careerOptions: [
-      'Machine Learning Engineer — about $111,254 per year',
-      'AI Engineer — about $85,667 per year',
-      'AI Systems Engineer — about $85,667 per year',
-      'AI QA Engineer — about $88,479 per year',
-      'Computer Vision Engineer — about $111,254 per year',
+      {
+        title: 'Machine Learning Engineer',
+        description: 'Builds systems that learn from data.',
+        salary: 'About $111,254 per year',
+      },
+      {
+        title: 'AI Engineer',
+        description: 'Builds AI tools that help solve problems.',
+        salary: 'About $85,667 per year',
+      },
+      {
+        title: 'AI Systems Engineer',
+        description: 'Helps build the systems that AI tools run on.',
+        salary: 'About $85,667 per year',
+      },
+      {
+        title: 'AI QA Engineer',
+        description: 'Tests AI tools to make sure they work correctly.',
+        salary: 'About $88,479 per year',
+      },
+      {
+        title: 'Computer Vision Engineer',
+        description: 'Builds AI tools that work with images and videos.',
+        salary: 'About $111,254 per year',
+      },
     ],
     description:
       'Learn how computers can find patterns, use data, and help make decisions.',
@@ -200,10 +266,26 @@ export const degrees: Degree[] = [
     bestFor:
       'Students who are interested in protecting information, devices, and people online.',
     careerOptions: [
-      'Information Security Analyst — about $104,012 per year',
-      'Cybersecurity Consultant — about $104,012 per year',
-      'Cybersecurity Risk Analyst — about $85,667 per year',
-      'Information Technology Security Specialist — about $96,898 per year',
+      {
+        title: 'Information Security Analyst',
+        description: 'Helps protect computers and data from online threats.',
+        salary: 'About $104,012 per year',
+      },
+      {
+        title: 'Cybersecurity Consultant',
+        description: 'Helps organizations improve their online safety.',
+        salary: 'About $104,012 per year',
+      },
+      {
+        title: 'Cybersecurity Risk Analyst',
+        description: 'Finds security problems and helps reduce them.',
+        salary: 'About $85,667 per year',
+      },
+      {
+        title: 'Information Technology Security Specialist',
+        description: 'Helps keep company systems and accounts safe.',
+        salary: 'About $96,898 per year',
+      },
     ],
     description:
       'Learn how to keep computer systems safe from hackers, scams, and online threats.',
@@ -256,11 +338,31 @@ export const degrees: Degree[] = [
     bestFor:
       'Students who like working with technology and helping systems run smoothly.',
     careerOptions: [
-      'Information Security Analyst — about $104,012 per year',
-      'Database Administrator — about $101,678 per year',
-      'Software Developer — about $125,464 per year',
-      'Web Developer — about $88,479 per year',
-      'Cloud Architect — about $96,898 per year',
+      {
+        title: 'Information Security Analyst',
+        description: 'Helps keep computers and information safe.',
+        salary: 'About $104,012 per year',
+      },
+      {
+        title: 'Database Administrator',
+        description: 'Organizes and protects company data.',
+        salary: 'About $101,678 per year',
+      },
+      {
+        title: 'Software Developer',
+        description: 'Builds apps, websites, and software tools.',
+        salary: 'About $125,464 per year',
+      },
+      {
+        title: 'Web Developer',
+        description: 'Builds and updates websites.',
+        salary: 'About $88,479 per year',
+      },
+      {
+        title: 'Cloud Architect',
+        description: 'Plans online systems that store data and run tools.',
+        salary: 'About $96,898 per year',
+      },
     ],
     description:
       'Learn how to support computers, networks, databases, and the technology people use every day.',

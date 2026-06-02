@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import {
   BookOpen,
   Brain,
@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/quiz.css';
+import type { QuizRecommendationSignal } from '../utils/quizRecommendations';
 
 export type QuizAnswerIcon =
   | 'book'
@@ -41,11 +42,20 @@ export type QuizQuestion = {
   question: string;
   helperText: string;
   answers: QuizAnswer[];
+  selectionMode?: 'single' | 'multiple';
+  maxSelections?: number;
 };
+
+export type QuizAnswerValue = string | string[];
+export type QuizAnswersByQuestion = Record<string, QuizAnswerValue>;
 
 export type QuizSubmissionResult = {
   recommendedDegrees: string[];
   topMatch: string;
+  majorScores: Record<string, number>;
+  explanations: Record<string, string>;
+  signalsByMajor: Record<string, QuizRecommendationSignal[]>;
+  quizVersion: string;
   saveStatus: 'saved' | 'skipped';
 };
 
@@ -53,7 +63,7 @@ type QuizTemplateProps = {
   title: string;
   intro: string;
   questions: QuizQuestion[];
-  initialAnswersByQuestion?: Record<string, string>;
+  initialAnswersByQuestion?: QuizAnswersByQuestion;
   initialQuestionIndex?: number;
   backLink?: {
     label: string;
@@ -62,16 +72,16 @@ type QuizTemplateProps = {
   resultsPath?: string;
   onAnswerChange?: (
     questionId: string,
-    answerId: string,
-    answersByQuestion: Record<string, string>,
+    answerValue: QuizAnswerValue,
+    answersByQuestion: QuizAnswersByQuestion,
     currentQuestionIndex: number,
   ) => void | Promise<void>;
   onQuestionIndexChange?: (
     currentQuestionIndex: number,
-    answersByQuestion: Record<string, string>,
+    answersByQuestion: QuizAnswersByQuestion,
   ) => void | Promise<void>;
   onSubmit: (
-    answersByQuestion: Record<string, string>,
+    answersByQuestion: QuizAnswersByQuestion,
   ) => Promise<QuizSubmissionResult>;
 };
 
@@ -110,24 +120,23 @@ function QuizTemplate({
   const [submissionError, setSubmissionError] = useState('');
   const [autosaveError, setAutosaveError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [answersByQuestion, setAnswersByQuestion] = useState<
-    Record<string, string>
-  >(initialAnswersByQuestion);
+  const [answersByQuestion, setAnswersByQuestion] =
+    useState<QuizAnswersByQuestion>(initialAnswersByQuestion);
 
   const currentQuestion = questions[currentQuestionIndex];
-  const selectedAnswerId = answersByQuestion[currentQuestion.id];
+  const selectedAnswerValue = answersByQuestion[currentQuestion.id];
+  const selectedAnswerIds = Array.isArray(selectedAnswerValue)
+    ? selectedAnswerValue
+    : selectedAnswerValue
+      ? [selectedAnswerValue]
+      : [];
   const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
-  const selectedCount = useMemo(
-    () => Object.keys(answersByQuestion).length,
-    [answersByQuestion],
-  );
-
   async function persistAnswer(
     questionId: string,
-    answerId: string,
-    updatedAnswers: Record<string, string>,
+    answerValue: QuizAnswerValue,
+    updatedAnswers: QuizAnswersByQuestion,
     questionIndex: number,
   ) {
     if (!onAnswerChange) {
@@ -135,7 +144,7 @@ function QuizTemplate({
     }
 
     try {
-      await onAnswerChange(questionId, answerId, updatedAnswers, questionIndex);
+      await onAnswerChange(questionId, answerValue, updatedAnswers, questionIndex);
       setAutosaveError('');
     } catch (error) {
       console.error('Quiz answer autosave failed:', error);
@@ -147,7 +156,7 @@ function QuizTemplate({
 
   async function persistQuestionIndex(
     questionIndex: number,
-    currentAnswers: Record<string, string>,
+    currentAnswers: QuizAnswersByQuestion,
   ) {
     if (!onQuestionIndexChange) {
       return;
@@ -166,15 +175,28 @@ function QuizTemplate({
 
   function handleSelectAnswer(answerId: string) {
     setSubmissionError('');
-    const updatedAnswers = {
-      ...answersByQuestion,
-      [currentQuestion.id]: answerId,
-    };
+    const isMultiple = currentQuestion.selectionMode === 'multiple';
+    const isSelected = selectedAnswerIds.includes(answerId);
+    const maxSelections = currentQuestion.maxSelections ?? currentQuestion.answers.length;
+    const answerValue = isMultiple
+      ? isSelected
+        ? selectedAnswerIds.filter((selectedId) => selectedId !== answerId)
+        : selectedAnswerIds.length < maxSelections
+          ? [...selectedAnswerIds, answerId]
+          : selectedAnswerIds
+      : answerId;
+    const updatedAnswers = { ...answersByQuestion };
+
+    if (Array.isArray(answerValue) && answerValue.length === 0) {
+      delete updatedAnswers[currentQuestion.id];
+    } else {
+      updatedAnswers[currentQuestion.id] = answerValue;
+    }
 
     setAnswersByQuestion(updatedAnswers);
     void persistAnswer(
       currentQuestion.id,
-      answerId,
+      answerValue,
       updatedAnswers,
       currentQuestionIndex,
     );
@@ -194,7 +216,7 @@ function QuizTemplate({
   }
 
   async function handleNext() {
-    if (!selectedAnswerId) {
+    if (selectedAnswerIds.length === 0) {
       return;
     }
 
@@ -205,7 +227,7 @@ function QuizTemplate({
       try {
         await persistAnswer(
           currentQuestion.id,
-          selectedAnswerId,
+          selectedAnswerValue,
           answersByQuestion,
           currentQuestionIndex,
         );
@@ -229,7 +251,7 @@ function QuizTemplate({
 
     await persistAnswer(
       currentQuestion.id,
-      selectedAnswerId,
+      selectedAnswerValue,
       answersByQuestion,
       currentQuestionIndex,
     );
@@ -290,11 +312,17 @@ function QuizTemplate({
             <p className="quiz-question-eyebrow">{currentQuestion.eyebrow}</p>
             <h2>{currentQuestion.question}</h2>
             <p className="quiz-helper-text">{currentQuestion.helperText}</p>
+            {currentQuestion.selectionMode === 'multiple' && (
+              <p className="quiz-selection-note">
+                Choose up to {currentQuestion.maxSelections} options.{' '}
+                {selectedAnswerIds.length} selected.
+              </p>
+            )}
 
             <div className="quiz-answer-grid">
               {currentQuestion.answers.map((answer) => {
                 const Icon = answerIcons[answer.icon];
-                const isSelected = selectedAnswerId === answer.id;
+                const isSelected = selectedAnswerIds.includes(answer.id);
 
                 return (
                   <button
@@ -332,14 +360,20 @@ function QuizTemplate({
           </button>
 
           <p>
-            {selectedCount === 0
+            {selectedAnswerIds.length === 0
               ? 'Pick the answer that feels closest. You can change it later.'
-              : `${selectedCount} answer${selectedCount === 1 ? '' : 's'} selected`}
+              : `${selectedAnswerIds.length} answer${
+                  selectedAnswerIds.length === 1 ? '' : 's'
+                } selected`}
           </p>
 
           <button
             className="quiz-primary-button"
-            disabled={!selectedAnswerId || Boolean(submissionResult) || isSubmitting}
+            disabled={
+              selectedAnswerIds.length === 0 ||
+              Boolean(submissionResult) ||
+              isSubmitting
+            }
             type="button"
             onClick={handleNext}
           >

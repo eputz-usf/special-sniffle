@@ -1048,8 +1048,8 @@ function ComputerScienceHighSchoolDegreeDetail() {
         
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Career Outlook in Tampa Bay</h2>
+      <section className="degree-detail-section" id="career-outlook">
+        <h2>Career Outlook in Tampa Bay: Computer Science</h2>
         <div className="degree-overview-card">
           <p>
             Computer Science can lead to careers where students use coding,
@@ -1211,6 +1211,9 @@ function ComputerScienceHighSchoolDegreeDetail() {
           >
             View Computer Science Career Information ↗
           </a>
+          <Link to="/high-school/career-paths">
+            View Another Major
+          </Link>
         </div>
       </section>
 
@@ -1367,8 +1370,8 @@ function ComputerScienceEngineeringHighSchoolDegreeDetail() {
         </p>
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Career Outlook in Tampa Bay</h2>
+      <section className="degree-detail-section" id="career-outlook">
+        <h2>Career Outlook in Tampa Bay: Computer Science and Engineering</h2>
         <div className="degree-overview-card">
           <p>
             Computer Science and Engineering can lead to careers where students
@@ -1528,6 +1531,9 @@ function ComputerScienceEngineeringHighSchoolDegreeDetail() {
           >
             View Computer Science and Engineering Career Information ↗
           </a>
+          <Link to="/high-school/career-paths">
+            View Another Major
+          </Link>
         </div>
       </section>
 
@@ -1711,8 +1717,8 @@ function ArtificialIntelligenceHighSchoolDegreeDetail() {
         </p>
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Career Outlook in Tampa Bay</h2>
+      <section className="degree-detail-section" id="career-outlook">
+        <h2>Career Outlook in Tampa Bay: Artificial Intelligence</h2>
         <div className="degree-overview-card">
           <p>
             Artificial Intelligence can lead to careers where students use
@@ -1872,6 +1878,9 @@ function ArtificialIntelligenceHighSchoolDegreeDetail() {
           >
             View Artificial Intelligence Career Information ↗
           </a>
+          <Link to="/high-school/career-paths">
+            View Another Major
+          </Link>
         </div>
       </section>
 
@@ -2044,8 +2053,8 @@ function CybersecurityHighSchoolDegreeDetail() {
         </p>
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Career Outlook in Tampa Bay</h2>
+      <section className="degree-detail-section" id="career-outlook">
+        <h2>Career Outlook in Tampa Bay: Cybersecurity</h2>
         <div className="degree-overview-card">
           <p>
             Cybersecurity can lead to careers where students help protect
@@ -2204,6 +2213,9 @@ function CybersecurityHighSchoolDegreeDetail() {
           >
             View Cybersecurity Career Information ↗
           </a>
+          <Link to="/high-school/career-paths">
+            View Another Major
+          </Link>
         </div>
       </section>
 
@@ -2403,8 +2415,8 @@ function InformationTechnologyHighSchoolDegreeDetail() {
         </p>
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Career Outlook in Tampa Bay</h2>
+      <section className="degree-detail-section" id="career-outlook">
+        <h2>Career Outlook in Tampa Bay: Information Technology</h2>
         <div className="degree-overview-card">
           <p>
             Information Technology can lead to careers where students help set
@@ -2567,6 +2579,9 @@ function InformationTechnologyHighSchoolDegreeDetail() {
           >
             View Information Technology Career Information ↗
           </a>
+          <Link to="/high-school/career-paths">
+            View Another Major
+          </Link>
         </div>
       </section>
 

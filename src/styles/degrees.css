@@ -117,6 +117,95 @@
   background-color: #ffffff;
 }
 
+.career-path-degree-grid .degree-card {
+  min-height: 300px;
+}
+
+.parent-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.parent-info-grid > div {
+  padding: 26px;
+  border: 1px solid #d7ccb0;
+  border-radius: 18px;
+  background-color: #ffffff;
+}
+
+.parent-info-grid h2 {
+  margin: 0 0 18px;
+  color: #086343;
+  font-size: 28px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.parent-info-faq-list,
+.parent-info-question-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.parent-info-faq-list details,
+.parent-info-question-list li {
+  padding: 16px;
+  border: 1px solid rgba(8, 98, 67, 0.2);
+  border-radius: 8px;
+  background-color: #f8f4ea;
+}
+
+.parent-info-faq-list summary {
+  color: #086343;
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.parent-info-faq-list p,
+.parent-info-question-list li {
+  color: #25352d;
+  line-height: 1.45;
+}
+
+.parent-info-question-list small,
+.parent-info-question-list span {
+  display: block;
+}
+
+.parent-info-question-list small {
+  margin-bottom: 6px;
+  color: #086343;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.parent-info-question-list a {
+  display: inline-flex;
+  margin-top: 10px;
+  color: #086343;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.parent-info-faq-list p {
+  margin: 12px 0 0;
+}
+
+.parent-info-faq-list a {
+  display: inline-flex;
+  margin-top: 10px;
+  color: #476b45;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .degree-category,
 .degree-best-for,
 .degree-skills {
@@ -1453,6 +1542,29 @@
   padding-left: 18px;
 }
 
+.comparison-career-list strong,
+.comparison-career-list span,
+.comparison-salary-list strong,
+.comparison-salary-list span {
+  display: block;
+}
+
+.comparison-career-list span,
+.comparison-salary-list span {
+  margin-top: 2px;
+}
+
+.comparison-salary-note {
+  margin: 0 0 10px;
+  color: #516057;
+  font-size: 14px;
+}
+
+.comparison-salary-list span {
+  color: #086343;
+  font-weight: 700;
+}
+
 .comparison-link-list {
   display: grid;
   gap: 8px;
@@ -1479,7 +1591,8 @@
   .job-stat-grid,
   .career-card-grid,
   .resource-card-grid,
-  .resource-card-grid.compact {
+  .resource-card-grid.compact,
+  .parent-info-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1534,7 +1647,8 @@
   .future-degree-grid,
   .future-degree-grid.featured,
   .pathway-card-grid,
-  .minor-card-grid {
+  .minor-card-grid,
+  .parent-info-grid {
     grid-template-columns: 1fr;
   }
 

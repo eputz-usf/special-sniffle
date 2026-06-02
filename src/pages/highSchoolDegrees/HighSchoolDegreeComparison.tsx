@@ -19,6 +19,45 @@ function renderList(items: string[]) {
   );
 }
 
+function renderCareerOptions(degree: Degree) {
+  if (!degree.careerOptions) {
+    return 'Career information coming soon';
+  }
+
+  return (
+    <ul className="comparison-career-list">
+      {degree.careerOptions.map((career) => (
+        <li key={career.title}>
+          <strong>{career.title}</strong>
+          <span>{career.description}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function renderCareerSalaries(degree: Degree) {
+  if (!degree.careerOptions) {
+    return 'Salary information coming soon';
+  }
+
+  return (
+    <>
+      <p className="comparison-salary-note">
+        Related Tampa Bay salary references. Starting pay can be different.
+      </p>
+      <ul className="comparison-salary-list">
+        {degree.careerOptions.map((career) => (
+          <li key={career.title}>
+            <strong>{career.title}</strong>
+            <span>{career.salary}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
 function getOfficialResources(degree: Degree) {
   const resources = [
     ...(degree.officialLinks?.flowcharts ?? []),
@@ -58,11 +97,12 @@ const comparisonFields: ComparisonField[] = [
     render: (degree) => degree.bestFor,
   },
   {
-    label: 'Career options and salaries',
-    render: (degree) =>
-      degree.careerOptions
-        ? renderList(degree.careerOptions)
-        : 'Career information coming soon',
+    label: 'Career options',
+    render: (degree) => renderCareerOptions(degree),
+  },
+  {
+    label: 'Related salaries',
+    render: (degree) => renderCareerSalaries(degree),
   },
   {
     label: 'Skills',

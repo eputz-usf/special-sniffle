@@ -8,13 +8,15 @@ import DegreeDetail from './pages/DegreeDetail';
 import DegreeInformation from './pages/DegreeInformation';
 import FutureDegreeOptions from './pages/FutureDegreeOptions';
 import GeneralDashboard from './pages/GeneralDashboard';
-import HighSchoolIntakeQuiz from './pages/HighSchoolIntakeQuiz';
-import HighSchoolQuizResults from './pages/HighSchoolQuizResults';
+import HighSchoolIntakeQuiz from './pages/highschoolQuiz/HighSchoolIntakeQuiz';
+import HighSchoolQuizResults from './pages/highschoolQuiz/HighSchoolQuizResults';
 import HighSchoolBachelorsMastersPathways from './pages/highSchoolDegrees/HighSchoolBachelorsMastersPathways';
+import HighSchoolCareerPaths from './pages/highSchoolDegrees/HighSchoolCareerPaths';
 import HighSchoolDegreeComparison from './pages/highSchoolDegrees/HighSchoolDegreeComparison';
 import HighSchoolDegreeDetail from './pages/highSchoolDegrees/HighSchoolDegreeDetail';
 import HighSchoolDegreeInformation from './pages/highSchoolDegrees/HighSchoolDegreeInformation';
 import HighSchoolFutureDegreeOptions from './pages/highSchoolDegrees/HighSchoolFutureDegreeOptions';
+import HighSchoolParentInfo from './pages/highSchoolDegrees/HighSchoolParentInfo';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -30,8 +32,17 @@ function App() {
   const isDashboard = location.pathname.startsWith('/dashboard');
 
   useEffect(() => {
+    if (location.hash) {
+      requestAnimationFrame(() => {
+        document
+          .getElementById(location.hash.slice(1))
+          ?.scrollIntoView({ block: 'start' });
+      });
+      return;
+    }
+
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [location.pathname]);
+  }, [location.hash, location.pathname]);
 
   return (
     <>
@@ -77,6 +88,14 @@ function App() {
         <Route
           path="/high-school/degrees/future-options"
           element={<HighSchoolFutureDegreeOptions />}
+        />
+        <Route
+          path="/high-school/career-paths"
+          element={<HighSchoolCareerPaths />}
+        />
+        <Route
+          path="/high-school/parent-info"
+          element={<HighSchoolParentInfo />}
         />
         <Route
           path="/high-school/degrees/:degreeSlug"

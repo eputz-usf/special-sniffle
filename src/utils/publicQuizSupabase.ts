@@ -1,11 +1,18 @@
+import type { QuizRecommendationSignal } from './quizRecommendations';
+
 export type PublicQuizResult = {
   recommendedDegrees: string[];
   topMatch: string;
+  majorScores: Record<string, number>;
+  explanations: Record<string, string>;
+  signalsByMajor: Record<string, QuizRecommendationSignal[]>;
+  quizVersion: string;
 };
 
 type PublicQuizSessionPayload = {
   sessionId: string;
   userGroup: string;
+  quizVersion: string;
   startedAt: string;
 };
 
@@ -13,6 +20,7 @@ type PublicQuizAnswerPayload = {
   sessionId: string;
   questionId: string;
   answerValue: string;
+  quizVersion: string;
 };
 
 type CompletePublicQuizAttemptParams = {
@@ -88,6 +96,7 @@ export function hasPublicQuizSupabaseConfig() {
 export async function upsertPublicQuizSession({
   sessionId,
   userGroup,
+  quizVersion,
   startedAt,
 }: PublicQuizSessionPayload): Promise<'saved' | 'skipped'> {
   return upsertSupabaseRows(
@@ -95,6 +104,7 @@ export async function upsertPublicQuizSession({
     {
       session_id: sessionId,
       user_group: userGroup,
+      quiz_version: quizVersion,
       started_at: startedAt,
       updated_at: new Date().toISOString(),
     },
@@ -106,6 +116,7 @@ export async function upsertPublicQuizAnswer({
   sessionId,
   questionId,
   answerValue,
+  quizVersion,
 }: PublicQuizAnswerPayload): Promise<'saved' | 'skipped'> {
   return upsertSupabaseRows(
     'public_quiz_responses',
@@ -113,6 +124,7 @@ export async function upsertPublicQuizAnswer({
       session_id: sessionId,
       question_id: questionId,
       answer_value: answerValue,
+      quiz_version: quizVersion,
       updated_at: new Date().toISOString(),
     },
     'session_id,question_id',
@@ -133,6 +145,10 @@ export async function completePublicQuizAttempt({
       session_id: sessionId,
       recommended_degrees: result.recommendedDegrees,
       top_match: result.topMatch,
+      major_scores: result.majorScores,
+      explanations: result.explanations,
+      recommendation_signals: result.signalsByMajor,
+      quiz_version: result.quizVersion,
     },
     'session_id',
   );

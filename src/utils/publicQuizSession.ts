@@ -1,3 +1,6 @@
+import type { QuizAnswersByQuestion } from '../components/QuizTemplate';
+import type { QuizRecommendationSignal } from './quizRecommendations';
+
 const PUBLIC_QUIZ_SESSION_KEY = 'cic_public_quiz_session';
 const PUBLIC_QUIZ_PROGRESS_KEY = 'cic_public_quiz_progress';
 const PUBLIC_QUIZ_RESULT_KEY = 'cic_public_quiz_result';
@@ -8,13 +11,17 @@ export type PublicQuizSession = {
 };
 
 export type PublicQuizProgress = {
-  answersByQuestion: Record<string, string>;
+  answersByQuestion: QuizAnswersByQuestion;
   currentQuestionIndex: number;
 };
 
 export type SavedPublicQuizResult = {
   recommendedDegrees: string[];
   topMatch: string;
+  majorScores: Record<string, number>;
+  explanations: Record<string, string>;
+  signalsByMajor: Record<string, QuizRecommendationSignal[]>;
+  quizVersion: string;
   saveStatus: 'saved' | 'skipped';
 };
 
@@ -104,11 +111,28 @@ export function loadPublicQuizResult(): SavedPublicQuizResult | null {
   }
 
   try {
-    return JSON.parse(savedResult) as SavedPublicQuizResult;
+    const parsedResult = JSON.parse(savedResult) as Partial<SavedPublicQuizResult>;
+
+    if (
+      Array.isArray(parsedResult.recommendedDegrees) &&
+      typeof parsedResult.topMatch === 'string' &&
+      (parsedResult.saveStatus === 'saved' || parsedResult.saveStatus === 'skipped')
+    ) {
+      return {
+        recommendedDegrees: parsedResult.recommendedDegrees,
+        topMatch: parsedResult.topMatch,
+        majorScores: parsedResult.majorScores ?? {},
+        explanations: parsedResult.explanations ?? {},
+        signalsByMajor: parsedResult.signalsByMajor ?? {},
+        quizVersion: parsedResult.quizVersion ?? 'legacy',
+        saveStatus: parsedResult.saveStatus,
+      };
+    }
   } catch {
     window.localStorage.removeItem(PUBLIC_QUIZ_RESULT_KEY);
-    return null;
   }
+
+  return null;
 }
 
 export function savePublicQuizResult(result: SavedPublicQuizResult) {
