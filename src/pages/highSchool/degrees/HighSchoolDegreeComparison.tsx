@@ -1,8 +1,8 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ReactNode } from 'react';
-import type { Degree } from '../data/degrees';
-import { getDegreeBySlug } from '../data/degrees';
-import '../styles/degrees.css';
+import type { Degree } from '../../../data/highSchoolDegrees';
+import { getDegreeBySlug } from '../../../data/highSchoolDegrees';
+import '../../../styles/degrees.css';
 
 type ComparisonField = {
   label: string;
@@ -19,6 +19,45 @@ function renderList(items: string[]) {
   );
 }
 
+function renderCareerOptions(degree: Degree) {
+  if (!degree.careerOptions) {
+    return 'Career information coming soon';
+  }
+
+  return (
+    <ul className="comparison-career-list">
+      {degree.careerOptions.map((career) => (
+        <li key={career.title}>
+          <strong>{career.title}</strong>
+          <span>{career.description}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function renderCareerSalaries(degree: Degree) {
+  if (!degree.careerOptions) {
+    return 'Salary information coming soon';
+  }
+
+  return (
+    <>
+      <p className="comparison-salary-note">
+        Related Tampa Bay salary references. Starting pay can be different.
+      </p>
+      <ul className="comparison-salary-list">
+        {degree.careerOptions.map((career) => (
+          <li key={career.title}>
+            <strong>{career.title}</strong>
+            <span>{career.salary}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
 function getOfficialResources(degree: Degree) {
   const resources = [
     ...(degree.officialLinks?.flowcharts ?? []),
@@ -32,26 +71,38 @@ function getOfficialResources(degree: Degree) {
   return resources;
 }
 
+function getSimpleCategory(degree: Degree) {
+  const simpleCategories = {
+    Software: 'Coding and software',
+    'AI/Data': 'AI and data',
+    Cybersecurity: 'Online safety and security',
+    'IT/Systems': 'Technology support and systems',
+    'Business + Interdisciplinary': 'Technology and another subject',
+  };
+
+  return simpleCategories[degree.category];
+}
+
 const comparisonFields: ComparisonField[] = [
   {
     label: 'Degree name',
     render: (degree) => degree.name,
   },
   {
-    label: 'Credential',
-    render: (degree) => degree.credential,
-  },
-  {
-    label: 'Category',
-    render: (degree) => degree.category,
+    label: 'Main focus',
+    render: (degree) => getSimpleCategory(degree),
   },
   {
     label: 'Best for',
     render: (degree) => degree.bestFor,
   },
   {
-    label: 'Overview',
-    render: (degree) => degree.overview,
+    label: 'Career options',
+    render: (degree) => renderCareerOptions(degree),
+  },
+  {
+    label: 'Related salaries',
+    render: (degree) => renderCareerSalaries(degree),
   },
   {
     label: 'Skills',
@@ -62,15 +113,11 @@ const comparisonFields: ComparisonField[] = [
     render: (degree) => renderList(degree.goodFit),
   },
   {
-    label: 'Sample topics',
-    render: (degree) => renderList(degree.sampleTopics),
-  },
-  {
-    label: 'Next steps',
+    label: 'What to do next',
     render: (degree) => renderList(degree.nextSteps),
   },
   {
-    label: 'Official links',
+    label: 'Planning links',
     render: (degree) => {
       const resources = getOfficialResources(degree);
 
@@ -96,7 +143,7 @@ const comparisonFields: ComparisonField[] = [
   },
 ];
 
-function DegreeComparison() {
+function HighSchoolDegreeComparison() {
   const [searchParams] = useSearchParams();
   const firstDegree = getDegreeBySlug(searchParams.get('first') ?? undefined);
   const secondDegree = getDegreeBySlug(searchParams.get('second') ?? undefined);
@@ -111,7 +158,7 @@ function DegreeComparison() {
             Choose exactly two different degrees from the Degree Explorer to
             view a side-by-side comparison.
           </p>
-          <Link to="/degrees">Compare Different Degrees</Link>
+          <Link to="/high-school/degrees">Compare Different Degrees</Link>
         </section>
       </main>
     );
@@ -119,7 +166,7 @@ function DegreeComparison() {
 
   return (
     <main className="degrees-page">
-      <Link className="degree-back-link" to="/degrees">
+      <Link className="degree-back-link" to="/high-school/degrees">
         Back to Degree Explorer
       </Link>
 
@@ -147,10 +194,10 @@ function DegreeComparison() {
       </section>
 
       <section className="degree-compare-next">
-        <Link to="/degrees">Compare Different Degrees</Link>
+        <Link to="/high-school/degrees">Compare Different Degrees</Link>
       </section>
     </main>
   );
 }
 
-export default DegreeComparison;
+export default HighSchoolDegreeComparison;

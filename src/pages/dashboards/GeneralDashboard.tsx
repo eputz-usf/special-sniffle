@@ -1,4 +1,4 @@
-import DashboardTemplate from '../components/DashboardTemplate';
+import DashboardTemplate from '../../components/DashboardTemplate';
 
 function GeneralDashboard() {
   return (

@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ReactNode } from 'react';
-import type { Degree } from '../../data/highSchoolDegrees';
-import { getDegreeBySlug } from '../../data/highSchoolDegrees';
+import type { Degree } from '../../data/degrees';
+import { getDegreeBySlug } from '../../data/degrees';
 import '../../styles/degrees.css';
 
 type ComparisonField = {
@@ -20,7 +20,7 @@ function renderList(items: string[]) {
 }
 
 function renderCareerOptions(degree: Degree) {
-  if (!degree.careerOptions) {
+  if (!degree.careerOptions?.length) {
     return 'Career information coming soon';
   }
 
@@ -37,14 +37,15 @@ function renderCareerOptions(degree: Degree) {
 }
 
 function renderCareerSalaries(degree: Degree) {
-  if (!degree.careerOptions) {
-    return 'Salary information coming soon';
+  if (!degree.careerOptions?.length) {
+    return 'Salary context coming soon';
   }
 
   return (
     <>
       <p className="comparison-salary-note">
-        Related Tampa Bay salary references. Starting pay can be different.
+        Related Tampa Bay salary context; individual outcomes vary by role,
+        experience, location, and employer.
       </p>
       <ul className="comparison-salary-list">
         {degree.careerOptions.map((career) => (
@@ -71,30 +72,26 @@ function getOfficialResources(degree: Degree) {
   return resources;
 }
 
-function getSimpleCategory(degree: Degree) {
-  const simpleCategories = {
-    Software: 'Coding and software',
-    'AI/Data': 'AI and data',
-    Cybersecurity: 'Online safety and security',
-    'IT/Systems': 'Technology support and systems',
-    'Business + Interdisciplinary': 'Technology and another subject',
-  };
-
-  return simpleCategories[degree.category];
-}
-
 const comparisonFields: ComparisonField[] = [
   {
     label: 'Degree name',
     render: (degree) => degree.name,
   },
   {
-    label: 'Main focus',
-    render: (degree) => getSimpleCategory(degree),
+    label: 'Credential',
+    render: (degree) => degree.credential,
+  },
+  {
+    label: 'Category',
+    render: (degree) => degree.category,
   },
   {
     label: 'Best for',
     render: (degree) => degree.bestFor,
+  },
+  {
+    label: 'Overview',
+    render: (degree) => degree.overview,
   },
   {
     label: 'Career options',
@@ -113,11 +110,15 @@ const comparisonFields: ComparisonField[] = [
     render: (degree) => renderList(degree.goodFit),
   },
   {
-    label: 'What to do next',
+    label: 'Sample topics',
+    render: (degree) => renderList(degree.sampleTopics),
+  },
+  {
+    label: 'Next steps',
     render: (degree) => renderList(degree.nextSteps),
   },
   {
-    label: 'Planning links',
+    label: 'Official links',
     render: (degree) => {
       const resources = getOfficialResources(degree);
 
@@ -143,7 +144,7 @@ const comparisonFields: ComparisonField[] = [
   },
 ];
 
-function HighSchoolDegreeComparison() {
+function DegreeComparison() {
   const [searchParams] = useSearchParams();
   const firstDegree = getDegreeBySlug(searchParams.get('first') ?? undefined);
   const secondDegree = getDegreeBySlug(searchParams.get('second') ?? undefined);
@@ -158,7 +159,7 @@ function HighSchoolDegreeComparison() {
             Choose exactly two different degrees from the Degree Explorer to
             view a side-by-side comparison.
           </p>
-          <Link to="/high-school/degrees">Compare Different Degrees</Link>
+          <Link to="/degrees">Compare Different Degrees</Link>
         </section>
       </main>
     );
@@ -166,7 +167,7 @@ function HighSchoolDegreeComparison() {
 
   return (
     <main className="degrees-page">
-      <Link className="degree-back-link" to="/high-school/degrees">
+      <Link className="degree-back-link" to="/degrees">
         Back to Degree Explorer
       </Link>
 
@@ -194,10 +195,10 @@ function HighSchoolDegreeComparison() {
       </section>
 
       <section className="degree-compare-next">
-        <Link to="/high-school/degrees">Compare Different Degrees</Link>
+        <Link to="/degrees">Compare Different Degrees</Link>
       </section>
     </main>
   );
 }
 
-export default HighSchoolDegreeComparison;
+export default DegreeComparison;

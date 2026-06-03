@@ -134,10 +134,34 @@
 - Added expandable prospective-student FAQs with official USF links where needed.
 - Updated the dashboard planning checklist with shorter next steps.
 
+## Update 16: Transition Planner and Printable Summary
+
+**Date:** June 3, 2026
+
+- Built a high school transition planner page at `/high-school/transition-planner`.
+- Added the transition planner as an active toolbox card on the prospective student dashboard.
+- Added a dashboard step explaining how students can use the transition planner.
+- Added a printable Transition Plan Summary with browser print / Save as PDF support.
+- Added a notebook-style planner UI with lined paper styling, margin details, and a live summary preview.
+- Added "Add to Planner" buttons on high school degree explorer cards so students can save majors they are considering.
+- Updated the planner summary so saved majors and quiz recommendations appear in the print view.
+- Added Supabase persistence for transition planner data using a new `public_transition_plans` table.
+- Kept anonymous local session handling so the planner can reload after closing and reopening the same browser.
+- Added remote planner loading and autosave status feedback on the transition planner page.
+- Updated the Supabase schema with transition planner JSON fields, unique session index, grants, and RLS policies.
+- rearrange the high school files into its seperate folder
+
+## Update 17: Transfer Dashboard Start
+
+**Date:** June 3, 2026
+
+- Added a transfer dashboard using the shared dashboard template with transfer-specific guidance.
+- Moved shared degree pages into `src/pages/degrees/` and kept high school degree pages separate.
+- Updated shared degree pages with career outlook sections, transfer-focused advisor questions, and a Career Paths flow.
+- Added a transfer intake quiz route and results page under `src/pages/transfer/quiz/`.
+- Added separate transfer quiz Supabase table definitions to the schema.
+
+
 ## What I Will Focus On Next
 
-- Continue refining recommendation wording and the scoring weights after user testing.
-- Build the planner/ Summary report section
-- focus on the next dashboard after meeting
-
--so my professor had said that there can be a feature where they can generate a summary report and print it/ export pdf - i was thinking of like a transition planner where they camn add the recommendation result
+- Finalize the transfer intake quiz questions and recommendation weights before running the new transfer quiz schema in Supabase.

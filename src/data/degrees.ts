@@ -5,12 +5,19 @@ export type DegreeCategory =
   | 'IT/Systems'
   | 'Business + Interdisciplinary';
 
+export type CareerOption = {
+  title: string;
+  description: string;
+  salary: string;
+};
+
 export type Degree = {
   slug: string;
   name: string;
   credential: string;
   category: DegreeCategory;
   bestFor: string;
+  careerOptions?: CareerOption[];
   description: string;
   skills: string;
   overview: string;
@@ -40,6 +47,38 @@ export const degrees: Degree[] = [
     credential: 'BSCS',
     category: 'Software',
     bestFor: 'Coding, software, algorithms',
+    careerOptions: [
+      {
+        title: 'Software Engineer',
+        description:
+          'Designs, builds, tests, and maintains software products, applications, and internal technical systems.',
+        salary: 'About $88,479 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Cybersecurity Analyst',
+        description:
+          'Uses computing foundations to monitor systems, investigate threats, and strengthen organizational security.',
+        salary: 'About $96,898 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Data Scientist',
+        description:
+          'Applies programming, statistics, and data analysis to identify patterns and support decisions.',
+        salary: 'About $85,667 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Systems Architect',
+        description:
+          'Plans how applications, databases, infrastructure, and technical services should work together.',
+        salary: 'About $101,678 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Research Scientist',
+        description:
+          'Investigates advanced computing problems in areas such as AI, systems, algorithms, or security.',
+        salary: 'About $85,667 per year in related Tampa Bay roles',
+      },
+    ],
     description:
       'Focuses on software systems, programming, problem solving, and computing foundations.',
     skills: 'Programming • Algorithms • Software Design',
@@ -100,6 +139,38 @@ export const degrees: Degree[] = [
     credential: 'BSCSE',
     category: 'Software',
     bestFor: 'Software plus engineering systems',
+    careerOptions: [
+      {
+        title: 'Hardware Engineer',
+        description:
+          'Works with computer hardware, device architecture, and the technical constraints that shape computing systems.',
+        salary: 'About $128,932 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Software Engineer',
+        description:
+          'Develops software systems with attention to architecture, reliability, testing, and implementation.',
+        salary: 'About $101,678 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Embedded Systems Engineer',
+        description:
+          'Builds software for devices, robotics, vehicles, sensors, and other systems where hardware and code interact.',
+        salary: 'About $101,678 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Cybersecurity Engineer',
+        description:
+          'Designs and improves security controls for networks, systems, devices, and software platforms.',
+        salary: 'About $128,932 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'AI Infrastructure Engineer',
+        description:
+          'Supports the technical systems, compute resources, and deployment patterns that allow AI tools to run reliably.',
+        salary: 'About $127,420 per year in related Tampa Bay roles',
+      },
+    ],
     description:
       'Blends computer science foundations with engineering-focused computing and systems work.',
     skills: 'Programming • Systems • Engineering Design',
@@ -115,6 +186,20 @@ export const degrees: Degree[] = [
       'Compare this option with Computer Science.',
       'Use the transition analyzer later if you are switching from another major.',
     ],
+    officialLinks: {
+      flowcharts: [
+        {
+          label: '2026-27 Flowchart',
+          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cse-flowchart-2026.pdf',
+        },
+      ],
+      plans: [
+        {
+          label: '4 Year Plan of Study',
+          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cse-curriculum-2026.pdf',
+        },
+      ],
+    },
   },
   {
     slug: 'artificial-intelligence',
@@ -122,6 +207,38 @@ export const degrees: Degree[] = [
     credential: 'BSAI',
     category: 'AI/Data',
     bestFor: 'Machine learning, data, intelligent systems',
+    careerOptions: [
+      {
+        title: 'Machine Learning Engineer',
+        description:
+          'Builds and improves models that learn from data and support prediction, automation, or decision systems.',
+        salary: 'About $111,254 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'AI Engineer',
+        description:
+          'Develops AI-enabled tools, workflows, and applications that address business or technical problems.',
+        salary: 'About $85,667 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'AI Systems Engineer',
+        description:
+          'Connects models, data pipelines, infrastructure, and applications so AI systems can operate in practice.',
+        salary: 'About $85,667 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'AI QA Engineer',
+        description:
+          'Evaluates AI tools for reliability, bias, performance, accuracy, and appropriate behavior.',
+        salary: 'About $88,479 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Computer Vision Engineer',
+        description:
+          'Designs systems that interpret images, video, and visual signals for applied or research settings.',
+        salary: 'About $111,254 per year in related Tampa Bay roles',
+      },
+    ],
     description:
       'Focuses on AI concepts, data-driven systems, machine learning, and intelligent computing tools.',
     skills: 'Machine Learning • Data • Python',
@@ -137,6 +254,32 @@ export const degrees: Degree[] = [
       'Compare this degree with Computer Science if you want a broader software foundation.',
       'Take the quiz if you are unsure whether your interests are AI-specific or general computing.',
     ],
+    officialLinks: {
+      flowcharts: [
+        {
+          label: '2025-26 Flowchart',
+          url: 'https://usf.box.com/s/oitafm3n17hf3ok0wsa2dppkoei8sy4q',
+        },
+        {
+          label: '2026-27 Flowchart',
+          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/ai-flowchart-2026.pdf',
+        },
+      ],
+      plans: [
+        {
+          label: '2 Year Plan of Study',
+          url: 'https://catalog.usf.edu/mime/media/23/6729/Artificial+Intelligence+B.S.A.I.+-+2+Year+Plan+of+Study.pdf',
+        },
+        {
+          label: '4 Year Plan of Study',
+          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/ai-curriculum-2026.pdf',
+        },
+      ],
+      electives: {
+        label: 'Artificial Intelligence Related Electives',
+        url: 'https://usflearn.instructure.com/courses/2040876/files/202229924/download?download_frd=1',
+      },
+    },
   },
   {
     slug: 'cybersecurity',
@@ -144,6 +287,32 @@ export const degrees: Degree[] = [
     credential: 'BSCyS',
     category: 'Cybersecurity',
     bestFor: 'Security, privacy, networks',
+    careerOptions: [
+      {
+        title: 'Information Security Analyst',
+        description:
+          'Monitors systems, investigates risks, and helps protect data, networks, and users from security threats.',
+        salary: 'About $104,012 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Cybersecurity Consultant',
+        description:
+          'Advises organizations on security posture, controls, compliance, and risk-reduction strategies.',
+        salary: 'About $104,012 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Cybersecurity Risk Analyst',
+        description:
+          'Identifies vulnerabilities, evaluates risk, and helps prioritize security improvements.',
+        salary: 'About $85,667 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Information Technology Security Specialist',
+        description:
+          'Maintains secure accounts, systems, infrastructure, and access practices in organizational environments.',
+        salary: 'About $96,898 per year in related Tampa Bay roles',
+      },
+    ],
     description:
       'Prepares students to understand secure systems, cyber threats, privacy, and defensive computing.',
     skills: 'Security • Networks • Risk Analysis',
@@ -159,6 +328,32 @@ export const degrees: Degree[] = [
       'Compare this degree with Computer Science and Information Technology.',
       'Use advising resources to understand technical electives and course sequencing.',
     ],
+    officialLinks: {
+      flowcharts: [
+        {
+          label: '2025-26 Flowchart',
+          url: 'https://usf.box.com/s/aed8ui6i6bxltaeylljbal6ez5o3vj7r',
+        },
+        {
+          label: '2026-27 Flowchart',
+          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cys-flowchart-2026.pdf',
+        },
+      ],
+      plans: [
+        {
+          label: '2 Year Plan of Study',
+          url: 'https://catalog.usf.edu/mime/media/23/6737/Cybersecurity+B.S.C.Y.S.+-+2+Year+Plan+of+Study.pdf',
+        },
+        {
+          label: '4 Year Plan of Study',
+          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cys-curriculum-2026.pdf',
+        },
+      ],
+      electives: {
+        label: 'Cybersecurity Related Electives',
+        url: 'https://usflearn.instructure.com/courses/2040876/files/211397678/download?download_frd=1',
+      },
+    },
   },
   {
     slug: 'information-technology',
@@ -166,6 +361,38 @@ export const degrees: Degree[] = [
     credential: 'BSIT',
     category: 'IT/Systems',
     bestFor: 'Systems, support, applied technology',
+    careerOptions: [
+      {
+        title: 'Information Security Analyst',
+        description:
+          'Protects systems and data through monitoring, controls, incident response, and risk analysis.',
+        salary: 'About $104,012 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Database Administrator',
+        description:
+          'Manages databases, data access, performance, reliability, backups, and data protection practices.',
+        salary: 'About $101,678 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Software Developer',
+        description:
+          'Builds applications and technical tools, often with an applied focus on organizational needs.',
+        salary: 'About $125,464 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Web Developer',
+        description:
+          'Creates, maintains, and improves websites, interfaces, and web-based services.',
+        salary: 'About $88,479 per year in related Tampa Bay roles',
+      },
+      {
+        title: 'Cloud Architect',
+        description:
+          'Plans cloud-based systems for storage, applications, services, security, and scalability.',
+        salary: 'About $96,898 per year in related Tampa Bay roles',
+      },
+    ],
     description:
       'Focuses on applying computing tools to organizations, infrastructure, systems, and users.',
     skills: 'Systems • Databases • IT Support',
@@ -181,6 +408,32 @@ export const degrees: Degree[] = [
       'Compare this degree with Computer Science if you are deciding between applied IT and software development.',
       'Review course plans with advising before making a final decision.',
     ],
+    officialLinks: {
+      flowcharts: [
+        {
+          label: '2025-26 Flowchart',
+          url: 'https://usf.box.com/s/jbvyp3m2br29tu3nyp27imtz0xj6skgo',
+        },
+        {
+          label: '2026-27 Flowchart',
+          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/it-flowchart-2026.pdf',
+        },
+      ],
+      plans: [
+        {
+          label: '2 Year Plan of Study',
+          url: 'https://catalog.usf.edu/mime/media/23/6735/Information+Technology+B.S.I.T.+-+2+Year+Plan+of+Study.pdf',
+        },
+        {
+          label: '4 Year Plan of Study',
+          url: 'https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/it-curriculum-2026.pdf',
+        },
+      ],
+      electives: {
+        label: 'Information Technology Related Electives',
+        url: 'https://usflearn.instructure.com/courses/2040876/files/202229694?wrap=1',
+      },
+    },
   },
   {
     slug: 'computer-science-and-business',

@@ -1,23 +1,23 @@
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  loadPublicQuizResult,
-  resetPublicQuizSession,
-} from '../../utils/publicQuizSession';
-import '../../styles/quiz.css';
+  loadTransferQuizResult,
+  resetTransferQuizSession,
+} from './transferQuizSession';
+import '../../../styles/quiz.css';
 
-function HighSchoolQuizResults() {
+function TransferQuizResults() {
   const navigate = useNavigate();
-  const quizResult = loadPublicQuizResult();
+  const quizResult = loadTransferQuizResult();
 
   function handleStartOver() {
-    resetPublicQuizSession();
-    navigate('/quiz');
+    resetTransferQuizSession();
+    navigate('/transfer/quiz');
   }
 
   return (
     <main className="quiz-page">
       <section className="quiz-shell" aria-labelledby="quiz-results-title">
-        <Link className="quiz-back-link" to="/dashboard/prospective-student">
+        <Link className="quiz-back-link" to="/dashboard/transfer-student">
           Back to dashboard
         </Link>
 
@@ -29,8 +29,9 @@ function HighSchoolQuizResults() {
                 {quizResult.topMatch} looks like your strongest match.
               </h1>
               <p className="quiz-helper-text">
-                These recommendations are for exploration only. Use them to
-                decide which degree pages to read and compare next.
+                These recommendations are for transfer planning only. Use them
+                to decide which degree pages to review and which credit,
+                prerequisite, and timeline questions to ask advising.
               </p>
               <section className="quiz-top-result">
                 <p>Top recommendation</p>
@@ -69,12 +70,12 @@ function HighSchoolQuizResults() {
               </div>
               <p className="quiz-save-note">
                 {quizResult.saveStatus === 'saved'
-                  ? 'Your anonymous quiz answers and recommendation were saved.'
+                  ? 'Your anonymous transfer quiz answers and recommendation were saved.'
                   : 'Supabase is not configured yet, so this result is only shown locally.'}
               </p>
               <div className="quiz-results-actions">
-                <Link to="/high-school/degrees">Explore degrees</Link>
-                <Link to="/quiz">Review or change answers</Link>
+                <Link to="/degrees">Explore degrees</Link>
+                <Link to="/transfer/quiz">Review or change answers</Link>
                 <button type="button" onClick={handleStartOver}>
                   Start over
                 </button>
@@ -86,10 +87,10 @@ function HighSchoolQuizResults() {
               <h1 id="quiz-results-title">Finish the intake form first.</h1>
               <p className="quiz-helper-text">
                 Your recommendations will appear here after you submit the
-                anonymous high school intake form.
+                anonymous transfer intake form.
               </p>
               <div className="quiz-results-actions">
-                <Link to="/quiz">Go to intake form</Link>
+                <Link to="/transfer/quiz">Go to intake form</Link>
               </div>
             </>
           )}
@@ -99,4 +100,4 @@ function HighSchoolQuizResults() {
   );
 }
 
-export default HighSchoolQuizResults;
+export default TransferQuizResults;

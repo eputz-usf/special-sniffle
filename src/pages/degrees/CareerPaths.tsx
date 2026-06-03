@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { degrees } from '../../data/highSchoolDegrees';
+import { degrees } from '../../data/degrees';
 import '../../styles/degrees.css';
 
 const careerDegrees = degrees.filter(
   (degree) => degree.careerOptions && degree.careerOptions.length > 0,
 );
 
-function HighSchoolCareerPaths() {
+function CareerPaths() {
   return (
     <main className="degrees-page">
       <section className="degrees-hero">
@@ -14,15 +14,16 @@ function HighSchoolCareerPaths() {
           <p className="degrees-eyebrow">Career Paths</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/prospective-student"
+            to="/dashboard/transfer-student"
           >
             Back to Dashboard
           </Link>
         </div>
-        <h1>Choose a Major to Explore Careers</h1>
+        <h1>Choose a Major to Explore Career Outcomes</h1>
         <p>
-          Select a Bellini College major to jump to its career outlook, related
-          roles, salary examples, and employment information.
+          Select a Bellini College major to jump directly to its career outlook,
+          related roles, salary context, Tampa Bay employment information, and
+          professional preparation options.
         </p>
       </section>
 
@@ -37,7 +38,7 @@ function HighSchoolCareerPaths() {
 
             <div>
               <div className="degree-card-actions">
-                <Link to={`/high-school/degrees/${degree.slug}#career-outlook`}>
+                <Link to={`/degrees/${degree.slug}#career-outlook`}>
                   View Career Outlook
                 </Link>
               </div>
@@ -49,4 +50,4 @@ function HighSchoolCareerPaths() {
   );
 }
 
-export default HighSchoolCareerPaths;
+export default CareerPaths;

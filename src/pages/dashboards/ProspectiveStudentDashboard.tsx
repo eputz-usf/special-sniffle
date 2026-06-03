@@ -7,11 +7,11 @@ import {
   MessageCircleQuestion,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import classroomImage from '../assets/bellini.jpeg';
-import quizImage from '../assets/quiz.avif';
-import '../styles/dashboard.css';
-import '../styles/highSchoolDashboard.css';
-import { loadPublicQuizResult } from '../utils/publicQuizSession';
+import classroomImage from '../../assets/bellini.jpeg';
+import quizImage from '../../assets/quiz.avif';
+import '../../styles/dashboard.css';
+import '../../styles/highSchoolDashboard.css';
+import { loadPublicQuizResult } from '../../utils/publicQuizSession';
 
 const launchSteps = [
   {
@@ -34,6 +34,10 @@ const launchSteps = [
     title: 'Prepare your next questions',
     text: 'Keep track of questions for admissions, advising, parents, or future campus visits as you narrow down your options.',
   },
+  {
+    title: 'Build your transition plan',
+    text: 'Add majors from the degree explorer, include your quiz recommendations, write notes and questions, then print or save your summary as a PDF.',
+  },
 ];
 
 const readinessItems = [
@@ -45,7 +49,8 @@ const readinessItems = [
 ];
 
 function ProspectiveStudentDashboard() {
-  const hasPreviousQuizResult = Boolean(loadPublicQuizResult());
+  const quizResult = loadPublicQuizResult();
+  const hasPreviousQuizResult = Boolean(quizResult);
 
   function handleSectionLinkClick(
     event: MouseEvent<HTMLAnchorElement>,
@@ -86,8 +91,8 @@ function ProspectiveStudentDashboard() {
 
         <nav className="dashboard-nav" aria-label="High school dashboard">
           <a
-            href="#start"
-            onClick={(event) => handleSectionLinkClick(event, 'start')}
+            href="#next-steps"
+            onClick={(event) => handleSectionLinkClick(event, 'next-steps')}
           >
             Start
           </a>
@@ -103,6 +108,9 @@ function ProspectiveStudentDashboard() {
           >
             Tool Box
           </a>
+          <Link to="/high-school/transition-planner">
+            View Planner
+          </Link>
         </nav>
       </header>
 
@@ -124,7 +132,7 @@ function ProspectiveStudentDashboard() {
         </div>
       </section>
 
-      <section className="high-school-path scroll-reveal">
+      <section className="high-school-path scroll-reveal" id="next-steps">
         <div className="dashboard-section-rule"></div>
         <div className="dashboard-section-heading">
           <p className="dashboard-eyebrow">How to use this dashboard</p>
@@ -230,6 +238,18 @@ function ProspectiveStudentDashboard() {
 
           <Link
             className="dashboard-major-card high-school-tool-card"
+            to="/high-school/transition-planner"
+          >
+            <CalendarCheck size={30} aria-hidden="true" />
+            <span>Admissions and transition planner</span>
+            <p>
+              Save quiz recommendations, choices, questions, notes, and next
+              steps in a printable summary.
+            </p>
+          </Link>
+
+          <Link
+            className="dashboard-major-card high-school-tool-card"
             to="/high-school/parent-info"
           >
             <MessageCircleQuestion size={30} aria-hidden="true" />
@@ -239,19 +259,6 @@ function ProspectiveStudentDashboard() {
               admissions or advising conversations.
             </p>
           </Link>
-
-          <button
-            className="dashboard-major-card high-school-tool-card placeholder-tool-card"
-            type="button"
-          >
-            <CalendarCheck size={30} aria-hidden="true" />
-            <span>Admissions and transition planner</span>
-            <p>
-              This future tool will help prospective students organize
-              deadlines, questions, and transition steps.
-            </p>
-            <small>Placeholder</small>
-          </button>
         </div>
       </section>
 

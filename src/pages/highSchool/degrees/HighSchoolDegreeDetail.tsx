@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import { getDegreeBySlug } from '../../data/highSchoolDegrees';
-import '../../styles/degrees.css';
+import { getDegreeBySlug } from '../../../data/highSchoolDegrees';
+import '../../../styles/degrees.css';
 
 type CompareFeatureNoteProps = {
   degreeName: string;

@@ -1,7 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { degrees } from '../data/degrees';
-import '../styles/degrees.css';
+import { degrees } from '../../../data/highSchoolDegrees';
+import {
+  addPlannerMajor,
+  loadPlannerMajors,
+} from '../../../utils/transitionPlannerMajors';
+import '../../../styles/degrees.css';
 
 const filters = [
   'All',
@@ -25,13 +29,16 @@ const completedDegreePages = new Set([
   'information-technology',
 ]);
 
-function DegreeInformation() {
+function HighSchoolDegreeInformation() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>(
     'All',
   );
   const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState('');
+  const [plannerMajorSlugs, setPlannerMajorSlugs] = useState(() =>
+    loadPlannerMajors().map((major) => major.slug),
+  );
 
   const visibleDegrees = useMemo(() => {
     const currentDegrees = degrees.filter(
@@ -83,7 +90,16 @@ function DegreeInformation() {
       return;
     }
 
-    navigate(`/degrees/compare?first=${compareSlugs[0]}&second=${compareSlugs[1]}`);
+    navigate(`/high-school/degrees/compare?first=${compareSlugs[0]}&second=${compareSlugs[1]}`);
+  }
+
+  function handleAddToPlanner(degree: (typeof degrees)[number]) {
+    const nextMajors = addPlannerMajor({
+      slug: degree.slug,
+      name: degree.name,
+    });
+
+    setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
   }
 
   return (
@@ -93,7 +109,7 @@ function DegreeInformation() {
           <p className="degrees-eyebrow">Bellini College Degree Explorer</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/general"
+            to="/dashboard/prospective-student"
           >
             Back to Dashboard
           </Link>
@@ -128,7 +144,7 @@ function DegreeInformation() {
             <div>
               <p className="degree-category">{degree.category}</p>
               <h2>
-                {degree.name}, {degree.credential}
+                {degree.name}
               </h2>
               <p className="degree-best-for">Best for: {degree.bestFor}</p>
               <p>{degree.description}</p>
@@ -138,7 +154,7 @@ function DegreeInformation() {
               <p className="degree-skills">Skills: {degree.skills}</p>
               <div className="degree-card-actions">
                 {completedDegreePages.has(degree.slug) ? (
-                  <Link to={`/degrees/${degree.slug}`}>Learn More</Link>
+                  <Link to={`/high-school/degrees/${degree.slug}`}>Learn More</Link>
                 ) : (
                   <button className="placeholder-button" type="button">
                     Learn More
@@ -156,6 +172,18 @@ function DegreeInformation() {
                     ? 'Selected'
                     : 'Add to Compare'}
                 </button>
+                <button
+                  className={
+                    plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
+                  }
+                  disabled={plannerMajorSlugs.includes(degree.slug)}
+                  type="button"
+                  onClick={() => handleAddToPlanner(degree)}
+                >
+                  {plannerMajorSlugs.includes(degree.slug)
+                    ? 'Added to Planner'
+                    : 'Add to Planner'}
+                </button>
               </div>
             </div>
           </article>
@@ -163,11 +191,11 @@ function DegreeInformation() {
       </section>
 
       <section className="degrees-extra-pathways" aria-label="Extra pathways">
-        <Link className="active-link" to="/degrees/bachelors-masters-pathways">
+        <Link className="active-link" to="/high-school/degrees/bachelors-masters-pathways">
           <span>Bachelor’s/Master’s Pathways</span>
           <small>View pathways</small>
         </Link>
-        <Link className="active-link" to="/degrees/future-options">
+        <Link className="active-link" to="/high-school/degrees/future-options">
           <span>Interdisciplinary Computing Majors / Future Degree Options</span>
           <small>View list</small>
         </Link>
@@ -234,4 +262,4 @@ function DegreeInformation() {
   );
 }
 
-export default DegreeInformation;
+export default HighSchoolDegreeInformation;

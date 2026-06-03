@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { degrees } from '../../data/highSchoolDegrees';
+import { degrees } from '../../data/degrees';
 import '../../styles/degrees.css';
 
 const filters = [
@@ -25,7 +25,7 @@ const completedDegreePages = new Set([
   'information-technology',
 ]);
 
-function HighSchoolDegreeInformation() {
+function DegreeInformation() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>(
     'All',
@@ -83,7 +83,7 @@ function HighSchoolDegreeInformation() {
       return;
     }
 
-    navigate(`/high-school/degrees/compare?first=${compareSlugs[0]}&second=${compareSlugs[1]}`);
+    navigate(`/degrees/compare?first=${compareSlugs[0]}&second=${compareSlugs[1]}`);
   }
 
   return (
@@ -93,19 +93,20 @@ function HighSchoolDegreeInformation() {
           <p className="degrees-eyebrow">Bellini College Degree Explorer</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/prospective-student"
+            to="/dashboard/transfer-student"
           >
             Back to Dashboard
           </Link>
         </div>
         <h1>Explore Bellini College Degrees</h1>
         <p>
-          Learn the difference between Bellini College’s computing programs and
-          find which degree best matches your interests.
+          Review Bellini College computing programs, compare academic focus
+          areas, and identify which paths are worth discussing with admissions
+          or advising.
         </p>
         <p>
-          Use Add to Compare on any two degree cards to view a side-by-side
-          breakdown of their focus, skills, fit, topics, and next steps.
+          Use Add to Compare for a side-by-side review, or save programs to your
+          planning list once the transfer planner is available.
         </p>
       </section>
 
@@ -138,7 +139,7 @@ function HighSchoolDegreeInformation() {
               <p className="degree-skills">Skills: {degree.skills}</p>
               <div className="degree-card-actions">
                 {completedDegreePages.has(degree.slug) ? (
-                  <Link to={`/high-school/degrees/${degree.slug}`}>Learn More</Link>
+                  <Link to={`/degrees/${degree.slug}`}>Learn More</Link>
                 ) : (
                   <button className="placeholder-button" type="button">
                     Learn More
@@ -156,6 +157,13 @@ function HighSchoolDegreeInformation() {
                     ? 'Selected'
                     : 'Add to Compare'}
                 </button>
+                <button
+                  className="planner-unavailable"
+                  disabled
+                  type="button"
+                >
+                  Add to Planner
+                </button>
               </div>
             </div>
           </article>
@@ -163,11 +171,11 @@ function HighSchoolDegreeInformation() {
       </section>
 
       <section className="degrees-extra-pathways" aria-label="Extra pathways">
-        <Link className="active-link" to="/high-school/degrees/bachelors-masters-pathways">
+        <Link className="active-link" to="/degrees/bachelors-masters-pathways">
           <span>Bachelor’s/Master’s Pathways</span>
           <small>View pathways</small>
         </Link>
-        <Link className="active-link" to="/high-school/degrees/future-options">
+        <Link className="active-link" to="/degrees/future-options">
           <span>Interdisciplinary Computing Majors / Future Degree Options</span>
           <small>View list</small>
         </Link>
@@ -177,11 +185,11 @@ function HighSchoolDegreeInformation() {
         <div>
           <h2>Not sure which degree fits you?</h2>
           <p>
-            Start with the quiz and we’ll suggest 2–3 programs based on your
-            interests.
+            Use the intake quiz if you want a quick recommendation before
+            reviewing catalog requirements or transfer-credit questions.
           </p>
         </div>
-        <Link to="/quiz">Start Quiz</Link>
+        <Link to="/transfer/quiz">Start Quiz</Link>
       </section>
 
       <p className="degrees-disclaimer">
@@ -234,4 +242,4 @@ function HighSchoolDegreeInformation() {
   );
 }
 
-export default HighSchoolDegreeInformation;
+export default DegreeInformation;

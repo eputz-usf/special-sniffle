@@ -83,14 +83,6 @@
   background-color: #f8f4ea;
 }
 
-.high-school-step-card:nth-child(4) {
-  grid-column: 2 / span 2;
-}
-
-.high-school-step-card:nth-child(5) {
-  grid-column: 4 / span 2;
-}
-
 .high-school-step-card span {
   display: block;
   margin-bottom: 38px;
@@ -253,6 +245,22 @@
   background-color: #f8f4ea;
 }
 
+.transition-planner-page .degrees-hero {
+  padding-bottom: 0;
+}
+
+.transition-planner-page {
+  padding-right: 36px;
+  padding-left: 36px;
+}
+
+.transition-planner-page .transition-planner-print-area {
+  padding-right: 0;
+  padding-top: 8px;
+  padding-left: 0;
+  background-color: transparent;
+}
+
 .high-school-planner h2 {
   margin: 0 0 24px;
   color: #086242;
@@ -299,6 +307,299 @@
   background-color: #086242;
 }
 
+.transition-planner-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(420px, 0.9fr);
+  gap: 22px;
+  margin-top: 46px;
+}
+
+.transition-planner-editor {
+  min-width: 0;
+}
+
+.transition-planner-card,
+.transition-planner-report {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(8, 98, 66, 0.2);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, transparent 0 38px, rgba(180, 31, 42, 0.25) 38px 40px, transparent 40px),
+    repeating-linear-gradient(180deg, #fffdf7 0 31px, #dce8df 32px),
+    #fffdf7;
+  box-shadow:
+    0 16px 34px rgba(8, 98, 66, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.transition-planner-card {
+  padding: 30px 28px 30px 58px;
+}
+
+.transition-planner-card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 24px;
+  color: #086242;
+}
+
+.transition-planner-card-heading svg,
+.transition-planner-actions svg {
+  flex: 0 0 auto;
+}
+
+.transition-planner-card-heading::before,
+.transition-planner-report::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 13px;
+  width: 13px;
+  height: calc(100% - 36px);
+  background:
+    radial-gradient(circle, rgba(8, 98, 66, 0.35) 0 3px, transparent 4px) 0 0 / 13px 42px;
+  pointer-events: none;
+}
+
+.transition-planner-card-heading h2,
+.transition-planner-report h2 {
+  margin: 0;
+  color: #086242;
+  font-size: 28px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.transition-planner-card-heading h2 {
+  font-size: 28px;
+}
+
+.transition-planner-report h2 {
+  margin-bottom: 0;
+}
+
+.transition-planner-card-heading p,
+.high-school-planner .transition-planner-card-heading p,
+.high-school-planner .transition-planner-empty,
+.high-school-planner .transition-report-date,
+.high-school-planner .transition-planner-report p {
+  margin: 6px 0 0;
+  color: #35443b;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.transition-planner-field,
+.transition-planner-fieldset {
+  display: grid;
+  gap: 9px;
+  margin: 0 0 20px;
+}
+
+.transition-planner-field span,
+.transition-planner-fieldset legend,
+.transition-planner-field-label {
+  width: fit-content;
+  padding: 5px 10px;
+  border: 1px solid rgba(8, 98, 66, 0.18);
+  border-radius: 8px 8px 0 0;
+  background-color: #e8f1e7;
+  color: #15251b;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.transition-planner-major-section {
+  display: grid;
+  gap: 9px;
+  margin: 0 0 20px;
+}
+
+.transition-planner-major-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.transition-planner-major-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 10px 8px 14px;
+  border: 1px solid rgba(8, 98, 66, 0.16);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.68);
+  color: #15251b;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.transition-planner-major-list button,
+.transition-planner-major-empty a {
+  padding: 8px 10px;
+  border: 1px solid #086242;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #086242;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.transition-planner-major-empty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(8, 98, 66, 0.16);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.62);
+}
+
+.high-school-planner .transition-planner-major-empty p {
+  margin: 0;
+  color: #35443b;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.transition-planner-field input,
+.transition-planner-field textarea {
+  width: 100%;
+  border: 1px solid rgba(8, 98, 66, 0.2);
+  border-radius: 8px;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 30px, rgba(8, 98, 66, 0.16) 31px),
+    rgba(255, 255, 255, 0.72);
+  color: #15251b;
+  font: inherit;
+  font-size: 16px;
+}
+
+.transition-planner-field input {
+  min-height: 48px;
+  padding: 0 14px;
+  background-color: rgba(255, 255, 255, 0.76);
+}
+
+.transition-planner-field textarea {
+  min-height: 112px;
+  padding: 10px 14px;
+  line-height: 31px;
+  resize: vertical;
+}
+
+.transition-planner-field input:focus,
+.transition-planner-field textarea:focus {
+  border-color: #086242;
+  outline: 3px solid rgba(31, 157, 81, 0.2);
+}
+
+.transition-planner-fieldset {
+  padding: 16px 16px 18px;
+  border: 1px solid rgba(8, 98, 66, 0.16);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.62);
+}
+
+.transition-planner-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #203126;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.transition-planner-checkbox input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #086242;
+}
+
+.transition-planner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.transition-planner-actions button,
+.transition-planner-actions span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.transition-planner-actions button {
+  padding: 10px 14px;
+  border: 2px solid #086242;
+  background-color: #086242;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.transition-planner-actions button.secondary {
+  background-color: transparent;
+  color: #086242;
+}
+
+.transition-planner-actions span {
+  color: #4b5b51;
+}
+
+.transition-planner-report {
+  align-self: start;
+  padding: 32px 30px 32px 58px;
+}
+
+.transition-report-kicker {
+  margin: 0 0 8px;
+  color: #b41f2a;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.transition-planner-report section {
+  padding: 18px 0;
+  border-top: 1px solid rgba(8, 98, 66, 0.16);
+}
+
+.transition-planner-report h3 {
+  margin: 0 0 8px;
+  color: #086242;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.transition-planner-report ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  color: #203126;
+}
+
+.transition-planner-report li {
+  margin-bottom: 6px;
+}
+
 @media (max-width: 760px) {
   .high-school-feature-row {
     grid-template-columns: 1fr;
@@ -335,9 +636,7 @@
     grid-template-columns: 1fr;
   }
 
-  .high-school-step-card,
-  .high-school-step-card:nth-child(4),
-  .high-school-step-card:nth-child(5) {
+  .high-school-step-card {
     grid-column: auto;
   }
 
@@ -350,4 +649,78 @@
     gap: 34px;
   }
 
+  .transition-planner-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .transition-planner-card,
+  .transition-planner-report {
+    padding: 22px;
+  }
+
+  .transition-planner-actions button,
+  .transition-planner-actions span {
+    width: 100%;
+    justify-content: center;
+  }
+
+}
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+
+  .site-header,
+  .dashboard-page > *:not(.high-school-planner),
+  .transition-planner-page > *:not(.transition-planner-print-area),
+  .high-school-planner > .dashboard-section-rule,
+  .high-school-planner > .high-school-feature-row,
+  .transition-planner-editor {
+    display: none !important;
+  }
+
+  .scroll-reveal,
+  .scroll-reveal.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .high-school-planner {
+    padding: 0;
+    background: #ffffff;
+  }
+
+  .transition-planner-shell {
+    display: block;
+    margin: 0;
+  }
+
+  .transition-planner-report {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: #ffffff;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .transition-planner-report::before {
+    display: none;
+  }
+
+  .transition-planner-report h2 {
+    font-size: 28px;
+  }
+
+  .transition-planner-report section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .transition-planner-report p,
+  .transition-planner-report li {
+    color: #15251b;
+    line-height: 1.45;
+  }
 }

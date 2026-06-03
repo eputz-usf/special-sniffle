@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import { getDegreeBySlug } from '../data/degrees';
-import '../styles/degrees.css';
+import { getDegreeBySlug } from '../../data/degrees';
+import '../../styles/degrees.css';
 
 type CompareFeatureNoteProps = {
   degreeName: string;
@@ -24,6 +24,534 @@ function CompareFeatureNote({
         <Link to="/degrees">Back to Degree Explorer</Link>
       </div>
     </>
+  );
+}
+
+type CareerOutlookSectionProps = {
+  degreeName: string;
+  intro: string;
+  slug: string;
+  careerInfoUrl: string;
+};
+
+type JobMarketStat = {
+  value: string;
+  label: string;
+  description: string;
+};
+
+type EmploymentTrendPoint = {
+  year: string;
+  jobs: string;
+  x: number;
+  y: number;
+};
+
+type EmploymentAxisTick = {
+  label: string;
+  y: number;
+};
+
+type GrowthStat = {
+  label: string;
+  value: string;
+  description: string;
+};
+
+type CareerMarketData = {
+  stats: JobMarketStat[];
+  employmentTrend: EmploymentTrendPoint[];
+  employmentYAxis: EmploymentAxisTick[];
+  growthStats: GrowthStat[];
+  topOccupations: string[];
+  chartViewBox?: string;
+  verticalLineY1?: string;
+  verticalLineY2?: string;
+  yearLabelY?: string;
+  chartTitleY?: string;
+};
+
+const careerMarketDataBySlug: Record<string, CareerMarketData> = {
+  'computer-science': {
+    stats: [
+      {
+        value: '19,605',
+        label: 'Currently Employed',
+        description: 'In related Tampa Bay area jobs',
+      },
+      {
+        value: '$90,421',
+        label: 'Average Salary',
+        description: 'For related Tampa Bay area jobs',
+      },
+      {
+        value: '746',
+        label: 'Job Postings',
+        description: 'Current Tampa Bay area openings',
+      },
+    ],
+    employmentTrend: [
+      { year: '2023', jobs: '18,873', x: 95, y: 171 },
+      { year: '2024', jobs: '19,605', x: 180, y: 106 },
+      { year: '2025', jobs: '19,568', x: 265, y: 109 },
+      { year: '2026', jobs: '19,872', x: 350, y: 82 },
+      { year: '2027', jobs: '20,094', x: 435, y: 62 },
+      { year: '2028', jobs: '20,260', x: 520, y: 47 },
+      { year: '2029', jobs: '20,392', x: 605, y: 35 },
+      { year: '2030', jobs: '20,437', x: 690, y: 31 },
+    ],
+    employmentYAxis: [
+      { label: '20,500', y: 25 },
+      { label: '20,000', y: 70 },
+      { label: '19,500', y: 115 },
+      { label: '19,000', y: 160 },
+      { label: '18,500', y: 205 },
+    ],
+    growthStats: [
+      { label: 'Past Growth', value: '5.3%', description: '2023-2026' },
+      { label: 'Projected Growth', value: '2.8%', description: '2026-2030' },
+    ],
+    topOccupations: [
+      'Computer Systems Analysts — $101,678',
+      'Database Administrators — $100,085',
+      'Network and Computer Systems Administrators — $96,898',
+      'Software Quality Assurance Analysts and Testers — $88,479',
+      'Computer Occupations, All Other — $85,667',
+      'Web and Digital Interface Designers — $69,718',
+    ],
+  },
+  'computer-science-and-engineering': {
+    stats: [
+      {
+        value: '37,474',
+        label: 'Currently Employed',
+        description: 'In related Tampa Bay area jobs',
+      },
+      {
+        value: '$106,047',
+        label: 'Average Salary',
+        description: 'For related Tampa Bay area jobs',
+      },
+      {
+        value: '1,175',
+        label: 'Job Postings',
+        description: 'Current Tampa Bay area openings',
+      },
+    ],
+    employmentTrend: [
+      { year: '2023', jobs: '35,791', x: 95, y: 186 },
+      { year: '2024', jobs: '37,474', x: 180, y: 136 },
+      { year: '2025', jobs: '37,790', x: 265, y: 126 },
+      { year: '2026', jobs: '38,554', x: 350, y: 103 },
+      { year: '2027', jobs: '39,168', x: 435, y: 85 },
+      { year: '2028', jobs: '39,655', x: 520, y: 70 },
+      { year: '2029', jobs: '40,067', x: 605, y: 58 },
+      { year: '2030', jobs: '40,280', x: 690, y: 52 },
+    ],
+    employmentYAxis: [
+      { label: '41,000', y: 30 },
+      { label: '39,000', y: 90 },
+      { label: '37,000', y: 150 },
+      { label: '35,000', y: 210 },
+    ],
+    growthStats: [
+      { label: 'Past Growth', value: '7.7%', description: '2023-2026' },
+      { label: 'Projected Growth', value: '4.5%', description: '2026-2030' },
+    ],
+    topOccupations: [
+      'Computer and Information Systems Managers — $165,387',
+      'Computer Network Architects — $128,932',
+      'Database Architects — $128,802',
+      'Computer and Information Research Scientists — $127,420',
+      'Computer Systems Analysts — $101,678',
+    ],
+    verticalLineY1: '30',
+    verticalLineY2: '210',
+    yearLabelY: '242',
+  },
+  'artificial-intelligence': {
+    stats: [
+      {
+        value: '9,196',
+        label: 'Currently Employed',
+        description: 'In related Tampa Bay area jobs',
+      },
+      {
+        value: '$95,133',
+        label: 'Average Salary',
+        description: 'For related Tampa Bay area jobs',
+      },
+      {
+        value: '466',
+        label: 'Job Postings',
+        description: 'Current Tampa Bay area openings',
+      },
+    ],
+    employmentTrend: [
+      { year: '2023', jobs: '8,358', x: 95, y: 190 },
+      { year: '2024', jobs: '9,196', x: 180, y: 116 },
+      { year: '2025', jobs: '9,252', x: 265, y: 111 },
+      { year: '2026', jobs: '9,468', x: 350, y: 92 },
+      { year: '2027', jobs: '9,648', x: 435, y: 76 },
+      { year: '2028', jobs: '9,797', x: 520, y: 63 },
+      { year: '2029', jobs: '9,925', x: 605, y: 52 },
+      { year: '2030', jobs: '10,004', x: 690, y: 45 },
+    ],
+    employmentYAxis: [
+      { label: '10,500', y: 25 },
+      { label: '10,000', y: 70 },
+      { label: '9,500', y: 115 },
+      { label: '9,000', y: 160 },
+      { label: '8,500', y: 205 },
+      { label: '8,000', y: 250 },
+    ],
+    growthStats: [
+      { label: 'Past Growth', value: '13.3%', description: '2023-2026' },
+      { label: 'Projected Growth', value: '5.7%', description: '2026-2030' },
+    ],
+    topOccupations: [
+      'Data Scientists — $111,254',
+      'Software Quality Assurance Analysts and Testers — $88,479',
+      'Computer Occupations, All Other — $85,667',
+    ],
+    chartViewBox: '0 0 720 340',
+    verticalLineY2: '250',
+    yearLabelY: '282',
+    chartTitleY: '326',
+  },
+  cybersecurity: {
+    stats: [
+      {
+        value: '12,608',
+        label: 'People Employed',
+        description: 'In related Tampa Bay area jobs',
+      },
+      {
+        value: '$92,485',
+        label: 'Average Salary',
+        description: 'For related Tampa Bay area jobs',
+      },
+      {
+        value: '446',
+        label: 'Job Postings',
+        description: 'Current Tampa Bay area openings',
+      },
+      {
+        value: '3.6%',
+        label: 'Projected Growth',
+        description: 'Expected from 2026-2030',
+      },
+    ],
+    employmentTrend: [
+      { year: '2023', jobs: '12,915', x: 95, y: 134 },
+      { year: '2024', jobs: '12,608', x: 180, y: 203 },
+      { year: '2025', jobs: '12,639', x: 265, y: 196 },
+      { year: '2026', jobs: '12,861', x: 350, y: 146 },
+      { year: '2027', jobs: '13,032', x: 435, y: 108 },
+      { year: '2028', jobs: '13,167', x: 520, y: 77 },
+      { year: '2029', jobs: '13,277', x: 605, y: 53 },
+      { year: '2030', jobs: '13,328', x: 690, y: 41 },
+    ],
+    employmentYAxis: [
+      { label: '13,400', y: 25 },
+      { label: '13,200', y: 70 },
+      { label: '13,000', y: 115 },
+      { label: '12,800', y: 160 },
+      { label: '12,600', y: 205 },
+    ],
+    growthStats: [
+      {
+        label: 'Past Growth',
+        value: '-0.4%',
+        description: 'Growth from 2023 to 2026',
+      },
+      {
+        label: 'Projected Growth',
+        value: '3.6%',
+        description: 'Expected growth from 2026 to 2030',
+      },
+    ],
+    topOccupations: [
+      'Information Security Analysts — $104,012',
+      'Database Administrators — $100,085',
+      'Network and Computer Systems Administrators — $96,898',
+      'Computer Occupations, All Other — $85,667',
+      'Computer Network Support Specialists — $75,765',
+    ],
+  },
+  'information-technology': {
+    stats: [
+      {
+        value: '37,419',
+        label: 'People Employed',
+        description: 'In Tampa Bay area IT-related jobs',
+      },
+      {
+        value: '$96,852',
+        label: 'Average Salary',
+        description: 'For related Tampa Bay area jobs',
+      },
+      {
+        value: '1,649',
+        label: 'Job Postings',
+        description: 'Current Tampa Bay area openings',
+      },
+      {
+        value: '4.7%',
+        label: 'Projected Growth',
+        description: 'Expected from 2026-2030',
+      },
+    ],
+    employmentTrend: [
+      { year: '2023', jobs: '37,705', x: 95, y: 139 },
+      { year: '2024', jobs: '37,419', x: 180, y: 165 },
+      { year: '2025', jobs: '37,442', x: 265, y: 163 },
+      { year: '2026', jobs: '38,212', x: 350, y: 94 },
+      { year: '2027', jobs: '38,827', x: 435, y: 66 },
+      { year: '2028', jobs: '39,335', x: 520, y: 43 },
+      { year: '2029', jobs: '39,759', x: 605, y: 24 },
+      { year: '2030', jobs: '39,994', x: 690, y: 14 },
+    ],
+    employmentYAxis: [
+      { label: '40,000', y: 15 },
+      { label: '39,000', y: 75 },
+      { label: '38,000', y: 135 },
+      { label: '37,000', y: 195 },
+    ],
+    growthStats: [
+      { label: 'Past Growth', value: '1.3%', description: '2023-2026' },
+      { label: 'Projected Growth', value: '4.7%', description: '2026-2030' },
+    ],
+    topOccupations: [
+      'Software Developers — $125,464',
+      'Information Security Analysts — $104,012',
+      'Computer Systems Analysts — $101,678',
+      'Network and Computer Systems Administrators — $96,898',
+      'Software Quality Assurance Analysts and Testers — $88,479',
+    ],
+    verticalLineY1: '15',
+    verticalLineY2: '195',
+  },
+};
+
+const degreeExperiencePaths = [
+  {
+    title: 'Internships',
+    description:
+      'Internships can help students test a career direction, build a portfolio, and connect academic work to employer expectations before graduation.',
+  },
+  {
+    title: 'Co-Op',
+    description:
+      'A co-op can provide a longer paid work experience connected to the major, which may be especially useful when comparing timelines, credits, and graduation planning.',
+  },
+  {
+    title: 'Undergraduate Research',
+    description:
+      'Undergraduate research with faculty can strengthen preparation for advanced technical work, graduate study, and project-based experience in AI, cybersecurity, data, software, or systems.',
+  },
+];
+
+function BeyondTheClassroom() {
+  return (
+    <>
+      <h3>Beyond the Classroom</h3>
+      <p>
+        Professional preparation can matter as much as course selection.
+        Students should consider experiences that build evidence of skill,
+        clarify career direction, and support conversations with advisors or
+        employers.
+      </p>
+      <div className="career-card-grid">
+        {degreeExperiencePaths.map((path) => (
+          <article className="career-card" key={path.title}>
+            <h3>{path.title}</h3>
+            <p>{path.description}</p>
+          </article>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function CareerOutlookSection({
+  careerInfoUrl,
+  degreeName,
+  intro,
+  slug,
+}: CareerOutlookSectionProps) {
+  const careerOptions = getDegreeBySlug(slug)?.careerOptions ?? [];
+  const marketData = careerMarketDataBySlug[slug];
+
+  if (careerOptions.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="degree-detail-section" id="career-outlook">
+      <h2>Career Outlook in Tampa Bay: {degreeName}</h2>
+      <div className="degree-overview-card">
+        <p>{intro}</p>
+        <p>
+          USF highlights that Tampa Bay’s tech sector has grown 28.5% over the
+          past five years, with companies such as Apple, Lockheed Martin, Meta,
+          Jabil, ReliaQuest, and Rapid7 recruiting from USF’s talent pool.
+        </p>
+      </div>
+      <p>
+        <strong>{degreeName} graduates may work in roles such as:</strong>
+      </p>
+
+      <div className="career-card-grid">
+        {careerOptions.map((career) => (
+          <article className="career-card" key={career.title}>
+            <h3>{career.title}</h3>
+            <p>{career.description}</p>
+            <p className="career-card-salary">
+              <strong>{career.salary}</strong>
+            </p>
+          </article>
+        ))}
+      </div>
+      <p>
+        These salaries are not guaranteed starting salaries. Pay can depend on
+        experience, internships, location, skills, projects, and the company.
+      </p>
+
+      {marketData && (
+        <div className="job-market-highlights">
+          <h3>Tampa Bay Job Market Highlights</h3>
+          <p>
+            This Tampa Bay career data shows local roles related to{' '}
+            {degreeName}.
+          </p>
+          <div className="job-stat-grid">
+            {marketData.stats.map((stat) => (
+              <article className="job-stat-card" key={stat.label}>
+                <strong>{stat.value}</strong>
+                <h4>{stat.label}</h4>
+                <p>{stat.description}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="employment-trend-card">
+            <svg
+              aria-labelledby={`${slug}-employment-trend-title`}
+              className="employment-trend-chart cs-employment-chart"
+              role="img"
+              viewBox={marketData.chartViewBox ?? '0 0 720 300'}
+            >
+              <title id={`${slug}-employment-trend-title`}>
+                Employment trend for {degreeName}-related jobs in Tampa Bay
+                from 2023 to 2030
+              </title>
+              {marketData.employmentYAxis.map((tick) => (
+                <g key={tick.label}>
+                  <line
+                    className="chart-grid-line"
+                    x1="95"
+                    x2="690"
+                    y1={tick.y}
+                    y2={tick.y}
+                  />
+                  <text className="chart-axis-label" x="82" y={tick.y + 6}>
+                    {tick.label}
+                  </text>
+                </g>
+              ))}
+              {marketData.employmentTrend.map((point) => (
+                <line
+                  className="chart-grid-line vertical"
+                  key={point.year}
+                  x1={point.x}
+                  x2={point.x}
+                  y1={marketData.verticalLineY1 ?? '25'}
+                  y2={marketData.verticalLineY2 ?? '205'}
+                />
+              ))}
+              <polyline
+                className="historical-line"
+                points={marketData.employmentTrend
+                  .slice(0, 4)
+                  .map((point) => `${point.x},${point.y}`)
+                  .join(' ')}
+              />
+              <polyline
+                className="projected-line"
+                points={marketData.employmentTrend
+                  .slice(3)
+                  .map((point) => `${point.x},${point.y}`)
+                  .join(' ')}
+              />
+              {marketData.employmentTrend.map((point, index) => (
+                <circle
+                  className={index <= 3 ? 'historical-point' : 'projected-point'}
+                  cx={point.x}
+                  cy={point.y}
+                  key={point.year}
+                  r="7"
+                >
+                  <title>
+                    {point.year}: {point.jobs} jobs
+                  </title>
+                </circle>
+              ))}
+              {marketData.employmentTrend.map((point) => (
+                <text
+                  className="chart-axis-label year"
+                  key={point.year}
+                  x={point.x}
+                  y={marketData.yearLabelY ?? '236'}
+                >
+                  {point.year}
+                </text>
+              ))}
+              <text className="chart-title" x="392" y={marketData.chartTitleY ?? '282'}>
+                Annual Employment Numbers
+              </text>
+            </svg>
+          </div>
+
+          <div className="growth-snapshot">
+            {marketData.growthStats.map((stat) => (
+              <article key={stat.label}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+                <small>{stat.description}</small>
+              </article>
+            ))}
+          </div>
+
+          <div className="job-market-explanation">
+            <h4>What do these numbers mean?</h4>
+            <p>
+              These figures are labor-market context, not promises of admission,
+              employment, or salary. Outcomes can vary by completed coursework,
+              transfer credits, experience, internships, projects, location, and
+              employer needs.
+            </p>
+          </div>
+          <div className="job-market-explanation">
+            <h4>Top Related Jobs by Income in Tampa Bay</h4>
+            <p>Some related {degreeName} career areas include:</p>
+            <ul className="tampa-income-list">
+              {marketData.topOccupations.map((occupation) => (
+                <li key={occupation}>{occupation}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      <BeyondTheClassroom />
+      <div className="degree-detail-actions">
+        <a href={careerInfoUrl} rel="noreferrer" target="_blank">
+          View {degreeName} Career Information ↗
+        </a>
+        <Link to="/degrees">View Another Major</Link>
+      </div>
+    </section>
   );
 }
 
@@ -96,50 +624,15 @@ const currentCatalogResources = [
   },
 ];
 
-const computerScienceCareers = [
-  {
-    title: 'Software Developer',
-    description: 'Builds applications, tools, websites, and software systems.',
-  },
-  {
-    title: 'Software Engineer',
-    description:
-      'Designs and develops larger software systems, often working with teams, architecture, testing, and deployment.',
-  },
-  {
-    title: 'Full-Stack Developer',
-    description: 'Works on both front-end user interfaces and back-end systems.',
-  },
-  {
-    title: 'Backend Developer',
-    description: 'Builds databases, APIs, servers, and logic behind applications.',
-  },
-  {
-    title: 'Data or AI Pathway',
-    description:
-      'Uses programming, data, algorithms, and electives to move toward data science, machine learning, or AI-related roles.',
-  },
-  {
-    title: 'Systems Developer',
-    description:
-      'Works closer to operating systems, performance, networks, or lower-level computing systems.',
-  },
-  {
-    title: 'Graduate School / Research Pathway',
-    description:
-      'Uses the degree as preparation for advanced study in computer science, AI, cybersecurity, systems, or related fields.',
-  },
-];
-
 const advisorQuestions = [
-  'Which catalog year and plan of study should I follow?',
-  'What programming background should I have before starting?',
-  'Which electives would help me explore AI, cybersecurity, data, or software engineering?',
-  'How does Computer Science differ from Artificial Intelligence at USF?',
-  'How flexible is this degree if I change interests later?',
-  'What courses are usually most challenging for students in this major?',
-  'What internships or projects should I look for as a Computer Science student?',
-  'Are there Bachelor’s/Master’s pathway options connected to this degree?',
+  'Which of my completed programming, calculus, science, or general education courses are likely to apply to the Computer Science degree?',
+  'Should I follow the two-year plan, the four-year flowchart, or a custom transfer plan based on my completed credits?',
+  'Which prerequisite courses could delay entry into upper-level Computer Science coursework if they do not transfer cleanly?',
+  'How should I sequence programming, math, systems, and theory courses during my first year after transfer?',
+  'Which electives would help me connect Computer Science with AI, cybersecurity, data, software engineering, or graduate study?',
+  'If I am comparing Computer Science with Artificial Intelligence or Computer Science and Engineering, what degree requirements should decide the choice?',
+  'What portfolio, internship, research, or project experience should I prioritize as a transfer student with limited time before graduation?',
+  'Are Bachelor’s/Master’s pathway options realistic for my transfer timeline and remaining credit load?',
 ];
 
 const computerScienceEngineeringSkills = [
@@ -191,52 +684,15 @@ const computerScienceEngineeringResources = [
   },
 ];
 
-const computerScienceEngineeringCareers = [
-  {
-    title: 'Software Engineer',
-    description:
-      'Designs and develops software systems while understanding how those systems interact with computing hardware and architecture.',
-  },
-  {
-    title: 'Systems Engineer',
-    description:
-      'Works on larger technical systems that combine hardware, software, and engineering requirements.',
-  },
-  {
-    title: 'Computer Systems Developer',
-    description:
-      'Builds or supports computing systems that require knowledge of both software and lower-level system behavior.',
-  },
-  {
-    title: 'Embedded Systems Pathway',
-    description:
-      'Works on software and computing systems inside devices, sensors, machines, robotics, or connected products.',
-  },
-  {
-    title: 'Robotics / Intelligent Systems Pathway',
-    description:
-      'Uses software, hardware, sensors, and intelligent applications to support robotic or automated systems.',
-  },
-  {
-    title: 'AI Systems Pathway',
-    description:
-      'Applies AI or intelligent applications within broader computing systems.',
-  },
-  {
-    title: 'Graduate School / Research Pathway',
-    description:
-      'Uses the degree as preparation for advanced study in computer science, robotics, AI, or systems-related fields.',
-  },
-];
-
 const computerScienceEngineeringAdvisorQuestions = [
-  'Which catalog year and plan of study should I follow?',
-  'Since the current catalog does not yet include BSCSE, what official requirements should I use for planning?',
-  'How is Computer Science and Engineering different from Computer Science?',
-  'How much hardware, software, and engineering coursework should I expect?',
-  'What kinds of electives or focus areas are available in this program?',
-  'Is this degree a good fit if I am interested in robotics, AI systems, embedded systems, or systems engineering?',
-  'What internships or projects should I look for as a Computer Science and Engineering student?',
+  'Which of my completed programming, calculus, physics, engineering, or general education courses are likely to apply to Computer Science and Engineering?',
+  'Because this is a newer program, which official requirements should I use until catalog information is fully reflected?',
+  'Is the four-year plan adaptable to my transfer credits, or would another computing major create a more efficient path to graduation?',
+  'Which hardware, systems, math, or engineering prerequisites should I complete before attempting upper-level coursework?',
+  'How does the required coursework differ from Computer Science if I am trying to decide between the two degrees?',
+  'Would my prior coursework support interests in embedded systems, robotics, AI systems, or systems engineering?',
+  'What first-semester schedule would reduce sequencing risk for a transfer student entering this program?',
+  'What projects, labs, or internships would best demonstrate systems-oriented experience before graduation?',
 ];
 
 const artificialIntelligenceSkills = [
@@ -310,53 +766,15 @@ const artificialIntelligenceResources = [
   },
 ];
 
-const artificialIntelligenceCareers = [
-  {
-    title: 'AI Developer',
-    description:
-      'Builds applications or tools that use AI models, automation, recommendation systems, or intelligent decision support.',
-  },
-  {
-    title: 'Machine Learning Engineer Pathway',
-    description:
-      'Designs, trains, evaluates, and improves machine learning models using data and programming.',
-  },
-  {
-    title: 'Data Scientist Pathway',
-    description:
-      'Uses data, statistics, programming, and machine learning to find patterns and support decisions.',
-  },
-  {
-    title: 'Computer Vision Pathway',
-    description:
-      'Works with systems that analyze images, video, visual patterns, or sensor-based visual data.',
-  },
-  {
-    title: 'Natural Language Processing Pathway',
-    description:
-      'Works with language technologies such as chatbots, text analysis, search, translation, or language understanding systems.',
-  },
-  {
-    title: 'Robotics / Intelligent Systems Pathway',
-    description:
-      'Applies AI concepts to robots, autonomous systems, or interactive intelligent technologies.',
-  },
-  {
-    title: 'AI Research / Graduate School Pathway',
-    description:
-      'Uses the degree as preparation for advanced study in artificial intelligence, machine learning, robotics, data science, or related fields.',
-  },
-];
-
 const artificialIntelligenceAdvisorQuestions = [
-  'Which catalog year and plan of study should I follow?',
-  'What programming and math preparation should I have before starting this degree?',
-  'How is Artificial Intelligence different from Computer Science at USF?',
-  'Which electives would help me focus on machine learning, robotics, natural language processing, computer vision, or data mining?',
-  'Are all AI electives offered every year, or only in specific semesters?',
-  'What courses are usually most challenging for AI students?',
-  'What internships, research labs, or projects should I look for as an AI student?',
-  'Are there Bachelor’s/Master’s pathway options connected to this degree?',
+  'Which of my completed programming, calculus, statistics, data, or general education courses are likely to apply to the Artificial Intelligence degree?',
+  'Do I have the math and programming preparation needed to begin AI coursework without adding extra prerequisite semesters?',
+  'Should I follow the two-year plan, the four-year flowchart, or a custom transfer sequence based on course availability?',
+  'Which AI courses or electives are offered only in specific semesters, and how could that affect my graduation timeline?',
+  'If I am comparing Artificial Intelligence with Computer Science, which requirements and elective options should carry the most weight?',
+  'Which electives would best support interests in machine learning, robotics, natural language processing, computer vision, or data mining?',
+  'What research labs, data projects, internships, or portfolio work should I prioritize as a transfer student?',
+  'Are Bachelor’s/Master’s pathway options realistic if I am entering with transfer credits?',
 ];
 
 const cybersecuritySkills = [
@@ -430,53 +848,16 @@ const cybersecurityResources = [
   },
 ];
 
-const cybersecurityCareers = [
-  {
-    title: 'Cybersecurity Analyst',
-    description:
-      'Monitors systems, investigates threats, and helps protect organizations from cyber attacks.',
-  },
-  {
-    title: 'Security Engineer',
-    description:
-      'Designs and improves secure systems, tools, networks, or infrastructure.',
-  },
-  {
-    title: 'Network Security Specialist',
-    description:
-      'Focuses on protecting networks, communication systems, and connected infrastructure.',
-  },
-  {
-    title: 'Incident Response Analyst',
-    description: 'Helps detect, investigate, and respond to cyber incidents.',
-  },
-  {
-    title: 'Digital Forensics Pathway',
-    description:
-      'Works with digital evidence, investigations, and analysis of cyber events.',
-  },
-  {
-    title: 'Risk and Compliance Pathway',
-    description:
-      'Focuses on security policies, risk management, compliance, and organizational cyber practices.',
-  },
-  {
-    title: 'Security Consultant',
-    description:
-      'Helps organizations identify security weaknesses and improve their cybersecurity strategies.',
-  },
-];
-
 const cybersecurityAdvisorQuestions = [
-  'Which catalog year and plan of study should I follow?',
-  'Which cybersecurity courses require permits?',
-  'Which ethics course should I take for my catalog year?',
-  'How is Cybersecurity different from Computer Science at USF?',
-  'How is Cybersecurity different from Information Technology?',
-  'Which electives would help me focus on cyber defense, digital forensics, risk management, or secure software?',
-  'What courses are usually most challenging for Cybersecurity students?',
-  'What internships, certifications, or projects should I consider as a Cybersecurity student?',
-  'Are there Bachelor’s/Master’s pathway options connected to this degree?',
+  'Which of my completed programming, networking, security, math, or general education courses are likely to apply to the Cybersecurity degree?',
+  'Which Cybersecurity courses require permits, and when should I request them as a transfer student?',
+  'Which ethics or policy course should I take for my catalog year, especially if I completed a similar course elsewhere?',
+  'Should I use the two-year plan, the four-year flowchart, or a custom plan based on transfer-credit evaluation?',
+  'How should I compare Cybersecurity with Computer Science or Information Technology if my goal is security work?',
+  'Which prerequisites or limited-offering courses could affect my first year after transfer?',
+  'Which electives would best support cyber defense, digital forensics, risk management, secure software, or policy interests?',
+  'What certifications, internships, labs, or projects would strengthen my cybersecurity preparation before graduation?',
+  'Are Bachelor’s/Master’s pathway options realistic for my remaining credit load and timeline?',
 ];
 
 const informationTechnologySkills = [
@@ -550,54 +931,16 @@ const informationTechnologyResources = [
   },
 ];
 
-const informationTechnologyCareers = [
-  {
-    title: 'IT Specialist',
-    description:
-      'Supports technology systems, users, software, hardware, and organizational computing needs.',
-  },
-  {
-    title: 'Systems Analyst',
-    description:
-      'Studies an organization’s technology needs and helps design or improve systems.',
-  },
-  {
-    title: 'Network Administrator',
-    description:
-      'Maintains, monitors, and supports computer networks and related infrastructure.',
-  },
-  {
-    title: 'Database Support Specialist',
-    description:
-      'Works with databases, data storage, queries, and information systems.',
-  },
-  {
-    title: 'Cloud Support Specialist',
-    description:
-      'Supports cloud platforms, services, infrastructure, and deployment environments.',
-  },
-  {
-    title: 'Web Systems Developer Pathway',
-    description:
-      'Builds or supports web-based systems, applications, and digital services.',
-  },
-  {
-    title: 'Technology Consultant',
-    description:
-      'Helps organizations choose, implement, and improve technology solutions.',
-  },
-];
-
 const informationTechnologyAdvisorQuestions = [
-  'Which catalog year and plan of study should I follow?',
-  'Which IT courses are only offered in fall or spring?',
-  'Which courses require permits?',
-  'How is Information Technology different from Computer Science?',
-  'How is Information Technology different from Cybersecurity?',
-  'Which electives would help me focus on cloud, networking, databases, cybersecurity, or web systems?',
-  'What courses are usually most challenging for IT students?',
-  'What internships, projects, or certifications should I consider as an IT student?',
-  'What kinds of organizations usually hire Information Technology students?',
+  'Which of my completed programming, networking, database, systems, or general education courses are likely to apply to Information Technology?',
+  'Should I use the two-year plan, the four-year flowchart, or a custom transfer plan based on my completed credits?',
+  'Which IT courses are only offered in fall or spring, and how should I sequence them after transfer?',
+  'Which courses require permits or advising forms before registration?',
+  'How should I compare Information Technology with Computer Science or Cybersecurity if I want applied systems work?',
+  'Which prerequisites could delay courses in cloud, networking, databases, cybersecurity, or web systems?',
+  'Which electives would best support my career goals in systems administration, cloud, databases, cybersecurity, or web platforms?',
+  'What internships, certifications, or applied projects should I prioritize as a transfer student?',
+  'What types of organizations and roles should I target based on my prior coursework and remaining time to graduation?',
 ];
 
 function ComputerScienceDegreeDetail() {
@@ -644,6 +987,13 @@ function ComputerScienceDegreeDetail() {
           graduate study.
         </p>
       </section>
+
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscs.aspx"
+        degreeName="Computer Science"
+        intro="Computer Science can support careers that rely on software development, technical problem solving, systems thinking, data, and advanced computing foundations."
+        slug="computer-science"
+      />
 
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
@@ -714,18 +1064,6 @@ function ComputerScienceDegreeDetail() {
               </a>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="degree-detail-section">
-        <h2>Possible Career Paths</h2>
-        <div className="career-card-grid">
-          {computerScienceCareers.map((career) => (
-            <article className="career-card" key={career.title}>
-              <h3>{career.title}</h3>
-              <p>{career.description}</p>
-            </article>
-          ))}
         </div>
       </section>
 
@@ -814,6 +1152,13 @@ function ComputerScienceEngineeringDegreeDetail() {
         </p>
       </section>
 
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscse.aspx"
+        degreeName="Computer Science and Engineering"
+        intro="Computer Science and Engineering can support careers that bridge software, systems, hardware-aware design, embedded technologies, security, and intelligent infrastructure."
+        slug="computer-science-and-engineering"
+      />
+
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
           <h2>This Degree May Be a Good Fit If You...</h2>
@@ -885,18 +1230,6 @@ function ComputerScienceEngineeringDegreeDetail() {
               </a>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="degree-detail-section">
-        <h2>Possible Career Paths</h2>
-        <div className="career-card-grid">
-          {computerScienceEngineeringCareers.map((career) => (
-            <article className="career-card" key={career.title}>
-              <h3>{career.title}</h3>
-              <p>{career.description}</p>
-            </article>
-          ))}
         </div>
       </section>
 
@@ -1001,6 +1334,13 @@ function ArtificialIntelligenceDegreeDetail() {
         </p>
       </section>
 
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx"
+        degreeName="Artificial Intelligence"
+        intro="Artificial Intelligence can support careers focused on machine learning, data-driven systems, model evaluation, intelligent applications, and AI infrastructure."
+        slug="artificial-intelligence"
+      />
+
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
           <h2>This Degree May Be a Good Fit If You...</h2>
@@ -1091,18 +1431,6 @@ function ArtificialIntelligenceDegreeDetail() {
         </p>
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Possible Career Paths</h2>
-        <div className="career-card-grid">
-          {artificialIntelligenceCareers.map((career) => (
-            <article className="career-card" key={career.title}>
-              <h3>{career.title}</h3>
-              <p>{career.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section className="degree-detail-section degree-next-steps">
         <CompareFeatureNote
           degreeName="Artificial Intelligence"
@@ -1184,6 +1512,13 @@ function CybersecurityDegreeDetail() {
           ethics, and the impact of cybersecurity on society.
         </p>
       </section>
+
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscys.aspx"
+        degreeName="Cybersecurity"
+        intro="Cybersecurity can support careers centered on protecting systems, assessing risk, responding to threats, and strengthening organizational security practices."
+        slug="cybersecurity"
+      />
 
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
@@ -1301,18 +1636,6 @@ function CybersecurityDegreeDetail() {
         </p>
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Possible Career Paths</h2>
-        <div className="career-card-grid">
-          {cybersecurityCareers.map((career) => (
-            <article className="career-card" key={career.title}>
-              <h3>{career.title}</h3>
-              <p>{career.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section className="degree-detail-section degree-next-steps">
         <CompareFeatureNote
           degreeName="Cybersecurity"
@@ -1396,6 +1719,13 @@ function InformationTechnologyDegreeDetail() {
           building, and improving technology systems.
         </p>
       </section>
+
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsit.aspx"
+        degreeName="Information Technology"
+        intro="Information Technology can support careers in systems administration, databases, cloud services, security, web platforms, and applied technical operations."
+        slug="information-technology"
+      />
 
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
@@ -1504,18 +1834,6 @@ function InformationTechnologyDegreeDetail() {
           students should review the official flowchart and confirm their plan
           with Bellini advising.
         </p>
-      </section>
-
-      <section className="degree-detail-section">
-        <h2>Possible Career Paths</h2>
-        <div className="career-card-grid">
-          {informationTechnologyCareers.map((career) => (
-            <article className="career-card" key={career.title}>
-              <h3>{career.title}</h3>
-              <p>{career.description}</p>
-            </article>
-          ))}
-        </div>
       </section>
 
       <section className="degree-detail-section degree-next-steps">
@@ -1642,7 +1960,7 @@ function DegreeDetail() {
           ))}
         </ul>
         <div className="degree-detail-actions">
-          <Link to="/quiz">Take Degree Fit Quiz</Link>
+          <Link to="/transfer/quiz">Take Degree Fit Quiz</Link>
           <Link to="/degrees">Compare More Programs</Link>
         </div>
       </section>

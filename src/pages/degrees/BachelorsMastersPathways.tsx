@@ -31,10 +31,10 @@ const availableMinors = [
   },
 ];
 
-function HighSchoolBachelorsMastersPathways() {
+function BachelorsMastersPathways() {
   return (
     <main className="degrees-page pathways-page">
-      <Link className="degree-back-link" to="/high-school/degrees">
+      <Link className="degree-back-link" to="/degrees">
         Back to Degree Explorer
       </Link>
 
@@ -44,10 +44,10 @@ function HighSchoolBachelorsMastersPathways() {
           <h1>Bachelor&apos;s/Master&apos;s Pathways</h1>
           <p>
             We will have the following bachelor&apos;s/master&apos;s pathway
-            programs (also known as Integrated BS/MS).
-    These programs let strong students start a master&apos;s degree while finishing
-    their bachelor&apos;s degree which helps them earn both degrees in
-    less time.
+            programs (also known as Integrated BS/MS) that accelerate and
+            integrate bachelor&apos;s and master&apos;s degrees to provide
+            highly qualified undergraduate students with the ability to complete
+            both degrees in a shorter time frame.
           </p>
         </div>
 
@@ -91,4 +91,4 @@ function HighSchoolBachelorsMastersPathways() {
   );
 }
 
-export default HighSchoolBachelorsMastersPathways;
+export default BachelorsMastersPathways;

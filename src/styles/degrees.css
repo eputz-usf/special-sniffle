@@ -292,7 +292,9 @@
 }
 
 .degree-card-actions .compare-selected,
-.degree-card-actions .compare-selected:hover {
+.degree-card-actions .compare-selected:hover,
+.degree-card-actions .planner-selected,
+.degree-card-actions .planner-selected:hover {
   border-color: #476b45;
   background-color: #eae1bf;
   color: #086343;
@@ -303,6 +305,14 @@
   background-color: #b42318;
   color: #ffffff;
   cursor: default;
+}
+
+.degree-card-actions .planner-unavailable,
+.degree-card-actions .planner-unavailable:hover {
+  border-color: #b42318;
+  background-color: #b42318;
+  color: #ffffff;
+  cursor: not-allowed;
 }
 
 .degree-detail-page {
@@ -875,6 +885,10 @@
 .degrees-quiz-callout h2,
 .degrees-quiz-callout p {
   margin: 0;
+}
+
+.degrees-quiz-callout > div {
+  max-width: 560px;
 }
 
 .degrees-quiz-callout h2 {
@@ -1655,6 +1669,10 @@
   .degrees-quiz-callout {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .degrees-quiz-callout > div {
+    max-width: none;
   }
 
   .degree-detail-page {

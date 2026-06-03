@@ -1,28 +1,32 @@
 import { useEffect } from 'react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
-import BelliniStudentDashboard from './pages/BelliniStudentDashboard';
-import BachelorsMastersPathways from './pages/BachelorsMastersPathways';
-import CurrentUsfDashboard from './pages/CurrentUsfDashboard';
-import DegreeComparison from './pages/DegreeComparison';
-import DegreeDetail from './pages/DegreeDetail';
-import DegreeInformation from './pages/DegreeInformation';
-import FutureDegreeOptions from './pages/FutureDegreeOptions';
-import GeneralDashboard from './pages/GeneralDashboard';
-import HighSchoolIntakeQuiz from './pages/highschoolQuiz/HighSchoolIntakeQuiz';
-import HighSchoolQuizResults from './pages/highschoolQuiz/HighSchoolQuizResults';
-import HighSchoolBachelorsMastersPathways from './pages/highSchoolDegrees/HighSchoolBachelorsMastersPathways';
-import HighSchoolCareerPaths from './pages/highSchoolDegrees/HighSchoolCareerPaths';
-import HighSchoolDegreeComparison from './pages/highSchoolDegrees/HighSchoolDegreeComparison';
-import HighSchoolDegreeDetail from './pages/highSchoolDegrees/HighSchoolDegreeDetail';
-import HighSchoolDegreeInformation from './pages/highSchoolDegrees/HighSchoolDegreeInformation';
-import HighSchoolFutureDegreeOptions from './pages/highSchoolDegrees/HighSchoolFutureDegreeOptions';
-import HighSchoolParentInfo from './pages/highSchoolDegrees/HighSchoolParentInfo';
+import BelliniStudentDashboard from './pages/dashboards/BelliniStudentDashboard';
+import BachelorsMastersPathways from './pages/degrees/BachelorsMastersPathways';
+import CareerPaths from './pages/degrees/CareerPaths';
+import CurrentUsfDashboard from './pages/dashboards/CurrentUsfDashboard';
+import DegreeComparison from './pages/degrees/DegreeComparison';
+import DegreeDetail from './pages/degrees/DegreeDetail';
+import DegreeInformation from './pages/degrees/DegreeInformation';
+import FutureDegreeOptions from './pages/degrees/FutureDegreeOptions';
+import GeneralDashboard from './pages/dashboards/GeneralDashboard';
+import HighSchoolIntakeQuiz from './pages/highSchool/quiz/HighSchoolIntakeQuiz';
+import HighSchoolQuizResults from './pages/highSchool/quiz/HighSchoolQuizResults';
+import HighSchoolBachelorsMastersPathways from './pages/highSchool/degrees/HighSchoolBachelorsMastersPathways';
+import HighSchoolCareerPaths from './pages/highSchool/degrees/HighSchoolCareerPaths';
+import HighSchoolDegreeComparison from './pages/highSchool/degrees/HighSchoolDegreeComparison';
+import HighSchoolDegreeDetail from './pages/highSchool/degrees/HighSchoolDegreeDetail';
+import HighSchoolDegreeInformation from './pages/highSchool/degrees/HighSchoolDegreeInformation';
+import HighSchoolFutureDegreeOptions from './pages/highSchool/degrees/HighSchoolFutureDegreeOptions';
+import HighSchoolParentInfo from './pages/highSchool/degrees/HighSchoolParentInfo';
+import HighSchoolTransitionPlanner from './pages/highSchool/degrees/HighSchoolTransitionPlanner';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-import ProspectiveStudentDashboard from './pages/ProspectiveStudentDashboard';
+import ProspectiveStudentDashboard from './pages/dashboards/ProspectiveStudentDashboard';
 import SelectUserType from './pages/SelectUserType';
-import TransferStudentDashboard from './pages/TransferStudentDashboard';
+import TransferStudentDashboard from './pages/dashboards/TransferStudentDashboard';
+import TransferIntakeQuiz from './pages/transfer/quiz/TransferIntakeQuiz';
+import TransferQuizResults from './pages/transfer/quiz/TransferQuizResults';
 import usfLogo from './assets/usflogo.png';
 
 function App() {
@@ -65,6 +69,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/quiz" element={<HighSchoolIntakeQuiz />} />
         <Route path="/quiz/results" element={<HighSchoolQuizResults />} />
+        <Route path="/transfer/quiz" element={<TransferIntakeQuiz />} />
+        <Route path="/transfer/quiz/results" element={<TransferQuizResults />} />
         <Route path="/degrees" element={<DegreeInformation />} />
         <Route path="/degrees/compare" element={<DegreeComparison />} />
         <Route
@@ -72,6 +78,7 @@ function App() {
           element={<BachelorsMastersPathways />}
         />
         <Route path="/degrees/future-options" element={<FutureDegreeOptions />} />
+        <Route path="/career-paths" element={<CareerPaths />} />
         <Route path="/degrees/:degreeSlug" element={<DegreeDetail />} />
         <Route
           path="/high-school/degrees"
@@ -96,6 +103,10 @@ function App() {
         <Route
           path="/high-school/parent-info"
           element={<HighSchoolParentInfo />}
+        />
+        <Route
+          path="/high-school/transition-planner"
+          element={<HighSchoolTransitionPlanner />}
         />
         <Route
           path="/high-school/degrees/:degreeSlug"

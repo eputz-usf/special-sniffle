@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '../styles/degrees.css';
+import '../../styles/degrees.css';
 
 const anticipatedDegreeOptions = [
   {

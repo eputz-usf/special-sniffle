@@ -3,21 +3,21 @@ import QuizTemplate, {
   type QuizAnswersByQuestion,
   type QuizAnswerValue,
   type QuizQuestion,
-} from '../../components/QuizTemplate';
-import { generateHighSchoolQuizResult } from '../../utils/highSchoolQuizRecommendations';
-import { highSchoolQuizRecommendationConfig } from '../../config/highSchoolQuizRecommendationConfig';
+} from '../../../components/QuizTemplate';
+import { generateHighSchoolQuizResult } from '../../../utils/highSchoolQuizRecommendations';
+import { highSchoolQuizRecommendationConfig } from '../../../config/highSchoolQuizRecommendationConfig';
 import {
   getOrCreatePublicQuizSession,
   hasPublicQuizProgress,
   loadPublicQuizProgress,
   savePublicQuizProgress,
   savePublicQuizResult,
-} from '../../utils/publicQuizSession';
+} from '../../../utils/publicQuizSession';
 import {
   completePublicQuizAttempt,
   upsertPublicQuizAnswer,
   upsertPublicQuizSession,
-} from '../../utils/publicQuizSupabase';
+} from '../../../utils/publicQuizSupabase';
 
 const highSchoolIntakeQuestions: QuizQuestion[] = [
   {
