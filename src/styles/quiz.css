@@ -180,6 +180,27 @@
   color: #ffffff;
 }
 
+.quiz-top-result span,
+.quiz-results-list article > span,
+.quiz-results-list span small {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 10px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background-color: #086242;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.quiz-top-result span {
+  background-color: #ffffff;
+  color: #086242;
+}
+
 .quiz-top-result-explanation {
   max-width: 680px;
   margin: 18px auto 0;

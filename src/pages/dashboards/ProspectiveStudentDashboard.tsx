@@ -208,7 +208,7 @@ function ProspectiveStudentDashboard() {
         <div className="dashboard-section-rule dashboard-section-rule-light"></div>
         <div className="dashboard-section-heading">
           <p className="dashboard-eyebrow light toolbox-eyebrow">Toolbox</p>
-          <h2>Use the tools that are ready now</h2>
+          <h2>Use these tools to make planning a lot easier!</h2>
         </div>
 
         <div className="dashboard-major-cards high-school-tool-grid">
@@ -253,7 +253,7 @@ function ProspectiveStudentDashboard() {
             to="/high-school/parent-info"
           >
             <MessageCircleQuestion size={30} aria-hidden="true" />
-            <span>Parent-friendly information</span>
+            <span>Parent-friendly FAQs</span>
             <p>
               Review prospective student FAQs and questions to bring to
               admissions or advising conversations.

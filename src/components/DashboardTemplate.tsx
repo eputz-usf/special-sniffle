@@ -4,6 +4,7 @@ import {
   Briefcase,
   CalendarCheck,
   ClipboardList,
+  FileText,
   MessageCircleQuestion,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -18,6 +19,8 @@ type DashboardTemplateProps = {
   pathHeading?: string;
   quizPath?: string;
   quizResultsPath?: string;
+  transferPlannerPath?: string;
+  transferReadinessPath?: string;
   steps?: DashboardStep[];
 };
 
@@ -67,6 +70,8 @@ function DashboardTemplate({
   pathHeading = 'Move from questions to a clearer plan',
   quizPath = '/quiz',
   quizResultsPath,
+  transferPlannerPath,
+  transferReadinessPath,
   steps = dashboardSteps,
 }: DashboardTemplateProps) {
   function handleSectionLinkClick(
@@ -227,20 +232,42 @@ function DashboardTemplate({
             </p>
           </Link>
 
-          <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
-            <CalendarCheck size={30} aria-hidden="true" />
-            <span>Transition Planner</span>
-            <p>
-              A future general planning tool can organize recommendations,
-              questions, notes, and next actions in one place.
-            </p>
-          </button>
+          {transferPlannerPath ? (
+            <Link className="dashboard-major-card" to={transferPlannerPath}>
+              <CalendarCheck size={30} aria-hidden="true" />
+              <span>Transfer Planning Summary</span>
+              <p>
+                Save transfer details, notes, advising questions, and course
+                lists in one printable planning summary.
+              </p>
+            </Link>
+          ) : (
+            <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
+              <CalendarCheck size={30} aria-hidden="true" />
+              <span>Transition Planner</span>
+              <p>
+                A future general planning tool can organize recommendations,
+                questions, notes, and next actions in one place.
+              </p>
+            </button>
+          )}
 
-          <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
-            <MessageCircleQuestion size={30} aria-hidden="true" />
-            <span>Specified text to be put there</span>
-            <p>Specified text to be put there.</p>
-          </button>
+          {transferReadinessPath ? (
+            <Link className="dashboard-major-card" to={transferReadinessPath}>
+              <FileText size={30} aria-hidden="true" />
+              <span>Transfer Readiness Guide</span>
+              <p>
+                Review transfer terms, planning expectations, and what to
+                prepare before checking credits or meeting with advising.
+              </p>
+            </Link>
+          ) : (
+            <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
+              <MessageCircleQuestion size={30} aria-hidden="true" />
+              <span>Specified text to be put there</span>
+              <p>Specified text to be put there.</p>
+            </button>
+          )}
         </div>
       </section>
 

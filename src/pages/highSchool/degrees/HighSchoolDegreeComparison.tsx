@@ -2,11 +2,15 @@ import { Link, useSearchParams } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import type { Degree } from '../../../data/highSchoolDegrees';
 import { getDegreeBySlug } from '../../../data/highSchoolDegrees';
+import type { HighSchoolFutureDegreeOption } from '../../../data/highSchoolFutureDegreeOptions';
+import { getHighSchoolFutureDegreeOptionBySlug } from '../../../data/highSchoolFutureDegreeOptions';
 import '../../../styles/degrees.css';
+
+type ComparableDegree = Degree | HighSchoolFutureDegreeOption;
 
 type ComparisonField = {
   label: string;
-  render: (degree: Degree) => ReactNode;
+  render: (degree: ComparableDegree) => ReactNode;
 };
 
 function renderList(items: string[]) {
@@ -19,7 +23,17 @@ function renderList(items: string[]) {
   );
 }
 
-function renderCareerOptions(degree: Degree) {
+function isFutureDegreeOption(
+  degree: ComparableDegree,
+): degree is HighSchoolFutureDegreeOption {
+  return 'focus' in degree;
+}
+
+function renderCareerOptions(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return 'Career information coming soon';
+  }
+
   if (!degree.careerOptions) {
     return 'Career information coming soon';
   }
@@ -36,7 +50,11 @@ function renderCareerOptions(degree: Degree) {
   );
 }
 
-function renderCareerSalaries(degree: Degree) {
+function renderCareerSalaries(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return 'Salary information coming soon';
+  }
+
   if (!degree.careerOptions) {
     return 'Salary information coming soon';
   }
@@ -58,7 +76,17 @@ function renderCareerSalaries(degree: Degree) {
   );
 }
 
-function getOfficialResources(degree: Degree) {
+function getOfficialResources(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return [
+      ...degree.planningResources,
+      {
+        label: 'Program Details',
+        url: degree.programUrl,
+      },
+    ];
+  }
+
   const resources = [
     ...(degree.officialLinks?.flowcharts ?? []),
     ...(degree.officialLinks?.plans ?? []),
@@ -71,7 +99,11 @@ function getOfficialResources(degree: Degree) {
   return resources;
 }
 
-function getSimpleCategory(degree: Degree) {
+function getSimpleCategory(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return degree.focus;
+  }
+
   const simpleCategories = {
     Software: 'Coding and software',
     'AI/Data': 'AI and data',
@@ -81,6 +113,45 @@ function getSimpleCategory(degree: Degree) {
   };
 
   return simpleCategories[degree.category];
+}
+
+function getBestFor(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return degree.goodFit;
+  }
+
+  return degree.bestFor;
+}
+
+function renderSkills(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return degree.focus;
+  }
+
+  return degree.skills;
+}
+
+function renderGoodFit(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return <p>{degree.goodFit}</p>;
+  }
+
+  return renderList(degree.goodFit);
+}
+
+function renderNextSteps(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return renderList([
+      'Review the available plans of study.',
+      'Confirm official electives and requirements with Bellini College advising.',
+    ]);
+  }
+
+  return renderList(degree.nextSteps);
+}
+
+function getDegreeForComparison(slug: string | undefined) {
+  return getHighSchoolFutureDegreeOptionBySlug(slug) ?? getDegreeBySlug(slug);
 }
 
 const comparisonFields: ComparisonField[] = [
@@ -94,7 +165,7 @@ const comparisonFields: ComparisonField[] = [
   },
   {
     label: 'Best for',
-    render: (degree) => degree.bestFor,
+    render: (degree) => getBestFor(degree),
   },
   {
     label: 'Career options',
@@ -106,15 +177,15 @@ const comparisonFields: ComparisonField[] = [
   },
   {
     label: 'Skills',
-    render: (degree) => degree.skills,
+    render: (degree) => renderSkills(degree),
   },
   {
     label: 'Good fit if',
-    render: (degree) => renderList(degree.goodFit),
+    render: (degree) => renderGoodFit(degree),
   },
   {
     label: 'What to do next',
-    render: (degree) => renderList(degree.nextSteps),
+    render: (degree) => renderNextSteps(degree),
   },
   {
     label: 'Planning links',
@@ -145,8 +216,12 @@ const comparisonFields: ComparisonField[] = [
 
 function HighSchoolDegreeComparison() {
   const [searchParams] = useSearchParams();
-  const firstDegree = getDegreeBySlug(searchParams.get('first') ?? undefined);
-  const secondDegree = getDegreeBySlug(searchParams.get('second') ?? undefined);
+  const firstDegree = getDegreeForComparison(
+    searchParams.get('first') ?? undefined,
+  );
+  const secondDegree = getDegreeForComparison(
+    searchParams.get('second') ?? undefined,
+  );
 
   if (!firstDegree || !secondDegree || firstDegree.slug === secondDegree.slug) {
     return (

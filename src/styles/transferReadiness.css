@@ -1,0 +1,173 @@
+.transfer-readiness-page {
+  background-color: #f8f7f0;
+}
+
+.transfer-readiness-hero {
+  min-height: auto;
+}
+
+.transfer-readiness-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+  gap: 40px;
+  padding: 48px 60px;
+  background-color: #ffffff;
+}
+
+.transfer-readiness-overview h2,
+.transfer-term-section h2,
+.transfer-readiness-next h2 {
+  margin: 0 0 18px;
+  color: #086343;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.transfer-readiness-overview p,
+.transfer-readiness-next p {
+  max-width: 780px;
+  margin: 0;
+  color: #25362d;
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.transfer-readiness-overview ol {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: transfer-path;
+}
+
+.transfer-readiness-overview li {
+  counter-increment: transfer-path;
+  position: relative;
+  padding: 18px 18px 18px 58px;
+  border: 1px solid rgba(8, 98, 66, 0.16);
+  border-radius: 8px;
+  background-color: #f8f7f0;
+  color: #203126;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.transfer-readiness-overview li::before {
+  content: counter(transfer-path, decimal-leading-zero);
+  position: absolute;
+  left: 18px;
+  color: #086343;
+  font-weight: 800;
+}
+
+.transfer-term-section,
+.transfer-readiness-next {
+  padding: 60px;
+}
+
+.transfer-type-section {
+  display: grid;
+  gap: 24px;
+  margin: 0 0 36px;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.transfer-type-section h3 {
+  margin: 0 0 12px;
+  color: #086343;
+  font-family: "Anton", Impact, sans-serif;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.transfer-type-section p {
+  max-width: 900px;
+  margin: 0;
+  color: #314239;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.transfer-type-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.transfer-type-card {
+  padding: 20px;
+  border: 1px solid rgba(8, 98, 66, 0.14);
+  border-radius: 8px;
+  background-color: #f8f7f0;
+}
+
+.transfer-type-card h4 {
+  margin: 0 0 10px;
+  color: #086343;
+  font-size: 20px;
+}
+
+.transfer-type-note {
+  padding: 18px;
+  border-left: 4px solid #086343;
+  background-color: #eef4e8;
+}
+
+.transfer-term-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.transfer-term-card {
+  min-height: 220px;
+  padding: 26px;
+  border: 1px solid rgba(8, 98, 66, 0.14);
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.transfer-term-card h3 {
+  margin: 0 0 12px;
+  color: #086343;
+  font-size: 24px;
+}
+
+.transfer-term-card p {
+  margin: 0;
+  color: #314239;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.transfer-readiness-next {
+  background-color: #086343;
+}
+
+.transfer-readiness-next h2,
+.transfer-readiness-next p,
+.transfer-readiness-next .degrees-eyebrow {
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .transfer-readiness-overview,
+  .transfer-term-section,
+  .transfer-readiness-next {
+    padding: 36px 20px;
+  }
+
+  .transfer-readiness-overview,
+  .transfer-term-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transfer-type-grid {
+    grid-template-columns: 1fr;
+  }
+}

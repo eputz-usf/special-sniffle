@@ -47,6 +47,9 @@ const highSchoolIntakeQuestions: QuizQuestion[] = [
       { id: 'engineering-robotics', label: 'Engineering or robotics', description: 'Building, testing, fixing, or designing things.', icon: 'cpu' },
       { id: 'health-science', label: 'Health science or biology', description: 'The human body, medicine, health, or life science.', icon: 'hands' },
       { id: 'business', label: 'Business or entrepreneurship', description: 'Products, companies, leadership, money, or strategy.', icon: 'briefcase' },
+      { id: 'accounting-finance-subjects', label: 'Accounting or finance', description: 'Money, budgets, reports, banks, or how businesses track numbers.', icon: 'briefcase' },
+      { id: 'marketing-media-subjects', label: 'Marketing or media', description: 'Ads, social media, customers, brands, or online campaigns.', icon: 'palette' },
+      { id: 'operations-subjects', label: 'Business operations', description: 'How products, supplies, shipping, and work processes move.', icon: 'wrench' },
       { id: 'people-topics', label: 'Psychology or sociology', description: 'People, behavior, communities, and society.', icon: 'users' },
       { id: 'criminal-justice-law', label: 'Criminal justice or law', description: 'Rules, safety, crime, investigations, or legal systems.', icon: 'shield' },
       { id: 'creativity', label: 'Art, design, or media', description: 'Creativity, visuals, stories, or communication.', icon: 'palette' },
@@ -60,7 +63,7 @@ const highSchoolIntakeQuestions: QuizQuestion[] = [
     question: 'Which topics sound interesting to you?',
     helperText: 'Choose the topics that catch your attention most today. This can change later.',
     selectionMode: 'multiple',
-    maxSelections: 5,
+    maxSelections: 6,
     answers: [
       { id: 'software', label: 'Building apps, websites, or games', description: 'Creating digital tools people can use.', icon: 'code' },
       { id: 'ai-ml', label: 'Artificial intelligence', description: 'Teaching computers to recognize patterns, answer questions, or make predictions.', icon: 'brain' },
@@ -69,6 +72,11 @@ const highSchoolIntakeQuestions: QuizQuestion[] = [
       { id: 'hardware', label: 'Robots, smart devices, or sensors', description: 'Connecting software to machines, devices, or electronics.', icon: 'cpu' },
       { id: 'health-tech', label: 'Health and medical technology', description: 'Using technology to support doctors, patients, hospitals, or health research.', icon: 'hands' },
       { id: 'business-tech', label: 'Business and technology', description: 'Using technology to help companies, teams, or organizations work better.', icon: 'briefcase' },
+      { id: 'accounting-analytics-focus', label: 'Money records and reports', description: 'Using technology to understand budgets, reports, or accounting data.', icon: 'briefcase' },
+      { id: 'business-analytics-focus', label: 'Business data', description: 'Using charts, dashboards, and data to help a business decide what to do.', icon: 'lightbulb' },
+      { id: 'digital-marketing-focus', label: 'Online ads and customer data', description: 'Using technology to understand customers, websites, campaigns, or social media.', icon: 'palette' },
+      { id: 'fintech-focus', label: 'Money apps and banking technology', description: 'Using technology for payments, banking, investing, or secure financial tools.', icon: 'briefcase' },
+      { id: 'supply-chain-focus', label: 'Shipping, supplies, and operations', description: 'Using technology to move products, track inventory, or improve business processes.', icon: 'wrench' },
       { id: 'digital-investigations', label: 'Crime, justice, and digital investigations', description: 'Using computing to understand cybercrime, digital evidence, or public safety.', icon: 'shield' },
       { id: 'digital-communities', label: 'Social media, online behavior, or digital communities', description: 'Understanding how people use technology and how it affects society.', icon: 'users' },
       { id: 'user-experience', label: 'Design, creativity, or user experience', description: 'Making technology easier, clearer, and more enjoyable to use.', icon: 'palette' },
@@ -82,12 +90,17 @@ const highSchoolIntakeQuestions: QuizQuestion[] = [
     question: 'What kind of task sounds interesting to you?',
     helperText: 'Choose the tasks you would most enjoy spending time on.',
     selectionMode: 'multiple',
-    maxSelections: 3,
+    maxSelections: 4,
     answers: [
-      { id: 'apps-websites', label: 'Build a website or app for students', description: 'For example, a tool that helps students compare majors.', icon: 'code' },
+      { id: 'apps-websites', label: 'Build a website or app people can use', description: 'For example, a tool that helps people compare options or make decisions.', icon: 'code' },
       { id: 'intelligent-systems', label: 'Train an AI tool to recognize patterns', description: 'For example, helping a computer predict what users may need.', icon: 'brain' },
-      { id: 'security-problems', label: 'Find and fix a security problem', description: 'For example, protecting an account, website, or school system.', icon: 'shield' },
-      { id: 'patterns', label: 'Look at data and explain what it means', description: 'For example, finding trends in student success, health, or business data.', icon: 'lightbulb' },
+      { id: 'security-problems', label: 'Find and fix a security problem', description: 'For example, protecting an account, website, or organization system.', icon: 'shield' },
+      { id: 'patterns', label: 'Look at data and explain what it means', description: 'For example, finding trends in health, business, community, or technology data.', icon: 'lightbulb' },
+      { id: 'accounting-data-task', label: 'Check money data for patterns', description: 'For example, finding mistakes or trends in reports, payments, or budgets.', icon: 'briefcase' },
+      { id: 'business-dashboard-task', label: 'Make a business dashboard', description: 'For example, showing sales, customers, or project data in a clear way.', icon: 'lightbulb' },
+      { id: 'marketing-data-task', label: 'Study what people click online', description: 'For example, learning which ads, posts, or pages people respond to.', icon: 'palette' },
+      { id: 'fintech-task', label: 'Work on a money or payment app', description: 'For example, helping make a finance tool easier or safer to use.', icon: 'briefcase' },
+      { id: 'supply-chain-task', label: 'Improve how products move', description: 'For example, tracking supplies, deliveries, inventory, or shipping data.', icon: 'wrench' },
       { id: 'hardware-work', label: 'Connect software to a device or robot', description: 'For example, making a robot, sensor, or smart device respond correctly.', icon: 'cpu' },
       { id: 'health-systems', label: 'Help a hospital or clinic use technology better', description: 'For example, improving patient records, scheduling, or health data systems.', icon: 'hands' },
       { id: 'investigate-digital-problem', label: 'Investigate a digital problem', description: 'For example, tracing suspicious activity or understanding digital evidence.', icon: 'shield' },
@@ -259,7 +272,7 @@ function HighSchoolIntakeQuiz() {
 
   return (
     <QuizTemplate
-      title="Intake form"
+      title="Intake Quiz"
       intro="Tell us what you like, where you are in your college search, and which computing paths you want to explore."
       questions={highSchoolIntakeQuestions}
       initialAnswersByQuestion={savedProgress.answersByQuestion}

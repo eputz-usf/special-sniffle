@@ -25,6 +25,8 @@ import Profile from './pages/Profile';
 import ProspectiveStudentDashboard from './pages/dashboards/ProspectiveStudentDashboard';
 import SelectUserType from './pages/SelectUserType';
 import TransferStudentDashboard from './pages/dashboards/TransferStudentDashboard';
+import TransferPlanner from './pages/transfer/TransferPlanner';
+import TransferReadinessGuide from './pages/transfer/TransferReadinessGuide';
 import TransferIntakeQuiz from './pages/transfer/quiz/TransferIntakeQuiz';
 import TransferQuizResults from './pages/transfer/quiz/TransferQuizResults';
 import usfLogo from './assets/usflogo.png';
@@ -71,6 +73,11 @@ function App() {
         <Route path="/quiz/results" element={<HighSchoolQuizResults />} />
         <Route path="/transfer/quiz" element={<TransferIntakeQuiz />} />
         <Route path="/transfer/quiz/results" element={<TransferQuizResults />} />
+        <Route path="/transfer/planner" element={<TransferPlanner />} />
+        <Route
+          path="/transfer/readiness-guide"
+          element={<TransferReadinessGuide />}
+        />
         <Route path="/degrees" element={<DegreeInformation />} />
         <Route path="/degrees/compare" element={<DegreeComparison />} />
         <Route

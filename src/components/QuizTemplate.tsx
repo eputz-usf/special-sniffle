@@ -53,6 +53,8 @@ export type QuizSubmissionResult = {
   recommendedDegrees: string[];
   topMatch: string;
   majorScores: Record<string, number>;
+  maximumMajorScores: Record<string, number>;
+  matchPercentages: Record<string, number>;
   explanations: Record<string, string>;
   signalsByMajor: Record<string, QuizRecommendationSignal[]>;
   quizVersion: string;
@@ -271,7 +273,6 @@ function QuizTemplate({
 
         <div className="quiz-header">
           <div>
-            <p className="quiz-kicker">Intake quiz template</p>
             <h1 id="quiz-title">{title}</h1>
             <p>{intro}</p>
           </div>
@@ -298,6 +299,9 @@ function QuizTemplate({
               {submissionResult.recommendedDegrees.map((degree, index) => (
                 <span key={degree}>
                   {index + 1}. {degree}
+                  <small>
+                    {submissionResult.matchPercentages[degree] ?? 0}% match
+                  </small>
                 </span>
               ))}
             </div>

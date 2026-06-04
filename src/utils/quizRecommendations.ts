@@ -15,6 +15,8 @@ export type QuizRecommendationResult = {
   recommendedDegrees: string[];
   topMatch: string;
   majorScores: Record<string, number>;
+  maximumMajorScores: Record<string, number>;
+  matchPercentages: Record<string, number>;
   explanations: Record<string, string>;
   signalsByMajor: Record<string, QuizRecommendationSignal[]>;
   quizVersion: string;
@@ -25,6 +27,53 @@ export type QuizRecommendationSignal = {
   label: string;
   points: number;
 };
+
+export function calculateMatchPercentages(
+  recommendedDegrees: string[],
+  majorScores: Record<string, number>,
+  maximumMajorScores: Record<string, number>,
+) {
+  return Object.fromEntries(
+    recommendedDegrees.map((major) => {
+      const score = majorScores[major] ?? 0;
+      const maximumScore = maximumMajorScores[major] ?? 0;
+
+      return [
+        major,
+        maximumScore > 0
+          ? Math.max(1, Math.round((score / maximumScore) * 100))
+          : 0,
+      ];
+    }),
+  );
+}
+
+function calculateMaximumMajorScores(
+  config: QuizRecommendationConfig,
+  questions: QuizQuestion[],
+) {
+  const maximumMajorScores = Object.fromEntries(
+    config.majors.map((major) => [major, 0]),
+  );
+
+  questions.forEach((question) => {
+    const maxSelections =
+      question.selectionMode === 'multiple' ? question.maxSelections ?? 1 : 1;
+
+    config.majors.forEach((major) => {
+      const possibleQuestionPoints = question.answers
+        .map((answer) => config.answerWeights[answer.id]?.[major] ?? 0)
+        .filter((points) => points > 0)
+        .sort((first, second) => second - first)
+        .slice(0, maxSelections)
+        .reduce((total, points) => total + points, 0);
+
+      maximumMajorScores[major] += possibleQuestionPoints;
+    });
+  });
+
+  return maximumMajorScores;
+}
 
 export function generateQuizResult(
   answersByQuestion: QuizAnswersByQuestion,
@@ -68,6 +117,7 @@ export function generateQuizResult(
     signals.sort((first, second) => second.points - first.points);
   });
 
+  const maximumMajorScores = calculateMaximumMajorScores(config, questions);
   const recommendedDegrees = Object.entries(majorScores)
     .sort(([, firstScore], [, secondScore]) => secondScore - firstScore)
     .slice(0, config.recommendationCount ?? 3)
@@ -81,11 +131,18 @@ export function generateQuizResult(
         : 'This is a broad starting point because your answers did not strongly favor one path yet.',
     ]),
   );
+  const matchPercentages = calculateMatchPercentages(
+    recommendedDegrees,
+    majorScores,
+    maximumMajorScores,
+  );
 
   return {
     recommendedDegrees,
     topMatch: recommendedDegrees[0],
     majorScores,
+    maximumMajorScores,
+    matchPercentages,
     explanations,
     signalsByMajor,
     quizVersion: config.quizVersion,

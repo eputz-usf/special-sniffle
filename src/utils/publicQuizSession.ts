@@ -1,5 +1,8 @@
 import type { QuizAnswersByQuestion } from '../components/QuizTemplate';
-import type { QuizRecommendationSignal } from './quizRecommendations';
+import {
+  calculateMatchPercentages,
+  type QuizRecommendationSignal,
+} from './quizRecommendations';
 
 const PUBLIC_QUIZ_SESSION_KEY = 'cic_public_quiz_session';
 const PUBLIC_QUIZ_PROGRESS_KEY = 'cic_public_quiz_progress';
@@ -19,6 +22,8 @@ export type SavedPublicQuizResult = {
   recommendedDegrees: string[];
   topMatch: string;
   majorScores: Record<string, number>;
+  maximumMajorScores: Record<string, number>;
+  matchPercentages: Record<string, number>;
   explanations: Record<string, string>;
   signalsByMajor: Record<string, QuizRecommendationSignal[]>;
   quizVersion: string;
@@ -122,6 +127,14 @@ export function loadPublicQuizResult(): SavedPublicQuizResult | null {
         recommendedDegrees: parsedResult.recommendedDegrees,
         topMatch: parsedResult.topMatch,
         majorScores: parsedResult.majorScores ?? {},
+        maximumMajorScores: parsedResult.maximumMajorScores ?? {},
+        matchPercentages:
+          parsedResult.matchPercentages ??
+          calculateMatchPercentages(
+            parsedResult.recommendedDegrees,
+            parsedResult.majorScores ?? {},
+            parsedResult.maximumMajorScores ?? {},
+          ),
         explanations: parsedResult.explanations ?? {},
         signalsByMajor: parsedResult.signalsByMajor ?? {},
         quizVersion: parsedResult.quizVersion ?? 'legacy',

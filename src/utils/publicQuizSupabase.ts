@@ -4,6 +4,8 @@ export type PublicQuizResult = {
   recommendedDegrees: string[];
   topMatch: string;
   majorScores: Record<string, number>;
+  maximumMajorScores: Record<string, number>;
+  matchPercentages: Record<string, number>;
   explanations: Record<string, string>;
   signalsByMajor: Record<string, QuizRecommendationSignal[]>;
   quizVersion: string;

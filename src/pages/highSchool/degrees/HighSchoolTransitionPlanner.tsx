@@ -6,6 +6,7 @@ import {
 } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  AlertTriangle,
   FileText,
   Printer,
   RotateCcw,
@@ -47,6 +48,21 @@ const emptyPlanner: TransitionPlannerState = {
   nextSteps: '',
 };
 
+type ConfirmationDialog =
+  | {
+      action: 'reset';
+      title: string;
+      message: string;
+      confirmLabel: string;
+    }
+  | {
+      action: 'remove-major';
+      slug: string;
+      title: string;
+      message: string;
+      confirmLabel: string;
+    };
+
 function loadTransitionPlanner(
   quizRecommendations: string[],
 ): TransitionPlannerState {
@@ -77,6 +93,21 @@ function loadTransitionPlanner(
   };
 }
 
+function mergePlannerMajors(
+  primaryMajors: ReturnType<typeof loadPlannerMajors>,
+  secondaryMajors: ReturnType<typeof loadPlannerMajors>,
+) {
+  const mergedMajors = [...primaryMajors];
+
+  secondaryMajors.forEach((major) => {
+    if (!mergedMajors.some((currentMajor) => currentMajor.slug === major.slug)) {
+      mergedMajors.push(major);
+    }
+  });
+
+  return mergedMajors;
+}
+
 function HighSchoolTransitionPlanner() {
   const [plannerSession] = useState(() => getOrCreatePublicQuizSession());
   const [quizResult] = useState(() => loadPublicQuizResult());
@@ -94,6 +125,8 @@ function HighSchoolTransitionPlanner() {
   const [plannerSaveStatus, setPlannerSaveStatus] = useState<
     'idle' | 'saved' | 'local-only' | 'error'
   >('idle');
+  const [confirmationDialog, setConfirmationDialog] =
+    useState<ConfirmationDialog | null>(null);
 
   function handlePlannerChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -120,6 +153,16 @@ function HighSchoolTransitionPlanner() {
   }
 
   function handleResetPlanner() {
+    setConfirmationDialog({
+      action: 'reset',
+      title: 'Reset transition planner?',
+      message:
+        'This will clear your saved planner details and restore your quiz recommendations.',
+      confirmLabel: 'Reset Planner',
+    });
+  }
+
+  function resetPlanner() {
     const resetPlanner = {
       ...emptyPlanner,
       selectedRecommendations: quizRecommendations,
@@ -136,8 +179,32 @@ function HighSchoolTransitionPlanner() {
     window.print();
   }
 
-  function handleRemoveConsideringMajor(slug: string) {
-    setConsideringMajors(removePlannerMajor(slug));
+  function handleRemoveConsideringMajor(slug: string, name: string) {
+    setConfirmationDialog({
+      action: 'remove-major',
+      slug,
+      title: 'Remove this major?',
+      message: `${name} will be removed from your planner.`,
+      confirmLabel: 'Remove Major',
+    });
+  }
+
+  function handleCancelConfirmation() {
+    setConfirmationDialog(null);
+  }
+
+  function handleConfirmAction() {
+    if (!confirmationDialog) {
+      return;
+    }
+
+    if (confirmationDialog.action === 'reset') {
+      resetPlanner();
+    } else {
+      setConsideringMajors(removePlannerMajor(confirmationDialog.slug));
+    }
+
+    setConfirmationDialog(null);
   }
 
   useEffect(() => {
@@ -159,6 +226,11 @@ function HighSchoolTransitionPlanner() {
         }
 
         if (remotePlan) {
+          const mergedMajors = mergePlannerMajors(
+            loadPlannerMajors(),
+            remotePlan.majors,
+          );
+
           setPlanner({
             studentName: remotePlan.planner.studentName ?? '',
             selectedRecommendations: Array.isArray(
@@ -171,8 +243,8 @@ function HighSchoolTransitionPlanner() {
             notes: remotePlan.planner.notes ?? '',
             nextSteps: remotePlan.planner.nextSteps ?? '',
           });
-          setConsideringMajors(remotePlan.majors);
-          savePlannerMajors(remotePlan.majors);
+          setConsideringMajors(mergedMajors);
+          savePlannerMajors(mergedMajors);
           setPlannerSaveStatus('saved');
         }
       } catch {
@@ -295,7 +367,9 @@ function HighSchoolTransitionPlanner() {
                         <span>{major.name}</span>
                         <button
                           type="button"
-                          onClick={() => handleRemoveConsideringMajor(major.slug)}
+                          onClick={() =>
+                            handleRemoveConsideringMajor(major.slug, major.name)
+                          }
                         >
                           Remove
                         </button>
@@ -326,7 +400,13 @@ function HighSchoolTransitionPlanner() {
                         checked={planner.selectedRecommendations.includes(recommendation)}
                         onChange={() => handleRecommendationToggle(recommendation)}
                       />
-                      <span>{recommendation}</span>
+                      <span className="transition-planner-recommendation-label">
+                        {recommendation}
+                        <small>
+                          {quizResult?.matchPercentages[recommendation] ?? 0}%
+                          match
+                        </small>
+                      </span>
                     </label>
                   ))
                 ) : (
@@ -439,12 +519,22 @@ function HighSchoolTransitionPlanner() {
                   {quizResult ? (
                     <>
                       <p>
-                        Top match: <strong>{quizResult.topMatch}</strong>
+                        Top match: <strong>{quizResult.topMatch}</strong>{' '}
+                        <span className="transition-planner-match-badge">
+                          {quizResult.matchPercentages[quizResult.topMatch] ?? 0}%
+                          match
+                        </span>
                       </p>
                       {planner.selectedRecommendations.length > 0 && (
                         <ul>
                           {planner.selectedRecommendations.map((recommendation) => (
-                            <li key={recommendation}>{recommendation}</li>
+                            <li key={recommendation}>
+                              {recommendation}{' '}
+                              <span className="transition-planner-match-badge">
+                                {quizResult.matchPercentages[recommendation] ?? 0}%
+                                match
+                              </span>
+                            </li>
                           ))}
                         </ul>
                       )}
@@ -482,6 +572,45 @@ function HighSchoolTransitionPlanner() {
           </article>
         </div>
       </section>
+
+      {confirmationDialog && (
+        <div
+          className="transition-confirmation-overlay"
+          role="presentation"
+          onClick={handleCancelConfirmation}
+        >
+          <section
+            aria-labelledby="transition-confirmation-title"
+            aria-modal="true"
+            className="transition-confirmation-dialog"
+            role="dialog"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="transition-confirmation-icon">
+              <AlertTriangle size={26} aria-hidden="true" />
+            </div>
+            <div>
+              <p className="dashboard-eyebrow">Confirm change</p>
+              <h2 id="transition-confirmation-title">
+                {confirmationDialog.title}
+              </h2>
+              <p>{confirmationDialog.message}</p>
+            </div>
+            <div className="transition-confirmation-actions">
+              <button type="button" onClick={handleCancelConfirmation}>
+                Cancel
+              </button>
+              <button
+                className="danger"
+                type="button"
+                onClick={handleConfirmAction}
+              >
+                {confirmationDialog.confirmLabel}
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
     </main>
   );
 }

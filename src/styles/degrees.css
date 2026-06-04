@@ -1167,6 +1167,25 @@
   text-decoration: none;
 }
 
+.future-degree-button.compare-selected,
+.future-degree-button.compare-selected:hover,
+.future-degree-button.planner-selected,
+.future-degree-button.planner-selected:hover {
+  border-color: #476b45;
+  background-color: #eae1bf;
+  color: #086343;
+}
+
+.future-degree-button.compare-selected::before,
+.future-degree-button.planner-selected::before,
+.future-degree-button:disabled::before {
+  display: none;
+}
+
+.future-degree-button:disabled {
+  cursor: default;
+}
+
 .future-resource-button.disabled {
   border-color: #b42318;
   background-color: transparent;

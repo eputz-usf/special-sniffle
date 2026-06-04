@@ -160,8 +160,17 @@
 - Updated shared degree pages with career outlook sections, transfer-focused advisor questions, and a Career Paths flow.
 - Added a transfer intake quiz route and results page under `src/pages/transfer/quiz/`.
 - Added separate transfer quiz Supabase table definitions to the schema.
+- completed the transfer intake quiz
+- working on the transfer pathway guide feature
+- working on the transition planner for transfers
 
+## Update 18: Quiz and Planner Refinements
+
+**Date:** June 4, 2026
+
+- Added interdisciplinary Computer Science future options to compare, planner, and quiz recommendations.
+- Refined high school quiz scoring, match percentages, and simpler answer wording.
+- Updated transition planner confirmations and quiz match percentage display.
 
 ## What I Will Focus On Next
-
-- Finalize the transfer intake quiz questions and recommendation weights before running the new transfer quiz schema in Supabase.
+wire transition planner to supabase

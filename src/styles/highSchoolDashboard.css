@@ -474,6 +474,7 @@
 }
 
 .transition-planner-field input,
+.transition-planner-field select,
 .transition-planner-field textarea {
   width: 100%;
   border: 1px solid rgba(8, 98, 66, 0.2);
@@ -486,7 +487,8 @@
   font-size: 16px;
 }
 
-.transition-planner-field input {
+.transition-planner-field input,
+.transition-planner-field select {
   min-height: 48px;
   padding: 0 14px;
   background-color: rgba(255, 255, 255, 0.76);
@@ -500,6 +502,7 @@
 }
 
 .transition-planner-field input:focus,
+.transition-planner-field select:focus,
 .transition-planner-field textarea:focus {
   border-color: #086242;
   outline: 3px solid rgba(31, 157, 81, 0.2);
@@ -526,6 +529,25 @@
   height: 18px;
   margin-top: 2px;
   accent-color: #086242;
+}
+
+.transition-planner-recommendation-label {
+  display: grid;
+  gap: 5px;
+}
+
+.transition-planner-recommendation-label small,
+.transition-planner-match-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background-color: #e8f1e7;
+  color: #086242;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .transition-planner-actions {
@@ -564,6 +586,84 @@
   color: #4b5b51;
 }
 
+.transition-confirmation-overlay {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background-color: rgba(8, 35, 24, 0.48);
+  backdrop-filter: blur(4px);
+}
+
+.transition-confirmation-dialog {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  width: min(100%, 520px);
+  padding: 26px;
+  border: 2px solid #086242;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, transparent 0 34px, rgba(180, 31, 42, 0.18) 34px 36px, transparent 36px),
+    repeating-linear-gradient(180deg, #fffdf7 0 31px, #dce8df 32px),
+    #fffdf7;
+  box-shadow: 0 24px 70px rgba(8, 35, 24, 0.3);
+}
+
+.transition-confirmation-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(180, 31, 42, 0.24);
+  border-radius: 8px;
+  background-color: #fff4cf;
+  color: #a3332b;
+}
+
+.transition-confirmation-dialog h2 {
+  margin: 6px 0 8px;
+  color: #086242;
+  font-size: 28px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.transition-confirmation-dialog p:not(.dashboard-eyebrow) {
+  margin: 0;
+  color: #25352d;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.transition-confirmation-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.transition-confirmation-actions button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 2px solid #086242;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #086242;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.transition-confirmation-actions button.danger {
+  border-color: #a3332b;
+  background-color: #a3332b;
+  color: #ffffff;
+}
+
 .transition-planner-report {
   align-self: start;
   padding: 32px 30px 32px 58px;
@@ -598,6 +698,10 @@
 
 .transition-planner-report li {
   margin-bottom: 6px;
+}
+
+.transition-planner-prewrap {
+  white-space: pre-wrap;
 }
 
 @media (max-width: 760px) {
@@ -662,6 +766,19 @@
   .transition-planner-actions span {
     width: 100%;
     justify-content: center;
+  }
+
+  .transition-confirmation-dialog {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+
+  .transition-confirmation-actions {
+    flex-direction: column-reverse;
+  }
+
+  .transition-confirmation-actions button {
+    width: 100%;
   }
 
 }

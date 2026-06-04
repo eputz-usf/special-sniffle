@@ -35,6 +35,9 @@ function HighSchoolQuizResults() {
               <section className="quiz-top-result">
                 <p>Top recommendation</p>
                 <h2>{quizResult.topMatch}</h2>
+                <span>
+                  {quizResult.matchPercentages[quizResult.topMatch] ?? 0}% match
+                </span>
               </section>
               {quizResult.explanations[quizResult.topMatch] && (
                 <section className="quiz-top-result-explanation">
@@ -61,6 +64,9 @@ function HighSchoolQuizResults() {
                     <strong>
                       {index + 2}. {degree}
                     </strong>
+                    <span>
+                      {quizResult.matchPercentages[degree] ?? 0}% match
+                    </span>
                     {quizResult.explanations[degree] && (
                       <small>{quizResult.explanations[degree]}</small>
                     )}
@@ -83,7 +89,7 @@ function HighSchoolQuizResults() {
           ) : (
             <>
               <p className="quiz-question-eyebrow">No result yet</p>
-              <h1 id="quiz-results-title">Finish the intake form first.</h1>
+              <h1 id="quiz-results-title">Finish the intake quiz first.</h1>
               <p className="quiz-helper-text">
                 Your recommendations will appear here after you submit the
                 anonymous high school intake form.

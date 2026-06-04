@@ -1,0 +1,108 @@
+.transfer-course-section {
+  display: grid;
+  gap: 14px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(8, 98, 66, 0.16);
+}
+
+.transfer-course-section:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.transfer-course-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.transfer-course-section-heading h3 {
+  margin: 0;
+  color: #086242;
+  font-size: 17px;
+  text-transform: uppercase;
+}
+
+.transfer-course-section-heading button,
+.transfer-course-delete-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.transfer-course-section-heading button {
+  padding: 8px 12px;
+  border: 2px solid #086242;
+  background-color: #086242;
+  color: #ffffff;
+}
+
+.transfer-course-input-list {
+  display: grid;
+  gap: 12px;
+}
+
+.transfer-course-input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  align-items: end;
+  gap: 10px;
+}
+
+.transfer-course-delete-button {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(180, 31, 42, 0.35);
+  background-color: #fff2f3;
+  color: #b41f2a;
+}
+
+.transfer-course-delete-button svg {
+  display: block;
+  color: #b41f2a;
+  stroke-width: 2.5;
+}
+
+.transfer-course-delete-button:hover,
+.transfer-course-delete-button:focus-visible {
+  border-color: #b41f2a;
+  background-color: #ffe3e6;
+}
+
+.transfer-course-delete-tooltip {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  z-index: 2;
+  width: max-content;
+  max-width: 180px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background-color: #15251b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+}
+
+.transfer-course-delete-button:hover .transfer-course-delete-tooltip,
+.transfer-course-delete-button:focus-visible .transfer-course-delete-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}

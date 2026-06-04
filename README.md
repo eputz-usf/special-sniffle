@@ -1,5 +1,24 @@
 # CIC Support Platform MVP
 
+## Run Locally
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the local Vite URL shown in the terminal, usually:
+
+```text
+http://localhost:5173
+```
+
+For a production check:
+
+```bash
+npm run build
+```
+
 ## Project Overview
 
 This project is an MVP for a role-based support platform connected to the larger CIC-funded initiative. The goal of the platform is to help different user groups access relevant resources, recommendations, and progress tracking through personalized dashboards.
@@ -70,15 +89,16 @@ The development log currently includes updates for:
 - Role-based dashboard routing
 - Prospective/high school dashboard template work
 - Degree detail pages and catalog link additions
-- Ongoing layout and feature planning
+- High school degree explorer, comparison, quiz recommendations, and transition planner
+- Interdisciplinary Computer Science future options
+- Transfer dashboard, transfer quiz, and transfer planning tools
 
 The development log should be updated regularly as new features are added.
 
 ---
 ## Current Status
 
-The project is currently in active MVP development. The main app flow, user group selection page, USF login placeholder, role-based dashboard routing, and initial degree information pages have been started.
+The project is currently in active MVP development. The main app flow, user group selection, role-based dashboards, high school degree explorer, quiz recommendation flow, transition planner, and transfer student tools are in progress.
 
-Recent work has focused on improving the degree detail pages and adding official USF catalog links for the main majors.
-
+Recent work has focused on high school interdisciplinary Computer Science options, planner integration, refined quiz scoring with match percentages, and transfer planning features.
 
