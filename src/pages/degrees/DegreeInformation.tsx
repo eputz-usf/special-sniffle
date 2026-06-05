@@ -1,6 +1,10 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { degrees } from '../../data/degrees';
+import {
+  addTransferPlannerMajor,
+  loadTransferPlannerMajors,
+} from '../../utils/transferPlannerMajors';
 import '../../styles/degrees.css';
 
 const filters = [
@@ -32,6 +36,9 @@ function DegreeInformation() {
   );
   const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState('');
+  const [plannerMajorSlugs, setPlannerMajorSlugs] = useState(() =>
+    loadTransferPlannerMajors().map((major) => major.slug),
+  );
 
   const visibleDegrees = useMemo(() => {
     const currentDegrees = degrees.filter(
@@ -86,6 +93,15 @@ function DegreeInformation() {
     navigate(`/degrees/compare?first=${compareSlugs[0]}&second=${compareSlugs[1]}`);
   }
 
+  function handleAddToPlanner(degree: (typeof degrees)[number]) {
+    const nextMajors = addTransferPlannerMajor({
+      slug: degree.slug,
+      name: degree.name,
+    });
+
+    setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
+  }
+
   return (
     <main className="degrees-page">
       <section className="degrees-hero">
@@ -106,7 +122,7 @@ function DegreeInformation() {
         </p>
         <p>
           Use Add to Compare for a side-by-side review, or save programs to your
-          planning list once the transfer planner is available.
+          transfer planner.
         </p>
       </section>
 
@@ -158,11 +174,16 @@ function DegreeInformation() {
                     : 'Add to Compare'}
                 </button>
                 <button
-                  className="planner-unavailable"
-                  disabled
+                  className={
+                    plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
+                  }
+                  disabled={plannerMajorSlugs.includes(degree.slug)}
                   type="button"
+                  onClick={() => handleAddToPlanner(degree)}
                 >
-                  Add to Planner
+                  {plannerMajorSlugs.includes(degree.slug)
+                    ? 'Added to Planner'
+                    : 'Add to Planner'}
                 </button>
               </div>
             </div>

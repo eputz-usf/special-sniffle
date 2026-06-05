@@ -130,12 +130,16 @@ function DashboardTemplate({
           >
             Tool Box
           </a>
-          <a
-            href="#planner"
-            onClick={(event) => handleSectionLinkClick(event, 'planner')}
-          >
-            Planning
-          </a>
+          {transferPlannerPath ? (
+            <Link to={transferPlannerPath}>Transition planner</Link>
+          ) : (
+            <a
+              href="#planner"
+              onClick={(event) => handleSectionLinkClick(event, 'planner')}
+            >
+              Planning
+            </a>
+          )}
         </nav>
       </header>
 
@@ -222,15 +226,22 @@ function DashboardTemplate({
             </p>
           </Link>
 
-          <Link className="dashboard-major-card" to="/career-paths">
-            <Briefcase size={30} aria-hidden="true" />
-            <span>Possible Career Paths</span>
-            <p>
-              Choose a major and jump to its career outlook, salary context,
-              Tampa Bay employment information, and professional preparation
-              options.
-            </p>
-          </Link>
+          {transferReadinessPath ? (
+            <Link className="dashboard-major-card" to={transferReadinessPath}>
+              <FileText size={30} aria-hidden="true" />
+              <span>Transfer Readiness Guide</span>
+              <p>
+                Review transfer terms, planning expectations, and what to
+                prepare before checking credits or meeting with advising.
+              </p>
+            </Link>
+          ) : (
+            <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
+              <MessageCircleQuestion size={30} aria-hidden="true" />
+              <span>Specified text to be put there</span>
+              <p>Specified text to be put there.</p>
+            </button>
+          )}
 
           {transferPlannerPath ? (
             <Link className="dashboard-major-card" to={transferPlannerPath}>
@@ -252,22 +263,15 @@ function DashboardTemplate({
             </button>
           )}
 
-          {transferReadinessPath ? (
-            <Link className="dashboard-major-card" to={transferReadinessPath}>
-              <FileText size={30} aria-hidden="true" />
-              <span>Transfer Readiness Guide</span>
-              <p>
-                Review transfer terms, planning expectations, and what to
-                prepare before checking credits or meeting with advising.
-              </p>
-            </Link>
-          ) : (
-            <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
-              <MessageCircleQuestion size={30} aria-hidden="true" />
-              <span>Specified text to be put there</span>
-              <p>Specified text to be put there.</p>
-            </button>
-          )}
+          <Link className="dashboard-major-card" to="/career-paths">
+            <Briefcase size={30} aria-hidden="true" />
+            <span>Possible Career Paths</span>
+            <p>
+              Choose a major and jump to its career outlook, salary context,
+              Tampa Bay employment information, and professional preparation
+              options.
+            </p>
+          </Link>
         </div>
       </section>
 

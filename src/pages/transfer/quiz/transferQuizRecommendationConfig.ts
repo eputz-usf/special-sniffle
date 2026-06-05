@@ -1,13 +1,20 @@
 import type { QuizRecommendationConfig } from '../../../utils/quizRecommendations';
 
 export const transferQuizRecommendationConfig = {
-  quizVersion: 'transfer-v2',
+  quizVersion: 'transfer-v3',
   majors: [
     'Computer Science',
     'Artificial Intelligence',
     'Cybersecurity',
     'Information Technology',
     'Computer Science and Engineering',
+    'BS in Computer Science and Criminology',
+    'BS in Computer Science and Interdisciplinary Social Sciences',
+    'BS in Computer Science and Business: Accountancy and Analytics Concentration',
+    'BS in Computer Science and Business: Business Analytics and Information Systems Concentration',
+    'BS in Computer Science and Business: Digital Marketing and Analytics Concentration',
+    'BS in Computer Science and Business: Fintech Concentration',
+    'BS in Computer Science and Business: Supply Chain Management Concentration',
   ],
   majorExplanations: {
     'Computer Science':
@@ -20,6 +27,20 @@ export const transferQuizRecommendationConfig = {
       'Your answers point toward applied technology, systems, infrastructure, databases, cloud, and organizational support.',
     'Computer Science and Engineering':
       'Your answers point toward systems, hardware-aware software, embedded technology, robotics, or computing infrastructure.',
+    'BS in Computer Science and Criminology':
+      'Your answers point toward computing, cybercrime, digital evidence, public safety, and justice systems.',
+    'BS in Computer Science and Interdisciplinary Social Sciences':
+      'Your answers point toward computing, people, communities, policy, social systems, and technology’s impact on society.',
+    'BS in Computer Science and Business: Accountancy and Analytics Concentration':
+      'Your answers point toward computing, accounting systems, auditing, analytics, and financial reports.',
+    'BS in Computer Science and Business: Business Analytics and Information Systems Concentration':
+      'Your answers point toward computing, business analytics, dashboards, databases, and information systems.',
+    'BS in Computer Science and Business: Digital Marketing and Analytics Concentration':
+      'Your answers point toward computing, digital platforms, customer data, online behavior, and marketing analytics.',
+    'BS in Computer Science and Business: Fintech Concentration':
+      'Your answers point toward computing, finance, payment technology, secure platforms, and financial data.',
+    'BS in Computer Science and Business: Supply Chain Management Concentration':
+      'Your answers point toward computing, logistics, operations, inventory, transportation, and business process improvement.',
   },
   answerWeights: {
     'community-college': { 'Information Technology': 1, 'Computer Science': 1 },
@@ -57,6 +78,40 @@ export const transferQuizRecommendationConfig = {
       'Information Technology': 2,
       Cybersecurity: 1,
       'Artificial Intelligence': 1,
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 1,
+      'BS in Computer Science and Criminology': 1,
+      'BS in Computer Science and Interdisciplinary Social Sciences': 1,
+    },
+    'interest-business-analytics': {
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 4,
+      'Information Technology': 1,
+      'Artificial Intelligence': 1,
+    },
+    'interest-accounting-analytics': {
+      'BS in Computer Science and Business: Accountancy and Analytics Concentration': 4,
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 1,
+    },
+    'interest-digital-marketing': {
+      'BS in Computer Science and Business: Digital Marketing and Analytics Concentration': 4,
+      'BS in Computer Science and Interdisciplinary Social Sciences': 1,
+    },
+    'interest-fintech': {
+      'BS in Computer Science and Business: Fintech Concentration': 4,
+      Cybersecurity: 1,
+      'BS in Computer Science and Business: Accountancy and Analytics Concentration': 1,
+    },
+    'interest-supply-chain': {
+      'BS in Computer Science and Business: Supply Chain Management Concentration': 4,
+      'Information Technology': 1,
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 1,
+    },
+    'interest-criminology-tech': {
+      'BS in Computer Science and Criminology': 4,
+      Cybersecurity: 2,
+    },
+    'interest-social-science-tech': {
+      'BS in Computer Science and Interdisciplinary Social Sciences': 4,
+      'Information Technology': 1,
     },
     'interest-not-sure': {
       'Computer Science': 1,
@@ -77,6 +132,24 @@ export const transferQuizRecommendationConfig = {
       'Information Technology': 2,
       Cybersecurity: 1,
       'Artificial Intelligence': 1,
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 1,
+      'BS in Computer Science and Criminology': 1,
+      'BS in Computer Science and Interdisciplinary Social Sciences': 1,
+    },
+    'course-business-accounting': {
+      'BS in Computer Science and Business: Accountancy and Analytics Concentration': 3,
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 2,
+      'BS in Computer Science and Business: Digital Marketing and Analytics Concentration': 2,
+      'BS in Computer Science and Business: Fintech Concentration': 2,
+      'BS in Computer Science and Business: Supply Chain Management Concentration': 2,
+    },
+    'course-criminology-law': {
+      'BS in Computer Science and Criminology': 3,
+      Cybersecurity: 1,
+    },
+    'course-social-science': {
+      'BS in Computer Science and Interdisciplinary Social Sciences': 3,
+      'Information Technology': 1,
     },
     'course-general-ed': { 'Information Technology': 1 },
     'course-no-computing': { 'Information Technology': 2 },
@@ -116,6 +189,36 @@ export const transferQuizRecommendationConfig = {
       'Information Technology': 2,
       'Artificial Intelligence': 1,
       Cybersecurity: 1,
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 1,
+      'BS in Computer Science and Criminology': 1,
+      'BS in Computer Science and Interdisciplinary Social Sciences': 1,
+    },
+    'work-business-data': {
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 4,
+      'BS in Computer Science and Business: Accountancy and Analytics Concentration': 1,
+      'Artificial Intelligence': 1,
+    },
+    'work-financial-tech': {
+      'BS in Computer Science and Business: Fintech Concentration': 4,
+      'BS in Computer Science and Business: Accountancy and Analytics Concentration': 1,
+      Cybersecurity: 1,
+    },
+    'work-marketing-tech': {
+      'BS in Computer Science and Business: Digital Marketing and Analytics Concentration': 4,
+      'BS in Computer Science and Interdisciplinary Social Sciences': 1,
+    },
+    'work-operations-tech': {
+      'BS in Computer Science and Business: Supply Chain Management Concentration': 4,
+      'Information Technology': 1,
+      'BS in Computer Science and Business: Business Analytics and Information Systems Concentration': 1,
+    },
+    'work-digital-evidence': {
+      'BS in Computer Science and Criminology': 4,
+      Cybersecurity: 2,
+    },
+    'work-social-impact-tech': {
+      'BS in Computer Science and Interdisciplinary Social Sciences': 4,
+      'Information Technology': 1,
     },
     'work-help-technical': { 'Information Technology': 3 },
     'work-unsure': {
@@ -155,11 +258,6 @@ export const transferQuizRecommendationConfig = {
       'Information Technology': 1,
       Cybersecurity: 1,
     },
-    'help-compare-degrees': {
-      'Computer Science': 1,
-      'Artificial Intelligence': 1,
-      Cybersecurity: 1,
-    },
     'help-lower-division-courses': {
       'Computer Science': 1,
       'Computer Science and Engineering': 1,
@@ -172,6 +270,5 @@ export const transferQuizRecommendationConfig = {
     },
     'help-official-resources': { 'Information Technology': 1 },
     'help-advising-questions': { 'Information Technology': 1 },
-    'help-save-print-export': { 'Information Technology': 1 },
   },
 } satisfies QuizRecommendationConfig;

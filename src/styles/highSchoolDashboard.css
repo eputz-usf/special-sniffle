@@ -444,15 +444,30 @@
 .transition-planner-major-list button,
 .transition-planner-major-empty a {
   padding: 8px 10px;
-  border: 1px solid #086242;
   border-radius: 8px;
   background-color: transparent;
-  color: #086242;
   font: inherit;
   font-size: 14px;
   font-weight: 800;
   text-decoration: none;
   cursor: pointer;
+}
+
+.transition-planner-major-list button {
+  border: 1px solid rgba(180, 31, 42, 0.38);
+  background-color: #fff2f3;
+  color: #b41f2a;
+}
+
+.transition-planner-major-list button:hover,
+.transition-planner-major-list button:focus-visible {
+  border-color: #b41f2a;
+  background-color: #ffe3e6;
+}
+
+.transition-planner-major-empty a {
+  border: 1px solid #086242;
+  color: #086242;
 }
 
 .transition-planner-major-empty {

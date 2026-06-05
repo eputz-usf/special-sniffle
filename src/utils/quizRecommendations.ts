@@ -118,8 +118,21 @@ export function generateQuizResult(
   });
 
   const maximumMajorScores = calculateMaximumMajorScores(config, questions);
-  const recommendedDegrees = Object.entries(majorScores)
-    .sort(([, firstScore], [, secondScore]) => secondScore - firstScore)
+  const allMatchPercentages = calculateMatchPercentages(
+    config.majors,
+    majorScores,
+    maximumMajorScores,
+  );
+  const recommendedDegrees = config.majors
+    .map((major) => [
+      major,
+      allMatchPercentages[major] ?? 0,
+      majorScores[major] ?? 0,
+    ] as const)
+    .sort(
+      ([, firstPercentage, firstScore], [, secondPercentage, secondScore]) =>
+        secondPercentage - firstPercentage || secondScore - firstScore,
+    )
     .slice(0, config.recommendationCount ?? 3)
     .map(([major]) => major);
 
@@ -131,10 +144,8 @@ export function generateQuizResult(
         : 'This is a broad starting point because your answers did not strongly favor one path yet.',
     ]),
   );
-  const matchPercentages = calculateMatchPercentages(
-    recommendedDegrees,
-    majorScores,
-    maximumMajorScores,
+  const matchPercentages = Object.fromEntries(
+    recommendedDegrees.map((major) => [major, allMatchPercentages[major] ?? 0]),
   );
 
   return {

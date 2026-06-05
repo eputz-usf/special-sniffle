@@ -172,5 +172,20 @@
 - Refined high school quiz scoring, match percentages, and simpler answer wording.
 - Updated transition planner confirmations and quiz match percentage display.
 
+## Update 19: Transfer Quiz and Planner Refinements
+
+**Date:** June 4, 2026
+
+- Refined transfer quiz scoring to rank by match percentage, with raw points as a tie-breaker.
+- Added Q9-driven next-step buttons on transfer quiz results.
+- Added transfer planner saved majors, quiz recommendations, styled confirmations, course lists, year started, and course evaluation link.
+- Connected transfer degree and future option pages to Add to Planner.
+- Updated transfer dashboard navigation to open the transition planner directly.
+
 ## What I Will Focus On Next
-wire transition planner to supabase
+- Work on the transfer pathway guide.
+- Fix the transfer Add to Planner bug.
+- Test recommendation matches with scripts.
+- Fine-tune the transfer dashboard.
+- Rewire course evaluations into the guide, recommendation page, and planner.
+- Fine-tune the high school dashboard.

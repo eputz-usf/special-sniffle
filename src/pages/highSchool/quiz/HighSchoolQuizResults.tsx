@@ -2,12 +2,28 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   loadPublicQuizResult,
   resetPublicQuizSession,
+  type SavedPublicQuizResult,
 } from '../../../utils/publicQuizSession';
 import '../../../styles/quiz.css';
+
+function getVisibleRecommendedDegrees(quizResult: SavedPublicQuizResult) {
+  const visibleRecommendations = quizResult.recommendedDegrees.filter(
+    (degree) => (quizResult.matchPercentages[degree] ?? 0) > 0,
+  );
+
+  return visibleRecommendations.length > 0
+    ? visibleRecommendations
+    : quizResult.recommendedDegrees.slice(0, 1);
+}
 
 function HighSchoolQuizResults() {
   const navigate = useNavigate();
   const quizResult = loadPublicQuizResult();
+  const visibleRecommendedDegrees = quizResult
+    ? getVisibleRecommendedDegrees(quizResult)
+    : [];
+  const visibleTopMatch = visibleRecommendedDegrees[0] ?? quizResult?.topMatch;
+  const visibleOtherRecommendations = visibleRecommendedDegrees.slice(1, 3);
 
   function handleStartOver() {
     resetPublicQuizSession();
@@ -26,7 +42,7 @@ function HighSchoolQuizResults() {
             <>
               <p className="quiz-question-eyebrow">Recommended starting points</p>
               <h1 id="quiz-results-title">
-                {quizResult.topMatch} looks like your strongest match.
+                {visibleTopMatch} looks like your strongest match.
               </h1>
               <p className="quiz-helper-text">
                 These recommendations are for exploration only. Use them to
@@ -34,20 +50,20 @@ function HighSchoolQuizResults() {
               </p>
               <section className="quiz-top-result">
                 <p>Top recommendation</p>
-                <h2>{quizResult.topMatch}</h2>
+                <h2>{visibleTopMatch}</h2>
                 <span>
-                  {quizResult.matchPercentages[quizResult.topMatch] ?? 0}% match
+                  {quizResult.matchPercentages[visibleTopMatch] ?? 0}% match
                 </span>
               </section>
-              {quizResult.explanations[quizResult.topMatch] && (
+              {quizResult.explanations[visibleTopMatch] && (
                 <section className="quiz-top-result-explanation">
                   <h2>Why this may be a good fit</h2>
-                  <p>{quizResult.explanations[quizResult.topMatch]}</p>
-                  {quizResult.signalsByMajor[quizResult.topMatch]?.length > 0 && (
+                  <p>{quizResult.explanations[visibleTopMatch]}</p>
+                  {quizResult.signalsByMajor[visibleTopMatch]?.length > 0 && (
                     <>
                       <h3>Key signals from your quiz</h3>
                       <ul>
-                        {quizResult.signalsByMajor[quizResult.topMatch]
+                        {quizResult.signalsByMajor[visibleTopMatch]
                           .slice(0, 3)
                           .map((signal) => (
                             <li key={signal.answerId}>{signal.label}</li>
@@ -59,7 +75,7 @@ function HighSchoolQuizResults() {
               )}
               <div className="quiz-results-list">
                 <h2>Other programs to explore</h2>
-                {quizResult.recommendedDegrees.slice(1, 3).map((degree, index) => (
+                {visibleOtherRecommendations.map((degree, index) => (
                   <article key={degree}>
                     <strong>
                       {index + 2}. {degree}

@@ -1,6 +1,7 @@
-import { type ChangeEvent, useEffect, useState } from 'react';
+import { type ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  AlertTriangle,
   FileText,
   Plus,
   Printer,
@@ -8,6 +9,11 @@ import {
   Save,
   Trash2,
 } from 'lucide-react';
+import { loadTransferQuizResult } from './quiz/transferQuizSession';
+import {
+  loadTransferPlannerMajors,
+  removeTransferPlannerMajor,
+} from '../../utils/transferPlannerMajors';
 import '../../styles/degrees.css';
 import '../../styles/highSchoolDashboard.css';
 import '../../styles/transferPlanner.css';
@@ -17,7 +23,9 @@ const TRANSFER_PLANNER_STORAGE_KEY = 'cic_transfer_planner';
 type TransferPlannerState = {
   studentName: string;
   currentCollege: string;
+  yearStarted: string;
   transferLevel: string;
+  selectedRecommendations: string[];
   notes: string;
   questions: string;
   completedCourses: string[];
@@ -25,10 +33,38 @@ type TransferPlannerState = {
   plannedCourses: string[];
 };
 
+type CourseGroup = 'completedCourses' | 'currentCourses' | 'plannedCourses';
+
+type ConfirmationDialog =
+  | {
+      action: 'reset';
+      title: string;
+      message: string;
+      confirmLabel: string;
+    }
+  | {
+      action: 'remove-major';
+      slug: string;
+      name: string;
+      title: string;
+      message: string;
+      confirmLabel: string;
+    }
+  | {
+      action: 'remove-course';
+      courseGroup: CourseGroup;
+      courseIndex: number;
+      title: string;
+      message: string;
+      confirmLabel: string;
+    };
+
 const emptyPlanner: TransferPlannerState = {
   studentName: '',
   currentCollege: '',
+  yearStarted: '',
   transferLevel: '',
+  selectedRecommendations: [],
   notes: '',
   questions: '',
   completedCourses: [''],
@@ -79,7 +115,11 @@ function loadTransferPlanner(): TransferPlannerState {
       return {
         studentName: parsedPlanner.studentName ?? '',
         currentCollege: parsedPlanner.currentCollege ?? '',
+        yearStarted: parsedPlanner.yearStarted ?? '',
         transferLevel: parsedPlanner.transferLevel ?? '',
+        selectedRecommendations: Array.isArray(parsedPlanner.selectedRecommendations)
+          ? parsedPlanner.selectedRecommendations
+          : [],
         notes: parsedPlanner.notes ?? '',
         questions: parsedPlanner.questions ?? '',
         completedCourses: normalizeCourseList(parsedPlanner.completedCourses),
@@ -95,7 +135,28 @@ function loadTransferPlanner(): TransferPlannerState {
 }
 
 function TransferPlanner() {
+  const [quizResult] = useState(() => loadTransferQuizResult());
+  const quizRecommendations = useMemo(
+    () => quizResult?.recommendedDegrees.slice(0, 3) ?? [],
+    [quizResult],
+  );
   const [planner, setPlanner] = useState(loadTransferPlanner);
+  const [consideringMajors, setConsideringMajors] = useState(() =>
+    loadTransferPlannerMajors(),
+  );
+  const [confirmationDialog, setConfirmationDialog] =
+    useState<ConfirmationDialog | null>(null);
+
+  useEffect(() => {
+    if (quizRecommendations.length === 0 || planner.selectedRecommendations.length > 0) {
+      return;
+    }
+
+    setPlanner((currentPlanner) => ({
+      ...currentPlanner,
+      selectedRecommendations: quizRecommendations,
+    }));
+  }, [planner.selectedRecommendations.length, quizRecommendations]);
 
   function handlePlannerChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -109,14 +170,16 @@ function TransferPlanner() {
   }
 
   function handleResetPlanner() {
-    const confirmedReset = window.confirm(
-      'Are you sure you want to reset this transfer planning summary? This will delete the saved planner details in this browser.',
-    );
+    setConfirmationDialog({
+      action: 'reset',
+      title: 'Reset transfer planner?',
+      message:
+        'This will clear your saved transfer planning summary in this browser.',
+      confirmLabel: 'Reset Planner',
+    });
+  }
 
-    if (!confirmedReset) {
-      return;
-    }
-
+  function resetPlanner() {
     setPlanner(emptyPlanner);
     window.localStorage.setItem(
       TRANSFER_PLANNER_STORAGE_KEY,
@@ -124,8 +187,35 @@ function TransferPlanner() {
     );
   }
 
+  function handleRemoveConsideringMajor(slug: string, name: string) {
+    setConfirmationDialog({
+      action: 'remove-major',
+      slug,
+      name,
+      title: 'Remove this major?',
+      message: `${name} will be removed from your planner.`,
+      confirmLabel: 'Remove Major',
+    });
+  }
+
+  function handleRecommendationToggle(recommendation: string) {
+    setPlanner((currentPlanner) => {
+      const isSelected =
+        currentPlanner.selectedRecommendations.includes(recommendation);
+
+      return {
+        ...currentPlanner,
+        selectedRecommendations: isSelected
+          ? currentPlanner.selectedRecommendations.filter(
+              (item) => item !== recommendation,
+            )
+          : [...currentPlanner.selectedRecommendations, recommendation],
+      };
+    });
+  }
+
   function handleCourseChange(
-    courseGroup: 'completedCourses' | 'currentCourses' | 'plannedCourses',
+    courseGroup: CourseGroup,
     courseIndex: number,
     value: string,
   ) {
@@ -138,7 +228,7 @@ function TransferPlanner() {
   }
 
   function handleAddCourse(
-    courseGroup: 'completedCourses' | 'currentCourses' | 'plannedCourses',
+    courseGroup: CourseGroup,
   ) {
     setPlanner((currentPlanner) => ({
       ...currentPlanner,
@@ -147,17 +237,20 @@ function TransferPlanner() {
   }
 
   function handleRemoveCourse(
-    courseGroup: 'completedCourses' | 'currentCourses' | 'plannedCourses',
+    courseGroup: CourseGroup,
     courseIndex: number,
   ) {
-    const confirmedDelete = window.confirm(
-      'Are you sure you want to delete this course?',
-    );
+    setConfirmationDialog({
+      action: 'remove-course',
+      courseGroup,
+      courseIndex,
+      title: 'Delete this course?',
+      message: 'This course will be removed from your transfer planner.',
+      confirmLabel: 'Delete Course',
+    });
+  }
 
-    if (!confirmedDelete) {
-      return;
-    }
-
+  function removeCourse(courseGroup: CourseGroup, courseIndex: number) {
     setPlanner((currentPlanner) => {
       const nextCourses = currentPlanner[courseGroup].filter(
         (_, index) => index !== courseIndex,
@@ -168,6 +261,33 @@ function TransferPlanner() {
         [courseGroup]: nextCourses.length > 0 ? nextCourses : [''],
       };
     });
+  }
+
+  function handleCancelConfirmation() {
+    setConfirmationDialog(null);
+  }
+
+  function handleConfirmAction() {
+    if (!confirmationDialog) {
+      return;
+    }
+
+    if (confirmationDialog.action === 'reset') {
+      resetPlanner();
+    }
+
+    if (confirmationDialog.action === 'remove-major') {
+      setConsideringMajors(removeTransferPlannerMajor(confirmationDialog.slug));
+    }
+
+    if (confirmationDialog.action === 'remove-course') {
+      removeCourse(
+        confirmationDialog.courseGroup,
+        confirmationDialog.courseIndex,
+      );
+    }
+
+    setConfirmationDialog(null);
   }
 
   function handlePrintPlanner() {
@@ -184,7 +304,10 @@ function TransferPlanner() {
   const hasPlannerContent =
     planner.studentName.trim() ||
     planner.currentCollege.trim() ||
+    planner.yearStarted.trim() ||
     planner.transferLevel.trim() ||
+    consideringMajors.length > 0 ||
+    planner.selectedRecommendations.length > 0 ||
     planner.notes.trim() ||
     planner.questions.trim() ||
     getFilledCourses(planner.completedCourses).length > 0 ||
@@ -266,6 +389,17 @@ function TransferPlanner() {
               </label>
 
               <label className="transition-planner-field">
+                <span>Year started</span>
+                <input
+                  name="yearStarted"
+                  type="text"
+                  value={planner.yearStarted}
+                  onChange={handlePlannerChange}
+                  placeholder="Example: 2024"
+                />
+              </label>
+
+              <label className="transition-planner-field">
                 <span>Transfer level</span>
                 <select
                   name="transferLevel"
@@ -280,6 +414,69 @@ function TransferPlanner() {
                   ))}
                 </select>
               </label>
+
+              <section className="transition-planner-major-section">
+                <div className="transition-planner-field-label">
+                  Majors I am currently considering
+                </div>
+                {consideringMajors.length > 0 ? (
+                  <ul className="transition-planner-major-list">
+                    {consideringMajors.map((major) => (
+                      <li key={major.slug}>
+                        <span>{major.name}</span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleRemoveConsideringMajor(major.slug, major.name)
+                          }
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="transition-planner-major-empty">
+                    <p>
+                      Add majors from the degree explorer to keep them in this
+                      plan.
+                    </p>
+                    <Link to="/degrees">Browse degrees</Link>
+                  </div>
+                )}
+              </section>
+
+              <fieldset className="transition-planner-fieldset">
+                <legend>Quiz recommendations to include</legend>
+                {quizRecommendations.length > 0 ? (
+                  quizRecommendations.map((recommendation) => (
+                    <label
+                      className="transition-planner-checkbox"
+                      key={recommendation}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={planner.selectedRecommendations.includes(
+                          recommendation,
+                        )}
+                        onChange={() => handleRecommendationToggle(recommendation)}
+                      />
+                      <span className="transition-planner-recommendation-label">
+                        {recommendation}
+                        <small>
+                          {quizResult?.matchPercentages[recommendation] ?? 0}%
+                          match
+                        </small>
+                      </span>
+                    </label>
+                  ))
+                ) : (
+                  <p className="transition-planner-empty">
+                    Take the transfer quiz first to pull recommendations into
+                    this plan.
+                  </p>
+                )}
+              </fieldset>
 
               <label className="transition-planner-field">
                 <span>Notes</span>
@@ -385,6 +582,16 @@ function TransferPlanner() {
                   </div>
                 </section>
               ))}
+
+              <div className="transfer-course-evaluation-link">
+                <a
+                  href="https://main.d15lv3xo04q0ui.amplifyapp.com/"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  View course evaluations
+                </a>
+              </div>
             </div>
           </form>
 
@@ -404,7 +611,37 @@ function TransferPlanner() {
                   <h3>Student Information</h3>
                   <p>{formatPlannerText(planner.studentName, 'Name not provided')}</p>
                   <p>{formatPlannerText(planner.currentCollege, 'College not provided')}</p>
+                  <p>{formatPlannerText(planner.yearStarted, 'Year started not provided')}</p>
                   <p>{formatPlannerText(planner.transferLevel, 'Transfer level not selected')}</p>
+                </section>
+
+                <section>
+                  <h3>Majors I Am Currently Considering</h3>
+                  {consideringMajors.length > 0 ? (
+                    <ul>
+                      {consideringMajors.map((major) => (
+                        <li key={major.slug}>{major.name}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No saved majors yet.</p>
+                  )}
+                  {planner.selectedRecommendations.length > 0 && (
+                    <div className="transfer-report-recommendations">
+                      <h3>Quiz Recommendations Included</h3>
+                      <ul>
+                        {planner.selectedRecommendations.map((recommendation) => (
+                          <li key={recommendation}>
+                            {recommendation}
+                            <span className="transition-planner-match-badge">
+                              {quizResult?.matchPercentages[recommendation] ?? 0}%
+                              match
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </section>
 
                 <section>
@@ -468,6 +705,45 @@ function TransferPlanner() {
           </article>
         </div>
       </section>
+
+      {confirmationDialog && (
+        <div
+          className="transition-confirmation-overlay"
+          role="presentation"
+          onClick={handleCancelConfirmation}
+        >
+          <section
+            aria-labelledby="transfer-confirmation-title"
+            aria-modal="true"
+            className="transition-confirmation-dialog"
+            role="dialog"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="transition-confirmation-icon">
+              <AlertTriangle size={26} aria-hidden="true" />
+            </div>
+            <div>
+              <p className="dashboard-eyebrow">Confirm change</p>
+              <h2 id="transfer-confirmation-title">
+                {confirmationDialog.title}
+              </h2>
+              <p>{confirmationDialog.message}</p>
+            </div>
+            <div className="transition-confirmation-actions">
+              <button type="button" onClick={handleCancelConfirmation}>
+                Cancel
+              </button>
+              <button
+                className="danger"
+                type="button"
+                onClick={handleConfirmAction}
+              >
+                {confirmationDialog.confirmLabel}
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
     </main>
   );
 }

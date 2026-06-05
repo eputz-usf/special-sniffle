@@ -101,6 +101,16 @@ const answerIcons = {
   wrench: Wrench,
 };
 
+function getVisibleRecommendedDegrees(result: QuizSubmissionResult) {
+  const visibleRecommendations = result.recommendedDegrees.filter(
+    (degree) => (result.matchPercentages[degree] ?? 0) > 0,
+  );
+
+  return visibleRecommendations.length > 0
+    ? visibleRecommendations
+    : result.recommendedDegrees.slice(0, 1);
+}
+
 function QuizTemplate({
   title,
   intro,
@@ -120,6 +130,9 @@ function QuizTemplate({
   const [submissionResult, setSubmissionResult] =
     useState<QuizSubmissionResult | null>(null);
   const [submissionError, setSubmissionError] = useState('');
+  const visibleRecommendedDegrees = submissionResult
+    ? getVisibleRecommendedDegrees(submissionResult)
+    : [];
   const [autosaveError, setAutosaveError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [answersByQuestion, setAnswersByQuestion] =
@@ -227,12 +240,6 @@ function QuizTemplate({
       setSubmissionError('');
 
       try {
-        await persistAnswer(
-          currentQuestion.id,
-          selectedAnswerValue,
-          answersByQuestion,
-          currentQuestionIndex,
-        );
         const result = await onSubmit(answersByQuestion);
         if (resultsPath) {
           navigate(resultsPath);
@@ -251,12 +258,6 @@ function QuizTemplate({
       return;
     }
 
-    await persistAnswer(
-      currentQuestion.id,
-      selectedAnswerValue,
-      answersByQuestion,
-      currentQuestionIndex,
-    );
     const nextQuestionIndex = currentQuestionIndex + 1;
     setCurrentQuestionIndex(nextQuestionIndex);
     void persistQuestionIndex(nextQuestionIndex, answersByQuestion);
@@ -296,7 +297,7 @@ function QuizTemplate({
               decide which degree pages to read and compare next.
             </p>
             <div className="quiz-results-list">
-              {submissionResult.recommendedDegrees.map((degree, index) => (
+              {visibleRecommendedDegrees.map((degree, index) => (
                 <span key={degree}>
                   {index + 1}. {degree}
                   <small>
