@@ -142,12 +142,10 @@
 - Added the transition planner as an active toolbox card on the prospective student dashboard.
 - Added a dashboard step explaining how students can use the transition planner.
 - Added a printable Transition Plan Summary with browser print / Save as PDF support.
-- Added a notebook-style planner UI with lined paper styling, margin details, and a live summary preview.
 - Added "Add to Planner" buttons on high school degree explorer cards so students can save majors they are considering.
 - Updated the planner summary so saved majors and quiz recommendations appear in the print view.
 - Added Supabase persistence for transition planner data using a new `public_transition_plans` table.
 - Kept anonymous local session handling so the planner can reload after closing and reopening the same browser.
-- Added remote planner loading and autosave status feedback on the transition planner page.
 - Updated the Supabase schema with transition planner JSON fields, unique session index, grants, and RLS policies.
 - rearrange the high school files into its seperate folder
 
@@ -182,9 +180,30 @@
 - Connected transfer degree and future option pages to Add to Planner.
 - Updated transfer dashboard navigation to open the transition planner directly.
 
+## Update 20: Degree Detail Advising and Career Layout
+
+**Date:** June 5, 2026
+
+- Updated shared degree detail pages so advisor questions can change by saved user group.
+- Kept transfer-student advisor questions as the default for the shared `/degrees` pages.
+- Added prospective-student, current USF student, and current Bellini student advisor question sets for each active major.
+- Moved each major's career outlook section lower on the page so it appears directly before the advisor questions.
+
+## Update 21: Current USF Profile Prototype Persistence
+
+**Date:** June 5, 2026
+
+- Added Current USF profile persistence using an anonymous browser `session_id`.
+- Connected the Current USF profile and saved programs of interest to Supabase through a `current_usf_profiles` table.
+- Kept localStorage as the browser fallback for the prototype.
+- Noted that a production USF version should connect this same profile data to the authenticated USF identity instead of only a browser session.
+- Moved the Current USF profile page into `src/pages/USF/` for group-specific pages.
+- Added profile fields for U Number, USF email, current college, current major, year started, class standing, completed credits, notes, and advising questions.
+- Changed degree and future degree pages so Current USF users save programs with `Add to Profile` instead of `Add to Planner`.
+- Replaced the profile summary panel with a focused list of programs added to the profile.
+
 ## What I Will Focus On Next
 - Work on the transfer pathway guide.
-- Fix the transfer Add to Planner bug.
 - Test recommendation matches with scripts.
 - Fine-tune the transfer dashboard.
 - Rewire course evaluations into the guide, recommendation page, and planner.

@@ -137,6 +137,110 @@
   margin-top: 20px;
 }
 
+.transfer-planner-requirement-list {
+  display: grid;
+  gap: 18px;
+}
+
+.transfer-planner-requirement-group {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid rgba(8, 98, 66, 0.14);
+  border-radius: 8px;
+  background-color: #f8f7f0;
+}
+
+.transfer-planner-requirement-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.transfer-planner-requirement-heading h3 {
+  margin: 0 0 6px;
+  color: #086242;
+  font-size: 19px;
+}
+
+.transfer-planner-requirement-heading p {
+  margin: 0;
+  color: #314239;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.transfer-planner-requirement-heading button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid rgba(180, 31, 42, 0.35);
+  border-radius: 8px;
+  background-color: #fff2f3;
+  color: #b41f2a;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.transfer-planner-requirement-items {
+  display: grid;
+  gap: 10px;
+}
+
+.transfer-planner-requirement-check {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #314239;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.transfer-planner-requirement-check input {
+  margin-top: 2px;
+  accent-color: #086242;
+}
+
+.transfer-planner-requirement-check:has(input:checked) {
+  background-color: #eef4e8;
+}
+
+.transfer-planner-requirement-check:has(input:checked) span {
+  color: #086242;
+  font-weight: 700;
+}
+
+.transfer-report-requirement-group {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.transfer-report-requirement-group h4,
+.transfer-report-requirement-group p {
+  margin: 0;
+}
+
+.transfer-report-requirement-group li {
+  display: grid;
+  gap: 4px;
+}
+
+.transfer-report-requirement-group small {
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background-color: #eef4e8;
+  color: #086242;
+  font-weight: 800;
+}
+
 @media (max-width: 560px) {
   .transfer-course-section-heading {
     align-items: stretch;
@@ -150,5 +254,10 @@
   .transfer-course-evaluation-link,
   .transfer-course-evaluation-link a {
     width: 100%;
+  }
+
+  .transfer-planner-requirement-heading {
+    align-items: stretch;
+    flex-direction: column;
   }
 }

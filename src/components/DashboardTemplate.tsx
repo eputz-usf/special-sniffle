@@ -21,6 +21,20 @@ type DashboardTemplateProps = {
   quizResultsPath?: string;
   transferPlannerPath?: string;
   transferReadinessPath?: string;
+  degreeToolPath?: string;
+  degreeToolTitle?: string;
+  degreeToolText?: string;
+  secondaryToolPath?: string;
+  secondaryToolTitle?: string;
+  secondaryToolText?: string;
+  tertiaryToolTitle?: string;
+  tertiaryToolText?: string;
+  tertiaryToolUndecided?: boolean;
+  careerToolTitle?: string;
+  careerToolText?: string;
+  careerToolUndecided?: boolean;
+  finalNavPath?: string;
+  finalNavLabel?: string;
   steps?: DashboardStep[];
 };
 
@@ -63,6 +77,21 @@ const planningPlaceholders = [
   'Specified text to be put there.',
 ];
 
+const transferNextSteps = [
+  {
+    title: 'Confirm',
+    text: 'Credit applicability, recommended lower-division courses, transfer admission expectations, deadlines, and required documents.',
+  },
+  {
+    title: 'Prepare',
+    text: 'An unofficial transcript, completed and in-progress courses, course descriptions or syllabi, majors of interest, and advising questions.',
+  },
+  {
+    title: 'Next',
+    text: 'Take the transfer intake quiz, compare degrees, review the Transfer Readiness Guide, save notes in the Transfer Planner, and check official USF transfer resources.',
+  },
+];
+
 function DashboardTemplate({
   headline,
   intro,
@@ -72,8 +101,27 @@ function DashboardTemplate({
   quizResultsPath,
   transferPlannerPath,
   transferReadinessPath,
+  degreeToolPath = '/degrees',
+  degreeToolTitle = 'Degree Infographics and Comparison',
+  degreeToolText = 'Explore degree options at Bellini College and compare two programs side by side to see which path best fits your interests, goals, and next steps.',
+  secondaryToolPath,
+  secondaryToolTitle = 'Specified text to be put there',
+  secondaryToolText = 'Specified text to be put there.',
+  tertiaryToolTitle = 'Transition Planner',
+  tertiaryToolText = 'A future general planning tool can organize recommendations, questions, notes, and next actions in one place.',
+  tertiaryToolUndecided = false,
+  careerToolTitle = 'Possible Career Paths',
+  careerToolText = 'Choose a major and jump to its career outlook, salary context, Tampa Bay employment information, and professional preparation options.',
+  careerToolUndecided = false,
+  finalNavPath,
+  finalNavLabel,
   steps = dashboardSteps,
 }: DashboardTemplateProps) {
+  const isTransferDashboard = Boolean(transferPlannerPath);
+  const planningItems = isTransferDashboard
+    ? transferNextSteps
+    : planningPlaceholders;
+
   function handleSectionLinkClick(
     event: MouseEvent<HTMLAnchorElement>,
     sectionId: string,
@@ -130,7 +178,9 @@ function DashboardTemplate({
           >
             Tool Box
           </a>
-          {transferPlannerPath ? (
+          {finalNavPath ? (
+            <Link to={finalNavPath}>{finalNavLabel ?? 'Profile'}</Link>
+          ) : transferPlannerPath ? (
             <Link to={transferPlannerPath}>Transition planner</Link>
           ) : (
             <a
@@ -216,14 +266,10 @@ function DashboardTemplate({
         </div>
 
         <div className="dashboard-major-cards dashboard-tool-grid">
-          <Link className="dashboard-major-card" to="/degrees">
+          <Link className="dashboard-major-card" to={degreeToolPath}>
             <BookOpenCheck size={30} aria-hidden="true" />
-            <span>Degree Infographics and Comparison</span>
-            <p>
-              Explore degree options at Bellini College and compare two
-              programs side by side to see which path best fits your interests,
-              goals, and next steps.
-            </p>
+            <span>{degreeToolTitle}</span>
+            <p>{degreeToolText}</p>
           </Link>
 
           {transferReadinessPath ? (
@@ -235,43 +281,58 @@ function DashboardTemplate({
                 prepare before checking credits or meeting with advising.
               </p>
             </Link>
+          ) : secondaryToolPath ? (
+            <Link className="dashboard-major-card" to={secondaryToolPath}>
+              <FileText size={30} aria-hidden="true" />
+              <span>{secondaryToolTitle}</span>
+              <p>{secondaryToolText}</p>
+            </Link>
           ) : (
             <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
               <MessageCircleQuestion size={30} aria-hidden="true" />
-              <span>Specified text to be put there</span>
-              <p>Specified text to be put there.</p>
+              <span>{secondaryToolTitle}</span>
+              <p>{secondaryToolText}</p>
             </button>
           )}
 
           {transferPlannerPath ? (
             <Link className="dashboard-major-card" to={transferPlannerPath}>
               <CalendarCheck size={30} aria-hidden="true" />
-              <span>Transfer Planning Summary</span>
+              <span>Transfer Planner</span>
               <p>
                 Save transfer details, notes, advising questions, and course
                 lists in one printable planning summary.
               </p>
             </Link>
           ) : (
-            <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
+            <button
+              className={`dashboard-major-card dashboard-placeholder-tool${
+                tertiaryToolUndecided ? ' dashboard-undecided-tool' : ''
+              }`}
+              type="button"
+            >
               <CalendarCheck size={30} aria-hidden="true" />
-              <span>Transition Planner</span>
-              <p>
-                A future general planning tool can organize recommendations,
-                questions, notes, and next actions in one place.
-              </p>
+              <span>{tertiaryToolTitle}</span>
+              <p>{tertiaryToolText}</p>
             </button>
           )}
 
-          <Link className="dashboard-major-card" to="/career-paths">
-            <Briefcase size={30} aria-hidden="true" />
-            <span>Possible Career Paths</span>
-            <p>
-              Choose a major and jump to its career outlook, salary context,
-              Tampa Bay employment information, and professional preparation
-              options.
-            </p>
-          </Link>
+          {careerToolUndecided ? (
+            <button
+              className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool"
+              type="button"
+            >
+              <Briefcase size={30} aria-hidden="true" />
+              <span>{careerToolTitle}</span>
+              <p>{careerToolText}</p>
+            </button>
+          ) : (
+            <Link className="dashboard-major-card" to="/career-paths">
+              <Briefcase size={30} aria-hidden="true" />
+              <span>{careerToolTitle}</span>
+              <p>{careerToolText}</p>
+            </Link>
+          )}
         </div>
       </section>
 
@@ -280,15 +341,39 @@ function DashboardTemplate({
         <div className="dashboard-feature-row">
           <div>
             <p className="dashboard-eyebrow">Planning Section</p>
-            <h2>Specified text to be put there</h2>
+            <h2>
+              {isTransferDashboard
+                ? 'Transfer Next Steps'
+                : 'Specified text to be put there'}
+            </h2>
             <p>
-              Specified text to be put there.
+              {isTransferDashboard
+                ? 'Turn your transfer research into a short action plan before applying or meeting with advising.'
+                : 'Specified text to be put there.'}
             </p>
+            {isTransferDashboard ? (
+              <aside className="dashboard-planner-reminder">
+                Reminder: this dashboard helps you prepare, but official USF
+                admissions, advising, and transfer credit evaluation should be
+                used for final decisions.
+              </aside>
+            ) : null}
           </div>
 
           <ul className="dashboard-checklist">
-            {planningPlaceholders.map((item, index) => (
-              <li key={`${item}-${index}`}>{item}</li>
+            {planningItems.map((item, index) => (
+              <li
+                key={typeof item === 'string' ? `${item}-${index}` : item.title}
+              >
+                {typeof item === 'string' ? (
+                  item
+                ) : (
+                  <>
+                    <strong>{item.title}</strong>
+                    {item.text}
+                  </>
+                )}
+              </li>
             ))}
           </ul>
         </div>

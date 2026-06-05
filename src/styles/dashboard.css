@@ -182,6 +182,21 @@
   line-height: 1.45;
 }
 
+.dashboard-planner-section .dashboard-planner-reminder {
+  margin-top: 18px;
+  max-width: 700px;
+  color: #486055;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.dashboard-checklist strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #086242;
+  font-size: 20px;
+}
+
 .dashboard-step-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -393,7 +408,7 @@
 }
 
 .dashboard-tool-grid .dashboard-major-card {
-  min-height: 440px;
+  min-height: 320px;
   gap: 20px;
   padding: 30px;
   border-radius: 8px;
@@ -408,6 +423,16 @@
   border-color: rgba(234, 225, 191, 0.8);
   background-color: #eae1bf;
   color: #086343;
+}
+
+.dashboard-undecided-tool {
+  border-color: #b41f2a;
+  background-color: #b41f2a;
+  color: #ffffff;
+}
+
+.dashboard-undecided-tool p {
+  color: #ffffff;
 }
 
 .dashboard-checklist {

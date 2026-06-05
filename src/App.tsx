@@ -21,10 +21,11 @@ import HighSchoolParentInfo from './pages/highSchool/degrees/HighSchoolParentInf
 import HighSchoolTransitionPlanner from './pages/highSchool/degrees/HighSchoolTransitionPlanner';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Profile from './pages/Profile';
+import Profile from './pages/USF/Profile';
 import ProspectiveStudentDashboard from './pages/dashboards/ProspectiveStudentDashboard';
 import SelectUserType from './pages/SelectUserType';
 import TransferStudentDashboard from './pages/dashboards/TransferStudentDashboard';
+import TransferMajorRequirements from './pages/transfer/TransferMajorRequirements';
 import TransferPlanner from './pages/transfer/TransferPlanner';
 import TransferReadinessGuide from './pages/transfer/TransferReadinessGuide';
 import TransferIntakeQuiz from './pages/transfer/quiz/TransferIntakeQuiz';
@@ -74,6 +75,10 @@ function App() {
         <Route path="/transfer/quiz" element={<TransferIntakeQuiz />} />
         <Route path="/transfer/quiz/results" element={<TransferQuizResults />} />
         <Route path="/transfer/planner" element={<TransferPlanner />} />
+        <Route
+          path="/transfer/major-requirements"
+          element={<TransferMajorRequirements />}
+        />
         <Route
           path="/transfer/readiness-guide"
           element={<TransferReadinessGuide />}

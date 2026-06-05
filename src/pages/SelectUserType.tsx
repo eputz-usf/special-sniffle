@@ -4,7 +4,7 @@ import {
   GraduationCap,
   University,
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { saveUserType } from '../utils/auth';
 import type { UserTypeOption } from '../types/user';
 import { userTypeOptions } from '../utils/userTypes';
@@ -21,10 +21,6 @@ function SelectUserType() {
     <main className="user-select-page">
       <h1>Select User Group</h1>
       <p>Select one of the groups that best fits you to get to continue to the dashboard!</p>
-      <Link className="temporary-dashboard-link" to="/dashboard/general">
-        View Temporary General Dashboard
-      </Link>
-
       <section>
         <ul className="user-type-list">
           {userTypeOptions.map((userType) => (

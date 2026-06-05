@@ -381,13 +381,16 @@
 }
 
 .degree-detail-hero a,
-.degree-detail-actions a {
+.degree-detail-actions a,
+.degree-detail-actions button {
   width: fit-content;
   padding: 14px 20px;
   border: 2px solid #086343;
   border-radius: 14px;
   background-color: #086343;
   color: #ffffff;
+  font: inherit;
+  cursor: pointer;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -459,7 +462,8 @@
   margin-top: 24px;
 }
 
-.degree-detail-actions a:last-child {
+.degree-detail-actions a:last-child,
+.degree-detail-actions button.planner-selected {
   background-color: transparent;
   color: #086343;
 }

@@ -10,6 +10,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import { loadTransferQuizResult } from './quiz/transferQuizSession';
+import { majorTransferRequirements } from '../../data/transferMajorRequirements';
 import {
   loadTransferPlannerMajors,
   removeTransferPlannerMajor,
@@ -25,12 +26,18 @@ type TransferPlannerState = {
   currentCollege: string;
   yearStarted: string;
   transferLevel: string;
+  requirementGroups: PlannerRequirementGroup[];
   selectedRecommendations: string[];
   notes: string;
   questions: string;
   completedCourses: string[];
   currentCourses: string[];
   plannedCourses: string[];
+};
+
+type PlannerRequirementGroup = {
+  id: string;
+  completedRequirementIds: string[];
 };
 
 type CourseGroup = 'completedCourses' | 'currentCourses' | 'plannedCourses';
@@ -64,6 +71,7 @@ const emptyPlanner: TransferPlannerState = {
   currentCollege: '',
   yearStarted: '',
   transferLevel: '',
+  requirementGroups: [],
   selectedRecommendations: [],
   notes: '',
   questions: '',
@@ -74,6 +82,7 @@ const emptyPlanner: TransferPlannerState = {
 
 const transferLevelOptions = [
   'Lower-Level Transfer',
+  'Mid-Level Transfer',
   'Upper-Level Transfer',
   "Second Bachelor's Degree",
   'Former USF Student Returning',
@@ -105,6 +114,41 @@ function getFilledCourses(courses: string[]) {
   return courses.map((course) => course.trim()).filter(Boolean);
 }
 
+function normalizeRequirementGroups(value: unknown): PlannerRequirementGroup[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .filter(
+      (group): group is PlannerRequirementGroup =>
+        typeof group === 'object' &&
+        group !== null &&
+        'id' in group &&
+        typeof group.id === 'string',
+    )
+    .map((group) => ({
+      id: group.id,
+      completedRequirementIds: Array.isArray(group.completedRequirementIds)
+        ? group.completedRequirementIds.filter(
+            (requirementId) => typeof requirementId === 'string',
+          )
+        : [],
+    }));
+}
+
+function getRequirementGroupDetails(groupId: string) {
+  const [majorId, levelId] = groupId.split(':');
+  const major = majorTransferRequirements.find((item) => item.id === majorId);
+  const level = major?.levels.find((item) => item.id === levelId);
+
+  if (!major || !level) {
+    return null;
+  }
+
+  return { major, level };
+}
+
 function loadTransferPlanner(): TransferPlannerState {
   const savedPlanner = window.localStorage.getItem(TRANSFER_PLANNER_STORAGE_KEY);
 
@@ -117,6 +161,9 @@ function loadTransferPlanner(): TransferPlannerState {
         currentCollege: parsedPlanner.currentCollege ?? '',
         yearStarted: parsedPlanner.yearStarted ?? '',
         transferLevel: parsedPlanner.transferLevel ?? '',
+        requirementGroups: normalizeRequirementGroups(
+          parsedPlanner.requirementGroups,
+        ),
         selectedRecommendations: Array.isArray(parsedPlanner.selectedRecommendations)
           ? parsedPlanner.selectedRecommendations
           : [],
@@ -263,6 +310,36 @@ function TransferPlanner() {
     });
   }
 
+  function handleRequirementToggle(groupId: string, requirementId: string) {
+    setPlanner((currentPlanner) => ({
+      ...currentPlanner,
+      requirementGroups: currentPlanner.requirementGroups.map((group) => {
+        if (group.id !== groupId) {
+          return group;
+        }
+
+        const isComplete =
+          group.completedRequirementIds.includes(requirementId);
+
+        return {
+          ...group,
+          completedRequirementIds: isComplete
+            ? group.completedRequirementIds.filter((id) => id !== requirementId)
+            : [...group.completedRequirementIds, requirementId],
+        };
+      }),
+    }));
+  }
+
+  function handleRemoveRequirementGroup(groupId: string) {
+    setPlanner((currentPlanner) => ({
+      ...currentPlanner,
+      requirementGroups: currentPlanner.requirementGroups.filter(
+        (group) => group.id !== groupId,
+      ),
+    }));
+  }
+
   function handleCancelConfirmation() {
     setConfirmationDialog(null);
   }
@@ -306,6 +383,7 @@ function TransferPlanner() {
     planner.currentCollege.trim() ||
     planner.yearStarted.trim() ||
     planner.transferLevel.trim() ||
+    planner.requirementGroups.length > 0 ||
     consideringMajors.length > 0 ||
     planner.selectedRecommendations.length > 0 ||
     planner.notes.trim() ||
@@ -593,6 +671,84 @@ function TransferPlanner() {
                 </a>
               </div>
             </div>
+
+            <div className="transition-planner-card">
+              <div className="transition-planner-card-heading">
+                <FileText size={24} aria-hidden="true" />
+                <div>
+                  <h2>Transfer requirements checklist</h2>
+                  <p>
+                    Add requirements from the major requirements page, then
+                    mark each item complete as you confirm it.
+                  </p>
+                </div>
+              </div>
+
+              {planner.requirementGroups.length > 0 ? (
+                <div className="transfer-planner-requirement-list">
+                  {planner.requirementGroups.map((group) => {
+                    const details = getRequirementGroupDetails(group.id);
+
+                    if (!details) {
+                      return null;
+                    }
+
+                    return (
+                      <section
+                        className="transfer-planner-requirement-group"
+                        key={group.id}
+                      >
+                        <div className="transfer-planner-requirement-heading">
+                          <div>
+                            <h3>{details.major.title}</h3>
+                            <p>{details.level.label}</p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveRequirementGroup(group.id)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+
+                        <div className="transfer-planner-requirement-items">
+                          {details.level.requirements.map((requirement) => (
+                            <label
+                              className="transfer-planner-requirement-check"
+                              key={requirement.id}
+                            >
+                              <input
+                                type="checkbox"
+                                checked={group.completedRequirementIds.includes(
+                                  requirement.id,
+                                )}
+                                onChange={() =>
+                                  handleRequirementToggle(
+                                    group.id,
+                                    requirement.id,
+                                  )
+                                }
+                              />
+                              <span>{requirement.text}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </section>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="transition-planner-major-empty">
+                  <p>
+                    No transfer requirements added yet. Choose a major and
+                    student type to add a checklist here.
+                  </p>
+                  <Link to="/transfer/major-requirements">
+                    Browse major requirements
+                  </Link>
+                </div>
+              )}
+            </div>
           </form>
 
           <article
@@ -656,6 +812,48 @@ function TransferPlanner() {
                   <p className="transition-planner-prewrap">
                     {formatPlannerText(planner.questions, 'No questions added yet.')}
                   </p>
+                </section>
+
+                <section>
+                  <h3>Transfer Requirements</h3>
+                  {planner.requirementGroups.length > 0 ? (
+                    planner.requirementGroups.map((group) => {
+                      const details = getRequirementGroupDetails(group.id);
+
+                      if (!details) {
+                        return null;
+                      }
+
+                      return (
+                        <div
+                          className="transfer-report-requirement-group"
+                          key={group.id}
+                        >
+                          <h4>{details.major.title}</h4>
+                          <p>{details.level.label}</p>
+                          <ul>
+                            {details.level.requirements.map((requirement) => {
+                              const isComplete =
+                                group.completedRequirementIds.includes(
+                                  requirement.id,
+                                );
+
+                              return (
+                                <li key={requirement.id}>
+                                  <span>{requirement.text}</span>
+                                  <small>
+                                    {isComplete ? 'Completed' : 'Not completed'}
+                                  </small>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p>No transfer requirements added yet.</p>
+                  )}
                 </section>
 
                 <section>

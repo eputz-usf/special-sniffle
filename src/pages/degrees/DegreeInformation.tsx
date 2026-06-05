@@ -1,10 +1,14 @@
 import { useMemo, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { degrees } from '../../data/degrees';
 import {
   addTransferPlannerMajor,
   loadTransferPlannerMajors,
 } from '../../utils/transferPlannerMajors';
+import {
+  addCurrentUsfProfileMajor,
+  loadCurrentUsfProfileMajors,
+} from '../../utils/currentUsfProfileMajors';
 import '../../styles/degrees.css';
 
 const filters = [
@@ -29,8 +33,24 @@ const completedDegreePages = new Set([
   'information-technology',
 ]);
 
+const dashboardRoutesBySource = {
+  'current-usf-student': '/dashboard/current-usf-student',
+  'transfer-student': '/dashboard/transfer-student',
+} as const;
+
 function DegreeInformation() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const sourceDashboard = searchParams.get('from');
+  const isCurrentUsfStudentSource = sourceDashboard === 'current-usf-student';
+  const degreeSourceSuffix = sourceDashboard ? `?from=${sourceDashboard}` : '';
+  const dashboardBackRoute =
+    sourceDashboard &&
+    sourceDashboard in dashboardRoutesBySource
+      ? dashboardRoutesBySource[
+          sourceDashboard as keyof typeof dashboardRoutesBySource
+        ]
+      : '/dashboard/transfer-student';
   const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>(
     'All',
   );
@@ -38,6 +58,9 @@ function DegreeInformation() {
   const [compareMessage, setCompareMessage] = useState('');
   const [plannerMajorSlugs, setPlannerMajorSlugs] = useState(() =>
     loadTransferPlannerMajors().map((major) => major.slug),
+  );
+  const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
+    loadCurrentUsfProfileMajors().map((major) => major.slug),
   );
 
   const visibleDegrees = useMemo(() => {
@@ -102,6 +125,15 @@ function DegreeInformation() {
     setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
   }
 
+  function handleAddToProfile(degree: (typeof degrees)[number]) {
+    const nextMajors = addCurrentUsfProfileMajor({
+      slug: degree.slug,
+      name: degree.name,
+    });
+
+    setProfileMajorSlugs(nextMajors.map((major) => major.slug));
+  }
+
   return (
     <main className="degrees-page">
       <section className="degrees-hero">
@@ -109,7 +141,7 @@ function DegreeInformation() {
           <p className="degrees-eyebrow">Bellini College Degree Explorer</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/transfer-student"
+            to={dashboardBackRoute}
           >
             Back to Dashboard
           </Link>
@@ -122,7 +154,7 @@ function DegreeInformation() {
         </p>
         <p>
           Use Add to Compare for a side-by-side review, or save programs to your
-          transfer planner.
+          {isCurrentUsfStudentSource ? ' profile.' : ' transfer planner.'}
         </p>
       </section>
 
@@ -153,9 +185,11 @@ function DegreeInformation() {
 
             <div>
               <p className="degree-skills">Skills: {degree.skills}</p>
-              <div className="degree-card-actions">
+                <div className="degree-card-actions">
                 {completedDegreePages.has(degree.slug) ? (
-                  <Link to={`/degrees/${degree.slug}`}>Learn More</Link>
+                  <Link to={`/degrees/${degree.slug}${degreeSourceSuffix}`}>
+                    Learn More
+                  </Link>
                 ) : (
                   <button className="placeholder-button" type="button">
                     Learn More
@@ -173,18 +207,35 @@ function DegreeInformation() {
                     ? 'Selected'
                     : 'Add to Compare'}
                 </button>
-                <button
-                  className={
-                    plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
-                  }
-                  disabled={plannerMajorSlugs.includes(degree.slug)}
-                  type="button"
-                  onClick={() => handleAddToPlanner(degree)}
-                >
-                  {plannerMajorSlugs.includes(degree.slug)
-                    ? 'Added to Planner'
-                    : 'Add to Planner'}
-                </button>
+                {isCurrentUsfStudentSource ? (
+                  <button
+                    className={
+                      profileMajorSlugs.includes(degree.slug)
+                        ? 'planner-selected'
+                        : ''
+                    }
+                    disabled={profileMajorSlugs.includes(degree.slug)}
+                    type="button"
+                    onClick={() => handleAddToProfile(degree)}
+                  >
+                    {profileMajorSlugs.includes(degree.slug)
+                      ? 'Added to Profile'
+                      : 'Add to Profile'}
+                  </button>
+                ) : (
+                  <button
+                    className={
+                      plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
+                    }
+                    disabled={plannerMajorSlugs.includes(degree.slug)}
+                    type="button"
+                    onClick={() => handleAddToPlanner(degree)}
+                  >
+                    {plannerMajorSlugs.includes(degree.slug)
+                      ? 'Added to Planner'
+                      : 'Add to Planner'}
+                  </button>
+                )}
               </div>
             </div>
           </article>
@@ -196,7 +247,10 @@ function DegreeInformation() {
           <span>Bachelor’s/Master’s Pathways</span>
           <small>View pathways</small>
         </Link>
-        <Link className="active-link" to="/degrees/future-options">
+        <Link
+          className="active-link"
+          to={`/degrees/future-options${degreeSourceSuffix}`}
+        >
           <span>Interdisciplinary Computing Majors / Future Degree Options</span>
           <small>View list</small>
         </Link>

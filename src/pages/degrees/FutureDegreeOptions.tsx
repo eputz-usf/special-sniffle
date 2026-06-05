@@ -1,10 +1,14 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { plannedHighSchoolFutureDegreeOptions as sharedFutureDegreeOptions } from '../../data/highSchoolFutureDegreeOptions';
 import {
   addTransferPlannerMajor,
   loadTransferPlannerMajors,
 } from '../../utils/transferPlannerMajors';
+import {
+  addCurrentUsfProfileMajor,
+  loadCurrentUsfProfileMajors,
+} from '../../utils/currentUsfProfileMajors';
 import '../../styles/degrees.css';
 
 const anticipatedDegreeOptions = [
@@ -20,10 +24,17 @@ const anticipatedDegreeOptions = [
 
 function FutureDegreeOptions() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const sourceDashboard = searchParams.get('from');
+  const isCurrentUsfStudentSource = sourceDashboard === 'current-usf-student';
+  const degreeSourceSuffix = sourceDashboard ? `?from=${sourceDashboard}` : '';
   const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState('');
   const [plannerMajorSlugs, setPlannerMajorSlugs] = useState(() =>
     loadTransferPlannerMajors().map((major) => major.slug),
+  );
+  const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
+    loadCurrentUsfProfileMajors().map((major) => major.slug),
   );
   const plannedFutureDegrees = sharedFutureDegreeOptions;
   const selectedDegrees = compareSlugs
@@ -76,9 +87,18 @@ function FutureDegreeOptions() {
     setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
   }
 
+  function handleAddToProfile(degree: (typeof plannedFutureDegrees)[number]) {
+    const nextMajors = addCurrentUsfProfileMajor({
+      slug: degree.slug,
+      name: degree.name,
+    });
+
+    setProfileMajorSlugs(nextMajors.map((major) => major.slug));
+  }
+
   return (
     <main className="degrees-page">
-      <Link className="degree-back-link" to="/degrees">
+      <Link className="degree-back-link" to={`/degrees${degreeSourceSuffix}`}>
         Back to Degree Explorer
       </Link>
 
@@ -173,20 +193,37 @@ function FutureDegreeOptions() {
     >
       {compareSlugs.includes(degree.slug) ? 'Selected' : 'Add to Compare'}
     </button>
-    <button
-      className={
-        plannerMajorSlugs.includes(degree.slug)
-          ? 'future-degree-button planner-selected'
-          : 'future-degree-button'
-      }
-      disabled={plannerMajorSlugs.includes(degree.slug)}
-      type="button"
-      onClick={() => handleAddToPlanner(degree)}
-    >
-      {plannerMajorSlugs.includes(degree.slug)
-        ? 'Added to Planner'
-        : 'Add to Planner'}
-    </button>
+    {isCurrentUsfStudentSource ? (
+      <button
+        className={
+          profileMajorSlugs.includes(degree.slug)
+            ? 'future-degree-button planner-selected'
+            : 'future-degree-button'
+        }
+        disabled={profileMajorSlugs.includes(degree.slug)}
+        type="button"
+        onClick={() => handleAddToProfile(degree)}
+      >
+        {profileMajorSlugs.includes(degree.slug)
+          ? 'Added to Profile'
+          : 'Add to Profile'}
+      </button>
+    ) : (
+      <button
+        className={
+          plannerMajorSlugs.includes(degree.slug)
+            ? 'future-degree-button planner-selected'
+            : 'future-degree-button'
+        }
+        disabled={plannerMajorSlugs.includes(degree.slug)}
+        type="button"
+        onClick={() => handleAddToPlanner(degree)}
+      >
+        {plannerMajorSlugs.includes(degree.slug)
+          ? 'Added to Planner'
+          : 'Add to Planner'}
+      </button>
+    )}
 
     
   </div>

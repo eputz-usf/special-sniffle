@@ -1,11 +1,145 @@
-import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { getDegreeBySlug } from '../../data/degrees';
+import type { UserType } from '../../types/user';
+import { isUserType } from '../../utils/userTypes';
+import {
+  addCurrentUsfProfileMajor,
+  loadCurrentUsfProfileMajors,
+} from '../../utils/currentUsfProfileMajors';
 import '../../styles/degrees.css';
+
+const USER_TYPE_STORAGE_KEY = 'cicUserType';
 
 type CompareFeatureNoteProps = {
   degreeName: string;
   compareWith: string;
 };
+
+type AdvisorQuestionGroup = {
+  userType: UserType;
+  questions: string[];
+};
+
+type AdvisorQuestionsSectionProps = {
+  degreeName: string;
+  transferQuestions: string[];
+  compareWith: string;
+  prepAreas: string;
+  advancedAreas: string;
+  interestAreas: string;
+};
+
+function getSavedUserType() {
+  const savedUserType = window.localStorage.getItem(USER_TYPE_STORAGE_KEY);
+
+  return isUserType(savedUserType) ? savedUserType : 'transfer-student';
+}
+
+type AddToProfileActionProps = {
+  slug: string;
+  name: string;
+};
+
+function AddToProfileAction({ slug, name }: AddToProfileActionProps) {
+  const [searchParams] = useSearchParams();
+  const shouldShow =
+    searchParams.get('from') === 'current-usf-student' ||
+    getSavedUserType() === 'current-usf-student';
+  const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
+    loadCurrentUsfProfileMajors().map((major) => major.slug),
+  );
+  const isAdded = profileMajorSlugs.includes(slug);
+
+  if (!shouldShow) {
+    return null;
+  }
+
+  function handleAddToProfile() {
+    const nextMajors = addCurrentUsfProfileMajor({ slug, name });
+    setProfileMajorSlugs(nextMajors.map((major) => major.slug));
+  }
+
+  return (
+    <button
+      className={isAdded ? 'planner-selected' : ''}
+      disabled={isAdded}
+      type="button"
+      onClick={handleAddToProfile}
+    >
+      {isAdded ? 'Added to Profile' : 'Add to Profile'}
+    </button>
+  );
+}
+
+function buildAdvisorQuestionGroups({
+  degreeName,
+  transferQuestions,
+  compareWith,
+  prepAreas,
+  advancedAreas,
+  interestAreas,
+}: AdvisorQuestionsSectionProps): AdvisorQuestionGroup[] {
+  return [
+    {
+      userType: 'prospective-student',
+      questions: [
+        `Which high school, dual enrollment, AP, IB, or first-year courses would best prepare me for ${degreeName}?`,
+        `What math and programming preparation should I build before starting ${degreeName}?`,
+        `How should I compare ${degreeName} with ${compareWith} before applying or choosing a major?`,
+        `Which clubs, projects, campus visits, or student organizations would help me explore ${interestAreas}?`,
+        `What should I ask admissions or advising if I am still deciding whether ${degreeName} is the right fit?`,
+      ],
+    },
+    {
+      userType: 'current-usf-student',
+      questions: [
+        `Which completed USF courses are likely to apply to ${degreeName}?`,
+        `How would changing into ${degreeName} affect my catalog year, prerequisites, and time to graduation?`,
+        `Which ${prepAreas} courses should I prioritize before moving into ${advancedAreas}?`,
+        `How should I compare ${degreeName} with ${compareWith} based on my completed USF coursework?`,
+        `Which electives, research, internships, or projects would support my interests in ${interestAreas}?`,
+      ],
+    },
+    {
+      userType: 'current-bellini-student',
+      questions: [
+        `Which Bellini College requirements for ${degreeName} should I confirm for my catalog year?`,
+        `How should I sequence ${prepAreas} and ${advancedAreas} courses for the next two semesters?`,
+        `Which permits, prerequisite checks, or limited-offering courses could affect my schedule?`,
+        `How should I compare ${degreeName} with ${compareWith} if I am considering a major change within Bellini College?`,
+        `Which electives, faculty opportunities, internships, or projects would help me focus on ${interestAreas}?`,
+      ],
+    },
+    {
+      userType: 'transfer-student',
+      questions: transferQuestions,
+    },
+  ];
+}
+
+function AdvisorQuestionsSection(props: AdvisorQuestionsSectionProps) {
+  const [userType, setUserType] = useState<UserType>(() => getSavedUserType());
+  const questionGroups = buildAdvisorQuestionGroups(props);
+  const selectedQuestions =
+    questionGroups.find((group) => group.userType === userType)?.questions ??
+    props.transferQuestions;
+
+  useEffect(() => {
+    setUserType(getSavedUserType());
+  }, []);
+
+  return (
+    <section className="degree-detail-section">
+      <h2>Questions to Ask an Advisor</h2>
+      <ul>
+        {selectedQuestions.map((question) => (
+          <li key={question}>{question}</li>
+        ))}
+      </ul>
+    </section>
+  );
+}
 
 function CompareFeatureNote({
   degreeName,
@@ -969,6 +1103,7 @@ function ComputerScienceDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
+          <AddToProfileAction slug="computer-science" name="Computer Science" />
         </div>
       </section>
 
@@ -987,13 +1122,6 @@ function ComputerScienceDegreeDetail() {
           graduate study.
         </p>
       </section>
-
-      <CareerOutlookSection
-        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscs.aspx"
-        degreeName="Computer Science"
-        intro="Computer Science can support careers that rely on software development, technical problem solving, systems thinking, data, and advanced computing foundations."
-        slug="computer-science"
-      />
 
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
@@ -1074,14 +1202,21 @@ function ComputerScienceDegreeDetail() {
         />
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Questions to Ask an Advisor</h2>
-        <ul>
-          {advisorQuestions.map((question) => (
-            <li key={question}>{question}</li>
-          ))}
-        </ul>
-      </section>
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscs.aspx"
+        degreeName="Computer Science"
+        intro="Computer Science can support careers that rely on software development, technical problem solving, systems thinking, data, and advanced computing foundations."
+        slug="computer-science"
+      />
+
+      <AdvisorQuestionsSection
+        advancedAreas="upper-level Computer Science coursework"
+        compareWith="Artificial Intelligence, Cybersecurity, Information Technology, or Computer Science and Engineering"
+        degreeName="Computer Science"
+        interestAreas="AI, cybersecurity, data, software engineering, or graduate study"
+        prepAreas="programming, calculus, science, and systems"
+        transferQuestions={advisorQuestions}
+      />
 
       <p className="degrees-disclaimer">
         This page is for exploration and planning only. Degree requirements,
@@ -1132,6 +1267,10 @@ function ComputerScienceEngineeringDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
+          <AddToProfileAction
+            slug="computer-science-and-engineering"
+            name="Computer Science and Engineering"
+          />
         </div>
       </section>
 
@@ -1151,13 +1290,6 @@ function ComputerScienceEngineeringDegreeDetail() {
           one pathway.
         </p>
       </section>
-
-      <CareerOutlookSection
-        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscse.aspx"
-        degreeName="Computer Science and Engineering"
-        intro="Computer Science and Engineering can support careers that bridge software, systems, hardware-aware design, embedded technologies, security, and intelligent infrastructure."
-        slug="computer-science-and-engineering"
-      />
 
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
@@ -1255,14 +1387,21 @@ function ComputerScienceEngineeringDegreeDetail() {
         />
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Questions to Ask an Advisor</h2>
-        <ul>
-          {computerScienceEngineeringAdvisorQuestions.map((question) => (
-            <li key={question}>{question}</li>
-          ))}
-        </ul>
-      </section>
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscse.aspx"
+        degreeName="Computer Science and Engineering"
+        intro="Computer Science and Engineering can support careers that bridge software, systems, hardware-aware design, embedded technologies, security, and intelligent infrastructure."
+        slug="computer-science-and-engineering"
+      />
+
+      <AdvisorQuestionsSection
+        advancedAreas="hardware, systems, and engineering coursework"
+        compareWith="Computer Science, Artificial Intelligence, Cybersecurity, or Information Technology"
+        degreeName="Computer Science and Engineering"
+        interestAreas="embedded systems, robotics, AI systems, or systems engineering"
+        prepAreas="programming, calculus, physics, and engineering"
+        transferQuestions={computerScienceEngineeringAdvisorQuestions}
+      />
 
       <p className="degrees-disclaimer">
         This page is for exploration and planning only. Degree requirements,
@@ -1313,6 +1452,10 @@ function ArtificialIntelligenceDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
+          <AddToProfileAction
+            slug="artificial-intelligence"
+            name="Artificial Intelligence"
+          />
         </div>
       </section>
 
@@ -1333,13 +1476,6 @@ function ArtificialIntelligenceDegreeDetail() {
           processing, computer vision, robotics, and related topics.
         </p>
       </section>
-
-      <CareerOutlookSection
-        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx"
-        degreeName="Artificial Intelligence"
-        intro="Artificial Intelligence can support careers focused on machine learning, data-driven systems, model evaluation, intelligent applications, and AI infrastructure."
-        slug="artificial-intelligence"
-      />
 
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
@@ -1438,14 +1574,21 @@ function ArtificialIntelligenceDegreeDetail() {
         />
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Questions to Ask an Advisor</h2>
-        <ul>
-          {artificialIntelligenceAdvisorQuestions.map((question) => (
-            <li key={question}>{question}</li>
-          ))}
-        </ul>
-      </section>
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx"
+        degreeName="Artificial Intelligence"
+        intro="Artificial Intelligence can support careers focused on machine learning, data-driven systems, model evaluation, intelligent applications, and AI infrastructure."
+        slug="artificial-intelligence"
+      />
+
+      <AdvisorQuestionsSection
+        advancedAreas="AI, machine learning, and data-focused coursework"
+        compareWith="Computer Science, Cybersecurity, Information Technology, or Computer Science and Engineering"
+        degreeName="Artificial Intelligence"
+        interestAreas="machine learning, robotics, natural language processing, computer vision, or data mining"
+        prepAreas="programming, calculus, statistics, and data"
+        transferQuestions={artificialIntelligenceAdvisorQuestions}
+      />
 
       <p className="degrees-disclaimer">
         This page is for exploration and planning only. Degree requirements,
@@ -1495,6 +1638,7 @@ function CybersecurityDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
+          <AddToProfileAction slug="cybersecurity" name="Cybersecurity" />
         </div>
       </section>
 
@@ -1512,13 +1656,6 @@ function CybersecurityDegreeDetail() {
           ethics, and the impact of cybersecurity on society.
         </p>
       </section>
-
-      <CareerOutlookSection
-        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscys.aspx"
-        degreeName="Cybersecurity"
-        intro="Cybersecurity can support careers centered on protecting systems, assessing risk, responding to threats, and strengthening organizational security practices."
-        slug="cybersecurity"
-      />
 
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
@@ -1643,14 +1780,21 @@ function CybersecurityDegreeDetail() {
         />
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Questions to Ask an Advisor</h2>
-        <ul>
-          {cybersecurityAdvisorQuestions.map((question) => (
-            <li key={question}>{question}</li>
-          ))}
-        </ul>
-      </section>
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscys.aspx"
+        degreeName="Cybersecurity"
+        intro="Cybersecurity can support careers centered on protecting systems, assessing risk, responding to threats, and strengthening organizational security practices."
+        slug="cybersecurity"
+      />
+
+      <AdvisorQuestionsSection
+        advancedAreas="security, networking, ethics, and cyber operations coursework"
+        compareWith="Computer Science, Artificial Intelligence, Information Technology, or Computer Science and Engineering"
+        degreeName="Cybersecurity"
+        interestAreas="cyber defense, digital forensics, risk management, secure software, or policy"
+        prepAreas="programming, networking, security, math, and ethics"
+        transferQuestions={cybersecurityAdvisorQuestions}
+      />
 
       <p className="degrees-disclaimer">
         This page is for exploration and planning only. Degree requirements,
@@ -1700,6 +1844,10 @@ function InformationTechnologyDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
+          <AddToProfileAction
+            slug="information-technology"
+            name="Information Technology"
+          />
         </div>
       </section>
 
@@ -1719,13 +1867,6 @@ function InformationTechnologyDegreeDetail() {
           building, and improving technology systems.
         </p>
       </section>
-
-      <CareerOutlookSection
-        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsit.aspx"
-        degreeName="Information Technology"
-        intro="Information Technology can support careers in systems administration, databases, cloud services, security, web platforms, and applied technical operations."
-        slug="information-technology"
-      />
 
       <section className="degree-fit-grid">
         <article className="degree-detail-section">
@@ -1843,14 +1984,21 @@ function InformationTechnologyDegreeDetail() {
         />
       </section>
 
-      <section className="degree-detail-section">
-        <h2>Questions to Ask an Advisor</h2>
-        <ul>
-          {informationTechnologyAdvisorQuestions.map((question) => (
-            <li key={question}>{question}</li>
-          ))}
-        </ul>
-      </section>
+      <CareerOutlookSection
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsit.aspx"
+        degreeName="Information Technology"
+        intro="Information Technology can support careers in systems administration, databases, cloud services, security, web platforms, and applied technical operations."
+        slug="information-technology"
+      />
+
+      <AdvisorQuestionsSection
+        advancedAreas="cloud, networking, databases, cybersecurity, and web systems coursework"
+        compareWith="Computer Science, Cybersecurity, Artificial Intelligence, or Computer Science and Engineering"
+        degreeName="Information Technology"
+        interestAreas="systems administration, cloud, databases, cybersecurity, or web platforms"
+        prepAreas="programming, networking, databases, systems, and web foundations"
+        transferQuestions={informationTechnologyAdvisorQuestions}
+      />
 
       <p className="degrees-disclaimer">
         This page is for exploration and planning only. Degree requirements,
@@ -1962,6 +2110,7 @@ function DegreeDetail() {
         <div className="degree-detail-actions">
           <Link to="/transfer/quiz">Take Degree Fit Quiz</Link>
           <Link to="/degrees">Compare More Programs</Link>
+          <AddToProfileAction slug={degree.slug} name={degree.name} />
         </div>
       </section>
 

@@ -16,7 +16,8 @@
 
 .transfer-readiness-overview h2,
 .transfer-term-section h2,
-.transfer-readiness-next h2 {
+.transfer-readiness-next h2,
+.transfer-apply-section h2 {
   margin: 0 0 18px;
   color: #086343;
   font-size: clamp(32px, 4vw, 56px);
@@ -25,7 +26,8 @@
 }
 
 .transfer-readiness-overview p,
-.transfer-readiness-next p {
+.transfer-readiness-next p,
+.transfer-apply-section p {
   max-width: 780px;
   margin: 0;
   color: #25362d;
@@ -63,7 +65,10 @@
 }
 
 .transfer-term-section,
-.transfer-readiness-next {
+.transfer-readiness-next,
+.transfer-major-requirements-section,
+.transfer-major-requirements-callout,
+.transfer-contact-section {
   padding: 60px;
 }
 
@@ -95,15 +100,24 @@
 
 .transfer-type-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 14px;
 }
 
 .transfer-type-card {
+  grid-column: span 2;
   padding: 20px;
   border: 1px solid rgba(8, 98, 66, 0.14);
   border-radius: 8px;
   background-color: #f8f7f0;
+}
+
+.transfer-type-card:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.transfer-type-card:nth-child(5) {
+  grid-column: 4 / span 2;
 }
 
 .transfer-type-card h4 {
@@ -116,6 +130,40 @@
   padding: 18px;
   border-left: 4px solid #086343;
   background-color: #eef4e8;
+}
+
+.transfer-equivalency-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px;
+  border: 1px solid rgba(8, 98, 66, 0.18);
+  border-radius: 8px;
+  background-color: #f8f7f0;
+}
+
+.transfer-equivalency-callout p {
+  max-width: 760px;
+}
+
+.transfer-equivalency-button {
+  flex: 0 0 auto;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background-color: #086343;
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.transfer-equivalency-button:hover,
+.transfer-equivalency-button:focus-visible {
+  background-color: #0a7b54;
+  transform: translateY(-1px);
 }
 
 .transfer-term-grid {
@@ -145,29 +193,428 @@
   line-height: 1.5;
 }
 
+.transfer-major-requirements-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background-color: #ffffff;
+}
+
+.transfer-major-requirements-callout h2,
+.transfer-major-requirements-section h2 {
+  margin: 0 0 18px;
+  color: #086343;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.transfer-major-requirements-callout p {
+  max-width: 780px;
+  margin: 0;
+  color: #25362d;
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.transfer-planner-helper-callout {
+  max-width: 860px;
+  margin: 10px 0 28px;
+  padding: 16px 18px;
+  border-left: 5px solid #086343;
+  border-radius: 8px;
+  background-color: #eef4e8;
+  color: #203126;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.transfer-planner-helper-callout strong {
+  color: #086343;
+}
+
+.transfer-major-requirements-section .degrees-section-heading h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.transfer-major-requirements-section .degrees-section-heading .degrees-eyebrow {
+  margin-bottom: 4px;
+}
+
+.transfer-major-requirements-callout > a,
+.transfer-major-link-group a {
+  flex: 0 0 auto;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background-color: #086343;
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.transfer-major-requirements-callout > a:hover,
+.transfer-major-requirements-callout > a:focus-visible,
+.transfer-major-link-group a:hover,
+.transfer-major-link-group a:focus-visible {
+  background-color: #0a7b54;
+  transform: translateY(-1px);
+}
+
+.transfer-major-requirements-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  max-width: 1040px;
+}
+
+.transfer-major-requirements-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 30px;
+  border: 1px solid rgba(8, 98, 66, 0.14);
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 14px 34px rgba(32, 49, 38, 0.08);
+}
+
+.transfer-major-requirements-card h3 {
+  margin: 0;
+  color: #086343;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.15;
+}
+
+.transfer-major-requirements-card h4 {
+  margin: 0;
+  color: #086343;
+  font-size: 18px;
+}
+
+.transfer-major-requirements-card p {
+  margin: 0;
+  color: #314239;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.transfer-major-requirements-card ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding-left: 22px;
+  color: #314239;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.transfer-major-requirements-card li::marker {
+  color: #086343;
+}
+
+.transfer-requirement-levels {
+  display: grid;
+  gap: 16px;
+}
+
+.transfer-requirement-level {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid rgba(8, 98, 66, 0.12);
+  border-radius: 8px;
+  background-color: #f8f7f0;
+}
+
+.transfer-requirement-level-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.transfer-requirement-level-heading button {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 999px;
+  background-color: #086343;
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.transfer-requirement-added {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: #eef4e8;
+  color: #086343;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.transfer-major-link-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+
 .transfer-readiness-next {
   background-color: #086343;
 }
 
 .transfer-readiness-next h2,
 .transfer-readiness-next p,
+.transfer-apply-section h2,
+.transfer-apply-section p,
+.transfer-apply-section .degrees-eyebrow,
 .transfer-readiness-next .degrees-eyebrow {
   color: #ffffff;
+}
+
+.transfer-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.transfer-checklist article {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 240px;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.transfer-checklist h3 {
+  margin: 0;
+  color: #086343;
+  font-size: 24px;
+}
+
+.transfer-checklist p {
+  color: #314239;
+  font-size: 17px;
+}
+
+.transfer-checklist a {
+  margin-top: auto;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background-color: #086343;
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.transfer-checklist a:hover,
+.transfer-checklist a:focus-visible {
+  background-color: #0a7b54;
+  transform: translateY(-1px);
+}
+
+.transfer-checklist-resource {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.transfer-checklist-resource p {
+  font-size: 17px;
+}
+
+.transfer-checklist-resource a {
+  flex: 0 0 auto;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #086343;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.transfer-checklist-resource a:hover,
+.transfer-checklist-resource a:focus-visible {
+  background-color: #eef4e8;
+  transform: translateY(-1px);
+}
+
+.transfer-apply-section {
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.transfer-apply-section a {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #086343;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.transfer-apply-section a:hover,
+.transfer-apply-section a:focus-visible {
+  background-color: #eef4e8;
+  transform: translateY(-1px);
+}
+
+.transfer-contact-section {
+  background-color: #ffffff;
+}
+
+.transfer-contact-section h2 {
+  margin: 0 0 24px;
+  color: #086343;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.transfer-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.transfer-contact-grid article {
+  padding: 24px;
+  border: 1px solid rgba(8, 98, 66, 0.14);
+  border-radius: 8px;
+  background-color: #f8f7f0;
+}
+
+.transfer-contact-grid h3 {
+  margin: 0 0 12px;
+  color: #086343;
+  font-size: 22px;
+}
+
+.transfer-contact-grid p {
+  margin: 0;
+  color: #314239;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.transfer-contact-grid a {
+  color: #086343;
+  font-weight: 800;
 }
 
 @media (max-width: 900px) {
   .transfer-readiness-overview,
   .transfer-term-section,
-  .transfer-readiness-next {
+  .transfer-readiness-next,
+  .transfer-major-requirements-section,
+  .transfer-major-requirements-callout,
+  .transfer-contact-section {
     padding: 36px 20px;
   }
 
   .transfer-readiness-overview,
-  .transfer-term-grid {
+  .transfer-term-grid,
+  .transfer-major-requirements-grid,
+  .transfer-contact-grid {
     grid-template-columns: 1fr;
   }
 
   .transfer-type-grid {
     grid-template-columns: 1fr;
+  }
+
+  .transfer-type-card,
+  .transfer-type-card:nth-child(4),
+  .transfer-type-card:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .transfer-equivalency-callout {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .transfer-equivalency-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .transfer-checklist {
+    grid-template-columns: 1fr;
+  }
+
+  .transfer-checklist a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .transfer-checklist-resource {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .transfer-checklist-resource a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .transfer-apply-section a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .transfer-major-requirements-callout {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .transfer-major-requirements-callout > a,
+  .transfer-major-link-group,
+  .transfer-major-link-group a {
+    width: 100%;
+  }
+
+  .transfer-major-requirements-callout > a,
+  .transfer-major-link-group a {
+    text-align: center;
+  }
+
+  .transfer-requirement-level-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .transfer-requirement-level-heading button {
+    width: 100%;
   }
 }
