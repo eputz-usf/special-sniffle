@@ -27,6 +27,7 @@ type DashboardTemplateProps = {
   secondaryToolPath?: string;
   secondaryToolTitle?: string;
   secondaryToolText?: string;
+  tertiaryToolPath?: string;
   tertiaryToolTitle?: string;
   tertiaryToolText?: string;
   tertiaryToolUndecided?: boolean;
@@ -107,6 +108,7 @@ function DashboardTemplate({
   secondaryToolPath,
   secondaryToolTitle = 'Specified text to be put there',
   secondaryToolText = 'Specified text to be put there.',
+  tertiaryToolPath,
   tertiaryToolTitle = 'Transition Planner',
   tertiaryToolText = 'A future general planning tool can organize recommendations, questions, notes, and next actions in one place.',
   tertiaryToolUndecided = false,
@@ -303,6 +305,12 @@ function DashboardTemplate({
                 Save transfer details, notes, advising questions, and course
                 lists in one printable planning summary.
               </p>
+            </Link>
+          ) : tertiaryToolPath ? (
+            <Link className="dashboard-major-card" to={tertiaryToolPath}>
+              <CalendarCheck size={30} aria-hidden="true" />
+              <span>{tertiaryToolTitle}</span>
+              <p>{tertiaryToolText}</p>
             </Link>
           ) : (
             <button

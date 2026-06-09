@@ -202,6 +202,22 @@
 - Changed degree and future degree pages so Current USF users save programs with `Add to Profile` instead of `Add to Planner`.
 - Replaced the profile summary panel with a focused list of programs added to the profile.
 
+## Update 22: Current USF Dashboard and Profile Refinements
+
+**Date:** June 9, 2026
+
+- Updated the Current USF dashboard guidance for students in another USF college considering a switch into Bellini computing majors.
+- Refined the Current USF profile with a date edited label, programs of interest controls, and a print-only report format.
+- Added a placeholder quiz recommendations section on the Current USF profile for future wiring.
+
+## Update 23: Current USF Quiz and Bellini Switching Guide
+
+**Date:** June 9, 2026
+
+- Added a Current USF intake quiz route, Supabase-backed autosave/result tables, and group-specific recommendation scoring.
+- Added a Current USF quiz results page modeled after the transfer results page with red placeholder next-step actions.
+- Added the Transferring into Bellini Guide using the transfer guide layout, switching-planning overview, switching terms, and Bellini contact section.
+
 ## What I Will Focus On Next
 - Work on the transfer pathway guide.
 - Test recommendation matches with scripts.

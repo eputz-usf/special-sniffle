@@ -14,6 +14,7 @@ import {
   loadCurrentUsfProfileMajors,
   removeCurrentUsfProfileMajor,
   saveCurrentUsfProfileMajors,
+  type CurrentUsfProfileMajor,
 } from '../../utils/currentUsfProfileMajors';
 import { getOrCreateCurrentUsfProfileSession } from '../../utils/currentUsfProfileSession';
 import {
@@ -65,6 +66,22 @@ function loadCurrentUsfProfile(): CurrentUsfProfilePayload {
   }
 
   return emptyProfile;
+}
+
+function mergeProfileMajors(
+  localMajors: CurrentUsfProfileMajor[],
+  remoteMajors: CurrentUsfProfileMajor[],
+) {
+  const mergedMajors = [...remoteMajors];
+  const mergedMajorSlugs = new Set(remoteMajors.map((major) => major.slug));
+
+  localMajors.forEach((major) => {
+    if (!mergedMajorSlugs.has(major.slug)) {
+      mergedMajors.push(major);
+    }
+  });
+
+  return mergedMajors;
 }
 
 function Profile() {
@@ -126,8 +143,13 @@ function Profile() {
             notes: remoteProfile.profile.notes ?? '',
             questions: remoteProfile.profile.questions ?? '',
           });
-          setSavedProfileMajors(remoteProfile.majors);
-          saveCurrentUsfProfileMajors(remoteProfile.majors);
+          const mergedMajors = mergeProfileMajors(
+            loadCurrentUsfProfileMajors(),
+            remoteProfile.majors,
+          );
+
+          setSavedProfileMajors(mergedMajors);
+          saveCurrentUsfProfileMajors(mergedMajors);
           setProfileSaveStatus('saved');
         } else {
           setProfileSaveStatus('local-only');
@@ -223,9 +245,30 @@ function Profile() {
     'local-only': 'Autosaved locally',
     error: 'Local save only',
   }[profileSaveStatus];
+  const editedDateLabel = new Date().toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric',
+  });
+  const profileReportDetails = [
+    { label: 'User group', value: selectedUserGroup?.label ?? '' },
+    { label: 'Name or initials', value: profile.studentName },
+    { label: 'U Number', value: profile.uNumber },
+    { label: 'USF email', value: profile.usfEmail },
+    { label: 'Current USF college', value: profile.currentCollege },
+    { label: 'Current major or program', value: profile.currentMajor },
+    { label: 'Year started at USF', value: profile.yearStarted },
+    { label: 'Class standing', value: profile.classStanding },
+    { label: 'Credits completed', value: profile.completedCredits },
+  ].filter((detail) => detail.value.trim());
+  const hasPrintableProfileContent =
+    profileReportDetails.length > 0 ||
+    savedProfileMajors.length > 0 ||
+    profile.notes.trim() ||
+    profile.questions.trim();
 
   return (
-    <main className="degrees-page transition-planner-page">
+    <main className="degrees-page transition-planner-page current-usf-profile-page">
       <section className="degrees-hero">
         <div className="degrees-hero-header">
           <p className="degrees-eyebrow">Current USF student profile</p>
@@ -236,7 +279,12 @@ function Profile() {
             Back to Dashboard
           </Link>
         </div>
-        <h1>Your Profile</h1>
+        <div className="current-usf-profile-title-row">
+          <h1>Your Profile</h1>
+          <p className="current-usf-profile-edited-date">
+            Date edited {editedDateLabel}
+          </p>
+        </div>
         <p>
           Keep a local snapshot of your current USF college, major context,
           Bellini programs you are considering, notes, and advising questions.
@@ -368,37 +416,6 @@ function Profile() {
                 />
               </label>
 
-              <section className="transition-planner-major-section">
-                <div className="transition-planner-field-label">
-                  Bellini programs added to profile
-                </div>
-                {savedProfileMajors.length > 0 ? (
-                  <ul className="transition-planner-major-list">
-                    {savedProfileMajors.map((major) => (
-                      <li key={major.slug}>
-                        <span>{major.name}</span>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveProfileMajor(major.slug)}
-                        >
-                          Remove
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <div className="transition-planner-major-empty">
-                    <p>
-                      Add programs from the degree explorer to keep them in
-                      your profile.
-                    </p>
-                    <Link to="/degrees?from=current-usf-student">
-                      Browse degrees
-                    </Link>
-                  </div>
-                )}
-              </section>
-
               <label className="transition-planner-field">
                 <span>Notes</span>
                 <textarea
@@ -453,15 +470,91 @@ function Profile() {
 
             {savedProfileMajors.length > 0 ? (
               <section>
-                <ul>
+                <ul className="transition-report-program-list">
                   {savedProfileMajors.map((major) => (
-                    <li key={major.slug}>{major.name}</li>
+                    <li key={major.slug}>
+                      <span>{major.name}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveProfileMajor(major.slug)}
+                      >
+                        Remove
+                      </button>
+                    </li>
                   ))}
                 </ul>
               </section>
             ) : (
               <p className="transition-planner-empty">
                 Add programs from the degree explorer to see them here.
+              </p>
+            )}
+
+            <section className="current-usf-quiz-recommendations-placeholder">
+              <p className="transition-report-kicker">Quiz recommendations</p>
+              <h2>Recommendations Added from Quiz</h2>
+              <p>
+                Quiz recommendation results will appear here after this section
+                is connected.
+              </p>
+            </section>
+          </article>
+
+          <article
+            className="transition-planner-report current-usf-print-report"
+            aria-labelledby="current-usf-print-report-title"
+          >
+            <p className="transition-report-kicker">Printable report</p>
+            <h2 id="current-usf-print-report-title">Your Profile Report</h2>
+            <p className="transition-report-date">Date edited {editedDateLabel}</p>
+
+            {hasPrintableProfileContent ? (
+              <>
+                {profileReportDetails.length > 0 && (
+                  <section>
+                    <h3>Student Information</h3>
+                    <div className="profile-report-detail-list">
+                      {profileReportDetails.map((detail) => (
+                        <p key={detail.label}>
+                          <strong>{detail.label}:</strong> {detail.value}
+                        </p>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {savedProfileMajors.length > 0 && (
+                  <section>
+                    <h3>Programs of Interest</h3>
+                    <ul>
+                      {savedProfileMajors.map((major) => (
+                        <li key={major.slug}>{major.name}</li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+
+                {profile.notes.trim() && (
+                  <section>
+                    <h3>Notes</h3>
+                    <p className="transition-planner-prewrap">
+                      {profile.notes.trim()}
+                    </p>
+                  </section>
+                )}
+
+                {profile.questions.trim() && (
+                  <section>
+                    <h3>Questions to Ask</h3>
+                    <p className="transition-planner-prewrap">
+                      {profile.questions.trim()}
+                    </p>
+                  </section>
+                )}
+              </>
+            ) : (
+              <p className="transition-planner-empty">
+                Add details to your profile to build a printable report.
               </p>
             )}
           </article>

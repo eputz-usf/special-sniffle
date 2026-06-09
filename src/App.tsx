@@ -21,7 +21,10 @@ import HighSchoolParentInfo from './pages/highSchool/degrees/HighSchoolParentInf
 import HighSchoolTransitionPlanner from './pages/highSchool/degrees/HighSchoolTransitionPlanner';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import CurrentUsfReadinessGuide from './pages/USF/CurrentUsfReadinessGuide';
 import Profile from './pages/USF/Profile';
+import CurrentUsfIntakeQuiz from './pages/USF/quiz/CurrentUsfIntakeQuiz';
+import CurrentUsfQuizResults from './pages/USF/quiz/CurrentUsfQuizResults';
 import ProspectiveStudentDashboard from './pages/dashboards/ProspectiveStudentDashboard';
 import SelectUserType from './pages/SelectUserType';
 import TransferStudentDashboard from './pages/dashboards/TransferStudentDashboard';
@@ -70,8 +73,17 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/current-usf/readiness-guide"
+          element={<CurrentUsfReadinessGuide />}
+        />
         <Route path="/quiz" element={<HighSchoolIntakeQuiz />} />
         <Route path="/quiz/results" element={<HighSchoolQuizResults />} />
+        <Route path="/current-usf/quiz" element={<CurrentUsfIntakeQuiz />} />
+        <Route
+          path="/current-usf/quiz/results"
+          element={<CurrentUsfQuizResults />}
+        />
         <Route path="/transfer/quiz" element={<TransferIntakeQuiz />} />
         <Route path="/transfer/quiz/results" element={<TransferQuizResults />} />
         <Route path="/transfer/planner" element={<TransferPlanner />} />

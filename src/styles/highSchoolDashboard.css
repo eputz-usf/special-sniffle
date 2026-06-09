@@ -261,6 +261,26 @@
   background-color: transparent;
 }
 
+.current-usf-profile-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.current-usf-profile-edited-date,
+.degrees-hero .current-usf-profile-edited-date {
+  flex: 0 0 auto;
+  margin: 8px 0 0;
+  padding: 0;
+  color: #164d36;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: right;
+  text-transform: uppercase;
+}
+
 .high-school-planner h2 {
   margin: 0 0 24px;
   color: #086242;
@@ -715,11 +735,97 @@
   margin-bottom: 6px;
 }
 
+.transition-report-program-list {
+  display: grid;
+  gap: 8px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.transition-report-program-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 0;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(8, 98, 66, 0.12);
+}
+
+.transition-report-program-list span {
+  min-width: 0;
+}
+
+.transition-report-program-list button {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border: 1px solid rgba(180, 31, 42, 0.38);
+  border-radius: 8px;
+  background-color: #fff2f3;
+  color: #b41f2a;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.transition-report-program-list button:hover,
+.transition-report-program-list button:focus-visible {
+  border-color: #b41f2a;
+  background-color: #ffe3e6;
+}
+
+.current-usf-quiz-recommendations-placeholder {
+  margin-top: 22px;
+  border-top-color: rgba(180, 31, 42, 0.28);
+  color: #b41f2a;
+}
+
+.current-usf-quiz-recommendations-placeholder .transition-report-kicker,
+.current-usf-quiz-recommendations-placeholder h2,
+.current-usf-quiz-recommendations-placeholder p {
+  color: #b41f2a;
+}
+
+.current-usf-quiz-recommendations-placeholder h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.high-school-planner .current-usf-quiz-recommendations-placeholder p:not(.transition-report-kicker) {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.current-usf-print-report {
+  display: none;
+}
+
+.profile-report-detail-list {
+  display: grid;
+  gap: 8px;
+}
+
+.profile-report-detail-list p {
+  margin: 0;
+}
+
 .transition-planner-prewrap {
   white-space: pre-wrap;
 }
 
 @media (max-width: 760px) {
+  .current-usf-profile-title-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .current-usf-profile-edited-date,
+  .degrees-hero .current-usf-profile-edited-date {
+    width: fit-content;
+    text-align: left;
+  }
+
   .high-school-feature-row {
     grid-template-columns: 1fr;
   }
@@ -854,5 +960,17 @@
   .transition-planner-report li {
     color: #15251b;
     line-height: 1.45;
+  }
+
+  .current-usf-profile-page .transition-planner-report:not(.current-usf-print-report) {
+    display: none;
+  }
+
+  .current-usf-profile-page .current-usf-print-report {
+    display: block;
+  }
+
+  .transition-report-program-list button {
+    display: none;
   }
 }
