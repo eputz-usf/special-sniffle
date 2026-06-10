@@ -338,6 +338,13 @@
   min-width: 0;
 }
 
+.current-usf-profile-side-column {
+  display: grid;
+  gap: 22px;
+  align-self: start;
+  min-width: 0;
+}
+
 .transition-planner-card,
 .transition-planner-report {
   position: relative;
@@ -788,13 +795,225 @@
 }
 
 .current-usf-quiz-recommendations-placeholder h2 {
-  margin: 0;
+  margin: 0 0 22px;
+  color: #006747;
   font-size: 24px;
+}
+
+.current-usf-quiz-recommendations-placeholder .transition-report-program-list li {
+  align-items: flex-start;
+  padding: 10px 0;
+}
+
+.current-usf-match-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 82px;
+  justify-content: center;
+  padding: 6px 10px;
+  border: 1px solid rgba(0, 103, 71, 0.22);
+  border-radius: 999px;
+  background-color: #eaf7f1;
+  color: #006747;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.current-usf-match-badge strong {
+  color: #004b35;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.current-usf-match-badge span {
+  min-width: auto;
+  color: #006747;
+  font-size: 11px;
+  text-transform: uppercase;
 }
 
 .high-school-planner .current-usf-quiz-recommendations-placeholder p:not(.transition-report-kicker) {
   margin-top: 10px;
   font-size: 16px;
+}
+
+.current-usf-uploaded-documents-card {
+  display: grid;
+  gap: 12px;
+}
+
+.current-usf-document-section {
+  display: grid;
+  gap: 12px;
+  padding: 18px 0 0;
+  border-top: 1px solid rgba(8, 98, 66, 0.16);
+}
+
+.current-usf-document-section + .current-usf-document-section {
+  padding-top: 10px;
+}
+
+.current-usf-document-section h3 {
+  margin: 0;
+  color: #086242;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.current-usf-document-section p {
+  margin: 0;
+}
+
+.current-usf-document-upload {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 9px 12px;
+  overflow: hidden;
+  border: 2px solid #086242;
+  border-radius: 8px;
+  background-color: #086242;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.current-usf-document-upload input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.current-usf-document-upload:has(input:disabled) {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.current-usf-document-upload input:disabled {
+  cursor: wait;
+}
+
+.current-usf-extracted-courses-callout {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid rgba(8, 98, 66, 0.16);
+  border-radius: 8px;
+  background-color: #f8f7f0;
+}
+
+.current-usf-extracted-courses-callout h4 {
+  margin: 0 0 4px;
+  color: #086242;
+  font-size: 16px;
+}
+
+.current-usf-extracted-courses-callout p {
+  margin: 0;
+  color: #314239;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.current-usf-extracted-courses-callout a {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 2px solid #086242;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #086242;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.current-usf-extracted-courses-callout a:hover,
+.current-usf-extracted-courses-callout a:focus-visible {
+  background-color: #eef4e8;
+}
+
+.current-usf-uploaded-document-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.current-usf-uploaded-document-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-left: -20px;
+  padding: 14px;
+  border: 1px solid rgba(8, 98, 66, 0.14);
+  border-radius: 8px;
+  background-color: #eef4e8;
+}
+
+.current-usf-uploaded-document-list div {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.current-usf-uploaded-document-list span {
+  color: #086242;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.current-usf-uploaded-document-list small {
+  color: #486055;
+  font-weight: 700;
+}
+
+.current-usf-uploaded-document-list button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 1px solid rgba(180, 31, 42, 0.38);
+  border-radius: 8px;
+  background-color: #fff2f3;
+  color: #b41f2a;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.current-usf-uploaded-document-list button:hover,
+.current-usf-uploaded-document-list button:focus-visible {
+  border-color: #b41f2a;
+  background-color: #ffe3e6;
+}
+
+.current-usf-uploaded-document-list button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.current-usf-document-remove-status {
+  margin: 0;
+  color: #486055;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
 .current-usf-print-report {

@@ -21,16 +21,6 @@ const guideTerms = [
       'USF’s degree audit system. It helps show completed requirements, in-progress courses, and what may still be needed for your current or possible new major.',
   },
   {
-    term: 'Completed Course',
-    definition:
-      'A course you have already finished. Completed courses may or may not count toward a Bellini major depending on the requirement, grade, and catalog rules.',
-  },
-  {
-    term: 'In-Progress Course',
-    definition:
-      'A course you are currently taking. These courses should be discussed with advising before assuming they will apply to a new major.',
-  },
-  {
     term: 'Prerequisite',
     definition:
       'A course or requirement that must be completed before taking a later course. Missing prerequisites can affect your first semester after switching.',
@@ -61,16 +51,52 @@ const guideTerms = [
       'A conversation with advising to confirm how your courses, goals, and timeline fit a possible Bellini major before making official changes.',
   },
 ];
-const guideChecklist = [
-  { title: '', text: '' },
-  { title: '', text: '' },
-  { title: '', text: '' },
-  { title: '', text: '' },
+
+const gatewayRequirements = [
+  {
+    title: 'Minimum Entry GPA',
+    text:
+      'You must hold a minimum overall and institutional USF GPA. Many pathways use a 2.0 minimum, but highly competitive tracks such as Computer Science or Computer Engineering may look for a 2.5 to 3.0 GPA in specialized math, science, or computing courses.',
+  },
+  {
+    title: 'Calculus and Programming Track',
+    text:
+      'You must have completed or be currently enrolled in foundational coursework with a grade of C or higher. Depending on the target major, this usually includes Calculus I and II, Physics I with Lab for engineering tracks, and Intro to Programming Concepts.',
+  },
+  {
+    title: 'Course Attempts and Grades',
+    text:
+      'Gateway courses often have minimum grade rules and may allow no more than two attempts across the required classes. Confirm the exact catalog language for your target major before assuming a course will satisfy the entry requirement.',
+  },
+];
+
+const requirementResources = [
+  {
+    title: 'Official USF Undergraduate Catalog',
+    text:
+      'Use the catalog as the rulebook for graduation and major declaration requirements. Look under Bellini College and the specific target major for declaration rules, prerequisites, grade requirements, and course codes.',
+    buttonLabel: 'Open catalog',
+    href: 'https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/prospective_students.aspx',
+  },
+  {
+    title: 'Bellini Prospective Student Requirements',
+    text:
+      'Use the college requirements page as a quicker checklist for gateway courses and degree-track expectations before meeting with advising.',
+    buttonLabel: 'Open hub',
+    href: 'https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/prospective_students.aspx',
+  },
+  {
+    title: 'USF Selective Major Requirements Directory',
+    text:
+      'Use this directory to compare selective or limited-access major requirements, including GPA thresholds and minimum entry expectations.',
+    buttonLabel: 'Open directory',
+    href: 'https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/prospective_students.aspx',
+  },
 ];
 
 function CurrentUsfReadinessGuide() {
   return (
-    <main className="degrees-page transfer-readiness-page">
+    <main className="degrees-page transfer-readiness-page current-usf-readiness-page">
       <section className="degrees-hero transfer-readiness-hero">
         <div className="degrees-hero-header">
           <p className="degrees-eyebrow">Current USF guide</p>
@@ -82,7 +108,11 @@ function CurrentUsfReadinessGuide() {
           </Link>
         </div>
         <h1>Transferring into Bellini Guide</h1>
-        <p></p>
+        <p>
+          Use this guide to organize the academic requirements, advising steps,
+          and official resources involved in switching from another USF college
+          into a Bellini College major.
+        </p>
       </section>
 
       <section className="transfer-readiness-overview">
@@ -121,38 +151,187 @@ function CurrentUsfReadinessGuide() {
         </div>
       </section>
 
-      <section className="transfer-major-requirements-callout">
+      <section className="transfer-major-requirements-callout current-usf-step-one-callout">
         <div>
-          <p className="degrees-eyebrow"></p>
-          <h2></h2>
-          <p></p>
+          <h2>Checklist</h2>
+          <p>
+            Bellini College programs do not allow immediate, automatic entry.
+            Students should first confirm the minimum academic thresholds,
+            prerequisite courses, grade expectations, and attempt rules for the
+            specific major they want to enter.
+          </p>
         </div>
-        <Link to="/degrees?from=current-usf-student"></Link>
       </section>
 
-      <section className="transfer-readiness-next">
-        <p className="degrees-eyebrow"></p>
-        <h2></h2>
-        <div className="transfer-checklist">
-          {guideChecklist.map((item, index) => (
-            <article key={index}>
+      <section
+        className="transfer-term-section current-usf-step-one-details"
+        id="gateway-requirements"
+      >
+        <div className="degrees-section-heading">
+          <p className="degrees-eyebrow">Step 1</p>
+          <h2>Gateway Requirements</h2>
+        </div>
+
+        <div className="transfer-term-grid">
+          {gatewayRequirements.map((item) => (
+            <article className="transfer-term-card" key={item.title}>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
-              <span></span>
             </article>
           ))}
         </div>
+      </section>
 
-        <div className="transfer-checklist-resource">
-          <p></p>
-          <span></span>
+      <section className="transfer-term-section current-usf-step-one-resources">
+        <div className="degrees-section-heading">
+          <p className="degrees-eyebrow">Step 1 resources</p>
+          <h2 className="current-usf-resource-heading">
+            Where to Confirm Requirements
+          </h2>
         </div>
 
-        <div className="transfer-apply-section">
-          <p className="degrees-eyebrow"></p>
-          <h2></h2>
-          <p></p>
-          <span></span>
+        <div className="transfer-term-grid">
+          {requirementResources.map((item) => (
+            <article
+              className="transfer-term-card current-usf-resource-card"
+              key={item.title}
+            >
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+              <a href={item.href} target="_blank" rel="noreferrer">
+                {item.buttonLabel}
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="transfer-readiness-next current-usf-step-two-section">
+        <p className="degrees-eyebrow">Step 2</p>
+        <h2>Access the Bellini Student Portal on Canvas</h2>
+        <p>
+          Use your USF Canvas dashboard to locate or request access to the
+          Bellini Undergraduate Advising Canvas page. This is where active
+          students can track program requirements and find official academic
+          paperwork.
+        </p>
+        <a
+          className="current-usf-canvas-button current-usf-form-button"
+          href="https://www.google.com/search?q=https://canvas.usf.edu"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open Canvas Dashboard
+        </a>
+      </section>
+
+      <section className="transfer-term-section current-usf-step-three-section">
+        <div className="degrees-section-heading">
+          <p className="degrees-eyebrow">Step 3</p>
+          <h2>Connect with a Bellini Advisor via Archivum</h2>
+        </div>
+
+        <article className="transfer-term-card current-usf-step-card">
+          <p>
+            Before your major change can be approved, an advisor from the
+            college must review your academic transcript to audit your
+            prerequisites and assess your excess credit hours.
+          </p>
+          <p>
+            Log into the Archivum Student Portal to schedule a formal
+            appointment with a Bellini College undergraduate advisor.
+          </p>
+          <p>
+            Alternative drop-ins: the advising team, located on the 6th floor
+            of the Library in LIB 618, also hosts virtual drop-in sessions. You
+            can jump into their queue by messaging one of the advisors directly
+            via Microsoft Teams during designated drop-in hours.
+          </p>
+          <a
+            className="current-usf-canvas-button"
+            href="https://www.usf.edu/undergrad/students/advising-offices.aspx"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View advising info
+          </a>
+        </article>
+
+        <div className="transfer-checklist-resource">
+          <p>
+            Advisor tip: if you are missing a gateway class or missed a grade
+            threshold, do not submit the form blindly. Meet with advising first
+            to map out a possible pre-major pathway.
+          </p>
+        </div>
+      </section>
+
+      <section className="transfer-readiness-next current-usf-step-four-section">
+        <p className="degrees-eyebrow">Step 4</p>
+        <h2>Submit the Change of Major Form</h2>
+        <p>
+          Once an advisor reviews your progress and confirms that you have met
+          or are successfully completing the gateway requirements, the paperwork
+          can be officially initiated.
+        </p>
+        <p>
+          You will submit the electronic Bellini College Change of Major Form.
+          The advising team and the department chair will review the electronic
+          request. Once signed off, it is routed directly to the Registrar's
+          Office to update your student profile in OASIS.
+        </p>
+        <p>
+          If you are unsure whether your current math or programming credits
+          satisfy their entry gateways, reach out to the general advising
+          mailbox for a quick preliminary transcript check.
+        </p>
+        <div className="current-usf-step-four-actions">
+          <a
+            className="current-usf-canvas-button current-usf-email-button"
+            href="mailto:ai-cybersecurity-computing@usf.edu?subject=Preliminary%20Transcript%20Check"
+          >
+            Email advising mailbox
+          </a>
+          <a
+            className="current-usf-canvas-button current-usf-form-button"
+            href="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/advising-support.aspx"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Bellini College Change of Major Form
+          </a>
+        </div>
+      </section>
+
+      <section className="transfer-term-section current-usf-final-resources">
+        <div className="degrees-section-heading">
+          <p className="degrees-eyebrow">Additional resources</p>
+          <h2>Review Degree Progression Tools</h2>
+        </div>
+
+        <div className="current-usf-final-resource-actions">
+          <a
+            className="current-usf-canvas-button"
+            href="https://www.usf.edu/arts-sciences/students/advising/academics/index.aspx"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Degree Progression Policies
+          </a>
+          <a
+            className="current-usf-canvas-button"
+            href="https://www.usf.edu/registrar/register/degreeworks.aspx"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Degree Works
+          </a>
+          <Link
+            className="current-usf-canvas-button"
+            to="/degrees?from=current-usf-student"
+          >
+            Explore Degree Info
+          </Link>
         </div>
       </section>
 
@@ -162,24 +341,24 @@ function CurrentUsfReadinessGuide() {
         <div className="transfer-contact-grid">
           <article>
             <h3>Wish to speak with a Bellini College academic advisor?</h3>
-            <p>
-              Email the Advisors at{' '}
-              <a href="mailto:Bellini-UG-Advising@usf.edu">
-                Bellini-UG-Advising@usf.edu
-              </a>
-              .
-            </p>
+            <p>Email the advisors for undergraduate advising support.</p>
+            <a
+              className="current-usf-canvas-button"
+              href="mailto:Bellini-UG-Advising@usf.edu"
+            >
+              Email Bellini advisors
+            </a>
           </article>
 
           <article>
             <h3>Interested in our Interdisciplinary majors?</h3>
-            <p>
-              Email{' '}
-              <a href="mailto:Bellini-CollegeICMadvising@usf.edu">
-                Bellini-CollegeICMadvising@usf.edu
-              </a>
-              .
-            </p>
+            <p>Email the advising team for interdisciplinary major questions.</p>
+            <a
+              className="current-usf-canvas-button"
+              href="mailto:Bellini-CollegeICMadvising@usf.edu"
+            >
+              Email ICM advising
+            </a>
           </article>
         </div>
       </section>

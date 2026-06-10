@@ -6,10 +6,14 @@ import {
   Printer,
   RotateCcw,
   Save,
+  Trash2,
+  Upload,
 } from 'lucide-react';
+import { supabase } from '../../lib/supabaseClient';
 import type { UserType } from '../../types/user';
 import { getSavedUserType } from '../../utils/auth';
 import { getDashboardRoute, userTypeOptions } from '../../utils/userTypes';
+import { loadCurrentUsfQuizResult } from './quiz/currentUsfQuizSession';
 import {
   loadCurrentUsfProfileMajors,
   removeCurrentUsfProfileMajor,
@@ -27,6 +31,10 @@ import '../../styles/highSchoolDashboard.css';
 import '../../styles/transferPlanner.css';
 
 const CURRENT_USF_PROFILE_STORAGE_KEY = 'cic_current_usf_profile';
+const ADDITIONAL_DOCUMENT_BUCKET = 'current-usf-profile-documents';
+const MAX_ADDITIONAL_DOCUMENT_SIZE_BYTES = 10 * 1024 * 1024;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 const emptyProfile: CurrentUsfProfilePayload = {
   studentName: '',
@@ -37,9 +45,16 @@ const emptyProfile: CurrentUsfProfilePayload = {
   yearStarted: '',
   classStanding: '',
   completedCredits: '',
+  currentGpa: '',
   notes: '',
   questions: '',
+  transcriptDocuments: [],
+  additionalDocuments: [],
 };
+
+function sanitizeStoragePathPart(value: string) {
+  return value.replace(/[^a-z0-9._-]/gi, '-').toLowerCase();
+}
 
 function loadCurrentUsfProfile(): CurrentUsfProfilePayload {
   const savedProfile = window.localStorage.getItem(CURRENT_USF_PROFILE_STORAGE_KEY);
@@ -57,8 +72,11 @@ function loadCurrentUsfProfile(): CurrentUsfProfilePayload {
         yearStarted: parsedProfile.yearStarted ?? '',
         classStanding: parsedProfile.classStanding ?? '',
         completedCredits: parsedProfile.completedCredits ?? '',
+        currentGpa: parsedProfile.currentGpa ?? '',
         notes: parsedProfile.notes ?? '',
         questions: parsedProfile.questions ?? '',
+        transcriptDocuments: parsedProfile.transcriptDocuments ?? [],
+        additionalDocuments: parsedProfile.additionalDocuments ?? [],
       };
     } catch {
       window.localStorage.removeItem(CURRENT_USF_PROFILE_STORAGE_KEY);
@@ -89,6 +107,7 @@ function Profile() {
   const [profileSession] = useState(getOrCreateCurrentUsfProfileSession);
   const [savedUserType, setSavedUserType] = useState<UserType | null>(null);
   const [profile, setProfile] = useState(loadCurrentUsfProfile);
+  const [quizResult] = useState(loadCurrentUsfQuizResult);
   const [savedProfileMajors, setSavedProfileMajors] = useState(() =>
     loadCurrentUsfProfileMajors(),
   );
@@ -96,6 +115,11 @@ function Profile() {
   const [profileSaveStatus, setProfileSaveStatus] = useState<
     'loading' | 'saved' | 'local-only' | 'error'
   >('loading');
+  const [removingDocumentPath, setRemovingDocumentPath] = useState('');
+  const [documentRemoveStatus, setDocumentRemoveStatus] = useState('');
+  const [isUploadingAdditionalDocument, setIsUploadingAdditionalDocument] =
+    useState(false);
+  const [additionalDocumentStatus, setAdditionalDocumentStatus] = useState('');
   const [showResetConfirmation, setShowResetConfirmation] = useState(false);
   const selectedUserGroup = userTypeOptions.find(
     (option) => option.id === savedUserType,
@@ -140,8 +164,11 @@ function Profile() {
             yearStarted: remoteProfile.profile.yearStarted ?? '',
             classStanding: remoteProfile.profile.classStanding ?? '',
             completedCredits: remoteProfile.profile.completedCredits ?? '',
+            currentGpa: remoteProfile.profile.currentGpa ?? '',
             notes: remoteProfile.profile.notes ?? '',
             questions: remoteProfile.profile.questions ?? '',
+            transcriptDocuments: remoteProfile.profile.transcriptDocuments ?? [],
+            additionalDocuments: remoteProfile.profile.additionalDocuments ?? [],
           });
           const mergedMajors = mergeProfileMajors(
             loadCurrentUsfProfileMajors(),
@@ -239,6 +266,180 @@ function Profile() {
     setSavedProfileMajors(removeCurrentUsfProfileMajor(slug));
   }
 
+  async function deleteSavedDocumentFromStorage(
+    document: { bucket: string; path: string },
+  ) {
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return;
+    }
+
+    const response = await fetch(`${supabaseUrl}/functions/v1/extract-transcript`, {
+      method: 'POST',
+      headers: {
+        apikey: supabaseAnonKey,
+        Authorization: `Bearer ${supabaseAnonKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'delete',
+        bucket: document.bucket,
+        path: document.path,
+        profileSessionId: profileSession.sessionId,
+      }),
+    });
+    const responseBody = (await response.json().catch(() => ({}))) as {
+      error?: string;
+    };
+
+    if (!response.ok || responseBody.error) {
+      throw new Error(responseBody.error ?? 'Unable to delete saved document.');
+    }
+  }
+
+  async function handleRemoveTranscriptDocument(documentPath: string) {
+    const document = profile.transcriptDocuments?.find(
+      (savedDocument) => savedDocument.path === documentPath,
+    );
+
+    if (!document || removingDocumentPath) {
+      return;
+    }
+
+    setRemovingDocumentPath(documentPath);
+    setDocumentRemoveStatus('');
+    setProfile((currentProfile) => ({
+      ...currentProfile,
+      transcriptDocuments: (currentProfile.transcriptDocuments ?? []).filter(
+        (savedDocument) => savedDocument.path !== documentPath,
+      ),
+    }));
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      setDocumentRemoveStatus('Document removed from this browser profile.');
+      setRemovingDocumentPath('');
+      return;
+    }
+
+    try {
+      await deleteSavedDocumentFromStorage(document);
+      setDocumentRemoveStatus('Document removed from this profile.');
+    } catch (error) {
+      setDocumentRemoveStatus(
+        error instanceof Error
+          ? `Removed from profile list, but storage delete failed: ${error.message}`
+          : 'Removed from profile list, but storage delete failed.',
+      );
+    } finally {
+      setRemovingDocumentPath('');
+    }
+  }
+
+  async function handleAdditionalDocumentUpload(
+    event: ChangeEvent<HTMLInputElement>,
+  ) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!file) {
+      return;
+    }
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      setAdditionalDocumentStatus(
+        'Supabase is not configured. Additional documents cannot be uploaded.',
+      );
+      return;
+    }
+
+    if (file.size > MAX_ADDITIONAL_DOCUMENT_SIZE_BYTES) {
+      setAdditionalDocumentStatus('Documents must be 10 MB or smaller.');
+      return;
+    }
+
+    setIsUploadingAdditionalDocument(true);
+    setAdditionalDocumentStatus(`Uploading ${file.name}...`);
+
+    const fileName = sanitizeStoragePathPart(file.name);
+    const storagePath = `profile/${sanitizeStoragePathPart(
+      profileSession.sessionId,
+    )}/${Date.now()}-${fileName}`;
+
+    try {
+      const { error } = await supabase.storage
+        .from(ADDITIONAL_DOCUMENT_BUCKET)
+        .upload(storagePath, file, {
+          contentType: file.type || 'application/octet-stream',
+          upsert: false,
+        });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      setProfile((currentProfile) => ({
+        ...currentProfile,
+        additionalDocuments: [
+          ...(currentProfile.additionalDocuments ?? []),
+          {
+            bucket: ADDITIONAL_DOCUMENT_BUCKET,
+            path: storagePath,
+            fileName: file.name,
+            savedAt: new Date().toISOString(),
+            mimeType: file.type,
+            size: file.size,
+          },
+        ],
+      }));
+      setAdditionalDocumentStatus(`${file.name} uploaded to this profile.`);
+    } catch (error) {
+      setAdditionalDocumentStatus(
+        error instanceof Error
+          ? `Unable to upload document: ${error.message}`
+          : 'Unable to upload document.',
+      );
+    } finally {
+      setIsUploadingAdditionalDocument(false);
+    }
+  }
+
+  async function handleRemoveAdditionalDocument(documentPath: string) {
+    const document = profile.additionalDocuments?.find(
+      (savedDocument) => savedDocument.path === documentPath,
+    );
+
+    if (!document || removingDocumentPath) {
+      return;
+    }
+
+    setRemovingDocumentPath(documentPath);
+    setAdditionalDocumentStatus('');
+    setProfile((currentProfile) => ({
+      ...currentProfile,
+      additionalDocuments: (currentProfile.additionalDocuments ?? []).filter(
+        (savedDocument) => savedDocument.path !== documentPath,
+      ),
+    }));
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      setAdditionalDocumentStatus('Document removed from this browser profile.');
+      setRemovingDocumentPath('');
+      return;
+    }
+
+    try {
+      await deleteSavedDocumentFromStorage(document);
+      setAdditionalDocumentStatus('Document removed from this profile.');
+    } catch (error) {
+      setAdditionalDocumentStatus(
+        error instanceof Error
+          ? `Removed from profile list, but storage delete failed: ${error.message}`
+          : 'Removed from profile list, but storage delete failed.',
+      );
+    } finally {
+      setRemovingDocumentPath('');
+    }
+  }
+
   const autosaveLabel = {
     loading: 'Checking saved profile',
     saved: 'Autosaved to Supabase',
@@ -260,6 +461,7 @@ function Profile() {
     { label: 'Year started at USF', value: profile.yearStarted },
     { label: 'Class standing', value: profile.classStanding },
     { label: 'Credits completed', value: profile.completedCredits },
+    { label: 'GPA', value: profile.currentGpa },
   ].filter((detail) => detail.value.trim());
   const hasPrintableProfileContent =
     profileReportDetails.length > 0 ||
@@ -390,6 +592,20 @@ function Profile() {
               </label>
 
               <label className="transition-planner-field">
+                <span>GPA</span>
+                <input
+                  name="currentGpa"
+                  type="number"
+                  value={profile.currentGpa}
+                  onChange={handleProfileChange}
+                  placeholder="Example: 3.20"
+                  min="0"
+                  max="4"
+                  step="0.01"
+                />
+              </label>
+
+              <label className="transition-planner-field">
                 <span>Class standing</span>
                 <select
                   name="classStanding"
@@ -459,46 +675,181 @@ function Profile() {
             </div>
           </form>
 
-          <article
-            className="transition-planner-report"
-            aria-labelledby="current-usf-profile-report-title"
-          >
-            <p className="transition-report-kicker">Programs of interest</p>
-            <h2 id="current-usf-profile-report-title">
-              Programs Added to Profile
-            </h2>
+          <div className="current-usf-profile-side-column">
+            <article
+              className="transition-planner-report"
+              aria-labelledby="current-usf-profile-report-title"
+            >
+              <p className="transition-report-kicker">Programs of interest</p>
+              <h2 id="current-usf-profile-report-title">
+                Programs Added to Profile
+              </h2>
 
-            {savedProfileMajors.length > 0 ? (
-              <section>
-                <ul className="transition-report-program-list">
-                  {savedProfileMajors.map((major) => (
-                    <li key={major.slug}>
-                      <span>{major.name}</span>
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveProfileMajor(major.slug)}
-                      >
-                        Remove
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+              {savedProfileMajors.length > 0 ? (
+                <section>
+                  <ul className="transition-report-program-list">
+                    {savedProfileMajors.map((major) => (
+                      <li key={major.slug}>
+                        <span>{major.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveProfileMajor(major.slug)}
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : (
+                <p className="transition-planner-empty">
+                  Add programs from the degree explorer to see them here.
+                </p>
+              )}
+
+              <section className="current-usf-quiz-recommendations-placeholder">
+                <p className="transition-report-kicker">Quiz recommendations</p>
+                <h2>Recommendations Added from Quiz</h2>
+                {quizResult?.recommendedDegrees.length ? (
+                  <ul className="transition-report-program-list">
+                    {quizResult.recommendedDegrees.slice(0, 3).map((degree) => (
+                      <li key={degree}>
+                        <span>{degree}</span>
+                        <small className="current-usf-match-badge">
+                          <strong>{quizResult.matchPercentages[degree] ?? 0}%</strong>
+                          <span>match</span>
+                        </small>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="transition-planner-empty">
+                    Complete the Current USF intake quiz to see recommendation
+                    results here.
+                  </p>
+                )}
               </section>
-            ) : (
-              <p className="transition-planner-empty">
-                Add programs from the degree explorer to see them here.
-              </p>
-            )}
+            </article>
 
-            <section className="current-usf-quiz-recommendations-placeholder">
-              <p className="transition-report-kicker">Quiz recommendations</p>
-              <h2>Recommendations Added from Quiz</h2>
+            <article
+              className="transition-planner-report current-usf-uploaded-documents-card"
+              aria-labelledby="current-usf-uploaded-documents-title"
+            >
+              <h2 id="current-usf-uploaded-documents-title">Uploaded documents</h2>
               <p>
-                Quiz recommendation results will appear here after this section
-                is connected.
+                Keep transcript PDFs from the transcript upload page separate
+                from other advising documents. Uploaded files are not included
+                in the printable profile report.
               </p>
-            </section>
-          </article>
+
+              <section className="current-usf-document-section">
+                <h3>Transcript uploads</h3>
+                <p>
+                  Transcript PDFs saved from the transcript upload page appear
+                  here.
+                </p>
+                {profile.transcriptDocuments?.length ? (
+                  <ul className="current-usf-uploaded-document-list">
+                    {profile.transcriptDocuments.map((document) => (
+                      <li key={document.path}>
+                        <div>
+                          <span>{document.fileName}</span>
+                          <small>
+                            Saved {new Date(document.savedAt).toLocaleDateString()}
+                          </small>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveTranscriptDocument(document.path)}
+                          disabled={removingDocumentPath === document.path}
+                          aria-label={`Remove ${document.fileName}`}
+                        >
+                          <Trash2 size={15} aria-hidden="true" />
+                          {removingDocumentPath === document.path
+                            ? 'Removing'
+                            : 'Remove'}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="transition-planner-empty">
+                    No transcript documents have been saved to this profile yet.
+                  </p>
+                )}
+                {documentRemoveStatus && (
+                  <p className="current-usf-document-remove-status">
+                    {documentRemoveStatus}
+                  </p>
+                )}
+                <div className="current-usf-extracted-courses-callout">
+                  <div>
+                    <h4>Want to see your extracted courses?</h4>
+                    <p>
+                      Open the transcript upload page to review course rows,
+                      credits, grades, and advising checkpoints.
+                    </p>
+                  </div>
+                  <Link to="/current-usf/transcript">View extracted courses</Link>
+                </div>
+              </section>
+
+              <section className="current-usf-document-section">
+                <h3>Additional documents</h3>
+                <p>
+                  Upload other advising materials, such as forms, plans,
+                  screenshots, or notes.
+                </p>
+                <label className="current-usf-document-upload">
+                  <Upload size={18} aria-hidden="true" />
+                  <span>
+                    {isUploadingAdditionalDocument
+                      ? 'Uploading document'
+                      : 'Upload additional document'}
+                  </span>
+                  <input
+                    type="file"
+                    onChange={handleAdditionalDocumentUpload}
+                    disabled={isUploadingAdditionalDocument}
+                  />
+                </label>
+                {profile.additionalDocuments?.length ? (
+                  <ul className="current-usf-uploaded-document-list">
+                    {profile.additionalDocuments.map((document) => (
+                      <li key={document.path}>
+                        <div>
+                          <span>{document.fileName}</span>
+                          <small>
+                            Saved {new Date(document.savedAt).toLocaleDateString()}
+                          </small>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveAdditionalDocument(document.path)}
+                          disabled={removingDocumentPath === document.path}
+                          aria-label={`Remove ${document.fileName}`}
+                        >
+                          <Trash2 size={15} aria-hidden="true" />
+                          {removingDocumentPath === document.path
+                            ? 'Removing'
+                            : 'Remove'}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="transition-planner-empty">
+                    No additional documents have been uploaded yet.
+                  </p>
+                )}
+                {additionalDocumentStatus && (
+                  <p className="current-usf-document-remove-status">
+                    {additionalDocumentStatus}
+                  </p>
+                )}
+              </section>
+            </article>
+          </div>
 
           <article
             className="transition-planner-report current-usf-print-report"
@@ -551,6 +902,7 @@ function Profile() {
                     </p>
                   </section>
                 )}
+
               </>
             ) : (
               <p className="transition-planner-empty">

@@ -23,6 +23,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import CurrentUsfReadinessGuide from './pages/USF/CurrentUsfReadinessGuide';
 import Profile from './pages/USF/Profile';
+import TranscriptUpload from './pages/USF/TranscriptUpload';
 import CurrentUsfIntakeQuiz from './pages/USF/quiz/CurrentUsfIntakeQuiz';
 import CurrentUsfQuizResults from './pages/USF/quiz/CurrentUsfQuizResults';
 import ProspectiveStudentDashboard from './pages/dashboards/ProspectiveStudentDashboard';
@@ -76,6 +77,10 @@ function App() {
         <Route
           path="/current-usf/readiness-guide"
           element={<CurrentUsfReadinessGuide />}
+        />
+        <Route
+          path="/current-usf/transcript"
+          element={<TranscriptUpload />}
         />
         <Route path="/quiz" element={<HighSchoolIntakeQuiz />} />
         <Route path="/quiz/results" element={<HighSchoolQuizResults />} />

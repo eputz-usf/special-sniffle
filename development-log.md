@@ -217,10 +217,68 @@
 - Added a Current USF intake quiz route, Supabase-backed autosave/result tables, and group-specific recommendation scoring.
 - Added a Current USF quiz results page modeled after the transfer results page with red placeholder next-step actions.
 - Added the Transferring into Bellini Guide using the transfer guide layout, switching-planning overview, switching terms, and Bellini contact section.
+- Organized the Current USF switching guide into gateway requirements, official resources, advising steps, and change-of-major preparation sections.
+- Refined the guide with step-labeled Canvas, advising, and change-of-major sections, animated resource buttons, and bottom links for Degree Works, progression policies, and Current USF degree information.
+
+## Update 24: Current USF Transcript Upload Prototype
+
+**Date:** June 10, 2026
+
+- Added a Transcript Upload toolbox card to the Current USF dashboard and routed it to `/current-usf/transcript`.
+- Built the transcript upload page with PDF upload, text paste fallback, editable extracted course rows, local reviewed-summary saving, and profile integration.
+- Added Supabase Storage setup for a private `current-usf-transcripts` bucket and an `extract-transcript` Edge Function for document retain/delete actions.
+- Added a post-extraction consent flow so students choose whether to save the uploaded PDF to their profile or delete the temporary upload.
+- Added an Uploaded Documents section to the Current USF profile, separate from the printable profile report.
+- Updated transcript extraction to separate letter grade, credits earned, and quality points so completed-credit totals use credits earned instead of nearby numeric values.
+- Added a shared transcript parser for course-code detection, term inference, gateway category tagging, and basic tolerance for PDF text extraction quirks.
+- Added saved-document reuse on the transcript upload page so students can choose a previously saved profile PDF and extract courses from it again.
+- Extended the `extract-transcript` Edge Function with a constrained signed-download action for saved profile documents.
+- Highlighted incomplete extracted course rows with a pale red background and row-level guidance listing the blank fields to fill in.
+- Added a printable extracted course list with a clean print-only table layout.
+- Moved uploaded transcript documents on the Current USF profile into a separate right-column card underneath quiz recommendations.
+- Bugs/issues encountered:
+  - The initial Edge Function bundled `pdfjs-dist` and failed deploy with a `413 request entity too large` error, so PDF text extraction was moved to the browser and the Edge Function was slimmed down to storage actions.
+  - PDF.js browser extraction initially failed because `GlobalWorkerOptions.workerSrc` was not set; added an explicit worker URL.
+  - Supabase function calls initially returned generic non-2xx errors; switched retain/delete calls to direct `fetch` so response bodies can be surfaced.
+  - The function returned `401` until JWT verification was disabled for `extract-transcript` in `supabase/config.toml`.
+  - A TypeScript error remained after renaming `credits` and `grade`; updated the review table and added localStorage migration for older saved rows.
+  - Saved-document extraction initially hit the old deployed Edge Function validation (`A pending PDF storage path is required`); redeployed with `npx supabase functions deploy extract-transcript`.
+
+## Update 25: Current USF Quiz Redirects and Profile Recommendation Wiring
+
+**Date:** June 10, 2026
+
+- Replaced placeholder Current USF quiz result next-step buttons with real route links based on the final advising-needs question.
+- Routed major-fit and major-comparison selections to the Bellini degree explorer with Current USF context.
+- Routed completed-course questions to both the transcript upload page and the transition guide.
+- Routed graduation-timing, major-entry-requirements, questions-for-advising, and not-sure-advising selections to the Current USF transition guide, including the gateway requirements section where appropriate.
+- Added a quiz results action that saves the visible recommended majors to the Current USF profile and routes students to `/profile`.
+- Converted quiz recommendation names into profile major slugs for both active Bellini majors and interdisciplinary/future degree options.
+- Connected the Current USF profile quiz recommendations section so the latest quiz recommendations and match percentages display instead of placeholder copy.
+- Verified the changes with `npm run build`.
+- Known validation note:
+  - `npm run lint` still fails on existing `react-hooks/set-state-in-effect` issues in `DegreeDetail.tsx` and `TransferPlanner.tsx`.
+
+## Update 26: Transcript Extraction Refinements and Course Review Tools
+
+**Date:** June 10, 2026
+
+- Added a print warning dialog on the Current USF transcript page so students are alerted before printing when extracted course rows still have missing required fields.
+- Added a visible extracted-course count under the transcript review action buttons.
+- Added a bulk `Remove all courses` action and kept row-level remove controls for individual course cleanup.
+- Removed the Quality Points column from the student-facing review table and print output while keeping the parser data shape compatible with existing extracted rows.
+- Changed long course-title editing from a single-line input to a multiline field so wrapped titles can be reviewed and corrected more easily.
+- Updated IDH course categorization so IDH courses automatically show as `Honors elective` in the Area field.
+- Refined transcript parser handling for campus codes, including `T`, `S`, `SP`, `SM`, and `WEB`, so campus markers are not mistaken for titles, grades, or course codes.
+- Fixed grade parsing so plus/minus grades such as `A+`, `A +`, `B-`, and `B -` are preserved.
+- Added line-aware parsing for split course titles, including cases where title fragments appear before and after grade/credit columns.
+- Added transcript noise filtering for browser headers, FLVC URLs, page counts, timestamps, generated/printed lines, academic standing text, term GPA summaries, and Cambridge/AICE exam headings.
+- Added hard transcript segment boundaries so page breaks, term summaries, dates, and fake course-like rows do not leak into the previous course title.
+- Fixed split grade rows such as `T A 3 3 12` so they are treated as the grade/credit continuation for the prior course instead of becoming fake course codes.
+- Used repeated smoke tests against messy extracted transcript snippets and verified changes with `npm run build`.
 
 ## What I Will Focus On Next
-- Work on the transfer pathway guide.
-- Test recommendation matches with scripts.
-- Fine-tune the transfer dashboard.
-- Rewire course evaluations into the guide, recommendation page, and planner.
-- Fine-tune the high school dashboard.
+- Validate transcript extraction against multiple USF transcript/e-transcript formats and refine section-aware parsing.
+- update developement log 
+- work further on extraction 
+- go through features planned for this group (usf non bellini) 

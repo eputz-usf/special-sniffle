@@ -408,6 +408,7 @@
 }
 
 .dashboard-tool-grid .dashboard-major-card {
+  grid-template-rows: 30px minmax(96px, auto) 1fr;
   min-height: 320px;
   gap: 20px;
   padding: 30px;
@@ -415,7 +416,7 @@
 }
 
 .dashboard-tool-grid .dashboard-major-card span {
-  min-height: 2.5em;
+  align-self: start;
   font-size: clamp(24px, 2vw, 31px);
 }
 
@@ -567,6 +568,7 @@
 
   .dashboard-major-card,
   .dashboard-tool-grid .dashboard-major-card {
+    grid-template-rows: none;
     min-height: auto;
     padding: 34px 28px;
   }

@@ -1,5 +1,11 @@
-import type { MouseEvent } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { degrees } from '../../../data/degrees';
+import { plannedHighSchoolFutureDegreeOptions } from '../../../data/highSchoolFutureDegreeOptions';
+import {
+  addCurrentUsfProfileMajor,
+  loadCurrentUsfProfileMajors,
+} from '../../../utils/currentUsfProfileMajors';
 import {
   loadCurrentUsfQuizProgress,
   loadCurrentUsfQuizResult,
@@ -12,49 +18,65 @@ type CurrentUsfNextStepAction = {
   id: string;
   triggerIds: string[];
   label: string;
+  to: string;
   reason: string;
+  tone?: 'danger';
 };
 
 const currentUsfNextStepActions: CurrentUsfNextStepAction[] = [
   {
     id: 'degree-recommendations',
     triggerIds: ['which-bellini-majors-fit'],
-    label: 'Open degree recommendations',
+    label: 'Explore Bellini majors',
+    to: '/degrees?from=current-usf-student',
     reason:
       'because you said you need help understanding which Bellini majors may fit you.',
   },
   {
-    id: 'course-fit-preview',
+    id: 'transcript-upload',
     triggerIds: ['completed-courses-count'],
-    label: 'Open course fit preview',
+    label: 'Upload or review transcript',
+    to: '/current-usf/transcript',
     reason:
       'because you said you need help seeing how completed courses may count.',
   },
   {
+    id: 'course-fit-guide',
+    triggerIds: ['completed-courses-count'],
+    label: 'Open transition guide',
+    to: '/current-usf/readiness-guide',
+    reason:
+      'because the guide helps you prepare course-counting questions before advising.',
+  },
+  {
     id: 'graduation-timing',
     triggerIds: ['graduation-timing'],
-    label: 'Open graduation timing preview',
+    label: 'Open transition guide',
+    to: '/current-usf/readiness-guide',
     reason:
       'because you said you need help understanding how switching may affect graduation timing.',
   },
   {
     id: 'major-comparison',
     triggerIds: ['compare-bellini-majors'],
-    label: 'Open major comparison',
+    label: 'Compare Bellini majors',
+    to: '/degrees?from=current-usf-student',
     reason:
       'because you said you need help comparing different Bellini majors.',
   },
   {
     id: 'major-entry-requirements',
     triggerIds: ['major-entry-requirements'],
-    label: 'Open entry requirements',
+    label: 'Open transition guide',
+    to: '/current-usf/readiness-guide#gateway-requirements',
     reason:
       'because you said you need help understanding requirements for entering the major.',
   },
   {
     id: 'advising-questions',
     triggerIds: ['questions-for-advising', 'not-sure-advising'],
-    label: 'Open advising question builder',
+    label: 'Open transition guide',
+    to: '/current-usf/readiness-guide',
     reason:
       'because you said you need help preparing questions for advising.',
   },
@@ -70,9 +92,29 @@ function getVisibleRecommendedDegrees(quizResult: SavedCurrentUsfQuizResult) {
     : quizResult.recommendedDegrees.slice(0, 1);
 }
 
+function getProfileMajorFromRecommendation(recommendedDegree: string) {
+  const degree =
+    plannedHighSchoolFutureDegreeOptions.find(
+      (option) => option.name === recommendedDegree,
+    ) ?? degrees.find((option) => option.name === recommendedDegree);
+
+  return {
+    slug:
+      degree?.slug ??
+      recommendedDegree
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, ''),
+    name: recommendedDegree,
+  };
+}
+
 function CurrentUsfQuizResults() {
   const navigate = useNavigate();
   const quizResult = loadCurrentUsfQuizResult();
+  const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
+    loadCurrentUsfProfileMajors().map((major) => major.slug),
+  );
   const savedProgress = loadCurrentUsfQuizProgress();
   const advisingNeedAnswers =
     savedProgress.answersByQuestion['current-usf-advising-needs'];
@@ -91,14 +133,29 @@ function CurrentUsfQuizResults() {
     : [];
   const visibleTopMatch = visibleRecommendedDegrees[0] ?? quizResult?.topMatch;
   const visibleOtherRecommendations = visibleRecommendedDegrees.slice(1, 3);
+  const recommendedProfileMajors = visibleRecommendedDegrees.map(
+    getProfileMajorFromRecommendation,
+  );
+  const allVisibleRecommendationsSaved =
+    recommendedProfileMajors.length > 0 &&
+    recommendedProfileMajors.every((major) =>
+      profileMajorSlugs.includes(major.slug),
+    );
 
   function handleStartOver() {
     resetCurrentUsfQuizSession();
     navigate('/current-usf/quiz');
   }
 
-  function handlePlaceholderClick(event: MouseEvent<HTMLAnchorElement>) {
-    event.preventDefault();
+  function handleSaveRecommendationsToProfile() {
+    recommendedProfileMajors.forEach((major) => {
+      addCurrentUsfProfileMajor(major);
+    });
+
+    setProfileMajorSlugs(
+      loadCurrentUsfProfileMajors().map((major) => major.slug),
+    );
+    navigate('/profile');
   }
 
   return (
@@ -173,13 +230,16 @@ function CurrentUsfQuizResults() {
                     {selectedNextStepActions.map((action) => (
                       <article key={action.id}>
                         <p>Suggested {action.reason}</p>
-                        <a
-                          className="quiz-next-step-button danger"
-                          href="#"
-                          onClick={handlePlaceholderClick}
+                        <Link
+                          className={
+                            action.tone === 'danger'
+                              ? 'quiz-next-step-button danger'
+                              : 'quiz-next-step-button'
+                          }
+                          to={action.to}
                         >
                           {action.label}
-                        </a>
+                        </Link>
                       </article>
                     ))}
                   </div>
@@ -187,6 +247,14 @@ function CurrentUsfQuizResults() {
               )}
               <div className="quiz-results-actions">
                 <Link to="/degrees?from=current-usf-student">Explore degrees</Link>
+                <button
+                  type="button"
+                  onClick={handleSaveRecommendationsToProfile}
+                >
+                  {allVisibleRecommendationsSaved
+                    ? 'View recommendations in profile'
+                    : 'Save recommendations to profile'}
+                </button>
                 <Link to="/current-usf/quiz">Review or change answers</Link>
                 <button type="button" onClick={handleStartOver}>
                   Start over

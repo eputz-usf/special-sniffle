@@ -588,7 +588,7 @@ const currentUsfIntakeQuestions: QuizQuestion[] = [
     helperText:
       'Select any advising questions you want the dashboard to help organize later.',
     selectionMode: 'multiple',
-    maxSelections: 7,
+    maxSelections: 5,
     answers: [
       {
         id: 'which-bellini-majors-fit',

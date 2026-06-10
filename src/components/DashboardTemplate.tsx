@@ -6,6 +6,7 @@ import {
   ClipboardList,
   FileText,
   MessageCircleQuestion,
+  Upload,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import classroomImage from '../assets/bellini.jpeg';
@@ -33,6 +34,8 @@ type DashboardTemplateProps = {
   tertiaryToolUndecided?: boolean;
   careerToolTitle?: string;
   careerToolText?: string;
+  careerToolPath?: string;
+  careerToolIcon?: 'briefcase' | 'upload';
   careerToolUndecided?: boolean;
   finalNavPath?: string;
   finalNavLabel?: string;
@@ -114,6 +117,8 @@ function DashboardTemplate({
   tertiaryToolUndecided = false,
   careerToolTitle = 'Possible Career Paths',
   careerToolText = 'Choose a major and jump to its career outlook, salary context, Tampa Bay employment information, and professional preparation options.',
+  careerToolPath = '/career-paths',
+  careerToolIcon = 'briefcase',
   careerToolUndecided = false,
   finalNavPath,
   finalNavLabel,
@@ -123,6 +128,7 @@ function DashboardTemplate({
   const planningItems = isTransferDashboard
     ? transferNextSteps
     : planningPlaceholders;
+  const CareerToolIcon = careerToolIcon === 'upload' ? Upload : Briefcase;
 
   function handleSectionLinkClick(
     event: MouseEvent<HTMLAnchorElement>,
@@ -330,13 +336,13 @@ function DashboardTemplate({
               className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool"
               type="button"
             >
-              <Briefcase size={30} aria-hidden="true" />
+              <CareerToolIcon size={30} aria-hidden="true" />
               <span>{careerToolTitle}</span>
               <p>{careerToolText}</p>
             </button>
           ) : (
-            <Link className="dashboard-major-card" to="/career-paths">
-              <Briefcase size={30} aria-hidden="true" />
+            <Link className="dashboard-major-card" to={careerToolPath}>
+              <CareerToolIcon size={30} aria-hidden="true" />
               <span>{careerToolTitle}</span>
               <p>{careerToolText}</p>
             </Link>

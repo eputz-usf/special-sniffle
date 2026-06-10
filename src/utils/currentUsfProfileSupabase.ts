@@ -1,5 +1,17 @@
 import type { CurrentUsfProfileMajor } from './currentUsfProfileMajors';
 
+export type CurrentUsfStoredDocument = {
+  bucket: string;
+  path: string;
+  fileName: string;
+  savedAt: string;
+  mimeType?: string;
+  size?: number;
+};
+
+export type CurrentUsfTranscriptDocument = CurrentUsfStoredDocument;
+export type CurrentUsfAdditionalDocument = CurrentUsfStoredDocument;
+
 export type CurrentUsfProfilePayload = {
   studentName: string;
   uNumber: string;
@@ -9,8 +21,11 @@ export type CurrentUsfProfilePayload = {
   yearStarted: string;
   classStanding: string;
   completedCredits: string;
+  currentGpa: string;
   notes: string;
   questions: string;
+  transcriptDocuments?: CurrentUsfTranscriptDocument[];
+  additionalDocuments?: CurrentUsfAdditionalDocument[];
 };
 
 type UpsertCurrentUsfProfileParams = {

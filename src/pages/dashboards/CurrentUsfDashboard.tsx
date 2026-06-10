@@ -44,9 +44,10 @@ function CurrentUsfDashboard() {
       tertiaryToolPath="/current-usf/readiness-guide"
       tertiaryToolTitle="Transferring into Bellini Guide"
       tertiaryToolText="Use a guide-style workspace for course fit, timing, and advising preparation."
-      careerToolTitle="Undecided"
-      careerToolText="Placeholder for another Current USF student tool."
-      careerToolUndecided
+      careerToolPath="/current-usf/transcript"
+      careerToolIcon="upload"
+      careerToolTitle="Transcript Upload"
+      careerToolText="Paste or upload transcript text to extract courses, credits, grades, and advising checkpoints before meeting with Bellini advising."
       finalNavPath="/profile"
       finalNavLabel="Profile"
       steps={currentUsfDashboardSteps}
