@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { getDegreeBySlug } from '../../data/degrees';
 import type { UserType } from '../../types/user';
@@ -6,7 +6,13 @@ import { isUserType } from '../../utils/userTypes';
 import {
   addCurrentUsfProfileMajor,
   loadCurrentUsfProfileMajors,
+  removeCurrentUsfProfileMajor,
 } from '../../utils/currentUsfProfileMajors';
+import {
+  addBelliniStudentProfileMajor,
+  loadBelliniStudentProfileMajors,
+  removeBelliniStudentProfileMajor,
+} from '../../utils/belliniStudentProfileMajors';
 import '../../styles/degrees.css';
 
 const USER_TYPE_STORAGE_KEY = 'cicUserType';
@@ -36,6 +42,29 @@ function getSavedUserType() {
   return isUserType(savedUserType) ? savedUserType : 'transfer-student';
 }
 
+function useDegreeExplorerPath() {
+  const [searchParams] = useSearchParams();
+  const sourceDashboard = searchParams.get('from');
+
+  return sourceDashboard ? `/degrees?from=${sourceDashboard}` : '/degrees';
+}
+
+function DegreeExplorerLink({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const degreeExplorerPath = useDegreeExplorerPath();
+
+  return (
+    <Link className={className} to={degreeExplorerPath}>
+      {children}
+    </Link>
+  );
+}
+
 type AddToProfileActionProps = {
   slug: string;
   name: string;
@@ -43,19 +72,48 @@ type AddToProfileActionProps = {
 
 function AddToProfileAction({ slug, name }: AddToProfileActionProps) {
   const [searchParams] = useSearchParams();
+  const savedUserType = getSavedUserType();
+  const isBelliniStudentSource =
+    searchParams.get('from') === 'current-bellini-student' ||
+    savedUserType === 'current-bellini-student';
   const shouldShow =
     searchParams.get('from') === 'current-usf-student' ||
-    getSavedUserType() === 'current-usf-student';
+    savedUserType === 'current-usf-student' ||
+    isBelliniStudentSource;
   const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
     loadCurrentUsfProfileMajors().map((major) => major.slug),
   );
-  const isAdded = profileMajorSlugs.includes(slug);
+  const [belliniProfileMajorSlugs, setBelliniProfileMajorSlugs] = useState(() =>
+    loadBelliniStudentProfileMajors().map((major) => major.slug),
+  );
+  const activeProfileMajorSlugs = isBelliniStudentSource
+    ? belliniProfileMajorSlugs
+    : profileMajorSlugs;
+  const isAdded = activeProfileMajorSlugs.includes(slug);
 
   if (!shouldShow) {
     return null;
   }
 
   function handleAddToProfile() {
+    if (isBelliniStudentSource) {
+      if (isAdded) {
+        const nextMajors = removeBelliniStudentProfileMajor(slug);
+        setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
+        return;
+      }
+
+      const nextMajors = addBelliniStudentProfileMajor({ slug, name });
+      setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
+    if (isAdded) {
+      const nextMajors = removeCurrentUsfProfileMajor(slug);
+      setProfileMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
     const nextMajors = addCurrentUsfProfileMajor({ slug, name });
     setProfileMajorSlugs(nextMajors.map((major) => major.slug));
   }
@@ -63,11 +121,10 @@ function AddToProfileAction({ slug, name }: AddToProfileActionProps) {
   return (
     <button
       className={isAdded ? 'planner-selected' : ''}
-      disabled={isAdded}
       type="button"
       onClick={handleAddToProfile}
     >
-      {isAdded ? 'Added to Profile' : 'Add to Profile'}
+      {isAdded ? 'Remove from Profile' : 'Add to Profile'}
     </button>
   );
 }
@@ -119,15 +176,11 @@ function buildAdvisorQuestionGroups({
 }
 
 function AdvisorQuestionsSection(props: AdvisorQuestionsSectionProps) {
-  const [userType, setUserType] = useState<UserType>(() => getSavedUserType());
+  const [userType] = useState<UserType>(() => getSavedUserType());
   const questionGroups = buildAdvisorQuestionGroups(props);
   const selectedQuestions =
     questionGroups.find((group) => group.userType === userType)?.questions ??
     props.transferQuestions;
-
-  useEffect(() => {
-    setUserType(getSavedUserType());
-  }, []);
 
   return (
     <section className="degree-detail-section">
@@ -155,7 +208,7 @@ function CompareFeatureNote({
         areas, skills, fit, sample topics, next steps, and official links.
       </p>
       <div className="degree-detail-actions">
-        <Link to="/degrees">Back to Degree Explorer</Link>
+        <DegreeExplorerLink>Back to Degree Explorer</DegreeExplorerLink>
       </div>
     </>
   );
@@ -683,7 +736,7 @@ function CareerOutlookSection({
         <a href={careerInfoUrl} rel="noreferrer" target="_blank">
           View {degreeName} Career Information ↗
         </a>
-        <Link to="/degrees">View Another Major</Link>
+        <DegreeExplorerLink>View Another Major</DegreeExplorerLink>
       </div>
     </section>
   );
@@ -1080,9 +1133,9 @@ const informationTechnologyAdvisorQuestions = [
 function ComputerScienceDegreeDetail() {
   return (
     <main className="degree-detail-page computer-science-detail">
-      <Link className="degree-back-link" to="/degrees">
+      <DegreeExplorerLink className="degree-back-link">
         Back to Degree Explorer
-      </Link>
+      </DegreeExplorerLink>
 
       <section className="degree-detail-hero cs-hero">
         <p className="degrees-eyebrow">Software • Programming • Algorithms</p>
@@ -1241,15 +1294,15 @@ function ComputerScienceDegreeDetail() {
 function ComputerScienceEngineeringDegreeDetail() {
   return (
     <main className="degree-detail-page computer-science-detail">
-      <Link className="degree-back-link" to="/degrees">
+      <DegreeExplorerLink className="degree-back-link">
         Back to Degree Explorer
-      </Link>
+      </DegreeExplorerLink>
 
       <section className="degree-detail-hero cs-hero">
         <p className="degrees-eyebrow">
           Software • Hardware • Engineering • Systems
         </p>
-        <h1>Computer Science and Engineering, BSCSE</h1>
+        <h1>Computer Science and Engineering  </h1>
         <p>
           A combined software, systems, and engineering-focused computing degree
           for students interested in both how computers are built and how
@@ -1426,15 +1479,15 @@ function ComputerScienceEngineeringDegreeDetail() {
 function ArtificialIntelligenceDegreeDetail() {
   return (
     <main className="degree-detail-page computer-science-detail">
-      <Link className="degree-back-link" to="/degrees">
+      <DegreeExplorerLink className="degree-back-link">
         Back to Degree Explorer
-      </Link>
+      </DegreeExplorerLink>
 
       <section className="degree-detail-hero cs-hero">
         <p className="degrees-eyebrow">
           AI • Machine Learning • Neural Networks
         </p>
-        <h1>Artificial Intelligence, BSAI</h1>
+        <h1>Artificial Intelligence  </h1>
         <p>
           A computing degree for students interested in artificial intelligence
           systems, machine learning, neural networks, data, intelligent
@@ -1575,7 +1628,7 @@ function ArtificialIntelligenceDegreeDetail() {
       </section>
 
       <CareerOutlookSection
-        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx"
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/ .aspx"
         degreeName="Artificial Intelligence"
         intro="Artificial Intelligence can support careers focused on machine learning, data-driven systems, model evaluation, intelligent applications, and AI infrastructure."
         slug="artificial-intelligence"
@@ -1613,13 +1666,13 @@ function ArtificialIntelligenceDegreeDetail() {
 function CybersecurityDegreeDetail() {
   return (
     <main className="degree-detail-page computer-science-detail">
-      <Link className="degree-back-link" to="/degrees">
+      <DegreeExplorerLink className="degree-back-link">
         Back to Degree Explorer
-      </Link>
+      </DegreeExplorerLink>
 
       <section className="degree-detail-hero cs-hero">
         <p className="degrees-eyebrow">Security • Systems • Risk</p>
-        <h1>Cybersecurity, BSCyS</h1>
+        <h1>Cybersecurity   </h1>
         <p>
           A technical computing degree for students interested in protecting
           systems, networks, software, information, users, and organizations
@@ -1819,13 +1872,13 @@ function CybersecurityDegreeDetail() {
 function InformationTechnologyDegreeDetail() {
   return (
     <main className="degree-detail-page computer-science-detail">
-      <Link className="degree-back-link" to="/degrees">
+      <DegreeExplorerLink className="degree-back-link">
         Back to Degree Explorer
-      </Link>
+      </DegreeExplorerLink>
 
       <section className="degree-detail-hero cs-hero">
         <p className="degrees-eyebrow">IT Systems • Databases • Networks</p>
-        <h1>Information Technology, BSIT</h1>
+        <h1>Information Technology </h1>
         <p>
           A practical computing degree for students interested in programming,
           databases, networking, web systems, cybersecurity, and solving
@@ -2030,7 +2083,7 @@ function DegreeDetail() {
         <section className="degree-detail-hero">
           <p className="degrees-eyebrow">Degree not found</p>
           <h1>We could not find that degree page.</h1>
-          <Link to="/degrees">Back to Degree Explorer</Link>
+          <DegreeExplorerLink>Back to Degree Explorer</DegreeExplorerLink>
         </section>
       </main>
     );
@@ -2058,9 +2111,9 @@ function DegreeDetail() {
 
   return (
     <main className="degree-detail-page">
-      <Link className="degree-back-link" to="/degrees">
+      <DegreeExplorerLink className="degree-back-link">
         Back to Degree Explorer
-      </Link>
+      </DegreeExplorerLink>
 
       <section className="degree-detail-hero">
         <p className="degrees-eyebrow">{degree.category}</p>
@@ -2109,7 +2162,7 @@ function DegreeDetail() {
         </ul>
         <div className="degree-detail-actions">
           <Link to="/transfer/quiz">Take Degree Fit Quiz</Link>
-          <Link to="/degrees">Compare More Programs</Link>
+          <DegreeExplorerLink>Compare More Programs</DegreeExplorerLink>
           <AddToProfileAction slug={degree.slug} name={degree.name} />
         </div>
       </section>

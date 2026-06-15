@@ -503,6 +503,279 @@
   transform: scaleX(1);
 }
 
+.course-overlap-page .degrees-hero {
+  padding-bottom: 28px;
+}
+
+.course-overlap-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 8px 0 28px;
+}
+
+.course-overlap-summary article,
+.course-overlap-card,
+.course-overlap-progress,
+.course-overlap-advising-note,
+.course-overlap-placeholder {
+  border: 1px solid #d7ccb0;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+.course-overlap-summary article {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+}
+
+.course-overlap-summary strong {
+  color: #086343;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.course-overlap-summary span {
+  color: #25352d;
+  line-height: 1.4;
+}
+
+.course-overlap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.course-overlap-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 330px;
+  padding: 24px;
+}
+
+.course-overlap-card h2 {
+  margin: 0 0 12px;
+  color: #086343;
+  font-size: 28px;
+  line-height: 1.08;
+}
+
+.course-overlap-card p,
+.course-overlap-card small {
+  color: #25352d;
+  line-height: 1.45;
+}
+
+.course-overlap-card small {
+  display: block;
+  margin-top: 12px;
+  font-size: 15px;
+}
+
+.course-overlap-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.course-overlap-progress,
+.course-overlap-advising-note,
+.course-overlap-placeholder {
+  padding: 24px;
+}
+
+.course-overlap-progress h2,
+.course-overlap-advising-note h2,
+.course-overlap-checklist-section h2,
+.course-overlap-next-major h2 {
+  margin: 0 0 14px;
+  color: #086343;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.course-overlap-progress p,
+.course-overlap-advising-note p,
+.course-overlap-placeholder p {
+  color: #25352d;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.course-overlap-progress-bar {
+  height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background-color: #e8dec4;
+}
+
+.course-overlap-progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background-color: #086343;
+}
+
+.course-overlap-advising-note {
+  border-color: rgba(159, 29, 32, 0.35);
+  background-color: #fff4df;
+}
+
+.course-overlap-advising-note h2 {
+  color: #9f1d20;
+}
+
+.course-overlap-checklist-section,
+.course-overlap-next-major {
+  margin-top: 28px;
+}
+
+.course-overlap-checklist {
+  display: grid;
+  gap: 18px;
+  max-width: 1120px;
+}
+
+.course-overlap-group {
+  overflow: hidden;
+  border: 1px solid #d7ccb0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 14px 34px rgba(14, 38, 29, 0.08);
+}
+
+.course-overlap-group-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #d7ccb0;
+  background-color: #f8f2e4;
+}
+
+.course-overlap-group-heading h3 {
+  margin: 4px 0 0;
+  color: #086343;
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+.course-overlap-group-heading span {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #25352d;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.course-overlap-group-list {
+  display: grid;
+}
+
+.course-overlap-row {
+  display: grid;
+  grid-template-columns: 22px minmax(96px, 0.16fr) minmax(0, 1fr) 68px;
+  align-items: center;
+  gap: 14px;
+  min-height: 54px;
+  padding: 12px 18px;
+  border-bottom: 1px solid #eee5cf;
+  color: #25352d;
+  line-height: 1.35;
+}
+
+.course-overlap-row:last-child {
+  border-bottom: 0;
+}
+
+.course-overlap-row:hover {
+  background-color: #fbf7ee;
+}
+
+.course-overlap-row input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #086343;
+}
+
+.course-overlap-row span {
+  min-width: 0;
+  color: #25352d;
+  font-size: 15px;
+}
+
+.course-overlap-row strong {
+  color: #086343;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.course-overlap-row small {
+  justify-self: end;
+  color: #476b45;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.course-overlap-row.completed {
+  background-color: #eef4e8;
+}
+
+.course-overlap-row.completed span,
+.course-overlap-row.completed strong {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(8, 99, 67, 0.45);
+}
+
+.course-overlap-placeholder {
+  max-width: 920px;
+  border-style: dashed;
+  background-color: #fffaf1;
+}
+
+.course-overlap-placeholder h3 {
+  margin: 0 0 12px;
+  color: #8a4500;
+  font-size: 26px;
+}
+
+.course-overlap-placeholder-actions,
+.course-overlap-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.course-overlap-placeholder-actions a,
+.course-overlap-chip-list a {
+  padding: 10px 14px;
+  border: 1px solid #086343;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #086343;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.course-overlap-placeholder-actions a:hover,
+.course-overlap-chip-list a:hover {
+  background-color: #086343;
+  color: #ffffff;
+}
+
 .degree-detail-actions .placeholder-button {
   border: 2px solid #b42318;
   background-color: #b42318;
@@ -1629,7 +1902,10 @@
   .career-card-grid,
   .resource-card-grid,
   .resource-card-grid.compact,
-  .parent-info-grid {
+  .parent-info-grid,
+  .course-overlap-summary,
+  .course-overlap-grid,
+  .course-overlap-detail-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1685,7 +1961,10 @@
   .future-degree-grid.featured,
   .pathway-card-grid,
   .minor-card-grid,
-  .parent-info-grid {
+  .parent-info-grid,
+  .course-overlap-summary,
+  .course-overlap-grid,
+  .course-overlap-detail-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1700,6 +1979,34 @@
 
   .degree-detail-page {
     padding: 36px 24px 48px;
+  }
+
+  .course-overlap-group-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .course-overlap-group-heading span {
+    align-self: flex-start;
+  }
+
+  .course-overlap-row {
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+    gap: 8px 12px;
+    padding: 14px;
+  }
+
+  .course-overlap-row strong {
+    grid-column: 2;
+  }
+
+  .course-overlap-row span {
+    grid-column: 2 / -1;
+  }
+
+  .course-overlap-row small {
+    grid-column: 3;
+    grid-row: 1;
   }
 
   .degree-detail-grid {

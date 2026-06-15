@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
-import BelliniStudentDashboard from './pages/dashboards/BelliniStudentDashboard';
+import BelliniStudentDashboard from './pages/belliniStudent/BelliniStudentDashboard';
 import BachelorsMastersPathways from './pages/degrees/BachelorsMastersPathways';
 import CareerPaths from './pages/degrees/CareerPaths';
 import CurrentUsfDashboard from './pages/dashboards/CurrentUsfDashboard';
@@ -22,7 +22,14 @@ import HighSchoolTransitionPlanner from './pages/highSchool/degrees/HighSchoolTr
 import Home from './pages/Home';
 import Login from './pages/Login';
 import CurrentUsfReadinessGuide from './pages/USF/CurrentUsfReadinessGuide';
-import Profile from './pages/USF/Profile';
+import CurrentUsfProfile from './pages/USF/Profile';
+import BelliniStudentProfile from './pages/belliniStudent/Profile';
+import BelliniStudentMajorChangeGuide from './pages/belliniStudent/MajorChangeGuide';
+import BelliniStudentTranscriptUpload from './pages/belliniStudent/TranscriptUpload';
+import BelliniStudentCourseOverlapIndex from './pages/belliniStudent/CourseOverlapIndex';
+import BelliniStudentCourseOverlapDetail from './pages/belliniStudent/CourseOverlapDetail';
+import BelliniStudentIntakeQuiz from './pages/belliniStudent/quiz/BelliniStudentIntakeQuiz';
+import BelliniStudentQuizResults from './pages/belliniStudent/quiz/BelliniStudentQuizResults';
 import TranscriptUpload from './pages/USF/TranscriptUpload';
 import CurrentUsfIntakeQuiz from './pages/USF/quiz/CurrentUsfIntakeQuiz';
 import CurrentUsfQuizResults from './pages/USF/quiz/CurrentUsfQuizResults';
@@ -73,7 +80,32 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<CurrentUsfProfile />} />
+        <Route path="/bellini-student/profile" element={<BelliniStudentProfile />} />
+        <Route
+          path="/bellini-student/major-change-guide"
+          element={<BelliniStudentMajorChangeGuide />}
+        />
+        <Route
+          path="/bellini-student/transcript"
+          element={<BelliniStudentTranscriptUpload />}
+        />
+        <Route
+          path="/bellini-student/course-overlap"
+          element={<BelliniStudentCourseOverlapIndex />}
+        />
+        <Route
+          path="/bellini-student/course-overlap/:majorSlug"
+          element={<BelliniStudentCourseOverlapDetail />}
+        />
+        <Route
+          path="/bellini-student/quiz"
+          element={<BelliniStudentIntakeQuiz />}
+        />
+        <Route
+          path="/bellini-student/quiz/results"
+          element={<BelliniStudentQuizResults />}
+        />
         <Route
           path="/current-usf/readiness-guide"
           element={<CurrentUsfReadinessGuide />}

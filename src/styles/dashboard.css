@@ -299,6 +299,15 @@
   color: #086242;
 }
 
+.dashboard-quiz-button-disabled-red,
+.dashboard-quiz-button-disabled-red:hover {
+  border-color: #b41f2a;
+  background-color: #b41f2a;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 .dashboard-quiz-image {
   display: block;
   width: 88%;
@@ -434,6 +443,17 @@
 
 .dashboard-undecided-tool p {
   color: #ffffff;
+}
+
+.dashboard-blank-tool-card {
+  border-color: rgba(234, 225, 191, 0.8);
+  cursor: default;
+}
+
+.dashboard-blank-tool-card:hover {
+  background-color: #eae1bf;
+  border-color: rgba(234, 225, 191, 0.8);
+  transform: none;
 }
 
 .dashboard-checklist {

@@ -185,7 +185,7 @@ export const degrees: Degree[] = [
   {
     slug: 'artificial-intelligence',
     name: 'Artificial Intelligence',
-    credential: 'BSAI',
+    credential: ' ',
     category: 'AI/Data',
     bestFor: 'Students who are curious about AI, data, and smart technology.',
     careerOptions: [

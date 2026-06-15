@@ -53,7 +53,8 @@ export const plannedHighSchoolFutureDegreeOptions = [
         url: 'https://usf.box.com/s/35ovjdf515yhpzh00yu6u459thdamboj',
       },
     ],
-    programUrl: 'https://usf.box.com/s/35ovjdf515yhpzh00yu6u459thdamboj',
+    programUrl:
+      'https://catalog.usf.edu/preview_program.php?catoid=25&poid=14014',
     status: 'Coming soon',
   },
   {

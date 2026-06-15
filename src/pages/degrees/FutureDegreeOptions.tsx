@@ -4,11 +4,18 @@ import { plannedHighSchoolFutureDegreeOptions as sharedFutureDegreeOptions } fro
 import {
   addTransferPlannerMajor,
   loadTransferPlannerMajors,
+  removeTransferPlannerMajor,
 } from '../../utils/transferPlannerMajors';
 import {
   addCurrentUsfProfileMajor,
   loadCurrentUsfProfileMajors,
+  removeCurrentUsfProfileMajor,
 } from '../../utils/currentUsfProfileMajors';
+import {
+  addBelliniStudentProfileMajor,
+  loadBelliniStudentProfileMajors,
+  removeBelliniStudentProfileMajor,
+} from '../../utils/belliniStudentProfileMajors';
 import '../../styles/degrees.css';
 
 const anticipatedDegreeOptions = [
@@ -27,6 +34,8 @@ function FutureDegreeOptions() {
   const [searchParams] = useSearchParams();
   const sourceDashboard = searchParams.get('from');
   const isCurrentUsfStudentSource = sourceDashboard === 'current-usf-student';
+  const isBelliniStudentSource = sourceDashboard === 'current-bellini-student';
+  const isProfileSource = isCurrentUsfStudentSource || isBelliniStudentSource;
   const degreeSourceSuffix = sourceDashboard ? `?from=${sourceDashboard}` : '';
   const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState('');
@@ -35,6 +44,9 @@ function FutureDegreeOptions() {
   );
   const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
     loadCurrentUsfProfileMajors().map((major) => major.slug),
+  );
+  const [belliniProfileMajorSlugs, setBelliniProfileMajorSlugs] = useState(() =>
+    loadBelliniStudentProfileMajors().map((major) => major.slug),
   );
   const plannedFutureDegrees = sharedFutureDegreeOptions;
   const selectedDegrees = compareSlugs
@@ -79,6 +91,12 @@ function FutureDegreeOptions() {
   }
 
   function handleAddToPlanner(degree: (typeof plannedFutureDegrees)[number]) {
+    if (plannerMajorSlugs.includes(degree.slug)) {
+      const nextMajors = removeTransferPlannerMajor(degree.slug);
+      setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
     const nextMajors = addTransferPlannerMajor({
       slug: degree.slug,
       name: degree.name,
@@ -88,6 +106,28 @@ function FutureDegreeOptions() {
   }
 
   function handleAddToProfile(degree: (typeof plannedFutureDegrees)[number]) {
+    if (isBelliniStudentSource) {
+      if (belliniProfileMajorSlugs.includes(degree.slug)) {
+        const nextMajors = removeBelliniStudentProfileMajor(degree.slug);
+        setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
+        return;
+      }
+
+      const nextMajors = addBelliniStudentProfileMajor({
+        slug: degree.slug,
+        name: degree.name,
+      });
+
+      setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
+    if (profileMajorSlugs.includes(degree.slug)) {
+      const nextMajors = removeCurrentUsfProfileMajor(degree.slug);
+      setProfileMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
     const nextMajors = addCurrentUsfProfileMajor({
       slug: degree.slug,
       name: degree.name,
@@ -193,19 +233,26 @@ function FutureDegreeOptions() {
     >
       {compareSlugs.includes(degree.slug) ? 'Selected' : 'Add to Compare'}
     </button>
-    {isCurrentUsfStudentSource ? (
+    {isProfileSource ? (
       <button
         className={
-          profileMajorSlugs.includes(degree.slug)
+          (
+            isBelliniStudentSource
+              ? belliniProfileMajorSlugs
+              : profileMajorSlugs
+          ).includes(degree.slug)
             ? 'future-degree-button planner-selected'
             : 'future-degree-button'
         }
-        disabled={profileMajorSlugs.includes(degree.slug)}
         type="button"
         onClick={() => handleAddToProfile(degree)}
       >
-        {profileMajorSlugs.includes(degree.slug)
-          ? 'Added to Profile'
+        {(
+          isBelliniStudentSource
+            ? belliniProfileMajorSlugs
+            : profileMajorSlugs
+        ).includes(degree.slug)
+          ? 'Remove from Profile'
           : 'Add to Profile'}
       </button>
     ) : (
@@ -215,12 +262,11 @@ function FutureDegreeOptions() {
             ? 'future-degree-button planner-selected'
             : 'future-degree-button'
         }
-        disabled={plannerMajorSlugs.includes(degree.slug)}
         type="button"
         onClick={() => handleAddToPlanner(degree)}
       >
         {plannerMajorSlugs.includes(degree.slug)
-          ? 'Added to Planner'
+          ? 'Remove from Planner'
           : 'Add to Planner'}
       </button>
     )}

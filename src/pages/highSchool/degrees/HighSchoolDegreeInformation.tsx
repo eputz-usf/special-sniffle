@@ -4,6 +4,7 @@ import { degrees } from '../../../data/highSchoolDegrees';
 import {
   addPlannerMajor,
   loadPlannerMajors,
+  removePlannerMajor,
 } from '../../../utils/transitionPlannerMajors';
 import '../../../styles/degrees.css';
 
@@ -94,6 +95,12 @@ function HighSchoolDegreeInformation() {
   }
 
   function handleAddToPlanner(degree: (typeof degrees)[number]) {
+    if (plannerMajorSlugs.includes(degree.slug)) {
+      const nextMajors = removePlannerMajor(degree.slug);
+      setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
     const nextMajors = addPlannerMajor({
       slug: degree.slug,
       name: degree.name,
@@ -176,12 +183,11 @@ function HighSchoolDegreeInformation() {
                   className={
                     plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
                   }
-                  disabled={plannerMajorSlugs.includes(degree.slug)}
                   type="button"
                   onClick={() => handleAddToPlanner(degree)}
                 >
                   {plannerMajorSlugs.includes(degree.slug)
-                    ? 'Added to Planner'
+                    ? 'Remove from Planner'
                     : 'Add to Planner'}
                 </button>
               </div>

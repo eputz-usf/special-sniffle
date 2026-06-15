@@ -60,8 +60,12 @@ Deno.serve(async (request) => {
   const bucket = payload.bucket ?? 'current-usf-transcripts';
   const path = payload.path;
   const action = payload.action;
-  const isTranscriptBucket = bucket === 'current-usf-transcripts';
-  const isProfileDocumentBucket = bucket === 'current-usf-profile-documents';
+  const isTranscriptBucket =
+    bucket === 'current-usf-transcripts' ||
+    bucket === 'bellini-student-transcripts';
+  const isProfileDocumentBucket =
+    bucket === 'current-usf-profile-documents' ||
+    bucket === 'bellini-student-profile-documents';
 
   if (!path) {
     return jsonResponse({ error: 'A storage path is required' }, 400);

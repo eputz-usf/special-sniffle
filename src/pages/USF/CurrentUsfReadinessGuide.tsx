@@ -6,8 +6,8 @@ const guideSteps = [
   'Identify your current USF college, current major, and why you are considering switching.',
   'List completed, in-progress, and planned courses before assuming how they apply.',
   'Compare Bellini College majors against your interests, skills, and career direction.',
-  'Review programming, math, science, statistics, database, networking, or technical preparation early.',
-  'Prepare questions for Bellini advising before submitting a change-of-major request.',
+  'Review programming, math, science, statistics, database, networking, grades, and repeated-course history early.',
+  'Have Bellini College evaluate your case before assuming you are eligible or submitting a change-of-major request.',
 ];
 const guideTerms = [
   {
@@ -33,7 +33,7 @@ const guideTerms = [
   {
     term: 'Grade Requirement',
     definition:
-      'Some courses may need a minimum grade to count toward a major or prerequisite sequence. Confirm grade rules before planning around a course.',
+      'Some courses need a minimum grade to count toward a major or prerequisite sequence. The college should evaluate your transcript before you assume a course satisfies the rule.',
   },
   {
     term: 'Catalog Year',
@@ -43,12 +43,12 @@ const guideTerms = [
   {
     term: 'Degree Progression',
     definition:
-      'The order and timing of courses needed to move through a degree. Sequencing can affect graduation timing, permits, and course availability.',
+      'The order and timing of courses needed to move through a degree. Sequencing can affect graduation timing, permits, excess credit hours, and course availability.',
   },
   {
     term: 'Advisor Review',
     definition:
-      'A conversation with advising to confirm how your courses, goals, and timeline fit a possible Bellini major before making official changes.',
+      'A formal case review with advising to confirm grades, prerequisites, excess credit hours, and time-to-degree impact before making official changes.',
   },
 ];
 
@@ -56,17 +56,17 @@ const gatewayRequirements = [
   {
     title: 'Minimum Entry GPA',
     text:
-      'You must hold a minimum overall and institutional USF GPA. Many pathways use a 2.0 minimum, but highly competitive tracks such as Computer Science or Computer Engineering may look for a 2.5 to 3.0 GPA in specialized math, science, or computing courses.',
+      'You must hold the required overall and institutional USF GPA for the target major. Do not estimate this yourself from memory; ask Bellini College to evaluate your record and confirm whether your grades meet the current standard.',
   },
   {
     title: 'Calculus and Programming Track',
     text:
-      'You must have completed or be currently enrolled in foundational coursework with a grade of C or higher. Depending on the target major, this usually includes Calculus I and II, Physics I with Lab for engineering tracks, and Intro to Programming Concepts.',
+      'You may need completed or in-progress foundational coursework with a required minimum grade, often a C or higher. Depending on the target major, this can include Calculus I and II, Physics I with Lab for engineering tracks, and Intro to Programming Concepts.',
   },
   {
-    title: 'Course Attempts and Grades',
+    title: 'Course Attempts, Grades, and Time',
     text:
-      'Gateway courses often have minimum grade rules and may allow no more than two attempts across the required classes. Confirm the exact catalog language for your target major before assuming a course will satisfy the entry requirement.',
+      'Gateway courses can have minimum grade rules and attempt limits. A repeated, missing, or low-grade course can also change your timeline, so have the college evaluate your case before assuming the switch is possible or timely.',
   },
 ];
 
@@ -156,10 +156,21 @@ function CurrentUsfReadinessGuide() {
           <h2>Checklist</h2>
           <p>
             Bellini College programs do not allow immediate, automatic entry.
-            Students should first confirm the minimum academic thresholds,
-            prerequisite courses, grade expectations, and attempt rules for the
-            specific major they want to enter.
+            Students should first get a definitive answer from the college on
+            minimum academic thresholds, prerequisite courses, grade
+            expectations, attempt rules, excess credit hours, and whether the
+            switch can still be completed within a four-year timeline.
           </p>
+          <aside className="current-usf-evaluation-alert">
+            <strong>Required before paperwork:</strong> have Bellini College
+            evaluate your grades, attempts, prerequisites, excess credit hours,
+            and time-to-degree impact.
+          </aside>
+          <aside className="current-usf-four-year-alert">
+            <strong>Four-year timeline rule:</strong> if Bellini College
+            determines that the new major would push your degree plan beyond
+            four years, the change of major cannot be approved.
+          </aside>
         </div>
       </section>
 
@@ -169,12 +180,15 @@ function CurrentUsfReadinessGuide() {
       >
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Step 1</p>
-          <h2>Gateway Requirements</h2>
+          <h2>Gateway Requirements, Grades, and Time</h2>
         </div>
 
         <div className="transfer-term-grid">
           {gatewayRequirements.map((item) => (
-            <article className="transfer-term-card" key={item.title}>
+            <article
+              className="transfer-term-card current-usf-highlight-card"
+              key={item.title}
+            >
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>
@@ -228,18 +242,30 @@ function CurrentUsfReadinessGuide() {
       <section className="transfer-term-section current-usf-step-three-section">
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Step 3</p>
-          <h2>Connect with a Bellini Advisor via Archivum</h2>
+          <h2>Have Your Case Evaluated by Bellini Advising</h2>
         </div>
+
+        <aside className="current-usf-evaluation-banner">
+          This is the decision point: do not rely on a self-check. Bellini
+          College must evaluate the student record and give the definitive
+          answer on grades, timing, eligibility, and whether the major can be
+          completed within four years.
+        </aside>
 
         <article className="transfer-term-card current-usf-step-card">
           <p>
             Before your major change can be approved, an advisor from the
             college must review your academic transcript to audit your
-            prerequisites and assess your excess credit hours.
+            prerequisites, verify required grades, assess repeated attempts,
+            evaluate excess credit hours, and estimate how the switch may
+            affect your time to graduation. If the evaluated plan is longer
+            than four years, the change of major cannot be approved.
           </p>
           <p>
             Log into the Archivum Student Portal to schedule a formal
-            appointment with a Bellini College undergraduate advisor.
+            appointment with a Bellini College undergraduate advisor. Treat
+            this as the place to get the definitive college answer, not just a
+            general information meeting.
           </p>
           <p>
             Alternative drop-ins: the advising team, located on the 6th floor
@@ -259,9 +285,11 @@ function CurrentUsfReadinessGuide() {
 
         <div className="transfer-checklist-resource">
           <p>
-            Advisor tip: if you are missing a gateway class or missed a grade
-            threshold, do not submit the form blindly. Meet with advising first
-            to map out a possible pre-major pathway.
+            Advisor tip: if you are missing a gateway class, missed a grade
+            threshold, repeated a course, or may add time toward graduation,
+            meet with advising first. Do not submit the form until Bellini
+            College has evaluated your case and confirmed the plan stays within
+            the four-year timeline.
           </p>
         </div>
       </section>
@@ -271,7 +299,8 @@ function CurrentUsfReadinessGuide() {
         <h2>Submit the Change of Major Form</h2>
         <p>
           Once an advisor reviews your progress and confirms that you have met
-          or are successfully completing the gateway requirements, the paperwork
+          or are successfully completing the gateway requirements, including
+          grade expectations and the four-year completion limit, the paperwork
           can be officially initiated.
         </p>
         <p>
@@ -281,9 +310,10 @@ function CurrentUsfReadinessGuide() {
           Office to update your student profile in OASIS.
         </p>
         <p>
-          If you are unsure whether your current math or programming credits
-          satisfy their entry gateways, reach out to the general advising
-          mailbox for a quick preliminary transcript check.
+          If you are unsure whether your current math or programming credits,
+          grades, attempts, or remaining timeline satisfy the entry gateways and
+          four-year completion limit, reach out to the general advising mailbox
+          for a preliminary transcript check.
         </p>
         <div className="current-usf-step-four-actions">
           <a

@@ -221,6 +221,9 @@ const comparisonFields: ComparisonField[] = [
 
 function DegreeComparison() {
   const [searchParams] = useSearchParams();
+  const sourceDashboard = searchParams.get('from');
+  const degreeSourceSuffix = sourceDashboard ? `?from=${sourceDashboard}` : '';
+  const degreeExplorerPath = `/degrees${degreeSourceSuffix}`;
   const firstDegree = getDegreeForComparison(
     searchParams.get('first') ?? undefined,
   );
@@ -238,7 +241,7 @@ function DegreeComparison() {
             Choose exactly two different degrees from the Degree Explorer to
             view a side-by-side comparison.
           </p>
-          <Link to="/degrees">Compare Different Degrees</Link>
+          <Link to={degreeExplorerPath}>Compare Different Degrees</Link>
         </section>
       </main>
     );
@@ -246,7 +249,7 @@ function DegreeComparison() {
 
   return (
     <main className="degrees-page">
-      <Link className="degree-back-link" to="/degrees">
+      <Link className="degree-back-link" to={degreeExplorerPath}>
         Back to Degree Explorer
       </Link>
 
@@ -274,7 +277,7 @@ function DegreeComparison() {
       </section>
 
       <section className="degree-compare-next">
-        <Link to="/degrees">Compare Different Degrees</Link>
+        <Link to={degreeExplorerPath}>Compare Different Degrees</Link>
       </section>
     </main>
   );

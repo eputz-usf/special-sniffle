@@ -1,4 +1,4 @@
-import { type MouseEvent, useEffect } from 'react';
+import { type MouseEvent, type ReactNode, useEffect } from 'react';
 import {
   BookOpenCheck,
   Briefcase,
@@ -19,7 +19,11 @@ type DashboardTemplateProps = {
   dashboardLabel?: string;
   pathHeading?: string;
   quizPath?: string;
+  quizDisabled?: boolean;
   quizResultsPath?: string;
+  blankToolCards?: boolean;
+  blankRemainingToolCards?: boolean;
+  blankAfterSecondaryToolCards?: boolean;
   transferPlannerPath?: string;
   transferReadinessPath?: string;
   degreeToolPath?: string;
@@ -32,20 +36,39 @@ type DashboardTemplateProps = {
   tertiaryToolTitle?: string;
   tertiaryToolText?: string;
   tertiaryToolUndecided?: boolean;
+  extraToolPath?: string;
+  extraToolTitle?: string;
+  extraToolText?: string;
+  extraToolIcon?: 'calendar' | 'file' | 'upload';
   careerToolTitle?: string;
   careerToolText?: string;
   careerToolPath?: string;
+  careerToolExternalHref?: string;
   careerToolIcon?: 'briefcase' | 'upload';
   careerToolUndecided?: boolean;
   finalNavPath?: string;
   finalNavLabel?: string;
   steps?: DashboardStep[];
+  toolCardOrder?: DashboardToolCard[];
+  planningHeading?: string;
+  planningText?: string;
+  planningItems?: DashboardPlanningItem[];
+  planningReminder?: string;
 };
 
 type DashboardStep = {
   title: string;
   text: string;
 };
+
+type DashboardPlanningItem =
+  | string
+  | {
+      title: string;
+      text: string;
+    };
+
+type DashboardToolCard = 'degree' | 'secondary' | 'tertiary' | 'career' | 'extra';
 
 const dashboardSteps: DashboardStep[] = [
   {
@@ -102,7 +125,11 @@ function DashboardTemplate({
   dashboardLabel = 'General Dashboard',
   pathHeading = 'Move from questions to a clearer plan',
   quizPath = '/quiz',
+  quizDisabled = false,
   quizResultsPath,
+  blankToolCards = false,
+  blankRemainingToolCards = false,
+  blankAfterSecondaryToolCards = false,
   transferPlannerPath,
   transferReadinessPath,
   degreeToolPath = '/degrees',
@@ -115,20 +142,194 @@ function DashboardTemplate({
   tertiaryToolTitle = 'Transition Planner',
   tertiaryToolText = 'A future general planning tool can organize recommendations, questions, notes, and next actions in one place.',
   tertiaryToolUndecided = false,
+  extraToolPath,
+  extraToolTitle = 'Additional Tool',
+  extraToolText = 'Open another planning tool for this dashboard.',
+  extraToolIcon = 'file',
   careerToolTitle = 'Possible Career Paths',
   careerToolText = 'Choose a major and jump to its career outlook, salary context, Tampa Bay employment information, and professional preparation options.',
   careerToolPath = '/career-paths',
+  careerToolExternalHref,
   careerToolIcon = 'briefcase',
   careerToolUndecided = false,
   finalNavPath,
   finalNavLabel,
   steps = dashboardSteps,
+  toolCardOrder = ['degree', 'secondary', 'tertiary', 'career'],
+  planningHeading,
+  planningText,
+  planningItems: customPlanningItems,
+  planningReminder,
 }: DashboardTemplateProps) {
   const isTransferDashboard = Boolean(transferPlannerPath);
-  const planningItems = isTransferDashboard
+  const planningItems = customPlanningItems ?? (isTransferDashboard
     ? transferNextSteps
-    : planningPlaceholders;
+    : planningPlaceholders);
+  const resolvedPlanningHeading =
+    planningHeading ??
+    (isTransferDashboard ? 'Transfer Next Steps' : 'Specified text to be put there');
+  const resolvedPlanningText =
+    planningText ??
+    (isTransferDashboard
+      ? 'Turn your transfer research into a short action plan before applying or meeting with advising.'
+      : 'Specified text to be put there.');
+  const resolvedPlanningReminder =
+    planningReminder ??
+    (isTransferDashboard
+      ? 'Reminder: this dashboard helps you prepare, but official USF admissions, advising, and transfer credit evaluation should be used for final decisions.'
+      : '');
   const CareerToolIcon = careerToolIcon === 'upload' ? Upload : Briefcase;
+  const ExtraToolIcon = extraToolIcon === 'upload'
+    ? Upload
+    : extraToolIcon === 'calendar'
+      ? CalendarCheck
+      : FileText;
+  const careerToolContent = (
+    <>
+      <CareerToolIcon size={30} aria-hidden="true" />
+      <span>{careerToolTitle}</span>
+      <p>{careerToolText}</p>
+    </>
+  );
+  const careerToolCard = careerToolExternalHref ? (
+    <a
+      className="dashboard-major-card"
+      href={careerToolExternalHref}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {careerToolContent}
+    </a>
+  ) : (
+    <Link className="dashboard-major-card" to={careerToolPath}>
+      {careerToolContent}
+    </Link>
+  );
+
+  function renderPlaceholderToolCard(key: string | number) {
+    return (
+      <button
+        aria-label={`Feature card placeholder ${key}`}
+        className="dashboard-major-card dashboard-blank-tool-card"
+        key={key}
+        type="button"
+      />
+    );
+  }
+
+  function renderToolCard(card: DashboardToolCard, key?: string): ReactNode {
+    if (card === 'degree') {
+      return (
+        <Link
+          className="dashboard-major-card"
+          key={key ?? degreeToolPath}
+          to={degreeToolPath}
+        >
+          <BookOpenCheck size={30} aria-hidden="true" />
+          <span>{degreeToolTitle}</span>
+          <p>{degreeToolText}</p>
+        </Link>
+      );
+    }
+
+    if (card === 'secondary') {
+      return secondaryToolPath ? (
+        <Link
+          className="dashboard-major-card"
+          key={key ?? secondaryToolPath}
+          to={secondaryToolPath}
+        >
+          <FileText size={30} aria-hidden="true" />
+          <span>{secondaryToolTitle}</span>
+          <p>{secondaryToolText}</p>
+        </Link>
+      ) : (
+        <button
+          className="dashboard-major-card dashboard-placeholder-tool"
+          key={key ?? secondaryToolTitle}
+          type="button"
+        >
+          <MessageCircleQuestion size={30} aria-hidden="true" />
+          <span>{secondaryToolTitle}</span>
+          <p>{secondaryToolText}</p>
+        </button>
+      );
+    }
+
+    if (card === 'tertiary') {
+      return tertiaryToolPath ? (
+        <Link
+          className="dashboard-major-card"
+          key={key ?? tertiaryToolPath}
+          to={tertiaryToolPath}
+        >
+          <CalendarCheck size={30} aria-hidden="true" />
+          <span>{tertiaryToolTitle}</span>
+          <p>{tertiaryToolText}</p>
+        </Link>
+      ) : (
+        <button
+          className={`dashboard-major-card dashboard-placeholder-tool${
+            tertiaryToolUndecided ? ' dashboard-undecided-tool' : ''
+          }`}
+          key={key ?? tertiaryToolTitle}
+          type="button"
+        >
+          <CalendarCheck size={30} aria-hidden="true" />
+          <span>{tertiaryToolTitle}</span>
+          <p>{tertiaryToolText}</p>
+        </button>
+      );
+    }
+
+    if (card === 'extra') {
+      return extraToolPath ? (
+        <Link
+          className="dashboard-major-card"
+          key={key ?? extraToolPath}
+          to={extraToolPath}
+        >
+          <ExtraToolIcon size={30} aria-hidden="true" />
+          <span>{extraToolTitle}</span>
+          <p>{extraToolText}</p>
+        </Link>
+      ) : (
+        renderPlaceholderToolCard(key ?? extraToolTitle)
+      );
+    }
+
+    if (careerToolUndecided) {
+      return (
+        <button
+          className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool"
+          key={key ?? careerToolTitle}
+          type="button"
+        >
+          {careerToolContent}
+        </button>
+      );
+    }
+
+    return careerToolExternalHref ? (
+      <a
+        className="dashboard-major-card"
+        href={careerToolExternalHref}
+        key={key ?? careerToolExternalHref}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {careerToolContent}
+      </a>
+    ) : (
+      <Link
+        className="dashboard-major-card"
+        key={key ?? careerToolPath}
+        to={careerToolPath}
+      >
+        {careerToolContent}
+      </Link>
+    );
+  }
 
   function handleSectionLinkClick(
     event: MouseEvent<HTMLAnchorElement>,
@@ -243,10 +444,21 @@ function DashboardTemplate({
               next steps based on your goals and background.
             </p>
             <div className="dashboard-quiz-actions">
-              <Link className="dashboard-quiz-button compact" to={quizPath}>
-                <ClipboardList size={20} aria-hidden="true" />
-                Take the quiz
-              </Link>
+              {quizDisabled ? (
+                <button
+                  className="dashboard-quiz-button compact dashboard-quiz-button-disabled-red"
+                  type="button"
+                  disabled
+                >
+                  <ClipboardList size={20} aria-hidden="true" />
+                  Take the quiz
+                </button>
+              ) : (
+                <Link className="dashboard-quiz-button compact" to={quizPath}>
+                  <ClipboardList size={20} aria-hidden="true" />
+                  Take the quiz
+                </Link>
+              )}
               {quizResultsPath && (
                 <Link
                   className="dashboard-quiz-button compact secondary"
@@ -270,82 +482,71 @@ function DashboardTemplate({
         <div className="dashboard-section-rule dashboard-section-rule-light"></div>
         <div className="dashboard-section-heading">
           <p className="dashboard-eyebrow light">Toolbox</p>
-          <h2>Use the tools that are ready now</h2>
+          <h2>The following tools are there to help you</h2>
         </div>
 
         <div className="dashboard-major-cards dashboard-tool-grid">
-          <Link className="dashboard-major-card" to={degreeToolPath}>
-            <BookOpenCheck size={30} aria-hidden="true" />
-            <span>{degreeToolTitle}</span>
-            <p>{degreeToolText}</p>
-          </Link>
+          {blankToolCards || blankRemainingToolCards || blankAfterSecondaryToolCards ? (
+            Array.from({
+              length: blankAfterSecondaryToolCards
+                ? Math.max(4, toolCardOrder.length)
+                : 4,
+            }, (_, index) => {
+              if (blankToolCards) {
+                return renderPlaceholderToolCard(index + 1);
+              }
 
-          {transferReadinessPath ? (
-            <Link className="dashboard-major-card" to={transferReadinessPath}>
-              <FileText size={30} aria-hidden="true" />
-              <span>Transfer Readiness Guide</span>
-              <p>
-                Review transfer terms, planning expectations, and what to
-                prepare before checking credits or meeting with advising.
-              </p>
-            </Link>
-          ) : secondaryToolPath ? (
-            <Link className="dashboard-major-card" to={secondaryToolPath}>
-              <FileText size={30} aria-hidden="true" />
-              <span>{secondaryToolTitle}</span>
-              <p>{secondaryToolText}</p>
-            </Link>
-          ) : (
-            <button className="dashboard-major-card dashboard-placeholder-tool" type="button">
-              <MessageCircleQuestion size={30} aria-hidden="true" />
-              <span>{secondaryToolTitle}</span>
-              <p>{secondaryToolText}</p>
-            </button>
-          )}
+              if (blankRemainingToolCards) {
+                return index === 0
+                  ? renderToolCard('degree', 'degree')
+                  : renderPlaceholderToolCard(index + 1);
+              }
 
-          {transferPlannerPath ? (
-            <Link className="dashboard-major-card" to={transferPlannerPath}>
-              <CalendarCheck size={30} aria-hidden="true" />
-              <span>Transfer Planner</span>
-              <p>
-                Save transfer details, notes, advising questions, and course
-                lists in one printable planning summary.
-              </p>
-            </Link>
-          ) : tertiaryToolPath ? (
-            <Link className="dashboard-major-card" to={tertiaryToolPath}>
-              <CalendarCheck size={30} aria-hidden="true" />
-              <span>{tertiaryToolTitle}</span>
-              <p>{tertiaryToolText}</p>
-            </Link>
+              return renderToolCard(
+                toolCardOrder[index] ?? 'degree',
+                `${toolCardOrder[index] ?? 'degree'}-${index}`,
+              );
+            })
           ) : (
-            <button
-              className={`dashboard-major-card dashboard-placeholder-tool${
-                tertiaryToolUndecided ? ' dashboard-undecided-tool' : ''
-              }`}
-              type="button"
-            >
-              <CalendarCheck size={30} aria-hidden="true" />
-              <span>{tertiaryToolTitle}</span>
-              <p>{tertiaryToolText}</p>
-            </button>
-          )}
+            <>
+              {renderToolCard('degree', 'degree')}
 
-          {careerToolUndecided ? (
-            <button
-              className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool"
-              type="button"
-            >
-              <CareerToolIcon size={30} aria-hidden="true" />
-              <span>{careerToolTitle}</span>
-              <p>{careerToolText}</p>
-            </button>
-          ) : (
-            <Link className="dashboard-major-card" to={careerToolPath}>
-              <CareerToolIcon size={30} aria-hidden="true" />
-              <span>{careerToolTitle}</span>
-              <p>{careerToolText}</p>
-            </Link>
+              {transferReadinessPath ? (
+                <Link className="dashboard-major-card" to={transferReadinessPath}>
+                  <FileText size={30} aria-hidden="true" />
+                  <span>Transfer Readiness Guide</span>
+                  <p>
+                    Review transfer terms, planning expectations, and what to
+                    prepare before checking credits or meeting with advising.
+                  </p>
+                </Link>
+              ) : secondaryToolPath ? (
+                renderToolCard('secondary', 'secondary')
+              ) : (
+                renderToolCard('secondary', 'secondary-placeholder')
+              )}
+
+              {transferPlannerPath ? (
+                <Link className="dashboard-major-card" to={transferPlannerPath}>
+                  <CalendarCheck size={30} aria-hidden="true" />
+                  <span>Transfer Planner</span>
+                  <p>
+                    Save transfer details, notes, advising questions, and course
+                    lists in one printable planning summary.
+                  </p>
+                </Link>
+              ) : tertiaryToolPath ? (
+                renderToolCard('tertiary', 'tertiary')
+              ) : (
+                renderToolCard('tertiary', 'tertiary-placeholder')
+              )}
+
+              {careerToolUndecided ? (
+                renderToolCard('career', 'career-placeholder')
+              ) : (
+                careerToolCard
+              )}
+            </>
           )}
         </div>
       </section>
@@ -355,21 +556,11 @@ function DashboardTemplate({
         <div className="dashboard-feature-row">
           <div>
             <p className="dashboard-eyebrow">Planning Section</p>
-            <h2>
-              {isTransferDashboard
-                ? 'Transfer Next Steps'
-                : 'Specified text to be put there'}
-            </h2>
-            <p>
-              {isTransferDashboard
-                ? 'Turn your transfer research into a short action plan before applying or meeting with advising.'
-                : 'Specified text to be put there.'}
-            </p>
-            {isTransferDashboard ? (
+            <h2>{resolvedPlanningHeading}</h2>
+            <p>{resolvedPlanningText}</p>
+            {resolvedPlanningReminder ? (
               <aside className="dashboard-planner-reminder">
-                Reminder: this dashboard helps you prepare, but official USF
-                admissions, advising, and transfer credit evaluation should be
-                used for final decisions.
+                {resolvedPlanningReminder}
               </aside>
             ) : null}
           </div>

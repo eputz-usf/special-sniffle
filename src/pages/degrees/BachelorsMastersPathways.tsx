@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import '../../styles/degrees.css';
 
 const pathwayPrograms = [
@@ -32,9 +32,15 @@ const availableMinors = [
 ];
 
 function BachelorsMastersPathways() {
+  const [searchParams] = useSearchParams();
+  const sourceDashboard = searchParams.get('from');
+  const degreeExplorerPath = sourceDashboard
+    ? `/degrees?from=${sourceDashboard}`
+    : '/degrees';
+
   return (
     <main className="degrees-page pathways-page">
-      <Link className="degree-back-link" to="/degrees">
+      <Link className="degree-back-link" to={degreeExplorerPath}>
         Back to Degree Explorer
       </Link>
 

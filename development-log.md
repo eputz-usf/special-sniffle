@@ -266,7 +266,6 @@
 - Added a print warning dialog on the Current USF transcript page so students are alerted before printing when extracted course rows still have missing required fields.
 - Added a visible extracted-course count under the transcript review action buttons.
 - Added a bulk `Remove all courses` action and kept row-level remove controls for individual course cleanup.
-- Removed the Quality Points column from the student-facing review table and print output while keeping the parser data shape compatible with existing extracted rows.
 - Changed long course-title editing from a single-line input to a multiline field so wrapped titles can be reviewed and corrected more easily.
 - Updated IDH course categorization so IDH courses automatically show as `Honors elective` in the Area field.
 - Refined transcript parser handling for campus codes, including `T`, `S`, `SP`, `SM`, and `WEB`, so campus markers are not mistaken for titles, grades, or course codes.
@@ -275,10 +274,32 @@
 - Added transcript noise filtering for browser headers, FLVC URLs, page counts, timestamps, generated/printed lines, academic standing text, term GPA summaries, and Cambridge/AICE exam headings.
 - Added hard transcript segment boundaries so page breaks, term summaries, dates, and fake course-like rows do not leak into the previous course title.
 - Fixed split grade rows such as `T A 3 3 12` so they are treated as the grade/credit continuation for the prior course instead of becoming fake course codes.
-- Used repeated smoke tests against messy extracted transcript snippets and verified changes with `npm run build`.
+
+## Update 27: Current Bellini Student Major-Change Dashboard and Course Overlap Tools
+
+**Date:** June 15, 2026
+
+- Refocused the Current Bellini College student dashboard for students already in computing who are considering whether to stay in CS, move to AI, Cybersecurity, Computer Science and Engineering, IT, or another computing-related option.
+- Added the Current Bellini Student Intake Quiz with Supabase-backed session, response, and result persistence.
+- Added quiz questions around current major, possible destination major, reasons for switching, topic interests, topics to reduce, best-fit courses, career direction, technical comfort, decision priorities, switch-versus-electives preference, timeline position, and advising preparation needs.
+- Added Bellini student quiz recommendation scoring, quiz result storage, and result actions for profile, degree comparison, course overlap, transcript review, and advising preparation.
+- Built the Current Bellini Major Change Guide using the Current USF guide pattern, with stronger emphasis on official Bellini evaluation of grades, prerequisites, attempts, excess credit hours, and the four-year completion rule.
+- Added the Bellini student profile and transcript upload flow, including profile persistence, transcript document handling, and a dashboard link back to transcript extraction.
+- Added the Course Overlap Planner with an all-majors index, placeholder pages for future PDFs, local completed-course checkboxes, progress tracking, transcript-upload links, and advising reminders.
+- Improved the course-overlap checklist UI by grouping courses into requirement areas, adding completed counts per group, aligning code/title/credit columns, reducing excessive gaps, and adding mobile-friendly row behavior.
+- Added ready course-overlap checklists for:
+  - Computer Science
+  - Artificial Intelligence
+  - Cybersecurity
+  - Computer Science and Engineering
+  - Information Technology
+  - Computer Science and Criminology
+  - Computer Science and Interdisciplinary Social Sciences
+- Updated the Bellini student Supabase schema with profile tables and quiz session/response/result tables, including anonymous prototype grants and RLS policies.
+- Verified the final course-overlap and Bellini dashboard changes with targeted ESLint checks and repeated `npm run build` runs.
+
 
 ## What I Will Focus On Next
 - Validate transcript extraction against multiple USF transcript/e-transcript formats and refine section-aware parsing.
-- update developement log 
-- work further on extraction 
-- go through features planned for this group (usf non bellini) 
+- Continue transcript extraction refinements.
+- Continue reviewing planned features for the Current USF non-Bellini group.

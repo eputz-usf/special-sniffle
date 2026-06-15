@@ -1872,7 +1872,7 @@ function ArtificialIntelligenceHighSchoolDegreeDetail() {
         <BeyondTheClassroom />
         <div className="degree-detail-actions">
           <a
-            href="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx"
+            href="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/ .aspx"
             rel="noreferrer"
             target="_blank"
           >

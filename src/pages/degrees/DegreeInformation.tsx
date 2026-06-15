@@ -4,11 +4,18 @@ import { degrees } from '../../data/degrees';
 import {
   addTransferPlannerMajor,
   loadTransferPlannerMajors,
+  removeTransferPlannerMajor,
 } from '../../utils/transferPlannerMajors';
 import {
   addCurrentUsfProfileMajor,
   loadCurrentUsfProfileMajors,
+  removeCurrentUsfProfileMajor,
 } from '../../utils/currentUsfProfileMajors';
+import {
+  addBelliniStudentProfileMajor,
+  loadBelliniStudentProfileMajors,
+  removeBelliniStudentProfileMajor,
+} from '../../utils/belliniStudentProfileMajors';
 import '../../styles/degrees.css';
 
 const filters = [
@@ -35,6 +42,7 @@ const completedDegreePages = new Set([
 
 const dashboardRoutesBySource = {
   'current-usf-student': '/dashboard/current-usf-student',
+  'current-bellini-student': '/dashboard/current-bellini-student',
   'transfer-student': '/dashboard/transfer-student',
 } as const;
 
@@ -43,6 +51,8 @@ function DegreeInformation() {
   const [searchParams] = useSearchParams();
   const sourceDashboard = searchParams.get('from');
   const isCurrentUsfStudentSource = sourceDashboard === 'current-usf-student';
+  const isBelliniStudentSource = sourceDashboard === 'current-bellini-student';
+  const isProfileSource = isCurrentUsfStudentSource || isBelliniStudentSource;
   const degreeSourceSuffix = sourceDashboard ? `?from=${sourceDashboard}` : '';
   const dashboardBackRoute =
     sourceDashboard &&
@@ -61,6 +71,9 @@ function DegreeInformation() {
   );
   const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
     loadCurrentUsfProfileMajors().map((major) => major.slug),
+  );
+  const [belliniProfileMajorSlugs, setBelliniProfileMajorSlugs] = useState(() =>
+    loadBelliniStudentProfileMajors().map((major) => major.slug),
   );
 
   const visibleDegrees = useMemo(() => {
@@ -113,10 +126,25 @@ function DegreeInformation() {
       return;
     }
 
-    navigate(`/degrees/compare?first=${compareSlugs[0]}&second=${compareSlugs[1]}`);
+    const compareParams = new URLSearchParams({
+      first: compareSlugs[0],
+      second: compareSlugs[1],
+    });
+
+    if (sourceDashboard) {
+      compareParams.set('from', sourceDashboard);
+    }
+
+    navigate(`/degrees/compare?${compareParams.toString()}`);
   }
 
   function handleAddToPlanner(degree: (typeof degrees)[number]) {
+    if (plannerMajorSlugs.includes(degree.slug)) {
+      const nextMajors = removeTransferPlannerMajor(degree.slug);
+      setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
     const nextMajors = addTransferPlannerMajor({
       slug: degree.slug,
       name: degree.name,
@@ -126,6 +154,28 @@ function DegreeInformation() {
   }
 
   function handleAddToProfile(degree: (typeof degrees)[number]) {
+    if (isBelliniStudentSource) {
+      if (belliniProfileMajorSlugs.includes(degree.slug)) {
+        const nextMajors = removeBelliniStudentProfileMajor(degree.slug);
+        setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
+        return;
+      }
+
+      const nextMajors = addBelliniStudentProfileMajor({
+        slug: degree.slug,
+        name: degree.name,
+      });
+
+      setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
+    if (profileMajorSlugs.includes(degree.slug)) {
+      const nextMajors = removeCurrentUsfProfileMajor(degree.slug);
+      setProfileMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
     const nextMajors = addCurrentUsfProfileMajor({
       slug: degree.slug,
       name: degree.name,
@@ -154,7 +204,7 @@ function DegreeInformation() {
         </p>
         <p>
           Use Add to Compare for a side-by-side review, or save programs to your
-          {isCurrentUsfStudentSource ? ' profile.' : ' transfer planner.'}
+          {isProfileSource ? ' profile.' : ' transfer planner.'}
         </p>
       </section>
 
@@ -207,19 +257,26 @@ function DegreeInformation() {
                     ? 'Selected'
                     : 'Add to Compare'}
                 </button>
-                {isCurrentUsfStudentSource ? (
+                {isProfileSource ? (
                   <button
                     className={
-                      profileMajorSlugs.includes(degree.slug)
+                      (
+                        isBelliniStudentSource
+                          ? belliniProfileMajorSlugs
+                          : profileMajorSlugs
+                      ).includes(degree.slug)
                         ? 'planner-selected'
                         : ''
                     }
-                    disabled={profileMajorSlugs.includes(degree.slug)}
                     type="button"
                     onClick={() => handleAddToProfile(degree)}
                   >
-                    {profileMajorSlugs.includes(degree.slug)
-                      ? 'Added to Profile'
+                    {(
+                      isBelliniStudentSource
+                        ? belliniProfileMajorSlugs
+                        : profileMajorSlugs
+                    ).includes(degree.slug)
+                      ? 'Remove from Profile'
                       : 'Add to Profile'}
                   </button>
                 ) : (
@@ -227,12 +284,11 @@ function DegreeInformation() {
                     className={
                       plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
                     }
-                    disabled={plannerMajorSlugs.includes(degree.slug)}
                     type="button"
                     onClick={() => handleAddToPlanner(degree)}
                   >
                     {plannerMajorSlugs.includes(degree.slug)
-                      ? 'Added to Planner'
+                      ? 'Remove from Planner'
                       : 'Add to Planner'}
                   </button>
                 )}
@@ -243,7 +299,10 @@ function DegreeInformation() {
       </section>
 
       <section className="degrees-extra-pathways" aria-label="Extra pathways">
-        <Link className="active-link" to="/degrees/bachelors-masters-pathways">
+        <Link
+          className="active-link"
+          to={`/degrees/bachelors-masters-pathways${degreeSourceSuffix}`}
+        >
           <span>Bachelor’s/Master’s Pathways</span>
           <small>View pathways</small>
         </Link>

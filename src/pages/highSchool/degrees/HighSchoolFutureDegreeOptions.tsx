@@ -4,6 +4,7 @@ import { plannedHighSchoolFutureDegreeOptions } from '../../../data/highSchoolFu
 import {
   addPlannerMajor,
   loadPlannerMajors,
+  removePlannerMajor,
 } from '../../../utils/transitionPlannerMajors';
 import '../../../styles/degrees.css';
 
@@ -74,6 +75,12 @@ function HighSchoolFutureDegreeOptions() {
   function handleAddToPlanner(
     degree: (typeof plannedHighSchoolFutureDegreeOptions)[number],
   ) {
+    if (plannerMajorSlugs.includes(degree.slug)) {
+      const nextMajors = removePlannerMajor(degree.slug);
+      setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
+      return;
+    }
+
     const nextMajors = addPlannerMajor({
       slug: degree.slug,
       name: degree.name,
@@ -187,12 +194,11 @@ function HighSchoolFutureDegreeOptions() {
                           ? 'future-degree-button planner-selected'
                           : 'future-degree-button'
                       }
-                      disabled={plannerMajorSlugs.includes(degree.slug)}
                       type="button"
                       onClick={() => handleAddToPlanner(degree)}
                     >
                       {plannerMajorSlugs.includes(degree.slug)
-                        ? 'Added to Planner'
+                        ? 'Remove from Planner'
                         : 'Add to Planner'}
                     </button>
                   </div>
