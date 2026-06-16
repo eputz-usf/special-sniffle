@@ -6,6 +6,10 @@
   min-height: auto;
 }
 
+.current-usf-readiness-page section[id] {
+  scroll-margin-top: 72px;
+}
+
 .current-usf-readiness-page .degrees-eyebrow {
   margin-bottom: 8px;
   font-size: 16px;
@@ -277,7 +281,64 @@
   color: #8a4500;
 }
 
-.current-usf-resource-card a {
+.gateway-card-content {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.gateway-card-content p {
+  margin: 0;
+}
+
+.gateway-card-content ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.gateway-card-content li {
+  color: #334139;
+  line-height: 1.45;
+}
+
+.gateway-gpa-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.gateway-gpa-grid span {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid rgba(138, 69, 0, 0.24);
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #25352d;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.gateway-gpa-grid span:last-child {
+  grid-column: 1 / -1;
+}
+
+.gateway-card-note {
+  padding: 12px 14px;
+  border-left: 4px solid #086343;
+  border-radius: 10px;
+  background-color: #f0f7ef;
+  color: #25352d;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.current-usf-resource-card a,
+.current-usf-card-button {
   position: relative;
   z-index: 0;
   display: inline-flex;
@@ -294,7 +355,8 @@
   transition: color 0.3s ease;
 }
 
-.current-usf-resource-card a::before {
+.current-usf-resource-card a::before,
+.current-usf-card-button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -307,12 +369,16 @@
 }
 
 .current-usf-resource-card a:hover::before,
-.current-usf-resource-card a:focus-visible::before {
+.current-usf-resource-card a:focus-visible::before,
+.current-usf-card-button:hover::before,
+.current-usf-card-button:focus-visible::before {
   width: 100%;
 }
 
 .current-usf-resource-card a:hover,
-.current-usf-resource-card a:focus-visible {
+.current-usf-resource-card a:focus-visible,
+.current-usf-card-button:hover,
+.current-usf-card-button:focus-visible {
   color: #086343;
 }
 
@@ -794,6 +860,10 @@
   .transfer-major-requirements-callout,
   .transfer-contact-section {
     padding: 36px 20px;
+  }
+
+  .current-usf-readiness-page section[id] {
+    scroll-margin-top: 118px;
   }
 
   .transfer-readiness-overview,

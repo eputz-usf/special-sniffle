@@ -1935,6 +1935,88 @@ const computerScienceBusinessDigitalMarketingAnalyticsCourses: BelliniOverlapCou
   },
 ];
 
+const computerScienceBusinessFintechCourses: BelliniOverlapCourse[] = [
+  ...computerScienceBusinessAccountancyAnalyticsCourses.filter(
+    (course) => course.category !== 'Accountancy and Analytics Concentration',
+  ),
+  {
+    id: 'cs-bus-fintech-fin-4303',
+    code: 'FIN 4303',
+    title: 'Financial Institutions and Markets',
+    credits: 3,
+    category: 'Fintech Concentration',
+  },
+  {
+    id: 'cs-bus-fintech-fin-4453',
+    code: 'FIN 4453',
+    title: 'Financial Modeling and Analytics',
+    credits: 3,
+    category: 'Fintech Concentration',
+  },
+  {
+    id: 'cs-bus-fintech-fin-4771',
+    code: 'FIN 4771',
+    title: 'Foundations of FinTech',
+    credits: 3,
+    category: 'Fintech Concentration',
+  },
+  {
+    id: 'cs-bus-fintech-fin-4773',
+    code: 'FIN 4773',
+    title: 'Big Data and Machine Learning in Finance',
+    credits: 3,
+    category: 'Fintech Concentration',
+  },
+  {
+    id: 'cs-bus-fintech-fin-4934',
+    code: 'FIN 4934',
+    title: 'Selected Topics in Finance: Introduction to Algorithmic Trading',
+    credits: 3,
+    category: 'Fintech Concentration',
+  },
+];
+
+const computerScienceBusinessSupplyChainManagementCourses: BelliniOverlapCourse[] = [
+  ...computerScienceBusinessAccountancyAnalyticsCourses.filter(
+    (course) => course.category !== 'Accountancy and Analytics Concentration',
+  ),
+  {
+    id: 'cs-bus-scm-scm-3005',
+    code: 'SCM 3005',
+    title: 'Supply Chain Management',
+    credits: 3,
+    category: 'Supply Chain Management Concentration',
+  },
+  {
+    id: 'cs-bus-scm-scm-3144',
+    code: 'SCM 3144',
+    title: 'Global Sourcing',
+    credits: 3,
+    category: 'Supply Chain Management Concentration',
+  },
+  {
+    id: 'cs-bus-scm-scm-4120',
+    code: 'SCM 4120',
+    title: 'Global Commerce',
+    credits: 3,
+    category: 'Supply Chain Management Concentration',
+  },
+  {
+    id: 'cs-bus-scm-scm-4210',
+    code: 'SCM 4210',
+    title: 'Logistics and Physical Distribution Management',
+    credits: 3,
+    category: 'Supply Chain Management Concentration',
+  },
+  {
+    id: 'cs-bus-scm-scm-4420',
+    code: 'SCM 4420',
+    title: 'Supply Chain Analytics',
+    credits: 3,
+    category: 'Supply Chain Management Concentration',
+  },
+];
+
 const readyCourseListsBySlug: Record<string, BelliniOverlapCourse[]> = {
   'computer-science': computerScienceCourses,
   'artificial-intelligence': artificialIntelligenceCourses,
@@ -1950,6 +2032,9 @@ const readyCourseListsBySlug: Record<string, BelliniOverlapCourse[]> = {
     computerScienceBusinessAnalyticsInformationSystemsCourses,
   'computer-science-and-business-digital-marketing-and-analytics':
     computerScienceBusinessDigitalMarketingAnalyticsCourses,
+  'computer-science-and-business-fintech': computerScienceBusinessFintechCourses,
+  'computer-science-and-business-supply-chain-management':
+    computerScienceBusinessSupplyChainManagementCourses,
 };
 
 const corePlans: BelliniCourseOverlapPlan[] = degrees

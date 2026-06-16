@@ -27,22 +27,22 @@ const belliniStudentDashboardSteps = [
   },
 ];
 
-const belliniMajorChangePlanningItems = [
+const belliniMajorChangeNextStepItems = [
   {
-    title: 'Clarify',
-    text: 'Whether your uncertainty is about the subject matter, a difficult course sequence, job goals, or a stronger interest in AI, cybersecurity, hardware, data, or software development.',
+    title: 'Compare two paths',
+    text: 'Pick your current major and one possible Bellini major. Review what changes in focus, coursework, skills, and advising questions.',
   },
   {
-    title: 'Compare',
-    text: 'CS, Artificial Intelligence, Cybersecurity, Computer Engineering, and related computing options by required courses, prerequisites, electives, project work, and career preparation.',
+    title: 'Check course overlap',
+    text: 'Mark completed courses in the overlap checklist and print the checked-course list for advising.',
   },
   {
-    title: 'Audit',
-    text: 'Which completed credits may apply to each option, which required courses would remain, and whether any switch could change your graduation timeline or course load.',
+    title: 'Review requirements',
+    text: 'Use the Major Change Guide to check GPA, grades, attempts, prerequisites, Canvas, Archivum, and paperwork.',
   },
   {
-    title: 'Confirm',
-    text: 'Catalog year, GPA or admission requirements, permit needs, course sequencing, Degree Works details, and the formal change-of-major process with Bellini advising.',
+    title: 'Meet with advising',
+    text: 'Bring your comparison, checked courses, questions, and timeline concerns so advising can review the switch.',
   },
 ];
 
@@ -76,10 +76,10 @@ function BelliniStudentDashboard() {
       finalNavPath="/bellini-student/profile"
       finalNavLabel="Profile"
       steps={belliniStudentDashboardSteps}
-      planningHeading="Prepare for a Bellini major-change advising conversation"
-      planningText="Use this checklist to separate interest fit from degree logistics before you submit any change-of-major request."
-      planningItems={belliniMajorChangePlanningItems}
-      planningReminder="This dashboard is a planning aid. Final decisions should be confirmed through official Bellini College advising, catalog requirements, and Degree Works."
+      planningHeading="Next Steps for a Bellini Major Change"
+      planningText="Use these steps after exploring the tools above to turn interest in another Bellini major into an advising-ready case."
+      planningItems={belliniMajorChangeNextStepItems}
+      planningReminder="Next step before paperwork: confirm your course overlap, GPA and grade requirements, attempts, Degree Works details, and graduation timeline with Bellini College advising."
     />
   );
 }

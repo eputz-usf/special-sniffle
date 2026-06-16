@@ -27,6 +27,25 @@ const currentUsfDashboardSteps = [
   },
 ];
 
+const currentUsfRecommendedNextSteps = [
+  {
+    title: 'Check your eligibility first',
+    text: 'Review Bellini gateway requirements, grades, repeated attempts, GPA expectations, and four-year timeline rules before submitting a change-of-major request.',
+  },
+  {
+    title: 'Organize your USF course history',
+    text: 'Use your Degree Works view, unofficial transcript, and completed course list to identify math, science, programming, statistics, database, networking, and repeated courses that need review.',
+  },
+  {
+    title: 'Compare target Bellini majors',
+    text: 'Use the degree explorer and intake quiz results to narrow your major options, then note prerequisite gaps, course sequencing concerns, and questions about catalog year.',
+  },
+  {
+    title: 'Prepare for Bellini advising',
+    text: 'Bring your saved profile, transcript details, programs of interest, and specific questions about credit applicability, permits, excess hours, and time to graduation.',
+  },
+];
+
 function CurrentUsfDashboard() {
   return (
     <DashboardTemplate
@@ -35,6 +54,7 @@ function CurrentUsfDashboard() {
       intro="For current USF students in another college who may be interested in switching into a Bellini College computing major, this dashboard helps you explore degree options, compare possible paths, and think through how your completed coursework might fit before your next advising conversation."
       pathHeading="Explore a switch into Bellini College with your USF coursework in mind"
       quizPath="/current-usf/quiz"
+      quizResultsPath="/current-usf/quiz/results"
       degreeToolPath="/degrees?from=current-usf-student"
       degreeToolTitle="Degree Explorer for Current USF Students"
       degreeToolText="Compare Bellini computing majors with your current USF coursework and advising questions in mind."
@@ -51,6 +71,10 @@ function CurrentUsfDashboard() {
       finalNavPath="/profile"
       finalNavLabel="Profile"
       steps={currentUsfDashboardSteps}
+      planningHeading="Recommended Next Steps"
+      planningText="Use these steps to prepare before you request a change of major from another USF college into a Bellini College program."
+      planningItems={currentUsfRecommendedNextSteps}
+      planningReminder="Reminder: this dashboard helps you prepare for advising. Bellini College and official USF systems must confirm eligibility, degree requirements, credit applicability, and whether the switch can fit your timeline."
     />
   );
 }

@@ -485,7 +485,11 @@ function DashboardTemplate({
           <h2>The following tools are there to help you</h2>
         </div>
 
-        <div className="dashboard-major-cards dashboard-tool-grid">
+        <div
+          className={`dashboard-major-cards dashboard-tool-grid${
+            blankAfterSecondaryToolCards ? ' dashboard-tool-grid-balanced' : ''
+          }`}
+        >
           {blankToolCards || blankRemainingToolCards || blankAfterSecondaryToolCards ? (
             Array.from({
               length: blankAfterSecondaryToolCards

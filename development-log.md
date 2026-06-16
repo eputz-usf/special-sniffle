@@ -287,16 +287,23 @@
 - Added the Bellini student profile and transcript upload flow, including profile persistence, transcript document handling, and a dashboard link back to transcript extraction.
 - Added the Course Overlap Planner with an all-majors index, placeholder pages for future PDFs, local completed-course checkboxes, progress tracking, transcript-upload links, and advising reminders.
 - Improved the course-overlap checklist UI by grouping courses into requirement areas, adding completed counts per group, aligning code/title/credit columns, reducing excessive gaps, and adding mobile-friendly row behavior.
-- Added ready course-overlap checklists for:
-  - Computer Science
-  - Artificial Intelligence
-  - Cybersecurity
-  - Computer Science and Engineering
-  - Information Technology
-  - Computer Science and Criminology
-  - Computer Science and Interdisciplinary Social Sciences
+- Added ready course-overlap checklists 
 - Updated the Bellini student Supabase schema with profile tables and quiz session/response/result tables, including anonymous prototype grants and RLS policies.
 - Verified the final course-overlap and Bellini dashboard changes with targeted ESLint checks and repeated `npm run build` runs.
+
+
+## Update 28: Current Bellini Major-Change Refinements
+
+**Date:** June 16, 2026
+
+- Updated the Current USF and Current Bellini major-change guide gateway sections with clearer GPA, grading, attempt, and S/U grade requirements.
+- Cleaned up the Course Overlap Planner index by removing readiness/status summary cards, removing card-level course-list status labels, and replacing direct four-year-plan PDF buttons with links to each major's Flowcharts, Plans, and Electives section.
+- Updated the Course Overlap detail page so the Flowcharts, Plans, and Electives action opens in a new tab.
+- Added a printable checked-course report to every Course Overlap checklist, grouped by requirement-area section title, with a more visible print action at the bottom of the checklist.
+- Added a Current Bellini-only major-switch lens to the shared Degree Comparison page, showing what changes between two selected majors across focus, coursework direction, skills, course-overlap next steps, and advising questions.
+- Updated the Current Bellini Degree Explorer intro copy so Add to Compare points students toward the new switch-impact comparison.
+- Reworked the Current Bellini dashboard planning section into a compact Next Steps section for comparing paths, checking overlap, reviewing requirements, and meeting with advising.
+- Verified the updates with repeated `npm run build` runs.
 
 
 ## What I Will Focus On Next

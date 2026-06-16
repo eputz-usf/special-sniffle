@@ -471,13 +471,6 @@ function TranscriptUpload() {
   }
 
   async function extractPdfWithSupabase(file: File) {
-    if (!isSupabaseConfigured()) {
-      setStatusMessage(
-        'Supabase is not configured in this environment. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY before using PDF extraction.',
-      );
-      return;
-    }
-
     if (file.size > MAX_PDF_SIZE_BYTES) {
       setStatusMessage('PDF files must be 10 MB or smaller for transcript extraction.');
       return;
@@ -485,39 +478,64 @@ function TranscriptUpload() {
 
     const safeFileName = file.name.replace(/[^a-z0-9._-]/gi, '-').toLowerCase();
     const storagePath = `pending/${crypto.randomUUID()}-${safeFileName}`;
+    let uploadWarning = '';
+    let uploadedDocument: PendingTranscriptDocument | null = null;
 
     setIsProcessingFile(true);
-    setStatusMessage('Uploading PDF to Supabase secure storage for extraction...');
+    setStatusMessage(
+      isSupabaseConfigured()
+        ? 'Uploading PDF to Supabase secure storage for extraction...'
+        : 'Extracting transcript text in your browser...',
+    );
     setPendingDocument(null);
 
     try {
-      const { error: uploadError } = await supabase.storage
-        .from(TRANSCRIPT_BUCKET)
-        .upload(storagePath, file, {
-          contentType: 'application/pdf',
-          upsert: false,
-        });
+      if (isSupabaseConfigured()) {
+        try {
+          const { error: uploadError } = await supabase.storage
+            .from(TRANSCRIPT_BUCKET)
+            .upload(storagePath, file, {
+              contentType: 'application/pdf',
+              upsert: false,
+            });
 
-      if (uploadError) {
-        throw new Error(uploadError.message);
+          if (uploadError) {
+            throw new Error(uploadError.message);
+          }
+
+          uploadedDocument = {
+            bucket: TRANSCRIPT_BUCKET,
+            path: storagePath,
+            fileName: file.name,
+          };
+          setStatusMessage('PDF uploaded. Extracting transcript text in your browser...');
+        } catch (error) {
+          uploadWarning =
+            error instanceof Error
+              ? ` Supabase upload failed, so the PDF cannot be saved to profile yet: ${error.message}`
+              : ' Supabase upload failed, so the PDF cannot be saved to profile yet.';
+          setStatusMessage('Supabase upload failed. Extracting transcript text locally...');
+        }
       }
-
-      setStatusMessage('PDF uploaded. Extracting transcript text in your browser...');
 
       const extractedText = await extractPdfTextInBrowser(file);
       const extractedCourses = mapRemoteCourses(parseTranscriptText(extractedText));
 
       setTranscriptText(extractedText);
       setCourses(extractedCourses);
-      setPendingDocument({
-        bucket: TRANSCRIPT_BUCKET,
-        path: storagePath,
-        fileName: file.name,
-      });
+      setPendingDocument(uploadedDocument);
       setStatusMessage(
         extractedCourses.length > 0
-          ? `Extracted ${extractedCourses.length} course rows from the PDF. Choose whether to save or delete the uploaded document.`
-          : 'PDF text was extracted, but no course rows were detected. Review the extracted text, then choose whether to save or delete the uploaded document.',
+          ? `Extracted ${extractedCourses.length} course rows from the PDF.${
+              uploadedDocument
+                ? ' Choose whether to save or delete the uploaded document.'
+                : uploadWarning
+            }`
+          : `PDF text was extracted, but no course rows were detected. Review the extracted text.${
+              uploadedDocument
+                ? ' Then choose whether to save or delete the uploaded document.'
+                : uploadWarning
+            }`,
       );
     } catch (error) {
       setStatusMessage(
@@ -797,7 +815,7 @@ function TranscriptUpload() {
           <p className="degrees-eyebrow">transcript tool</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/current-bellini-student"
+            to="/dashboard/current-bellini-student#majors"
           >
             Back to Dashboard
           </Link>

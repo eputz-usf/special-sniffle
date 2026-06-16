@@ -718,7 +718,7 @@ function CurrentUsfIntakeQuiz() {
       resultsPath="/current-usf/quiz/results"
       backLink={{
         label: 'Back to dashboard',
-        to: '/dashboard/current-usf-student',
+        to: '/dashboard/current-usf-student#intake-quiz',
       }}
     />
   );

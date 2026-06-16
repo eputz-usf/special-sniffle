@@ -79,7 +79,7 @@ function TransferReadinessGuide() {
           <p className="degrees-eyebrow">Transfer Pathway Guide</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/transfer-student"
+            to="/dashboard/transfer-student#majors"
           >
             Back to Dashboard
           </Link>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Epilogue:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Epilogue:wght@300;400;500;600;700&family=Saira:wght@300;400;500;600;700;800&display=swap");
 
 * {
   box-sizing: border-box;
@@ -13,8 +13,16 @@ body {
   color: #19202b;
 }
 
+p {
+  font-family: "Saira", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
 .site-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
@@ -33,7 +41,14 @@ body {
   color: #ffffff;
 }
 
+.site-header.site-header-with-section-nav {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  flex-wrap: nowrap;
+}
+
 .site-logo {
+  flex: 0 0 auto;
   color: #111421;
   font-family: "Anton", Impact, sans-serif;
   font-size: clamp(20px, 4vw, 30px);
@@ -43,8 +58,73 @@ body {
   text-transform: uppercase;
 }
 
+.site-section-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 26px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 8px 12px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+nav.site-section-nav {
+  flex-wrap: nowrap;
+}
+
+.site-section-nav::-webkit-scrollbar {
+  height: 8px;
+}
+
+.site-section-nav::-webkit-scrollbar-track {
+  background-color: rgba(8, 98, 66, 0.08);
+}
+
+.site-section-nav::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background-color: rgba(8, 98, 66, 0.42);
+}
+
+.site-section-nav a {
+  position: relative;
+  flex: 0 0 auto;
+  color: #086242;
+  font-size: 18px;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-section-nav a:hover,
+.site-section-nav a:focus-visible {
+  text-decoration: none;
+}
+
+.site-section-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  background-color: #086242;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+
+.site-section-nav a:hover::after,
+.site-section-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
 .usf-logo {
   display: block;
+  flex: 0 0 auto;
   width: 110px;
   height: auto;
   object-fit: contain;
@@ -476,6 +556,22 @@ form > button[type="submit"] {
   .site-header {
     align-items: center;
     padding: 18px 24px;
+  }
+
+  .site-header.site-header-with-section-nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .site-section-nav {
+    order: 3;
+    flex-basis: 100%;
+    gap: 22px;
+    padding: 2px 0 0;
+  }
+
+  .site-section-nav a {
+    font-size: 16px;
   }
 
   .usf-logo {

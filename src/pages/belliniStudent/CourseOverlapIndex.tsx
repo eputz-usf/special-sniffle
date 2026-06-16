@@ -2,6 +2,14 @@ import { Link } from 'react-router-dom';
 import { belliniCourseOverlapPlans } from '../../data/belliniCourseOverlapPlans';
 import '../../styles/degrees.css';
 
+const completedDegreePageSlugs = new Set([
+  'computer-science',
+  'computer-science-and-engineering',
+  'artificial-intelligence',
+  'cybersecurity',
+  'information-technology',
+]);
+
 function CourseOverlapIndex() {
   return (
     <main className="degrees-page course-overlap-page">
@@ -10,7 +18,7 @@ function CourseOverlapIndex() {
           <p className="degrees-eyebrow">Current Bellini student tool</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/current-bellini-student"
+            to="/dashboard/current-bellini-student#majors"
           >
             Back to Dashboard
           </Link>
@@ -31,16 +39,6 @@ function CourseOverlapIndex() {
 
       <section className="course-overlap-summary" aria-label="Planner status">
         <article>
-          <strong>
-            {belliniCourseOverlapPlans.filter((plan) => plan.planStatus === 'ready').length}
-          </strong>
-          <span>Bellini major course lists ready now</span>
-        </article>
-        <article>
-          <strong>PDF-based</strong>
-          <span>Course lists will be populated from official plans</span>
-        </article>
-        <article>
           <strong>Advising review</strong>
           <span>Overlap estimates still need Bellini confirmation</span>
         </article>
@@ -50,9 +48,6 @@ function CourseOverlapIndex() {
         {belliniCourseOverlapPlans.map((plan) => (
           <article className="course-overlap-card" key={plan.slug}>
             <div>
-              <p className="degree-category">
-                {plan.planStatus === 'ready' ? 'Course list ready' : 'PDF pending'}
-              </p>
               <h2>{plan.name}</h2>
               <p>{plan.focus}</p>
               <small>{plan.description}</small>
@@ -61,10 +56,12 @@ function CourseOverlapIndex() {
               <Link to={`/bellini-student/course-overlap/${plan.slug}`}>
                 Open checklist
               </Link>
-              {plan.sourceUrl && (
-                <a href={plan.sourceUrl} target="_blank" rel="noreferrer">
-                  View 4-year plan
-                </a>
+              {completedDegreePageSlugs.has(plan.slug) && (
+                <Link
+                  to={`/degrees/${plan.slug}?from=current-bellini-student#official-resources`}
+                >
+                  Flowcharts, plans, and electives
+                </Link>
               )}
             </div>
           </article>

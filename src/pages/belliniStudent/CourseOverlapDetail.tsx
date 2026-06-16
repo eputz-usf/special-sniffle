@@ -7,6 +7,13 @@ import {
 import '../../styles/degrees.css';
 
 const COURSE_OVERLAP_STORAGE_KEY = 'cic_bellini_course_overlap_completed';
+const completedDegreePageSlugs = new Set([
+  'computer-science',
+  'computer-science-and-engineering',
+  'artificial-intelligence',
+  'cybersecurity',
+  'information-technology',
+]);
 
 function loadCompletedCourseMap() {
   const saved = window.localStorage.getItem(COURSE_OVERLAP_STORAGE_KEY);
@@ -80,6 +87,14 @@ function CourseOverlapDetail() {
 
     return groups;
   }, []);
+  const completedCourseGroups = courseGroups
+    .map((group) => ({
+      ...group,
+      courses: group.courses.filter((course) =>
+        completedCourseIds.includes(course.id),
+      ),
+    }))
+    .filter((group) => group.courses.length > 0);
 
   function handleToggleCourse(courseId: string) {
     const nextCourseIds = completedCourseIds.includes(courseId)
@@ -92,6 +107,10 @@ function CourseOverlapDetail() {
 
     setCompletedCourseMap(nextCourseMap);
     saveCompletedCourseMap(nextCourseMap);
+  }
+
+  function handlePrintCheckedCourses() {
+    window.print();
   }
 
   return (
@@ -113,9 +132,13 @@ function CourseOverlapDetail() {
           into a course list.
         </p>
         <div className="degrees-hero-actions">
-          {activePlan.sourceUrl && (
-            <a href={activePlan.sourceUrl} target="_blank" rel="noreferrer">
-              View official 4-year plan
+          {completedDegreePageSlugs.has(activePlan.slug) && (
+            <a
+              href={`/degrees/${activePlan.slug}?from=current-bellini-student#official-resources`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Flowcharts, plans, and electives
             </a>
           )}
           <Link to="/bellini-student/transcript">Review transcript upload</Link>
@@ -148,61 +171,103 @@ function CourseOverlapDetail() {
       </section>
 
       <section className="course-overlap-checklist-section">
-        <div className="degrees-section-heading">
-          <p className="degrees-eyebrow">Course checklist</p>
-          <h2>Courses from the Four-Year Plan</h2>
+        <div className="course-overlap-section-heading">
+          <div className="degrees-section-heading">
+            <p className="degrees-eyebrow">Course checklist</p>
+            <h2>Courses from the Four-Year Plan</h2>
+          </div>
         </div>
 
+        <section
+          className="course-overlap-print-report"
+          aria-label="Printable checked course list"
+        >
+          <h2>{activePlan.name} Checked Courses</h2>
+          <p>
+            {completedCourseCount} of {totalCourseCount} course or requirement
+            rows checked off.
+          </p>
+
+          {completedCourseGroups.length > 0 ? (
+            completedCourseGroups.map((group) => (
+              <article key={group.category}>
+                <h3>{group.category}</h3>
+                <ul>
+                  {group.courses.map((course) => (
+                    <li key={course.id}>
+                      <strong>{course.code}</strong> {course.title}
+                      {course.credits ? ` (${course.credits} cr)` : ''}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          ) : (
+            <p>No courses have been checked off yet.</p>
+          )}
+        </section>
+
         {activePlan.courses.length > 0 ? (
-          <div className="course-overlap-checklist">
-            {courseGroups.map((group) => {
-              const completedInGroup = group.courses.filter((course) =>
-                completedCourseIds.includes(course.id),
-              ).length;
+          <>
+            <div className="course-overlap-checklist">
+              {courseGroups.map((group) => {
+                const completedInGroup = group.courses.filter((course) =>
+                  completedCourseIds.includes(course.id),
+                ).length;
 
-              return (
-                <article className="course-overlap-group" key={group.category}>
-                  <div className="course-overlap-group-heading">
-                    <div>
-                      <p className="degrees-eyebrow">Requirement area</p>
-                      <h3>{group.category}</h3>
+                return (
+                  <article className="course-overlap-group" key={group.category}>
+                    <div className="course-overlap-group-heading">
+                      <div>
+                        <p className="degrees-eyebrow">Requirement area</p>
+                        <h3>{group.category}</h3>
+                      </div>
+                      <span>
+                        {completedInGroup}/{group.courses.length} complete
+                      </span>
                     </div>
-                    <span>
-                      {completedInGroup}/{group.courses.length} complete
-                    </span>
-                  </div>
 
-                  <div className="course-overlap-group-list">
-                    {group.courses.map((course) => {
-                      const isCompleted = completedCourseIds.includes(course.id);
+                    <div className="course-overlap-group-list">
+                      {group.courses.map((course) => {
+                        const isCompleted = completedCourseIds.includes(course.id);
 
-                      return (
-                        <label
-                          className={`course-overlap-row${
-                            isCompleted ? ' completed' : ''
-                          }`}
-                          key={course.id}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={isCompleted}
-                            onChange={() => handleToggleCourse(course.id)}
-                          />
-                          <strong>{course.code}</strong>
-                          <span>{course.title}</span>
-                          {course.credits ? (
-                            <small>{course.credits} cr</small>
-                          ) : (
-                            <small aria-label="Credits not specified">TBD</small>
-                          )}
-                        </label>
-                      );
-                    })}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                        return (
+                          <label
+                            className={`course-overlap-row${
+                              isCompleted ? ' completed' : ''
+                            }`}
+                            key={course.id}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isCompleted}
+                              onChange={() => handleToggleCourse(course.id)}
+                            />
+                            <strong>{course.code}</strong>
+                            <span>{course.title}</span>
+                            {course.credits ? (
+                              <small>{course.credits} cr</small>
+                            ) : (
+                              <small aria-label="Credits not specified">TBD</small>
+                            )}
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+            <div className="course-overlap-print-actions">
+              <button
+                className="course-overlap-print-button"
+                type="button"
+                onClick={handlePrintCheckedCourses}
+              >
+                Print checked courses
+              </button>
+            </div>
+          </>
         ) : (
           <article className="course-overlap-placeholder">
             <h3>Course list placeholder</h3>

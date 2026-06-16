@@ -283,7 +283,7 @@ function HighSchoolIntakeQuiz() {
       resultsPath="/quiz/results"
       backLink={{
         label: 'Back to dashboard',
-        to: '/dashboard/prospective-student',
+        to: '/dashboard/prospective-student#intake-quiz',
       }}
     />
   );

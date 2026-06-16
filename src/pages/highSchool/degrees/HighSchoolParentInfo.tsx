@@ -74,7 +74,7 @@ function HighSchoolParentInfo() {
           <p className="degrees-eyebrow">Parent-friendly information</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/prospective-student"
+            to="/dashboard/prospective-student#toolbox"
           >
             Back to Dashboard
           </Link>

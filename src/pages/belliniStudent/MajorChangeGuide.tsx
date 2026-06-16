@@ -45,19 +45,64 @@ const guideTerms = [
 
 const gatewayRequirements = [
   {
-    title: 'Current Academic Standing',
-    text:
-      'Confirm your overall and institutional GPA, class standing, catalog year, and whether your target major has specific GPA or grade requirements. Do not estimate eligibility yourself; ask Bellini College to evaluate your record.',
+    title: 'GPA Requirements',
+    text: (
+      <div className="gateway-card-content">
+        <p>Students must have and maintain these minimum GPAs:</p>
+        <div className="gateway-gpa-grid">
+          <span>2.0 semester GPA</span>
+          <span>2.0 Math and Science GPA</span>
+          <span>2.0 major GPA</span>
+          <span>2.0 USF GPA</span>
+          <span>2.0 overall GPA</span>
+        </div>
+        <p className="gateway-card-note">
+          Business concentration progression also requires a 2.65 average GPA
+          in the Business Required Prerequisite Courses.
+        </p>
+      </div>
+    ),
   },
   {
-    title: 'Grades in Foundation Courses',
-    text:
-      'Review completed programming, calculus, statistics, discrete math, science, systems, networking, security, data, and hardware courses against the target major, with special attention to required minimum grades.',
+    title: 'Grading Requirements',
+    text: (
+      <div className="gateway-card-content">
+        <ul>
+          <li>
+            Minimum acceptable grade in major required courses is a C or higher
+            unless the course prerequisite or concentration information says
+            otherwise.
+          </li>
+          <li>C- is insufficient.</li>
+          <li>
+            Use the USF Course Inventory to confirm course-specific
+            prerequisites.
+          </li>
+        </ul>
+      </div>
+    ),
+    buttonLabel: 'Open USF Course Inventory',
+    buttonHref: 'https://cloud.usf.edu/academic-programs/course-inventory',
   },
   {
-    title: 'Sequencing, Attempts, and Time',
-    text:
-      'Check whether any required courses have attempt limits, minimum grades, or prerequisite chains that could delay your first semester in the new major or change your expected graduation term.',
+    title: 'Attempts, Grades, and Time',
+    text: (
+      <div className="gateway-card-content">
+        <ul>
+          <li>
+            Required grades must be earned in no more than two registered
+            attempts.
+          </li>
+          <li>Grades of W, IF, U, and R count as attempts.</li>
+          <li>S/U grades are not permitted in the major or concentration.</li>
+        </ul>
+        <p className="gateway-card-note">
+          Repeated, missing, or low-grade courses can change your timeline. Have
+          Bellini College evaluate your case before assuming the switch is
+          possible or timely.
+        </p>
+      </div>
+    ),
   },
 ];
 
@@ -93,7 +138,7 @@ function BelliniStudentMajorChangeGuide() {
           <p className="degrees-eyebrow">Current Bellini guide</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/current-bellini-student"
+            to="/dashboard/current-bellini-student#majors"
           >
             Back to Dashboard
           </Link>
@@ -106,7 +151,7 @@ function BelliniStudentMajorChangeGuide() {
         </p>
       </section>
 
-      <section className="transfer-readiness-overview">
+      <section className="transfer-readiness-overview" id="overview">
         <div>
           <h2>What Major-Change Planning Means</h2>
           <p>
@@ -126,7 +171,7 @@ function BelliniStudentMajorChangeGuide() {
         </ol>
       </section>
 
-      <section className="transfer-term-section">
+      <section className="transfer-term-section" id="terms">
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Major-change terms</p>
           <h2>Know These Before You Start the Checklist</h2>
@@ -142,7 +187,10 @@ function BelliniStudentMajorChangeGuide() {
         </div>
       </section>
 
-      <section className="transfer-major-requirements-callout current-usf-step-one-callout">
+      <section
+        className="transfer-major-requirements-callout current-usf-step-one-callout"
+        id="checklist"
+      >
         <div>
           <h2>Checklist</h2>
           <p>
@@ -171,7 +219,7 @@ function BelliniStudentMajorChangeGuide() {
       >
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Step 1</p>
-          <h2>Academic Requirements, Grades, and Time</h2>
+          <h2>Gateway Requirements, Grades, and Time</h2>
         </div>
 
         <div className="transfer-term-grid">
@@ -181,13 +229,26 @@ function BelliniStudentMajorChangeGuide() {
               key={item.title}
             >
               <h3>{item.title}</h3>
-              <p>{item.text}</p>
+              {item.text}
+              {item.buttonHref && (
+                <a
+                  className="current-usf-card-button"
+                  href={item.buttonHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {item.buttonLabel}
+                </a>
+              )}
             </article>
           ))}
         </div>
       </section>
 
-      <section className="transfer-term-section current-usf-step-one-resources">
+      <section
+        className="transfer-term-section current-usf-step-one-resources"
+        id="requirement-resources"
+      >
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Step 1 resources</p>
           <h2 className="current-usf-resource-heading">
@@ -211,7 +272,10 @@ function BelliniStudentMajorChangeGuide() {
         </div>
       </section>
 
-      <section className="transfer-readiness-next current-usf-step-two-section">
+      <section
+        className="transfer-readiness-next current-usf-step-two-section"
+        id="canvas"
+      >
         <p className="degrees-eyebrow">Step 2</p>
         <h2>Access the Bellini Student Portal on Canvas</h2>
         <p>
@@ -221,7 +285,7 @@ function BelliniStudentMajorChangeGuide() {
         </p>
         <a
           className="current-usf-canvas-button current-usf-form-button"
-          href="https://www.google.com/search?q=https://canvas.usf.edu"
+          href="https://www.usf.edu/innovative-education/digital-learning/student-resources/tools-and-technologies/canvas.aspx"
           target="_blank"
           rel="noreferrer"
         >
@@ -229,7 +293,10 @@ function BelliniStudentMajorChangeGuide() {
         </a>
       </section>
 
-      <section className="transfer-term-section current-usf-step-three-section">
+      <section
+        className="transfer-term-section current-usf-step-three-section"
+        id="advising-evaluation"
+      >
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Step 3</p>
           <h2>Have Your Case Evaluated by Bellini Advising</h2>
@@ -283,7 +350,10 @@ function BelliniStudentMajorChangeGuide() {
         </div>
       </section>
 
-      <section className="transfer-readiness-next current-usf-step-four-section">
+      <section
+        className="transfer-readiness-next current-usf-step-four-section"
+        id="change-form"
+      >
         <p className="degrees-eyebrow">Step 4</p>
         <h2>Submit the Change of Major Form</h2>
         <p>
@@ -313,7 +383,7 @@ function BelliniStudentMajorChangeGuide() {
           </a>
           <a
             className="current-usf-canvas-button current-usf-form-button"
-            href="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/advising-support.aspx"
+            href="https://usf.az1.qualtrics.com/jfe/form/SV_6sqUrIAJnCr9YI6"
             target="_blank"
             rel="noreferrer"
           >
@@ -322,7 +392,10 @@ function BelliniStudentMajorChangeGuide() {
         </div>
       </section>
 
-      <section className="transfer-term-section current-usf-final-resources">
+      <section
+        className="transfer-term-section current-usf-final-resources"
+        id="progression-tools"
+      >
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Additional resources</p>
           <h2>Review Degree Progression Tools</h2>
@@ -345,16 +418,18 @@ function BelliniStudentMajorChangeGuide() {
           >
             Degree Works
           </a>
-          <Link
+          <a
             className="current-usf-canvas-button"
-            to="/degrees?from=current-bellini-student"
+            href="/degrees?from=current-bellini-student"
+            target="_blank"
+            rel="noreferrer"
           >
             Explore Degree Info
-          </Link>
+          </a>
         </div>
       </section>
 
-      <section className="transfer-contact-section">
+      <section className="transfer-contact-section" id="contact">
         <p className="degrees-eyebrow">University of South Florida</p>
         <h2>Contact Us</h2>
         <div className="transfer-contact-grid">

@@ -54,19 +54,64 @@ const guideTerms = [
 
 const gatewayRequirements = [
   {
-    title: 'Minimum Entry GPA',
-    text:
-      'You must hold the required overall and institutional USF GPA for the target major. Do not estimate this yourself from memory; ask Bellini College to evaluate your record and confirm whether your grades meet the current standard.',
+    title: 'GPA Requirements',
+    text: (
+      <div className="gateway-card-content">
+        <p>Students must have and maintain these minimum GPAs:</p>
+        <div className="gateway-gpa-grid">
+          <span>2.0 semester GPA</span>
+          <span>2.0 Math and Science GPA</span>
+          <span>2.0 major GPA</span>
+          <span>2.0 USF GPA</span>
+          <span>2.0 overall GPA</span>
+        </div>
+        <p className="gateway-card-note">
+          Business concentration progression also requires a 2.65 average GPA
+          in the Business Required Prerequisite Courses.
+        </p>
+      </div>
+    ),
   },
   {
-    title: 'Calculus and Programming Track',
-    text:
-      'You may need completed or in-progress foundational coursework with a required minimum grade, often a C or higher. Depending on the target major, this can include Calculus I and II, Physics I with Lab for engineering tracks, and Intro to Programming Concepts.',
+    title: 'Grading Requirements',
+    text: (
+      <div className="gateway-card-content">
+        <ul>
+          <li>
+            Minimum acceptable grade in major required courses is a C or higher
+            unless the course prerequisite or concentration information says
+            otherwise.
+          </li>
+          <li>C- is insufficient.</li>
+          <li>
+            Use the USF Course Inventory to confirm course-specific
+            prerequisites.
+          </li>
+        </ul>
+      </div>
+    ),
+    buttonLabel: 'Open USF Course Inventory',
+    buttonHref: 'https://cloud.usf.edu/academic-programs/course-inventory',
   },
   {
-    title: 'Course Attempts, Grades, and Time',
-    text:
-      'Gateway courses can have minimum grade rules and attempt limits. A repeated, missing, or low-grade course can also change your timeline, so have the college evaluate your case before assuming the switch is possible or timely.',
+    title: 'Attempts, Grades, and Time',
+    text: (
+      <div className="gateway-card-content">
+        <ul>
+          <li>
+            Required grades must be earned in no more than two registered
+            attempts.
+          </li>
+          <li>Grades of W, IF, U, and R count as attempts.</li>
+          <li>S/U grades are not permitted in the major or concentration.</li>
+        </ul>
+        <p className="gateway-card-note">
+          Repeated, missing, or low-grade courses can change your timeline. Have
+          Bellini College evaluate your case before assuming the switch is
+          possible or timely.
+        </p>
+      </div>
+    ),
   },
 ];
 
@@ -102,7 +147,7 @@ function CurrentUsfReadinessGuide() {
           <p className="degrees-eyebrow">Current USF guide</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/current-usf-student"
+            to="/dashboard/current-usf-student#majors"
           >
             Back to Dashboard
           </Link>
@@ -115,7 +160,7 @@ function CurrentUsfReadinessGuide() {
         </p>
       </section>
 
-      <section className="transfer-readiness-overview">
+      <section className="transfer-readiness-overview" id="overview">
         <div>
           <h2>What Switching Planning Means</h2>
           <p>
@@ -135,7 +180,7 @@ function CurrentUsfReadinessGuide() {
         </ol>
       </section>
 
-      <section className="transfer-term-section">
+      <section className="transfer-term-section" id="terms">
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Switching terms</p>
           <h2>Know These Before You Start the Checklist</h2>
@@ -151,7 +196,10 @@ function CurrentUsfReadinessGuide() {
         </div>
       </section>
 
-      <section className="transfer-major-requirements-callout current-usf-step-one-callout">
+      <section
+        className="transfer-major-requirements-callout current-usf-step-one-callout"
+        id="checklist"
+      >
         <div>
           <h2>Checklist</h2>
           <p>
@@ -190,13 +238,26 @@ function CurrentUsfReadinessGuide() {
               key={item.title}
             >
               <h3>{item.title}</h3>
-              <p>{item.text}</p>
+              {item.text}
+              {item.buttonHref && (
+                <a
+                  className="current-usf-card-button"
+                  href={item.buttonHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {item.buttonLabel}
+                </a>
+              )}
             </article>
           ))}
         </div>
       </section>
 
-      <section className="transfer-term-section current-usf-step-one-resources">
+      <section
+        className="transfer-term-section current-usf-step-one-resources"
+        id="requirement-resources"
+      >
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Step 1 resources</p>
           <h2 className="current-usf-resource-heading">
@@ -220,7 +281,10 @@ function CurrentUsfReadinessGuide() {
         </div>
       </section>
 
-      <section className="transfer-readiness-next current-usf-step-two-section">
+      <section
+        className="transfer-readiness-next current-usf-step-two-section"
+        id="canvas"
+      >
         <p className="degrees-eyebrow">Step 2</p>
         <h2>Access the Bellini Student Portal on Canvas</h2>
         <p>
@@ -231,7 +295,7 @@ function CurrentUsfReadinessGuide() {
         </p>
         <a
           className="current-usf-canvas-button current-usf-form-button"
-          href="https://www.google.com/search?q=https://canvas.usf.edu"
+          href="https://www.usf.edu/innovative-education/digital-learning/student-resources/tools-and-technologies/canvas.aspx"
           target="_blank"
           rel="noreferrer"
         >
@@ -239,7 +303,10 @@ function CurrentUsfReadinessGuide() {
         </a>
       </section>
 
-      <section className="transfer-term-section current-usf-step-three-section">
+      <section
+        className="transfer-term-section current-usf-step-three-section"
+        id="advising-evaluation"
+      >
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Step 3</p>
           <h2>Have Your Case Evaluated by Bellini Advising</h2>
@@ -294,7 +361,10 @@ function CurrentUsfReadinessGuide() {
         </div>
       </section>
 
-      <section className="transfer-readiness-next current-usf-step-four-section">
+      <section
+        className="transfer-readiness-next current-usf-step-four-section"
+        id="change-form"
+      >
         <p className="degrees-eyebrow">Step 4</p>
         <h2>Submit the Change of Major Form</h2>
         <p>
@@ -324,7 +394,7 @@ function CurrentUsfReadinessGuide() {
           </a>
           <a
             className="current-usf-canvas-button current-usf-form-button"
-            href="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/advising-support.aspx"
+            href="https://usf.az1.qualtrics.com/jfe/form/SV_6sqUrIAJnCr9YI6"
             target="_blank"
             rel="noreferrer"
           >
@@ -333,7 +403,10 @@ function CurrentUsfReadinessGuide() {
         </div>
       </section>
 
-      <section className="transfer-term-section current-usf-final-resources">
+      <section
+        className="transfer-term-section current-usf-final-resources"
+        id="progression-tools"
+      >
         <div className="degrees-section-heading">
           <p className="degrees-eyebrow">Additional resources</p>
           <h2>Review Degree Progression Tools</h2>
@@ -356,16 +429,18 @@ function CurrentUsfReadinessGuide() {
           >
             Degree Works
           </a>
-          <Link
+          <a
             className="current-usf-canvas-button"
-            to="/degrees?from=current-usf-student"
+            href="/degrees?from=current-usf-student"
+            target="_blank"
+            rel="noreferrer"
           >
             Explore Degree Info
-          </Link>
+          </a>
         </div>
       </section>
 
-      <section className="transfer-contact-section">
+      <section className="transfer-contact-section" id="contact">
         <p className="degrees-eyebrow">University of South Florida</p>
         <h2>Contact Us</h2>
         <div className="transfer-contact-grid">

@@ -161,7 +161,10 @@ function CurrentUsfQuizResults() {
   return (
     <main className="quiz-page">
       <section className="quiz-shell" aria-labelledby="quiz-results-title">
-        <Link className="quiz-back-link" to="/dashboard/current-usf-student">
+        <Link
+          className="quiz-back-link"
+          to="/dashboard/current-usf-student#intake-quiz"
+        >
           Back to dashboard
         </Link>
 

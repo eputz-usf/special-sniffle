@@ -13,6 +13,7 @@ import { supabase } from '../../lib/supabaseClient';
 import type { UserType } from '../../types/user';
 import { getSavedUserType } from '../../utils/auth';
 import { getDashboardRoute, userTypeOptions } from '../../utils/userTypes';
+import { loadBelliniStudentQuizResult } from './quiz/belliniStudentQuizSession';
 import {
   loadBelliniStudentProfileMajors,
   removeBelliniStudentProfileMajor,
@@ -106,6 +107,7 @@ function Profile() {
   const [profileSession] = useState(getOrCreateBelliniStudentProfileSession);
   const [savedUserType, setSavedUserType] = useState<UserType | null>(null);
   const [profile, setProfile] = useState(loadBelliniStudentProfile);
+  const [quizResult] = useState(loadBelliniStudentQuizResult);
   const [savedProfileMajors, setSavedProfileMajors] = useState(() =>
     loadBelliniStudentProfileMajors(),
   );
@@ -123,6 +125,10 @@ function Profile() {
     (option) => option.id === savedUserType,
   );
   const dashboardRoute = savedUserType ? getDashboardRoute(savedUserType) : '';
+  const dashboardBackRoute =
+    savedUserType === 'current-bellini-student'
+      ? `${dashboardRoute || '/dashboard/current-bellini-student'}#majors`
+      : dashboardRoute || '/dashboard/current-bellini-student#majors';
 
   useEffect(() => {
     async function loadProfile() {
@@ -473,7 +479,7 @@ function Profile() {
           <p className="degrees-eyebrow">Current Bellini College student profile</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to={dashboardRoute || '/dashboard/current-bellini-student'}
+            to={dashboardBackRoute}
           >
             Back to Dashboard
           </Link>
@@ -696,9 +702,24 @@ function Profile() {
               <section className="current-usf-quiz-recommendations-placeholder">
                 <p className="transition-report-kicker">Quiz recommendations</p>
                 <h2>Recommendations Added from Quiz</h2>
-                <p className="transition-planner-empty">
-                  The Bellini student intake quiz is not available yet.
-                </p>
+                {quizResult?.recommendedDegrees.length ? (
+                  <ul className="transition-report-program-list">
+                    {quizResult.recommendedDegrees.slice(0, 3).map((degree) => (
+                      <li key={degree}>
+                        <span>{degree}</span>
+                        <small className="current-usf-match-badge">
+                          <strong>{quizResult.matchPercentages[degree] ?? 0}%</strong>
+                          <span>match</span>
+                        </small>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="transition-planner-empty">
+                    Complete the Bellini student intake quiz to see
+                    recommendation results here.
+                  </p>
+                )}
               </section>
             </article>
 

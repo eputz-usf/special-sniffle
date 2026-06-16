@@ -318,7 +318,7 @@ function HighSchoolTransitionPlanner() {
           <p className="degrees-eyebrow">Admissions and transition planner</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/prospective-student"
+            to="/dashboard/prospective-student#toolbox"
           >
             Back to Dashboard
           </Link>

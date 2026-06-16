@@ -41,9 +41,9 @@ const completedDegreePages = new Set([
 ]);
 
 const dashboardRoutesBySource = {
-  'current-usf-student': '/dashboard/current-usf-student',
-  'current-bellini-student': '/dashboard/current-bellini-student',
-  'transfer-student': '/dashboard/transfer-student',
+  'current-usf-student': '/dashboard/current-usf-student#majors',
+  'current-bellini-student': '/dashboard/current-bellini-student#majors',
+  'transfer-student': '/dashboard/transfer-student#majors',
 } as const;
 
 function DegreeInformation() {
@@ -60,7 +60,7 @@ function DegreeInformation() {
       ? dashboardRoutesBySource[
           sourceDashboard as keyof typeof dashboardRoutesBySource
         ]
-      : '/dashboard/transfer-student';
+      : '/dashboard/transfer-student#majors';
   const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>(
     'All',
   );
@@ -203,8 +203,11 @@ function DegreeInformation() {
           or advising.
         </p>
         <p>
-          Use Add to Compare for a side-by-side review, or save programs to your
-          {isProfileSource ? ' profile.' : ' transfer planner.'}
+          {isBelliniStudentSource
+            ? 'Use Add to Compare to see what may change if you switch between two Bellini majors, including focus, coursework direction, skills, advising questions, and course-overlap next steps. You can also save programs to your profile.'
+            : `Use Add to Compare for a side-by-side review, or save programs to your ${
+                isProfileSource ? 'profile.' : 'transfer planner.'
+              }`}
         </p>
       </section>
 

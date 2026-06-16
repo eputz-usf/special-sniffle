@@ -37,9 +37,11 @@ const belliniStudentIntakeQuestions: QuizQuestion[] = [
   {
     id: 'bellini-considering-major',
     eyebrow: 'Possible destination',
-    question: 'Which major or area are you considering now?',
+    question: 'Which majors or areas are you considering now?',
     helperText:
-      'Pick the closest option. You can still compare several programs in the results.',
+      'Choose up to 4 options. You can still compare several programs in the results.',
+    selectionMode: 'multiple',
+    maxSelections: 4,
     answers: [
       { id: 'considering-computer-science', label: 'Computer Science', description: 'You want to compare CS as a possible destination.', icon: 'code' },
       { id: 'considering-artificial-intelligence', label: 'Artificial Intelligence', description: 'You want to compare AI as a possible destination.', icon: 'brain' },
@@ -53,9 +55,11 @@ const belliniStudentIntakeQuestions: QuizQuestion[] = [
   {
     id: 'bellini-switch-reason',
     eyebrow: 'Reason for comparing',
-    question: 'What is the main reason you are thinking about switching or comparing majors?',
+    question: 'What reasons are making you think about switching or comparing majors?',
     helperText:
-      'This helps separate interest fit from requirements, grades, and timeline concerns.',
+      'Choose up to 4 reasons. This helps separate interest fit from requirements, grades, and timeline concerns.',
+    selectionMode: 'multiple',
+    maxSelections: 4,
     answers: [
       { id: 'reason-another-field', label: 'I am more interested in another computing field', description: 'Your interests are shifting within computing.', icon: 'lightbulb' },
       { id: 'reason-career-goals', label: 'My current major does not match my career goals', description: 'You want the major to connect better to your target career.', icon: 'briefcase' },
@@ -125,8 +129,10 @@ const belliniStudentIntakeQuestions: QuizQuestion[] = [
   {
     id: 'bellini-career-direction',
     eyebrow: 'Career direction',
-    question: 'Which career direction sounds most appealing to you right now?',
-    helperText: 'Pick the closest career direction even if you are still exploring.',
+    question: 'Which career directions sound most appealing to you right now?',
+    helperText: 'Choose up to 4 career directions even if you are still exploring.',
+    selectionMode: 'multiple',
+    maxSelections: 4,
     answers: [
       { id: 'career-software-engineer', label: 'Software engineer or app developer', description: 'You want to build software, apps, or systems.', icon: 'code' },
       { id: 'career-ai-ml', label: 'AI or machine learning specialist', description: 'You want to work with models, AI systems, or automation.', icon: 'brain' },
@@ -141,9 +147,11 @@ const belliniStudentIntakeQuestions: QuizQuestion[] = [
   {
     id: 'bellini-technical-comfort',
     eyebrow: 'Technical comfort',
-    question: 'How comfortable do you feel with the technical demands of your current major?',
+    question: 'How would you describe your comfort with the technical demands of your current major?',
     helperText:
-      'This helps the results distinguish fit concerns from normal course difficulty.',
+      'Choose up to 4 options. This helps the results distinguish fit concerns from normal course difficulty.',
+    selectionMode: 'multiple',
+    maxSelections: 4,
     answers: [
       { id: 'comfort-programming-math', label: 'Very comfortable with programming and math', description: 'You feel strong in the core technical demands.', icon: 'code' },
       { id: 'comfort-programming-less-math', label: 'Comfortable with programming, but less comfortable with math', description: 'Coding fits better than math-heavy work.', icon: 'code' },
@@ -158,7 +166,9 @@ const belliniStudentIntakeQuestions: QuizQuestion[] = [
     id: 'bellini-decision-priority',
     eyebrow: 'Decision priority',
     question: 'What matters most when deciding whether to switch?',
-    helperText: 'Choose the factor that should carry the most weight.',
+    helperText: 'Choose up to 4 factors that should carry the most weight.',
+    selectionMode: 'multiple',
+    maxSelections: 4,
     answers: [
       { id: 'decision-career-fit', label: 'Better career fit', description: 'You want the major to align with your work goals.', icon: 'briefcase' },
       { id: 'decision-personal-interest', label: 'Stronger personal interest', description: 'You want the subject to feel more engaging.', icon: 'lightbulb' },
@@ -298,7 +308,7 @@ function BelliniStudentIntakeQuiz() {
       resultsPath="/bellini-student/quiz/results"
       backLink={{
         label: 'Back to dashboard',
-        to: '/dashboard/current-bellini-student',
+        to: '/dashboard/current-bellini-student#intake-quiz',
       }}
     />
   );

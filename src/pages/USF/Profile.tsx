@@ -125,6 +125,10 @@ function Profile() {
     (option) => option.id === savedUserType,
   );
   const dashboardRoute = savedUserType ? getDashboardRoute(savedUserType) : '';
+  const dashboardBackRoute =
+    savedUserType === 'current-usf-student'
+      ? `${dashboardRoute || '/dashboard/current-usf-student'}#majors`
+      : dashboardRoute || '/dashboard/current-usf-student#majors';
 
   useEffect(() => {
     async function loadProfile() {
@@ -476,7 +480,7 @@ function Profile() {
           <p className="degrees-eyebrow">Current USF student profile</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to={dashboardRoute || '/dashboard/current-usf-student'}
+            to={dashboardBackRoute}
           >
             Back to Dashboard
           </Link>

@@ -26,11 +26,15 @@ type BelliniStudentNextStepAction = {
 const belliniStudentNextStepActions: BelliniStudentNextStepAction[] = [
   {
     id: 'compare-requirements',
-    triggerIds: ['help-compare-requirements', 'switch-compare-requirements'],
+    triggerIds: [
+      'help-compare-requirements',
+      'switch-open-either',
+      'switch-compare-requirements',
+    ],
     label: 'Compare Bellini majors',
     to: '/degrees?from=current-bellini-student',
     reason:
-      'because you said you need to compare Bellini major requirements before deciding.',
+      'because you said you need to compare Bellini major options or requirements before deciding.',
   },
   {
     id: 'course-overlap',
@@ -46,13 +50,15 @@ const belliniStudentNextStepActions: BelliniStudentNextStepAction[] = [
       'help-graduation-impact',
       'reason-graduation-timeline',
       'decision-shorter-timeline',
+      'switch-want-switch',
+      'help-next-steps',
       'timeline-third-year',
       'timeline-fourth-year-plus',
     ],
     label: 'Open major change guide',
     to: '/bellini-student/major-change-guide',
     reason:
-      'because timeline, grades, and the four-year completion rule need official Bellini evaluation.',
+      'because a formal switch, timeline, grades, and the four-year completion rule need official Bellini evaluation.',
     tone: 'danger',
   },
   {
@@ -73,11 +79,15 @@ const belliniStudentNextStepActions: BelliniStudentNextStepAction[] = [
   },
   {
     id: 'advisor-questions',
-    triggerIds: ['help-advisor-questions', 'help-next-steps', 'help-planning-report'],
+    triggerIds: [
+      'help-advisor-questions',
+      'help-planning-report',
+      'switch-not-sure',
+    ],
     label: 'Open profile',
     to: '/bellini-student/profile',
     reason:
-      'because you said you want advisor questions, next steps, or a planning report.',
+      'because you said you want advisor questions, next steps, a planning report, or help organizing an uncertain choice.',
   },
 ];
 
@@ -185,7 +195,10 @@ function BelliniStudentQuizResults() {
   return (
     <main className="quiz-page">
       <section className="quiz-shell" aria-labelledby="quiz-results-title">
-        <Link className="quiz-back-link" to="/dashboard/current-bellini-student">
+        <Link
+          className="quiz-back-link"
+          to="/dashboard/current-bellini-student#intake-quiz"
+        >
           Back to dashboard
         </Link>
 

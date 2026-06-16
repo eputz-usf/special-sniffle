@@ -416,6 +416,10 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.dashboard-tool-grid-balanced {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .dashboard-tool-grid .dashboard-major-card {
   grid-template-rows: 30px minmax(96px, auto) 1fr;
   min-height: 320px;

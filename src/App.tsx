@@ -43,11 +43,38 @@ import TransferIntakeQuiz from './pages/transfer/quiz/TransferIntakeQuiz';
 import TransferQuizResults from './pages/transfer/quiz/TransferQuizResults';
 import usfLogo from './assets/usflogo.png';
 
+const guideHeaderLinks = [
+  { href: '#overview', label: 'Overview' },
+  { href: '#terms', label: 'Terms' },
+  { href: '#checklist', label: 'Checklist' },
+  { href: '#gateway-requirements', label: 'Requirements' },
+  { href: '#requirement-resources', label: 'Resources' },
+  { href: '#canvas', label: 'Canvas' },
+  { href: '#advising-evaluation', label: 'Advising' },
+  { href: '#change-form', label: 'Change Form' },
+  { href: '#progression-tools', label: 'Tools' },
+  { href: '#contact', label: 'Contact' },
+];
+
+const condensedGuideHeaderLinks = guideHeaderLinks.filter(
+  (link) =>
+    !['#terms', '#canvas', '#advising-evaluation', '#progression-tools'].includes(
+      link.href,
+    ),
+);
+
 function App() {
   const location = useLocation();
   const isSelectingUserType =
     location.pathname === '/' || location.pathname === '/select-user-type';
   const isDashboard = location.pathname.startsWith('/dashboard');
+  const hasGuideSectionNav =
+    location.pathname === '/bellini-student/major-change-guide' ||
+    location.pathname === '/current-usf/readiness-guide';
+  const activeGuideHeaderLinks =
+    hasGuideSectionNav
+      ? condensedGuideHeaderLinks
+      : guideHeaderLinks;
 
   useEffect(() => {
     if (location.hash) {
@@ -66,11 +93,29 @@ function App() {
     <>
       {!isDashboard && (
         <header
-          className={`site-header${isSelectingUserType ? ' user-select-header' : ''}`}
+          className={`site-header${isSelectingUserType ? ' user-select-header' : ''}${
+            hasGuideSectionNav ? ' site-header-with-section-nav' : ''
+          }`}
         >
-          <Link className="site-logo" to="/">
-            CIC Support Platform
-          </Link>
+          {hasGuideSectionNav ? (
+            <span className="site-logo">Guide</span>
+          ) : (
+            <Link className="site-logo" to="/">
+              CIC Support Platform
+            </Link>
+          )}
+          {hasGuideSectionNav && (
+            <nav
+              className="site-section-nav"
+              aria-label="Guide sections"
+            >
+              {activeGuideHeaderLinks.map((link) => (
+                <a href={link.href} key={link.href}>
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          )}
           <img className="usf-logo" src={usfLogo} alt="USF logo" />
         </header>
       )}

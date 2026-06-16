@@ -113,7 +113,10 @@ function TransferQuizResults() {
   return (
     <main className="quiz-page">
       <section className="quiz-shell" aria-labelledby="quiz-results-title">
-        <Link className="quiz-back-link" to="/dashboard/transfer-student">
+        <Link
+          className="quiz-back-link"
+          to="/dashboard/transfer-student#intake-quiz"
+        >
           Back to dashboard
         </Link>
 

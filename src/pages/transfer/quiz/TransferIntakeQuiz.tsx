@@ -299,7 +299,7 @@ function TransferIntakeQuiz() {
       resultsPath="/transfer/quiz/results"
       backLink={{
         label: 'Back to dashboard',
-        to: '/dashboard/transfer-student',
+        to: '/dashboard/transfer-student#intake-quiz',
       }}
     />
   );

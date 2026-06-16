@@ -634,6 +634,51 @@
   margin-top: 28px;
 }
 
+.course-overlap-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: 1120px;
+  margin-bottom: 18px;
+}
+
+.course-overlap-print-button {
+  width: min(100%, 360px);
+  padding: 18px 24px;
+  border: 2px solid #086343;
+  border-radius: 14px;
+  background-color: #0a6f49;
+  color: #ffffff;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 16px 28px rgba(8, 99, 67, 0.22);
+}
+
+.course-overlap-print-button:hover,
+.course-overlap-print-button:focus-visible {
+  background-color: #ffffff;
+  color: #086343;
+}
+
+.course-overlap-print-actions {
+  display: flex;
+  justify-content: center;
+  max-width: 1120px;
+  margin-top: 24px;
+  padding: 22px;
+  border: 2px solid rgba(8, 99, 67, 0.18);
+  border-radius: 16px;
+  background-color: #f4faf2;
+}
+
+.course-overlap-print-report {
+  display: none;
+}
+
 .course-overlap-checklist {
   display: grid;
   gap: 18px;
@@ -1804,6 +1849,110 @@
   line-height: 1.5;
 }
 
+.major-switch-picture {
+  display: grid;
+  gap: 22px;
+  margin: 0 0 28px;
+  padding: 28px;
+  border: 2px solid rgba(8, 99, 67, 0.28);
+  border-radius: 18px;
+  background-color: #f4faf2;
+}
+
+.major-switch-picture h2 {
+  margin: 0;
+  color: #086343;
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: clamp(30px, 3.5vw, 44px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.major-switch-picture p {
+  margin: 10px 0 0;
+  color: #25352d;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.major-switch-path-grid,
+.major-switch-advising-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.major-switch-path-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.major-switch-advising-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.major-switch-path-card,
+.major-switch-advising-grid article {
+  padding: 20px;
+  border: 1px solid #d7ccb0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 12px 26px rgba(14, 38, 29, 0.08);
+}
+
+.major-switch-path-card h3,
+.major-switch-advising-grid h3 {
+  margin: 0;
+  color: #086343;
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.major-switch-path-card dl {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.major-switch-path-card dl div {
+  display: grid;
+  gap: 4px;
+  padding-top: 12px;
+  border-top: 1px solid #eee5cf;
+}
+
+.major-switch-path-card dt {
+  color: #8a4500;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.major-switch-path-card dd {
+  margin: 0;
+  color: #25352d;
+  line-height: 1.45;
+}
+
+.major-switch-path-card a {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 2px solid #086343;
+  border-radius: 14px;
+  background-color: #086343;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.major-switch-path-card a:hover,
+.major-switch-path-card a:focus-visible {
+  background-color: #ffffff;
+  color: #086343;
+}
+
 .degree-comparison-table {
   overflow: hidden;
   border: 2px solid #086343;
@@ -1905,7 +2054,9 @@
   .parent-info-grid,
   .course-overlap-summary,
   .course-overlap-grid,
-  .course-overlap-detail-grid {
+  .course-overlap-detail-grid,
+  .major-switch-path-grid,
+  .major-switch-advising-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1964,7 +2115,9 @@
   .parent-info-grid,
   .course-overlap-summary,
   .course-overlap-grid,
-  .course-overlap-detail-grid {
+  .course-overlap-detail-grid,
+  .major-switch-path-grid,
+  .major-switch-advising-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1982,6 +2135,11 @@
   }
 
   .course-overlap-group-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .course-overlap-section-heading {
     align-items: flex-start;
     flex-direction: column;
   }
@@ -2021,4 +2179,74 @@
     grid-template-columns: 1fr;
   }
 
+}
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+
+  .site-header,
+  .course-overlap-page > *:not(.course-overlap-checklist-section),
+  .course-overlap-section-heading,
+  .course-overlap-print-actions,
+  .course-overlap-checklist,
+  .course-overlap-placeholder {
+    display: none !important;
+  }
+
+  .course-overlap-page {
+    padding: 0;
+    background: #ffffff;
+  }
+
+  .course-overlap-checklist-section {
+    margin: 0;
+  }
+
+  .course-overlap-print-report {
+    display: block;
+    color: #111111;
+    font-family: Arial, sans-serif;
+  }
+
+  .course-overlap-print-report h2 {
+    margin: 0 0 8px;
+    color: #111111;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .course-overlap-print-report > p {
+    margin: 0 0 18px;
+    color: #333333;
+    font-size: 12px;
+  }
+
+  .course-overlap-print-report article {
+    margin: 0 0 18px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .course-overlap-print-report h3 {
+    margin: 0 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #111111;
+    color: #111111;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  .course-overlap-print-report ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .course-overlap-print-report li {
+    margin: 0 0 6px;
+    color: #111111;
+    font-size: 12px;
+    line-height: 1.35;
+  }
 }
