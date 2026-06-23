@@ -23,6 +23,11 @@ type BelliniStudentNextStepAction = {
   tone?: 'danger';
 };
 
+type BelliniStudentTimelineMessage = {
+  heading: string;
+  body: string;
+};
+
 const belliniStudentNextStepActions: BelliniStudentNextStepAction[] = [
   {
     id: 'compare-requirements',
@@ -91,6 +96,34 @@ const belliniStudentNextStepActions: BelliniStudentNextStepAction[] = [
   },
 ];
 
+const timelineMessagesByAnswerId: Record<string, BelliniStudentTimelineMessage> = {
+  'timeline-first-year': {
+    heading: 'You likely have the most room to compare options.',
+    body:
+      'Because you are early in the plan, use this stage to compare requirements, course sequences, and elective paths before filing any formal major-change paperwork.',
+  },
+  'timeline-second-year': {
+    heading: 'Course overlap should be checked before you decide.',
+    body:
+      'At the second-year or 30-59 credit stage, shared prerequisites and sequencing can make a major change more realistic, but advising should confirm what still counts.',
+  },
+  'timeline-third-year': {
+    heading: 'Your timeline needs a close advising review.',
+    body:
+      'At the third-year or 60-89 credit stage, a switch may add sequencing or graduation-timeline pressure. Bring your Degree Works audit and course history to Bellini advising.',
+  },
+  'timeline-fourth-year-plus': {
+    heading: 'A major switch may be difficult this late in the plan.',
+    body:
+      'Because you are near graduation or at 90+ credits, Bellini advising needs to confirm whether a switch can still satisfy requirements within the four-year completion rule.',
+  },
+  'timeline-not-sure': {
+    heading: 'Confirm your degree timeline before making a switch decision.',
+    body:
+      'If you are not sure where you are in the plan, check Degree Works and ask advising to review credits, remaining requirements, and whether a major change is still realistic.',
+  },
+};
+
 function getVisibleRecommendedDegrees(
   quizResult: SavedBelliniStudentQuizResult,
 ) {
@@ -150,6 +183,9 @@ function BelliniStudentQuizResults() {
   const selectedTimelineIds = normalizeAnswerIds(
     savedProgress.answersByQuestion['bellini-timeline-position'],
   );
+  const timelineMessage = selectedTimelineIds
+    .map((answerId) => timelineMessagesByAnswerId[answerId])
+    .find(Boolean);
   const selectedNextStepTriggerIds = [
     ...selectedDecisionHelpIds,
     ...selectedSwitchIds,
@@ -217,6 +253,12 @@ function BelliniStudentQuizResults() {
                 courses, repeated attempts, and whether the plan fits within
                 the four-year timeline.
               </p>
+              {timelineMessage && (
+                <section className="quiz-timeline-message">
+                  <h2>{timelineMessage.heading}</h2>
+                  <p>{timelineMessage.body}</p>
+                </section>
+              )}
               <section className="quiz-top-result">
                 <p>Top area to review</p>
                 <h2>{visibleTopMatch}</h2>

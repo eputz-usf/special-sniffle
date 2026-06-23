@@ -95,8 +95,18 @@ function getOfficialResources(degree: ComparableDegree) {
     ];
   }
 
+  const flowcharts =
+    degree.slug === 'computer-science'
+      ? degree.officialLinks?.flowcharts?.filter(
+          (resource) =>
+            !['2022-23 Flowchart', '2023-24 Flowchart', '2024-25 Flowchart'].includes(
+              resource.label,
+            ),
+        ) ?? []
+      : degree.officialLinks?.flowcharts ?? [];
+
   const resources = [
-    ...(degree.officialLinks?.flowcharts ?? []),
+    ...flowcharts,
     ...(degree.officialLinks?.plans ?? []),
   ];
 
@@ -336,13 +346,21 @@ function DegreeComparison() {
   const sourceDashboard = searchParams.get('from');
   const isBelliniStudentSource = sourceDashboard === 'current-bellini-student';
   const degreeSourceSuffix = sourceDashboard ? `?from=${sourceDashboard}` : '';
-  const degreeExplorerPath = `/degrees${degreeSourceSuffix}`;
   const firstDegree = getDegreeForComparison(
     searchParams.get('first') ?? undefined,
   );
   const secondDegree = getDegreeForComparison(
     searchParams.get('second') ?? undefined,
   );
+  const comparedInterdisciplinaryMajor =
+    (firstDegree && isFutureDegreeOption(firstDegree)) ||
+    (secondDegree && isFutureDegreeOption(secondDegree));
+  const degreeExplorerPath = comparedInterdisciplinaryMajor
+    ? `/degrees/future-options${degreeSourceSuffix}`
+    : `/degrees${degreeSourceSuffix}`;
+  const degreeExplorerLabel = comparedInterdisciplinaryMajor
+    ? 'Back to Interdisciplinary Computing Majors'
+    : 'Back to Degree Explorer';
 
   if (!firstDegree || !secondDegree || firstDegree.slug === secondDegree.slug) {
     return (
@@ -363,7 +381,7 @@ function DegreeComparison() {
   return (
     <main className="degrees-page">
       <Link className="degree-back-link" to={degreeExplorerPath}>
-        Back to Degree Explorer
+        {degreeExplorerLabel}
       </Link>
 
       <section className="degree-comparison-hero">

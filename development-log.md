@@ -232,6 +232,11 @@
 - Updated transcript extraction to separate letter grade, credits earned, and quality points so completed-credit totals use credits earned instead of nearby numeric values.
 - Added a shared transcript parser for course-code detection, term inference, gateway category tagging, and basic tolerance for PDF text extraction quirks.
 - Added saved-document reuse on the transcript upload page so students can choose a previously saved profile PDF and extract courses from it again.
+
+## Update 25: Current USF Quiz and Bellini Switching Guide
+
+**Date:** June 11, 2026
+
 - Extended the `extract-transcript` Edge Function with a constrained signed-download action for saved profile documents.
 - Highlighted incomplete extracted course rows with a pale red background and row-level guidance listing the blank fields to fill in.
 - Added a printable extracted course list with a clean print-only table layout.
@@ -244,9 +249,9 @@
   - A TypeScript error remained after renaming `credits` and `grade`; updated the review table and added localStorage migration for older saved rows.
   - Saved-document extraction initially hit the old deployed Edge Function validation (`A pending PDF storage path is required`); redeployed with `npx supabase functions deploy extract-transcript`.
 
-## Update 25: Current USF Quiz Redirects and Profile Recommendation Wiring
+## Update 26: Current USF Quiz Redirects and Profile Recommendation Wiring
 
-**Date:** June 10, 2026
+**Date:** June 12, 2026
 
 - Replaced placeholder Current USF quiz result next-step buttons with real route links based on the final advising-needs question.
 - Routed major-fit and major-comparison selections to the Bellini degree explorer with Current USF context.
@@ -259,9 +264,9 @@
 - Known validation note:
   - `npm run lint` still fails on existing `react-hooks/set-state-in-effect` issues in `DegreeDetail.tsx` and `TransferPlanner.tsx`.
 
-## Update 26: Transcript Extraction Refinements and Course Review Tools
+## Update 27: Transcript Extraction Refinements and Course Review Tools
 
-**Date:** June 10, 2026
+**Date:** June 15, 2026
 
 - Added a print warning dialog on the Current USF transcript page so students are alerted before printing when extracted course rows still have missing required fields.
 - Added a visible extracted-course count under the transcript review action buttons.
@@ -275,9 +280,9 @@
 - Added hard transcript segment boundaries so page breaks, term summaries, dates, and fake course-like rows do not leak into the previous course title.
 - Fixed split grade rows such as `T A 3 3 12` so they are treated as the grade/credit continuation for the prior course instead of becoming fake course codes.
 
-## Update 27: Current Bellini Student Major-Change Dashboard and Course Overlap Tools
+## Update 28: Current Bellini Student Major-Change Dashboard and Course Overlap Tools
 
-**Date:** June 15, 2026
+**Date:** June 18, 2026
 
 - Refocused the Current Bellini College student dashboard for students already in computing who are considering whether to stay in CS, move to AI, Cybersecurity, Computer Science and Engineering, IT, or another computing-related option.
 - Added the Current Bellini Student Intake Quiz with Supabase-backed session, response, and result persistence.
@@ -292,9 +297,9 @@
 - Verified the final course-overlap and Bellini dashboard changes with targeted ESLint checks and repeated `npm run build` runs.
 
 
-## Update 28: Current Bellini Major-Change Refinements
+## Update 29: Current Bellini Major-Change Refinements
 
-**Date:** June 16, 2026
+**Date:** June 22, 2026
 
 - Updated the Current USF and Current Bellini major-change guide gateway sections with clearer GPA, grading, attempt, and S/U grade requirements.
 - Cleaned up the Course Overlap Planner index by removing readiness/status summary cards, removing card-level course-list status labels, and replacing direct four-year-plan PDF buttons with links to each major's Flowcharts, Plans, and Electives section.
@@ -303,7 +308,17 @@
 - Added a Current Bellini-only major-switch lens to the shared Degree Comparison page, showing what changes between two selected majors across focus, coursework direction, skills, course-overlap next steps, and advising questions.
 - Updated the Current Bellini Degree Explorer intro copy so Add to Compare points students toward the new switch-impact comparison.
 - Reworked the Current Bellini dashboard planning section into a compact Next Steps section for comparing paths, checking overlap, reviewing requirements, and meeting with advising.
-- Verified the updates with repeated `npm run build` runs.
+
+## Update 30: Bellini Quiz Results and Interdisciplinary Comparison Refinements
+
+**Date:** June 23, 2026
+
+- Changed Current Bellini intake quiz question 8, technical comfort, from multi-select to single-select and updated the helper text.
+- Added a dedicated timeline advisory message on the Current Bellini quiz recommendations page based on the student's question 11 timeline answer.
+- Updated the Interdisciplinary Computing Majors page so students can compare the standard Computer Science degree with one interdisciplinary computing major.
+- Added the Computer Science comparison card after the interdisciplinary major cards, with student-facing copy prompting students who are confused between CS and an interdisciplinary path to compare them side by side.
+- Preserved the existing two-degree comparison flow and dashboard source parameter when opening the comparison page.
+- Verified the changes with `npm run build`.
 
 
 ## What I Will Focus On Next

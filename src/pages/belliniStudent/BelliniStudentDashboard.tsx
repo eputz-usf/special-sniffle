@@ -3,7 +3,7 @@ import DashboardTemplate from '../../components/DashboardTemplate';
 const belliniStudentDashboardSteps = [
   {
     title: 'Name the reason for switching',
-    text: 'Start with what is making you reconsider your current Bellini major: course fit, interest in AI or cybersecurity, hardware focus, workload, career direction, or graduation timing.',
+    text: 'Start with what is making you reconsider your current Bellini major: course fit, interest in a different direction, workload, career direction, or graduation timing.',
   },
   {
     title: 'Compare nearby computing paths',

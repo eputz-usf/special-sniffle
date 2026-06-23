@@ -159,6 +159,34 @@ function App() {
           path="/current-usf/transcript"
           element={<TranscriptUpload />}
         />
+        <Route
+          path="/current-usf/course-overlap"
+          element={
+            <BelliniStudentCourseOverlapIndex
+              basePath="/current-usf/course-overlap"
+              dashboardPath="/dashboard/current-usf-student#majors"
+              transcriptPath="/current-usf/transcript"
+              guidePath="/current-usf/readiness-guide"
+              sourceDashboard="current-usf-student"
+              eyebrow="Current USF student tool"
+              intro="Select a Bellini major to compare its four-year plan with courses you have already completed at USF. Use the checklist to organize possible overlap before advising confirms what applies."
+            />
+          }
+        />
+        <Route
+          path="/current-usf/course-overlap/:majorSlug"
+          element={
+            <BelliniStudentCourseOverlapDetail
+              basePath="/current-usf/course-overlap"
+              transcriptPath="/current-usf/transcript"
+              sourceDashboard="current-usf-student"
+              storageKey="cic_current_usf_course_overlap_completed"
+              notFoundText="Choose one of the available Bellini majors to open its course overlap checklist."
+              intro="Use this page to check off courses or requirement rows you may have already completed at USF before Bellini advising confirms how they apply."
+              advisingText="This tool can help organize courses before advising, but Bellini College and official USF systems must evaluate grades, attempts, prerequisites, credit applicability, excess hours, and timeline before a major change can be approved."
+            />
+          }
+        />
         <Route path="/quiz" element={<HighSchoolIntakeQuiz />} />
         <Route path="/quiz/results" element={<HighSchoolQuizResults />} />
         <Route path="/current-usf/quiz" element={<CurrentUsfIntakeQuiz />} />

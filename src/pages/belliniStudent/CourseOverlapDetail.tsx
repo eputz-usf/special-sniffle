@@ -15,8 +15,18 @@ const completedDegreePageSlugs = new Set([
   'information-technology',
 ]);
 
-function loadCompletedCourseMap() {
-  const saved = window.localStorage.getItem(COURSE_OVERLAP_STORAGE_KEY);
+type CourseOverlapDetailProps = {
+  basePath?: string;
+  transcriptPath?: string;
+  sourceDashboard?: string;
+  storageKey?: string;
+  notFoundText?: string;
+  intro?: string;
+  advisingText?: string;
+};
+
+function loadCompletedCourseMap(storageKey: string) {
+  const saved = window.localStorage.getItem(storageKey);
 
   if (!saved) {
     return {};
@@ -26,23 +36,34 @@ function loadCompletedCourseMap() {
     const parsed = JSON.parse(saved) as Record<string, string[]>;
     return parsed && typeof parsed === 'object' ? parsed : {};
   } catch {
-    window.localStorage.removeItem(COURSE_OVERLAP_STORAGE_KEY);
+    window.localStorage.removeItem(storageKey);
     return {};
   }
 }
 
-function saveCompletedCourseMap(courseMap: Record<string, string[]>) {
+function saveCompletedCourseMap(
+  storageKey: string,
+  courseMap: Record<string, string[]>,
+) {
   window.localStorage.setItem(
-    COURSE_OVERLAP_STORAGE_KEY,
+    storageKey,
     JSON.stringify(courseMap),
   );
 }
 
-function CourseOverlapDetail() {
+function CourseOverlapDetail({
+  basePath = '/bellini-student/course-overlap',
+  transcriptPath = '/bellini-student/transcript',
+  sourceDashboard = 'current-bellini-student',
+  storageKey = COURSE_OVERLAP_STORAGE_KEY,
+  notFoundText = 'Choose one of the available Bellini majors to open its course overlap placeholder.',
+  intro = 'Use this page to check off courses or requirement rows you have already completed after the official four-year plan has been converted into a course list.',
+  advisingText = 'This tool can help organize courses before advising, but Bellini College must evaluate grades, attempts, prerequisites, excess credit hours, and the four-year timeline before a major change can be approved.',
+}: CourseOverlapDetailProps) {
   const { majorSlug } = useParams();
   const plan = getBelliniCourseOverlapPlanBySlug(majorSlug);
   const [completedCourseMap, setCompletedCourseMap] = useState(
-    loadCompletedCourseMap,
+    () => loadCompletedCourseMap(storageKey),
   );
   const completedCourseIds = plan ? completedCourseMap[plan.slug] ?? [] : [];
   const completedCourseCount = completedCourseIds.length;
@@ -57,12 +78,9 @@ function CourseOverlapDetail() {
         <section className="degrees-hero">
           <p className="degrees-eyebrow">Course overlap planner</p>
           <h1>Major Not Found</h1>
-          <p>
-            Choose one of the available Bellini majors to open its course
-            overlap placeholder.
-          </p>
+          <p>{notFoundText}</p>
           <div className="degrees-hero-actions">
-            <Link to="/bellini-student/course-overlap">View all majors</Link>
+            <Link to={basePath}>View all majors</Link>
           </div>
         </section>
       </main>
@@ -106,7 +124,7 @@ function CourseOverlapDetail() {
     };
 
     setCompletedCourseMap(nextCourseMap);
-    saveCompletedCourseMap(nextCourseMap);
+    saveCompletedCourseMap(storageKey, nextCourseMap);
   }
 
   function handlePrintCheckedCourses() {
@@ -120,28 +138,24 @@ function CourseOverlapDetail() {
           <p className="degrees-eyebrow">Course overlap planner</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/bellini-student/course-overlap"
+            to={basePath}
           >
             Back to all majors
           </Link>
         </div>
         <h1>{activePlan.name}</h1>
-        <p>
-          Use this page to check off courses or requirement rows you have
-          already completed after the official four-year plan has been converted
-          into a course list.
-        </p>
+        <p>{intro}</p>
         <div className="degrees-hero-actions">
           {completedDegreePageSlugs.has(activePlan.slug) && (
             <a
-              href={`/degrees/${activePlan.slug}?from=current-bellini-student#official-resources`}
+              href={`/degrees/${activePlan.slug}?from=${sourceDashboard}#official-resources`}
               target="_blank"
               rel="noreferrer"
             >
               Flowcharts, plans, and electives
             </a>
           )}
-          <Link to="/bellini-student/transcript">Review transcript upload</Link>
+          <Link to={transcriptPath}>Review transcript upload</Link>
         </div>
       </section>
 
@@ -161,12 +175,7 @@ function CourseOverlapDetail() {
         <article className="course-overlap-advising-note">
           <p className="degrees-eyebrow">Advising reminder</p>
           <h2>Overlap Is Not Approval</h2>
-          <p>
-            This tool can help organize courses before advising, but Bellini
-            College must evaluate grades, attempts, prerequisites, excess credit
-            hours, and the four-year timeline before a major change can be
-            approved.
-          </p>
+          <p>{advisingText}</p>
         </article>
       </section>
 
@@ -282,7 +291,7 @@ function CourseOverlapDetail() {
                   Open current source PDF
                 </a>
               )}
-              <Link to="/bellini-student/course-overlap">
+              <Link to={basePath}>
                 Choose another major
               </Link>
             </div>
@@ -301,7 +310,7 @@ function CourseOverlapDetail() {
             .map((item) => (
               <Link
                 key={item.slug}
-                to={`/bellini-student/course-overlap/${item.slug}`}
+                to={`${basePath}/${item.slug}`}
               >
                 {item.name}
               </Link>

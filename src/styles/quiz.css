@@ -201,6 +201,29 @@
   color: #086242;
 }
 
+.quiz-timeline-message {
+  max-width: 680px;
+  margin: 24px auto 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(180, 31, 42, 0.24);
+  border-radius: 8px;
+  background-color: #fff8f0;
+  text-align: left;
+}
+
+.quiz-timeline-message h2 {
+  margin: 0;
+  color: #7a1b22;
+  font-size: 20px;
+}
+
+.quiz-timeline-message p {
+  margin: 10px 0 0;
+  color: #4f3d35;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
 .quiz-top-result-explanation {
   max-width: 680px;
   margin: 18px auto 0;

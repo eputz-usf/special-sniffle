@@ -10,30 +10,42 @@ const completedDegreePageSlugs = new Set([
   'information-technology',
 ]);
 
-function CourseOverlapIndex() {
+type CourseOverlapIndexProps = {
+  basePath?: string;
+  dashboardPath?: string;
+  transcriptPath?: string;
+  guidePath?: string;
+  sourceDashboard?: string;
+  eyebrow?: string;
+  intro?: string;
+};
+
+function CourseOverlapIndex({
+  basePath = '/bellini-student/course-overlap',
+  dashboardPath = '/dashboard/current-bellini-student#majors',
+  transcriptPath = '/bellini-student/transcript',
+  guidePath = '/bellini-student/major-change-guide',
+  sourceDashboard = 'current-bellini-student',
+  eyebrow = 'Current Bellini student tool',
+  intro = 'Select a Bellini major to compare its four-year plan with courses you have already completed. Ready checklists appear as course lists are added from official flowcharts or plan PDFs.',
+}: CourseOverlapIndexProps) {
   return (
     <main className="degrees-page course-overlap-page">
       <section className="degrees-hero">
         <div className="degrees-hero-header">
-          <p className="degrees-eyebrow">Current Bellini student tool</p>
+          <p className="degrees-eyebrow">{eyebrow}</p>
           <Link
             className="degree-back-link degrees-dashboard-link"
-            to="/dashboard/current-bellini-student#majors"
+            to={dashboardPath}
           >
             Back to Dashboard
           </Link>
         </div>
         <h1>Course Overlap Planner</h1>
-        <p>
-          Select a Bellini major to compare its four-year plan with courses you
-          have already completed. Ready checklists appear as course lists are
-          added from official flowcharts or plan PDFs.
-        </p>
+        <p>{intro}</p>
         <div className="degrees-hero-actions">
-          <Link to="/bellini-student/transcript">Review transcript upload</Link>
-          <Link to="/bellini-student/major-change-guide">
-            Open major change guide
-          </Link>
+          <Link to={transcriptPath}>Review transcript upload</Link>
+          <Link to={guidePath}>Open major change guide</Link>
         </div>
       </section>
 
@@ -53,12 +65,12 @@ function CourseOverlapIndex() {
               <small>{plan.description}</small>
             </div>
             <div className="degree-card-actions">
-              <Link to={`/bellini-student/course-overlap/${plan.slug}`}>
+              <Link to={`${basePath}/${plan.slug}`}>
                 Open checklist
               </Link>
               {completedDegreePageSlugs.has(plan.slug) && (
                 <Link
-                  to={`/degrees/${plan.slug}?from=current-bellini-student#official-resources`}
+                  to={`/degrees/${plan.slug}?from=${sourceDashboard}#official-resources`}
                 >
                   Flowcharts, plans, and electives
                 </Link>

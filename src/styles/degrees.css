@@ -17,6 +17,17 @@
   animation: gradientMove 10s ease-in-out infinite alternate;
 }
 
+.pathways-page .degree-back-link {
+  border-color: #ffffff;
+  background-color: #ffffff;
+  color: #086343;
+}
+
+.pathways-page .degree-back-link:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+
 .degrees-hero {
   display: grid;
   gap: 18px;
@@ -1370,6 +1381,17 @@
   padding: 22px;
 }
 
+.future-degree-card.cs-compare-card {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  border: 2px solid rgba(8, 99, 67, 0.28);
+  background-color: #f7f4e8;
+}
+
+.future-degree-card.cs-compare-card .future-degree-button {
+  margin: 0;
+}
+
 .future-degree-card h3 {
   margin: 0;
   color: #086343;
@@ -2061,6 +2083,10 @@
   }
 
   .future-degree-card.detailed {
+    grid-template-columns: 1fr;
+  }
+
+  .future-degree-card.cs-compare-card {
     grid-template-columns: 1fr;
   }
 }

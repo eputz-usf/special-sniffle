@@ -149,9 +149,7 @@ const belliniStudentIntakeQuestions: QuizQuestion[] = [
     eyebrow: 'Technical comfort',
     question: 'How would you describe your comfort with the technical demands of your current major?',
     helperText:
-      'Choose up to 4 options. This helps the results distinguish fit concerns from normal course difficulty.',
-    selectionMode: 'multiple',
-    maxSelections: 4,
+      'Choose the option that best describes your current comfort level.',
     answers: [
       { id: 'comfort-programming-math', label: 'Very comfortable with programming and math', description: 'You feel strong in the core technical demands.', icon: 'code' },
       { id: 'comfort-programming-less-math', label: 'Comfortable with programming, but less comfortable with math', description: 'Coding fits better than math-heavy work.', icon: 'code' },

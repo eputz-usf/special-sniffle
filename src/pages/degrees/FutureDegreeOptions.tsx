@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { degrees } from '../../data/degrees';
 import { plannedHighSchoolFutureDegreeOptions as sharedFutureDegreeOptions } from '../../data/highSchoolFutureDegreeOptions';
 import {
   addTransferPlannerMajor,
@@ -49,8 +50,17 @@ function FutureDegreeOptions() {
     loadBelliniStudentProfileMajors().map((major) => major.slug),
   );
   const plannedFutureDegrees = sharedFutureDegreeOptions;
+  const computerScienceDegree = degrees.find(
+    (degree) => degree.slug === 'computer-science',
+  );
+  const comparisonDegreeOptions = [
+    ...(computerScienceDegree ? [computerScienceDegree] : []),
+    ...plannedFutureDegrees,
+  ];
   const selectedDegrees = compareSlugs
-    .map((slug) => plannedFutureDegrees.find((degree) => degree.slug === slug))
+    .map((slug) =>
+      comparisonDegreeOptions.find((degree) => degree.slug === slug),
+    )
     .filter((degree) => degree !== undefined);
 
   function handleAddToCompare(slug: string) {
@@ -87,7 +97,16 @@ function FutureDegreeOptions() {
       return;
     }
 
-    navigate(`/degrees/compare?first=${compareSlugs[0]}&second=${compareSlugs[1]}`);
+    const compareParams = new URLSearchParams({
+      first: compareSlugs[0],
+      second: compareSlugs[1],
+    });
+
+    if (sourceDashboard) {
+      compareParams.set('from', sourceDashboard);
+    }
+
+    navigate(`/degrees/compare?${compareParams.toString()}`);
   }
 
   function handleAddToPlanner(degree: (typeof plannedFutureDegrees)[number]) {
@@ -153,10 +172,6 @@ function FutureDegreeOptions() {
             computer science foundation while also learning how AI,
             cybersecurity, and data can be applied in different real-world
             career areas.
-          </p>
-          <p>
-            The following Computer Science branches and their elective lists are
-            coming soon!
           </p>
         </div>
 
@@ -278,6 +293,36 @@ function FutureDegreeOptions() {
               </article>
             ))}
           </div>
+          {computerScienceDegree && (
+            <article className="future-degree-card cs-compare-card">
+              <div>
+                <h3>{computerScienceDegree.name}</h3>
+                <p className="future-degree-focus">
+                  {computerScienceDegree.skills}
+                </p>
+                <p>
+                  Confused between Computer Science and an interdisciplinary
+                  computing major? Add Computer Science and one
+                  interdisciplinary major to compare them side by side.
+                </p>
+                <p>{computerScienceDegree.description}</p>
+              </div>
+              <button
+                className={
+                  compareSlugs.includes(computerScienceDegree.slug)
+                    ? 'future-degree-button compare-selected'
+                    : 'future-degree-button'
+                }
+                disabled={compareSlugs.includes(computerScienceDegree.slug)}
+                type="button"
+                onClick={() => handleAddToCompare(computerScienceDegree.slug)}
+              >
+                {compareSlugs.includes(computerScienceDegree.slug)
+                  ? 'Selected'
+                  : 'Add Computer Science to Compare'}
+              </button>
+            </article>
+          )}
         </div>
       </section>
 

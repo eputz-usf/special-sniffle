@@ -64,10 +64,15 @@ function CurrentUsfDashboard() {
       tertiaryToolPath="/current-usf/readiness-guide"
       tertiaryToolTitle="Transferring into Bellini Guide"
       tertiaryToolText="Use a guide-style workspace for course fit, timing, and advising preparation."
+      extraToolPath="/current-usf/course-overlap"
+      extraToolTitle="Course Overlap Planner"
+      extraToolText="Choose a Bellini major and check completed USF courses against its requirement list before advising confirms applicability."
       careerToolPath="/current-usf/transcript"
       careerToolIcon="upload"
       careerToolTitle="Transcript Upload"
       careerToolText="Paste or upload transcript text to extract courses, credits, grades, and advising checkpoints before meeting with Bellini advising."
+      toolCardOrder={['degree', 'secondary', 'tertiary', 'career', 'extra']}
+      blankAfterSecondaryToolCards
       finalNavPath="/profile"
       finalNavLabel="Profile"
       steps={currentUsfDashboardSteps}
