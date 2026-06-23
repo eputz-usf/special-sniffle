@@ -320,6 +320,18 @@
 - Preserved the existing two-degree comparison flow and dashboard source parameter when opening the comparison page.
 - Verified the changes with `npm run build`.
 
+## Update 31: Current USF Course Overlap and Comparison Navigation Refinements
+
+**Date:** June 23, 2026
+
+- Reused the Bellini Course Overlap Planner for Current USF students under `/current-usf/course-overlap`.
+- Added Current USF-specific course-overlap routes, dashboard card, copy, transcript links, advising reminder text, and a separate localStorage key for checked-course progress.
+- Parameterized the existing course-overlap index and detail pages so Bellini and Current USF can share the same checklist feature without duplicating components.
+- Updated degree comparison navigation so comparisons involving interdisciplinary/future majors return to the Interdisciplinary Computing Majors page instead of the main Degree Explorer.
+- Removed older Computer Science flowchart links from the degree comparison official-links row so the comparison view only shows newer CS resources.
+- Updated the Bachelor’s/Master’s pathways back button to use a stark white style on the animated background.
+- Verified the changes with `npm run build`.
+
 
 ## What I Will Focus On Next
 - Validate transcript extraction against multiple USF transcript/e-transcript formats and refine section-aware parsing.
