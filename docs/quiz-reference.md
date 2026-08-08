@@ -1,20 +1,5 @@
 # Quiz Questions, Answers, and Recommendation Scoring
 
-This document is generated from the quiz question files and recommendation config files in the app. 
-
-## Shared Recommendation Rules
-
-All quiz groups use the same recommendation engine except the high-school quiz, which calls a thin wrapper around the same engine.
-
-1. Each selected answer adds points to one or more degree paths.
-2. Single-select questions add points from one answer.
-3. Multi-select questions add points from every selected answer, up to that question's selection limit.
-4. Each degree also has a calculated maximum possible score based on the best-scoring answers available for that quiz.
-5. Match percentage = student score for that degree / maximum possible score for that degree.
-6. Results are ranked by match percentage, then by raw score as the tie-breaker.
-7. The top 3 degree paths are recommended.
-8. Answers marked "No direct recommendation points" still appear in the quiz, but they do not change the degree score directly.
-
 ## Degree Legend
 
 | Short name | Full degree path |
