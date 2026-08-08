@@ -1,6 +1,6 @@
 # Quiz Questions, Answers, and Recommendation Scoring
 
-This document is generated from the quiz question files and recommendation config files in the app. It is meant to be readable by non-developers while still preserving the exact answer labels and point values used by the code.
+This document is generated from the quiz question files and recommendation config files in the app. 
 
 ## Shared Recommendation Rules
 
@@ -36,7 +36,7 @@ All quiz groups use the same recommendation engine except the high-school quiz, 
 
 Quiz version: `high-school-v3`
 
-Source files:
+planned file flow:
 
 - Questions: `src/pages/highSchool/quiz/HighSchoolIntakeQuiz.tsx`
 - Scoring: `src/config/highSchoolQuizRecommendationConfig.ts`
