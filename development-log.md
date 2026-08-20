@@ -333,6 +333,18 @@
 - Verified the changes with `npm run build`.
 
 
+## Update 32: General Dashboard Template Preview
+
+**Date:** August 20, 2026
+
+- Added a visible General Dashboard Template link to the user group selection page.
+- Updated the general dashboard preview so it reads as a reusable dashboard template instead of a finished role-specific dashboard.
+- Added a `comingSoonMode` option to the shared dashboard template so the general preview can show disabled coming-soon tool cards without changing the active role dashboards.
+- Marked the general preview quiz and toolbox actions as coming soon.
+- Re-enable note: remove `comingSoonMode` to make the general preview toolbox cards clickable again, remove `quizDisabled` to enable the quiz button, and provide real tool paths such as `degreeToolPath`, `secondaryToolPath`, `tertiaryToolPath`, or `careerToolPath` when those features are ready.
+- Verified the changes with `npm run build`.
+
+
 ## What I Will Focus On Next
 - Validate transcript extraction against multiple USF transcript/e-transcript formats and refine section-aware parsing.
 - Continue transcript extraction refinements.

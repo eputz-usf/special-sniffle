@@ -20,6 +20,7 @@ type DashboardTemplateProps = {
   pathHeading?: string;
   quizPath?: string;
   quizDisabled?: boolean;
+  comingSoonMode?: boolean;
   quizResultsPath?: string;
   blankToolCards?: boolean;
   blankRemainingToolCards?: boolean;
@@ -126,6 +127,7 @@ function DashboardTemplate({
   pathHeading = 'Move from questions to a clearer plan',
   quizPath = '/quiz',
   quizDisabled = false,
+  comingSoonMode = false,
   quizResultsPath,
   blankToolCards = false,
   blankRemainingToolCards = false,
@@ -184,6 +186,27 @@ function DashboardTemplate({
     : extraToolIcon === 'calendar'
       ? CalendarCheck
       : FileText;
+
+  function renderComingSoonToolCard(
+    key: string,
+    icon: ReactNode,
+    title: string,
+    text: string,
+  ) {
+    return (
+      <button
+        className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool"
+        key={key}
+        type="button"
+        disabled
+      >
+        {icon}
+        <span>{title}</span>
+        <p>{text}</p>
+      </button>
+    );
+  }
+
   const careerToolContent = (
     <>
       <CareerToolIcon size={30} aria-hidden="true" />
@@ -219,6 +242,15 @@ function DashboardTemplate({
 
   function renderToolCard(card: DashboardToolCard, key?: string): ReactNode {
     if (card === 'degree') {
+      if (comingSoonMode) {
+        return renderComingSoonToolCard(
+          key ?? degreeToolTitle,
+          <BookOpenCheck size={30} aria-hidden="true" />,
+          degreeToolTitle,
+          degreeToolText,
+        );
+      }
+
       return (
         <Link
           className="dashboard-major-card"
@@ -233,6 +265,15 @@ function DashboardTemplate({
     }
 
     if (card === 'secondary') {
+      if (comingSoonMode) {
+        return renderComingSoonToolCard(
+          key ?? secondaryToolTitle,
+          <FileText size={30} aria-hidden="true" />,
+          secondaryToolTitle,
+          secondaryToolText,
+        );
+      }
+
       return secondaryToolPath ? (
         <Link
           className="dashboard-major-card"
@@ -257,6 +298,15 @@ function DashboardTemplate({
     }
 
     if (card === 'tertiary') {
+      if (comingSoonMode) {
+        return renderComingSoonToolCard(
+          key ?? tertiaryToolTitle,
+          <CalendarCheck size={30} aria-hidden="true" />,
+          tertiaryToolTitle,
+          tertiaryToolText,
+        );
+      }
+
       return tertiaryToolPath ? (
         <Link
           className="dashboard-major-card"
@@ -283,6 +333,15 @@ function DashboardTemplate({
     }
 
     if (card === 'extra') {
+      if (comingSoonMode) {
+        return renderComingSoonToolCard(
+          key ?? extraToolTitle,
+          <ExtraToolIcon size={30} aria-hidden="true" />,
+          extraToolTitle,
+          extraToolText,
+        );
+      }
+
       return extraToolPath ? (
         <Link
           className="dashboard-major-card"
@@ -295,6 +354,15 @@ function DashboardTemplate({
         </Link>
       ) : (
         renderPlaceholderToolCard(key ?? extraToolTitle)
+      );
+    }
+
+    if (comingSoonMode) {
+      return renderComingSoonToolCard(
+        key ?? careerToolTitle,
+        <CareerToolIcon size={30} aria-hidden="true" />,
+        careerToolTitle,
+        careerToolText,
       );
     }
 
@@ -451,7 +519,7 @@ function DashboardTemplate({
                   disabled
                 >
                   <ClipboardList size={20} aria-hidden="true" />
-                  Take the quiz
+                  {comingSoonMode ? 'Coming Soon' : 'Take the quiz'}
                 </button>
               ) : (
                 <Link className="dashboard-quiz-button compact" to={quizPath}>

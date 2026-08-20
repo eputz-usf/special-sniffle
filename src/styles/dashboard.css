@@ -449,6 +449,11 @@
   color: #ffffff;
 }
 
+.dashboard-major-card:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 .dashboard-blank-tool-card {
   border-color: rgba(234, 225, 191, 0.8);
   cursor: default;

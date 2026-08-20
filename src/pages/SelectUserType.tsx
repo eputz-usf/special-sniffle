@@ -4,7 +4,7 @@ import {
   GraduationCap,
   University,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { saveUserType } from '../utils/auth';
 import type { UserTypeOption } from '../types/user';
 import { userTypeOptions } from '../utils/userTypes';
@@ -61,6 +61,9 @@ function SelectUserType() {
           ))}
         </ul>
       </section>
+      <Link className="temporary-dashboard-link" to="/dashboard/general">
+        View General Dashboard Template
+      </Link>
     </main>
   );
 }
