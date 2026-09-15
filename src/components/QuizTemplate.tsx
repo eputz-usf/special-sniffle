@@ -72,6 +72,7 @@ type QuizTemplateProps = {
     to: string;
   };
   resultsPath?: string;
+  resultsComingSoon?: boolean;
   onAnswerChange?: (
     questionId: string,
     answerValue: QuizAnswerValue,
@@ -119,6 +120,7 @@ function QuizTemplate({
   initialQuestionIndex = 0,
   backLink,
   resultsPath,
+  resultsComingSoon = false,
   onAnswerChange,
   onQuestionIndexChange,
   onSubmit,
@@ -290,27 +292,40 @@ function QuizTemplate({
 
         {submissionResult ? (
           <article className="quiz-question-card quiz-complete-card">
-            <p className="quiz-question-eyebrow">Recommended starting points</p>
-            <h2>{submissionResult.topMatch} looks like your strongest match.</h2>
-            <p className="quiz-helper-text">
-              These recommendations are for exploration only. They can help you
-              decide which degree pages to read and compare next.
-            </p>
-            <div className="quiz-results-list">
-              {visibleRecommendedDegrees.map((degree, index) => (
-                <span key={degree}>
-                  {index + 1}. {degree}
-                  <small>
-                    {submissionResult.matchPercentages[degree] ?? 0}% match
-                  </small>
-                </span>
-              ))}
-            </div>
-            <p className="quiz-save-note">
-              {submissionResult.saveStatus === 'saved'
-                ? 'Your anonymous quiz answers and recommendation were saved.'
-                : 'Supabase is not configured yet, so this result is only shown locally.'}
-            </p>
+            {resultsComingSoon ? (
+              <>
+                <p className="quiz-question-eyebrow">Recommendations</p>
+                <h2>Recommendations - Coming Soon</h2>
+                <p className="quiz-helper-text">
+                  This template currently captures quiz responses. The
+                  recommendation display is planned as future work.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="quiz-question-eyebrow">Recommended starting points</p>
+                <h2>{submissionResult.topMatch} looks like your strongest match.</h2>
+                <p className="quiz-helper-text">
+                  These recommendations are for exploration only. They can help you
+                  decide which degree pages to read and compare next.
+                </p>
+                <div className="quiz-results-list">
+                  {visibleRecommendedDegrees.map((degree, index) => (
+                    <span key={degree}>
+                      {index + 1}. {degree}
+                      <small>
+                        {submissionResult.matchPercentages[degree] ?? 0}% match
+                      </small>
+                    </span>
+                  ))}
+                </div>
+                <p className="quiz-save-note">
+                  {submissionResult.saveStatus === 'saved'
+                    ? 'Your anonymous quiz answers and recommendation were saved.'
+                    : 'Supabase is not configured yet, so this result is only shown locally.'}
+                </p>
+              </>
+            )}
           </article>
         ) : (
           <article className="quiz-question-card">

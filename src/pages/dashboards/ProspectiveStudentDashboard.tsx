@@ -86,7 +86,7 @@ function ProspectiveStudentDashboard() {
     <main className="dashboard-page high-school-dashboard">
       <header className="dashboard-header">
         <Link className="dashboard-logo" to="/">
-          CIC Support
+          Degree Explorer
         </Link>
 
         <nav className="dashboard-nav" aria-label="High school dashboard">

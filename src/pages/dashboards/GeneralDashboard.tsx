@@ -7,10 +7,13 @@ function GeneralDashboard() {
       dashboardLabel="General Dashboard Template"
       intro="This general preview shows the shared dashboard layout, sections, cards, and planning space before role-specific content is connected."
       pathHeading="Use this space to introduce the dashboard flow"
-      quizDisabled
+      quizPath="/general/quiz"
+      quizNavLabel="Questionnaire"
+      quizEyebrow="Questionnaire"
+      quizButtonLabel="Start questionnaire"
       comingSoonMode
-      degreeToolTitle="Primary Tool - Coming Soon"
-      degreeToolText="Use this card for a main resource, explorer, comparison tool, or workflow that supports the selected user group."
+      degreeToolComingSoon={false}
+      degreeToolPath="/degrees?from=general"
       secondaryToolTitle="Secondary Tool - Coming Soon"
       secondaryToolText="Use this card for a guide, checklist, form, or reference page that helps users understand their next step."
       tertiaryToolTitle="Planning Tool - Coming Soon"

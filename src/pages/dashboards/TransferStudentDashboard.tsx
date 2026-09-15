@@ -36,6 +36,7 @@ function TransferStudentDashboard() {
       pathHeading="Evaluate credits, program fit, and transfer next steps"
       quizPath="/transfer/quiz"
       quizResultsPath="/transfer/quiz/results"
+      degreeToolPath="/degrees?from=transfer-student"
       transferPlannerPath="/transfer/planner"
       transferReadinessPath="/transfer/readiness-guide"
       steps={transferDashboardSteps}

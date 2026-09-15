@@ -1,7 +1,7 @@
 function Home() {
   return (
     <main>
-      <h1>CIC Support Platform</h1>
+      <h1>Degree Explorer</h1>
       <p>
         A role-based support platform for prospective students, current USF
         students, Bellini College students, transfer students, and academic

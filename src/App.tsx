@@ -8,6 +8,7 @@ import DegreeComparison from './pages/degrees/DegreeComparison';
 import DegreeDetail from './pages/degrees/DegreeDetail';
 import DegreeInformation from './pages/degrees/DegreeInformation';
 import FutureDegreeOptions from './pages/degrees/FutureDegreeOptions';
+import GeneralIntakeQuiz from './pages/general/GeneralIntakeQuiz';
 import GeneralDashboard from './pages/dashboards/GeneralDashboard';
 import HighSchoolIntakeQuiz from './pages/highSchool/quiz/HighSchoolIntakeQuiz';
 import HighSchoolQuizResults from './pages/highSchool/quiz/HighSchoolQuizResults';
@@ -101,7 +102,7 @@ function App() {
             <span className="site-logo">Guide</span>
           ) : (
             <Link className="site-logo" to="/">
-              CIC Support Platform
+              Degree Explorer
             </Link>
           )}
           {hasGuideSectionNav && (
@@ -189,6 +190,7 @@ function App() {
         />
         <Route path="/quiz" element={<HighSchoolIntakeQuiz />} />
         <Route path="/quiz/results" element={<HighSchoolQuizResults />} />
+        <Route path="/general/quiz" element={<GeneralIntakeQuiz />} />
         <Route path="/current-usf/quiz" element={<CurrentUsfIntakeQuiz />} />
         <Route
           path="/current-usf/quiz/results"

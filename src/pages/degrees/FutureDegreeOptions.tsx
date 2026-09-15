@@ -34,6 +34,7 @@ function FutureDegreeOptions() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sourceDashboard = searchParams.get('from');
+  const isGeneralSource = sourceDashboard === 'general';
   const isCurrentUsfStudentSource = sourceDashboard === 'current-usf-student';
   const isBelliniStudentSource = sourceDashboard === 'current-bellini-student';
   const isProfileSource = isCurrentUsfStudentSource || isBelliniStudentSource;
@@ -242,7 +243,7 @@ function FutureDegreeOptions() {
           ? 'future-degree-button compare-selected'
           : 'future-degree-button'
       }
-      disabled={compareSlugs.includes(degree.slug)}
+      disabled={isGeneralSource || compareSlugs.includes(degree.slug)}
       type="button"
       onClick={() => handleAddToCompare(degree.slug)}
     >
@@ -259,6 +260,7 @@ function FutureDegreeOptions() {
             ? 'future-degree-button planner-selected'
             : 'future-degree-button'
         }
+        disabled={isGeneralSource}
         type="button"
         onClick={() => handleAddToProfile(degree)}
       >
@@ -277,6 +279,7 @@ function FutureDegreeOptions() {
             ? 'future-degree-button planner-selected'
             : 'future-degree-button'
         }
+        disabled={isGeneralSource}
         type="button"
         onClick={() => handleAddToPlanner(degree)}
       >
@@ -313,7 +316,10 @@ function FutureDegreeOptions() {
                     ? 'future-degree-button compare-selected'
                     : 'future-degree-button'
                 }
-                disabled={compareSlugs.includes(computerScienceDegree.slug)}
+                disabled={
+                  isGeneralSource ||
+                  compareSlugs.includes(computerScienceDegree.slug)
+                }
                 type="button"
                 onClick={() => handleAddToCompare(computerScienceDegree.slug)}
               >
@@ -360,7 +366,7 @@ function FutureDegreeOptions() {
         <p className="degrees-eyebrow">Contact</p>
         <h2>Questions About Future Degree Options?</h2>
         <p>
-          Emily Boyko - Academic Advisor at{' '}
+          Academic Advisor at{' '}
           <a href="mailto:Bellini-CollegeICMadvising@usf.edu">
             Bellini-CollegeICMadvising@usf.edu
           </a>
@@ -398,7 +404,7 @@ function FutureDegreeOptions() {
               Clear
             </button>
             <button
-              disabled={compareSlugs.length !== 2}
+              disabled={isGeneralSource || compareSlugs.length !== 2}
               type="button"
               onClick={handleCompareDegrees}
             >

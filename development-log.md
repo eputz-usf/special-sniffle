@@ -341,6 +341,8 @@
 - Updated the general dashboard preview so it reads as a reusable dashboard template instead of a finished role-specific dashboard.
 - Added a `comingSoonMode` option to the shared dashboard template so the general preview can show disabled coming-soon tool cards without changing the active role dashboards.
 - Marked the general preview quiz and toolbox actions as coming soon.
+- Restored the first general preview toolbox card to the active Degree Infographics and Comparison feature.
+- Clarified that the general/current USF/current Bellini/transfer dashboards use the shared `/degrees` explorer, while the high school/prospective dashboard uses the separate `/high-school/degrees` explorer.
 - Re-enable note: remove `comingSoonMode` to make the general preview toolbox cards clickable again, remove `quizDisabled` to enable the quiz button, and provide real tool paths such as `degreeToolPath`, `secondaryToolPath`, `tertiaryToolPath`, or `careerToolPath` when those features are ready.
 - Verified the changes with `npm run build`.
 

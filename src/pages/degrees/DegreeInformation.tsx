@@ -41,6 +41,7 @@ const completedDegreePages = new Set([
 ]);
 
 const dashboardRoutesBySource = {
+  general: '/dashboard/general#majors',
   'current-usf-student': '/dashboard/current-usf-student#majors',
   'current-bellini-student': '/dashboard/current-bellini-student#majors',
   'transfer-student': '/dashboard/transfer-student#majors',
@@ -50,6 +51,7 @@ function DegreeInformation() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sourceDashboard = searchParams.get('from');
+  const isGeneralSource = sourceDashboard === 'general';
   const isCurrentUsfStudentSource = sourceDashboard === 'current-usf-student';
   const isBelliniStudentSource = sourceDashboard === 'current-bellini-student';
   const isProfileSource = isCurrentUsfStudentSource || isBelliniStudentSource;
@@ -252,7 +254,7 @@ function DegreeInformation() {
                   className={
                     compareSlugs.includes(degree.slug) ? 'compare-selected' : ''
                   }
-                  disabled={compareSlugs.includes(degree.slug)}
+                  disabled={isGeneralSource || compareSlugs.includes(degree.slug)}
                   type="button"
                   onClick={() => handleAddToCompare(degree.slug)}
                 >
@@ -271,6 +273,7 @@ function DegreeInformation() {
                         ? 'planner-selected'
                         : ''
                     }
+                    disabled={isGeneralSource}
                     type="button"
                     onClick={() => handleAddToProfile(degree)}
                   >
@@ -287,6 +290,7 @@ function DegreeInformation() {
                     className={
                       plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
                     }
+                    disabled={isGeneralSource}
                     type="button"
                     onClick={() => handleAddToPlanner(degree)}
                   >
@@ -326,7 +330,13 @@ function DegreeInformation() {
             reviewing catalog requirements or transfer-credit questions.
           </p>
         </div>
-        <Link to="/transfer/quiz">Start Quiz</Link>
+        {isGeneralSource ? (
+          <button type="button" disabled>
+            Start Quiz
+          </button>
+        ) : (
+          <Link to="/transfer/quiz">Start Quiz</Link>
+        )}
       </section>
 
       <p className="degrees-disclaimer">
@@ -366,7 +376,7 @@ function DegreeInformation() {
               Clear
             </button>
             <button
-              disabled={compareSlugs.length !== 2}
+              disabled={isGeneralSource || compareSlugs.length !== 2}
               type="button"
               onClick={handleCompareDegrees}
             >

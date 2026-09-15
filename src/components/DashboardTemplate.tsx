@@ -20,6 +20,9 @@ type DashboardTemplateProps = {
   pathHeading?: string;
   quizPath?: string;
   quizDisabled?: boolean;
+  quizNavLabel?: string;
+  quizEyebrow?: string;
+  quizButtonLabel?: string;
   comingSoonMode?: boolean;
   quizResultsPath?: string;
   blankToolCards?: boolean;
@@ -30,6 +33,7 @@ type DashboardTemplateProps = {
   degreeToolPath?: string;
   degreeToolTitle?: string;
   degreeToolText?: string;
+  degreeToolComingSoon?: boolean;
   secondaryToolPath?: string;
   secondaryToolTitle?: string;
   secondaryToolText?: string;
@@ -127,6 +131,9 @@ function DashboardTemplate({
   pathHeading = 'Move from questions to a clearer plan',
   quizPath = '/quiz',
   quizDisabled = false,
+  quizNavLabel = 'Intake Quiz',
+  quizEyebrow = 'Intake quiz',
+  quizButtonLabel = 'Take the quiz',
   comingSoonMode = false,
   quizResultsPath,
   blankToolCards = false,
@@ -137,6 +144,7 @@ function DashboardTemplate({
   degreeToolPath = '/degrees',
   degreeToolTitle = 'Degree Infographics and Comparison',
   degreeToolText = 'Explore degree options at Bellini College and compare two programs side by side to see which path best fits your interests, goals, and next steps.',
+  degreeToolComingSoon,
   secondaryToolPath,
   secondaryToolTitle = 'Specified text to be put there',
   secondaryToolText = 'Specified text to be put there.',
@@ -163,6 +171,7 @@ function DashboardTemplate({
   planningItems: customPlanningItems,
   planningReminder,
 }: DashboardTemplateProps) {
+  const shouldDisableDegreeTool = degreeToolComingSoon ?? comingSoonMode;
   const isTransferDashboard = Boolean(transferPlannerPath);
   const planningItems = customPlanningItems ?? (isTransferDashboard
     ? transferNextSteps
@@ -242,7 +251,7 @@ function DashboardTemplate({
 
   function renderToolCard(card: DashboardToolCard, key?: string): ReactNode {
     if (card === 'degree') {
-      if (comingSoonMode) {
+      if (shouldDisableDegreeTool) {
         return renderComingSoonToolCard(
           key ?? degreeToolTitle,
           <BookOpenCheck size={30} aria-hidden="true" />,
@@ -433,7 +442,7 @@ function DashboardTemplate({
     <main className="dashboard-page general-dashboard">
       <header className="dashboard-header">
         <Link className="dashboard-logo" to="/">
-          CIC Support 
+          Degree Explorer
         </Link>
 
         <nav className="dashboard-nav" aria-label="Dashboard navigation">
@@ -447,7 +456,7 @@ function DashboardTemplate({
             href="#intake-quiz"
             onClick={(event) => handleSectionLinkClick(event, 'intake-quiz')}
           >
-            Intake Quiz
+            {quizNavLabel}
           </a>
           <a
             href="#majors"
@@ -505,7 +514,7 @@ function DashboardTemplate({
         <div className="dashboard-section-rule"></div>
         <div className="dashboard-feature-row">
           <div>
-            <p className="dashboard-eyebrow">Intake quiz</p>
+            <p className="dashboard-eyebrow">{quizEyebrow}</p>
             <h2>Tell us what you want to explore next</h2>
             <p>
               Take a short quiz to help us recommend programs, resources, and
@@ -519,12 +528,12 @@ function DashboardTemplate({
                   disabled
                 >
                   <ClipboardList size={20} aria-hidden="true" />
-                  {comingSoonMode ? 'Coming Soon' : 'Take the quiz'}
+                  {comingSoonMode ? 'Coming Soon' : quizButtonLabel}
                 </button>
               ) : (
                 <Link className="dashboard-quiz-button compact" to={quizPath}>
                   <ClipboardList size={20} aria-hidden="true" />
-                  Take the quiz
+                  {quizButtonLabel}
                 </Link>
               )}
               {quizResultsPath && (
