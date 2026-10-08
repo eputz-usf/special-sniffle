@@ -32,13 +32,10 @@ function TransferStudentDashboard() {
     <DashboardTemplate
       dashboardLabel="Transfer Student Dashboard"
       headline="Transfer Planning, Simplified"
-      intro="Use this dashboard to compare Bellini College degree options, understand transfer planning steps, organize your questions, and prepare for conversations about credits, timelines, and advising."
+      intro="Use this dashboard to compare Bellini College degree options and prepare for conversations about credits, timelines, and advising."
       pathHeading="Evaluate credits, program fit, and transfer next steps"
-      quizPath="/transfer/quiz"
-      quizResultsPath="/transfer/quiz/results"
       degreeToolPath="/degrees?from=transfer-student"
-      transferPlannerPath="/transfer/planner"
-      transferReadinessPath="/transfer/readiness-guide"
+      transferToolsComingSoon
       steps={transferDashboardSteps}
     />
   );

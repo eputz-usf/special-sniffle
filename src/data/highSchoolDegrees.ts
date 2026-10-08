@@ -1,9 +1,11 @@
+import { highSchoolInterdisciplinaryContent } from './highSchoolInterdisciplinaryContent';
+import { interdisciplinaryDegrees } from './highSchoolFutureDegreeOptions';
 export type DegreeCategory =
   | 'Software'
   | 'AI/Data'
   | 'Cybersecurity'
   | 'IT/Systems'
-  | 'Business + Interdisciplinary';
+  | 'Interdisciplinary';
 
 export type CareerOption = {
   title: string;
@@ -12,6 +14,7 @@ export type CareerOption = {
 };
 
 export type Degree = {
+  status?: string;
   slug: string;
   name: string;
   credential: string;
@@ -88,7 +91,7 @@ export const degrees: Degree[] = [
     nextSteps: [
       'Compare this major with Artificial Intelligence.',
       'Compare this major with Computer Science and Engineering.',
-      'Take the quiz if you are still unsure.',
+      'Compare degree options if you are still unsure.',
     ],
     officialLinks: {
       flowcharts: [
@@ -229,7 +232,7 @@ export const degrees: Degree[] = [
     nextSteps: [
       'Compare this major with Computer Science.',
       'Look at the flowchart to see the classes.',
-      'Take the quiz if you are still unsure.',
+      'Compare degree options if you are still unsure.',
     ],
     officialLinks: {
       flowcharts: [
@@ -407,72 +410,12 @@ export const degrees: Degree[] = [
       },
     },
   },
-  {
-    slug: 'computer-science-and-business',
-    name: 'Computer Science and Business',
-    credential: 'BS',
-    category: 'Business + Interdisciplinary',
-    bestFor: 'Technology, business, product thinking',
-    description:
-      'Combines computing foundations with business context for students interested in technical and organizational work.',
-    skills: 'Programming • Business • Product Strategy',
-    overview:
-      'Computer Science and Business combines technical computing with business thinking for students interested in product, operations, or technical strategy.',
-    goodFit: [
-      'You want to understand both software and business needs.',
-      'You are interested in product management, startups, or technical consulting.',
-      'You like connecting technical work to organizational decisions.',
-    ],
-    sampleTopics: ['Programming', 'Business foundations', 'Product strategy'],
-    nextSteps: [
-      'Compare this option with Computer Science if you want more technical depth.',
-      'Use advising to confirm how interdisciplinary requirements fit your goals.',
-    ],
-  },
-  {
-    slug: 'computer-science-and-criminology',
-    name: 'Computer Science and Criminology',
-    credential: 'BS',
-    category: 'Business + Interdisciplinary',
-    bestFor: 'Computing, justice, cybercrime',
-    description:
-      'Connects computing with criminology for students interested in technology, security, and justice systems.',
-    skills: 'Computing • Criminology • Cybercrime',
-    overview:
-      'Computer Science and Criminology connects technical computing skills with questions related to justice, security, and digital crime.',
-    goodFit: [
-      'You are interested in cybercrime, justice systems, or investigations.',
-      'You want computing skills with a social systems perspective.',
-      'You like interdisciplinary problems involving technology and people.',
-    ],
-    sampleTopics: ['Programming', 'Criminology', 'Cybercrime'],
-    nextSteps: [
-      'Compare this option with Cybersecurity if your interest is mostly technical security.',
-      'Confirm requirements with advising because interdisciplinary plans can vary.',
-    ],
-  },
-  {
-    slug: 'computer-science-and-interdisciplinary-social-sciences',
-    name: 'Computer Science and Interdisciplinary Social Sciences',
-    credential: 'BS',
-    category: 'Business + Interdisciplinary',
-    bestFor: 'Computing and social impact',
-    description:
-      'Pairs computer science with social science perspectives for students interested in people-centered technology.',
-    skills: 'Programming • Research • Social Systems',
-    overview:
-      'Computer Science and Interdisciplinary Social Sciences combines computing with social science perspectives for students interested in technology’s role in society.',
-    goodFit: [
-      'You are interested in people-centered technology.',
-      'You want computing skills connected to policy, research, or social impact.',
-      'You like asking how technology affects communities and institutions.',
-    ],
-    sampleTopics: ['Programming', 'Social science research', 'Human-centered systems'],
-    nextSteps: [
-      'Compare this option with Computer Science and Business or Computer Science and Criminology.',
-      'Talk with advising about how interdisciplinary course choices shape the degree.',
-    ],
-  },
+  ...interdisciplinaryDegrees.map((degree) => {
+    const plain = highSchoolInterdisciplinaryContent[degree.slug];
+    return { ...degree, bestFor: plain.cardBestFor, description: plain.cardDescription,
+      skills: plain.skills.slice(0, 3).join(' • '), overview: plain.overview.join(' '),
+      goodFit: plain.fit, sampleTopics: plain.skills, nextSteps: ['Look at the class plans.', 'Ask a Bellini advisor which classes and plans fit you.'] };
+  }),
 ];
 
 export function getDegreeBySlug(slug: string | undefined) {

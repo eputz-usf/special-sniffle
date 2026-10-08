@@ -1,11 +1,7 @@
+import { filterDegrees } from '../../../utils/degreeFilters';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { degrees } from '../../../data/highSchoolDegrees';
-import {
-  addPlannerMajor,
-  loadPlannerMajors,
-  removePlannerMajor,
-} from '../../../utils/transitionPlannerMajors';
 import '../../../styles/degrees.css';
 
 const filters = [
@@ -14,21 +10,8 @@ const filters = [
   'AI/Data',
   'Cybersecurity',
   'IT/Systems',
+  'Interdisciplinary',
 ] as const;
-
-const futureDegreeSlugs = new Set([
-  'computer-science-and-business',
-  'computer-science-and-criminology',
-  'computer-science-and-interdisciplinary-social-sciences',
-]);
-
-const completedDegreePages = new Set([
-  'computer-science',
-  'computer-science-and-engineering',
-  'artificial-intelligence',
-  'cybersecurity',
-  'information-technology',
-]);
 
 function HighSchoolDegreeInformation() {
   const navigate = useNavigate();
@@ -37,20 +20,9 @@ function HighSchoolDegreeInformation() {
   );
   const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState('');
-  const [plannerMajorSlugs, setPlannerMajorSlugs] = useState(() =>
-    loadPlannerMajors().map((major) => major.slug),
-  );
 
   const visibleDegrees = useMemo(() => {
-    const currentDegrees = degrees.filter(
-      (degree) => !futureDegreeSlugs.has(degree.slug),
-    );
-
-    if (activeFilter === 'All') {
-      return currentDegrees;
-    }
-
-    return currentDegrees.filter((degree) => degree.category === activeFilter);
+    return filterDegrees(degrees, activeFilter);
   }, [activeFilter]);
 
   const selectedDegrees = compareSlugs
@@ -94,20 +66,6 @@ function HighSchoolDegreeInformation() {
     navigate(`/high-school/degrees/compare?first=${compareSlugs[0]}&second=${compareSlugs[1]}`);
   }
 
-  function handleAddToPlanner(degree: (typeof degrees)[number]) {
-    if (plannerMajorSlugs.includes(degree.slug)) {
-      const nextMajors = removePlannerMajor(degree.slug);
-      setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
-      return;
-    }
-
-    const nextMajors = addPlannerMajor({
-      slug: degree.slug,
-      name: degree.name,
-    });
-
-    setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
-  }
 
   return (
     <main className="degrees-page">
@@ -121,7 +79,7 @@ function HighSchoolDegreeInformation() {
             Back to Dashboard
           </Link>
         </div>
-        <h1>Explore Bellini College Degrees</h1>
+        <h1>Explore Bellini College Degrees and Interdisciplinary Majors</h1>
         <p>
           Learn the difference between Bellini College’s computing programs and
           find which degree best matches your interests.
@@ -138,6 +96,7 @@ function HighSchoolDegreeInformation() {
             className={filter === activeFilter ? 'active' : ''}
             key={filter}
             type="button"
+            aria-pressed={filter === activeFilter}
             onClick={() => setActiveFilter(filter)}
           >
             {filter}
@@ -145,14 +104,19 @@ function HighSchoolDegreeInformation() {
         ))}
       </section>
 
-      <section className="degree-grid" id="degree-grid">
-        {visibleDegrees.map((degree) => (
+      <p role="status" aria-live="polite">{visibleDegrees.length} programs shown · {activeFilter}</p>
+      {[false, true].map((interdisciplinary) => {
+        const groupDegrees = visibleDegrees.filter((degree) => Boolean(degree.status) === interdisciplinary);
+        if (!groupDegrees.length) return null;
+        return <section key={String(interdisciplinary)} id={interdisciplinary ? 'interdisciplinary' : 'degree-grid'} aria-labelledby={interdisciplinary ? 'interdisciplinary-heading' : 'main-degrees-heading'}>
+          <h2 id={interdisciplinary ? 'interdisciplinary-heading' : 'main-degrees-heading'}>{interdisciplinary ? 'Interdisciplinary Computing Majors' : 'Computing Degrees'}</h2>
+          {interdisciplinary && <><p>These degrees combine computing with another subject, such as business, crime and justice, or people and society. Think about which subjects you enjoy.</p><p>Use these cards to explore your options. Ask a Bellini advisor if you can apply now and which classes you would take.</p></>}
+      <div className="degree-grid">
+        {groupDegrees.map((degree) => (
           <article className="degree-card" key={degree.name}>
             <div>
               <p className="degree-category">{degree.category}</p>
-              <h2>
-                {degree.name}
-              </h2>
+              <h3>{degree.name}</h3>
               <p className="degree-best-for">Best for: {degree.bestFor}</p>
               <p>{degree.description}</p>
             </div>
@@ -160,13 +124,7 @@ function HighSchoolDegreeInformation() {
             <div>
               <p className="degree-skills">Skills: {degree.skills}</p>
               <div className="degree-card-actions">
-                {completedDegreePages.has(degree.slug) ? (
-                  <Link to={`/high-school/degrees/${degree.slug}`}>Learn More</Link>
-                ) : (
-                  <button className="placeholder-button" type="button">
-                    Learn More
-                  </button>
-                )}
+                <Link to={`/high-school/degrees/${degree.slug}`}>Learn More</Link>
                 <button
                   className={
                     compareSlugs.includes(degree.slug) ? 'compare-selected' : ''
@@ -179,22 +137,14 @@ function HighSchoolDegreeInformation() {
                     ? 'Selected'
                     : 'Add to Compare'}
                 </button>
-                <button
-                  className={
-                    plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
-                  }
-                  type="button"
-                  onClick={() => handleAddToPlanner(degree)}
-                >
-                  {plannerMajorSlugs.includes(degree.slug)
-                    ? 'Remove from Planner'
-                    : 'Add to Planner'}
-                </button>
               </div>
             </div>
           </article>
         ))}
-      </section>
+      </div>
+
+        </section>;
+      })}
 
       <section className="degrees-extra-pathways" aria-label="Extra pathways">
         <Link className="active-link" to="/high-school/degrees/bachelors-masters-pathways">
@@ -202,20 +152,16 @@ function HighSchoolDegreeInformation() {
           <small>View pathways</small>
         </Link>
         <Link className="active-link" to="/high-school/degrees/future-options">
-          <span>Interdisciplinary Computing Majors / Future Degree Options</span>
-          <small>View list</small>
+          <span>Anticipated Degrees for 2027</span>
+          <small>View future degree options</small>
         </Link>
       </section>
 
-      <section className="degrees-quiz-callout">
+      <section className="degrees-quiz-callout coming-soon-area">
         <div>
-          <h2>Not sure which degree fits you?</h2>
-          <p>
-            Start with the quiz and we’ll suggest 2–3 programs based on your
-            interests.
-          </p>
+          <h2>Intake quiz — Coming soon</h2>
+          <p>Personalized program recommendations are coming soon.</p>
         </div>
-        <Link to="/quiz">Start Quiz</Link>
       </section>
 
       <p className="degrees-disclaimer">
@@ -225,7 +171,7 @@ function HighSchoolDegreeInformation() {
       </p>
 
       {(compareSlugs.length > 0 || compareMessage) && (
-        <section className="degree-compare-bar" aria-label="Degree comparison">
+        <section className="degree-compare-bar" aria-label="Degree comparison" aria-live="polite" aria-atomic="true">
           <div>
             <p className="compare-bar-label">Comparing:</p>
             <div className="compare-selection-list">
@@ -246,7 +192,7 @@ function HighSchoolDegreeInformation() {
               )}
             </div>
             {compareMessage && (
-              <p className="compare-warning">{compareMessage}</p>
+              <p className="compare-warning" role="status">{compareMessage}</p>
             )}
           </div>
 

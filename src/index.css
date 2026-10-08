@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Epilogue:wght@300;400;500;600;700&family=Saira:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amarna:wght@100..700&family=Anton&family=Epilogue:wght@300;400;500;600;700&family=Saira:wght@300;400;500;600;700;800&display=swap");
 
 * {
   box-sizing: border-box;
@@ -6,11 +6,21 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: "Amarna", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
   font-weight: 400;
   background-color: #f5f0e8;
   color: #19202b;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: "Amarna", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 p {
@@ -85,7 +95,7 @@ nav.site-section-nav {
 }
 
 .site-section-nav::-webkit-scrollbar-thumb {
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: rgba(8, 98, 66, 0.42);
 }
 
@@ -114,7 +124,7 @@ nav.site-section-nav {
   background-color: #086242;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 180ms ease;
+  transition: none;
 }
 
 .site-section-nav a:hover::after,
@@ -164,6 +174,15 @@ h2 {
   font-weight: 400;
 }
 
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Amarna", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
 section {
   margin-top: 32px;
 }
@@ -172,15 +191,9 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(circle at 0% 0%, #086242, transparent 55%),
-    radial-gradient(circle at 100% 0%, #55a757, transparent 55%),
-    radial-gradient(circle at 0% 100%, #c2d58d, transparent 55%),
-    radial-gradient(circle at 100% 100%, #80ef80, transparent 42%),
-    radial-gradient(circle at 50% 50%, #ffee8c, transparent 38%),
-    #9ecb91;
-  background-size: 400% 400%;
-  animation: gradientMove 10s ease-in-out infinite alternate;
+  background: #f5f0e8;
+
+  animation: none;
 }
 
 .auth-panel {
@@ -189,7 +202,7 @@ section {
   padding: 36px 44px;
   background-color: #f1efee;
   border: 1px solid #293241;
-  border-radius: 26px;
+  border-radius: 4px;
 }
 
 @keyframes gradientMove {
@@ -239,8 +252,7 @@ section {
   border-bottom: 3px solid transparent;
   border-radius: 0;
   color: #697181;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: "Amarna", sans-serif;
   font-size: 20px;
   font-weight: 400;
 }
@@ -267,7 +279,7 @@ section {
   margin-top: 28px;
   padding: 20px;
   border: 1px solid #c4beb7;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -291,8 +303,7 @@ label {
   display: grid;
   gap: 8px;
   color: #111421;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: "Amarna", sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
@@ -301,11 +312,10 @@ input {
   width: 100%;
   padding: 14px 18px;
   border: 1px solid #c4beb7;
-  border-radius: 14px;
+  border-radius: 4px;
   background-color: #ffffff;
   color: #111421;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: "Amarna", sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
@@ -329,11 +339,10 @@ button {
   width: fit-content;
   padding: 16px 24px;
   border: 0;
-  border-radius: 14px;
+  border-radius: 4px;
   background-color: #086242;
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: "Amarna", sans-serif;
   font-size: 15px;
   font-weight: 400;
   cursor: pointer;
@@ -343,11 +352,10 @@ button {
   display: inline-block;
   width: fit-content;
   padding: 16px 24px;
-  border-radius: 14px;
+  border-radius: 4px;
   background-color: #086242;
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter",
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: "Amarna", sans-serif;
   font-size: 15px;
   font-weight: 400;
   text-align: center;
@@ -367,15 +375,9 @@ form > button[type="submit"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(circle at 0% 0%, #086242, transparent 55%),
-    radial-gradient(circle at 100% 0%, #55a757, transparent 55%),
-    radial-gradient(circle at 0% 100%, #c2d58d, transparent 55%),
-    radial-gradient(circle at 100% 100%, #80ef80, transparent 42%),
-    radial-gradient(circle at 50% 50%, #ffee8c, transparent 38%),
-    #739966;
-  background-size: 400% 400%;
-  animation: gradientMove 10s ease-in-out infinite alternate;
+  background: #f5f0e8;
+
+  animation: none;
 }
 
 .profile-card {
@@ -383,7 +385,7 @@ form > button[type="submit"] {
   margin: 0;
   padding: 42px;
   border: 1px solid #c4beb7;
-  border-radius: 24px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -415,7 +417,7 @@ form > button[type="submit"] {
   gap: 8px;
   margin: 28px 0;
   padding: 18px;
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: #f1efee;
 }
 
@@ -462,7 +464,7 @@ form > button[type="submit"] {
   margin: 24px auto 0;
   padding: 12px 18px;
   border: 2px solid #b41f2a;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #f7e3e0;
   color: #7b161d;
   font-size: 14px;
@@ -479,6 +481,7 @@ form > button[type="submit"] {
 .user-type-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 22px;
   max-width: 900px;
   margin: 0 auto;
@@ -486,8 +489,15 @@ form > button[type="submit"] {
   list-style: none;
 }
 
+.user-type-list li {
+  display: flex;
+  min-width: 0;
+}
+
 .user-type-list button {
   width: 100%;
+  height: 100%;
+  min-width: 0;
 }
 
 .user-type-card {
@@ -496,19 +506,20 @@ form > button[type="submit"] {
   align-content: center;
   gap: 18px;
   min-height: 210px;
+  overflow-wrap: anywhere;
   padding: 24px;
   border: 1px solid #c4beb7;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #ffffff;
   color: #111421;
   text-align: center;
-  box-shadow: 0 18px 40px rgba(21, 28, 20, 0.12);
+  box-shadow: none;
 }
 
 .user-type-card:hover {
   background-color: #ffffff;
   border-color: #086242;
-  transform: translateY(-3px);
+  transform: none;
 }
 
 .user-type-list li:nth-child(-n + 2) .user-type-card:hover {
@@ -523,9 +534,10 @@ form > button[type="submit"] {
   display: grid;
   place-items: center;
   width: 128px;
+  max-width: 100%;
   height: 96px;
   border: 2px dashed #9ba58f;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #f1efee;
 }
 
@@ -585,7 +597,7 @@ form > button[type="submit"] {
 
   .auth-panel {
     padding: 30px 22px;
-    border-radius: 18px;
+    border-radius: 4px;
   }
 
   .auth-switcher {

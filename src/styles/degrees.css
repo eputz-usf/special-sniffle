@@ -6,25 +6,21 @@
 }
 
 .pathways-page {
-  background:
-    radial-gradient(circle at 0% 0%, #086242, transparent 55%),
-    radial-gradient(circle at 100% 0%, #55a757, transparent 55%),
-    radial-gradient(circle at 0% 100%, #c2d58d, transparent 55%),
-    radial-gradient(circle at 100% 100%, #80ef80, transparent 42%),
-    radial-gradient(circle at 50% 50%, #ffee8c, transparent 38%),
-    #9ecb91;
-  background-size: 400% 400%;
-  animation: gradientMove 10s ease-in-out infinite alternate;
+  background: #f5f0e8;
+
+  animation: none;
 }
 
 .pathways-page .degree-back-link {
-  border-color: #ffffff;
-  background-color: #ffffff;
+  border-color: #086343;
+  background-color: transparent;
   color: #086343;
 }
 
-.pathways-page .degree-back-link:hover {
-  background-color: transparent;
+.pathways-page .degree-back-link:hover,
+.pathways-page .degree-back-link:focus-visible {
+  background-color: #086343;
+  border-color: #086343;
   color: #ffffff;
 }
 
@@ -78,7 +74,7 @@
   display: inline-block;
   padding: 15px 22px;
   border: 2px solid #086343;
-  border-radius: 14px;
+  border-radius: 4px;
   background-color: #086343;
   color: #ffffff;
   font-size: 15px;
@@ -108,7 +104,7 @@
 .degrees-filters button {
   padding: 10px 16px;
   border: 1px solid #c8bd9b;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #ffffff;
   color: #086343;
 }
@@ -132,7 +128,7 @@
   min-height: 360px;
   padding: 26px;
   border: 1px solid #d7ccb0;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -149,7 +145,7 @@
 .parent-info-grid > div {
   padding: 26px;
   border: 1px solid #d7ccb0;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -174,7 +170,7 @@
 .parent-info-question-list li {
   padding: 16px;
   border: 1px solid rgba(8, 98, 67, 0.2);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #f8f4ea;
 }
 
@@ -238,7 +234,8 @@
   text-transform: uppercase;
 }
 
-.degree-card h2 {
+.degree-card h2,
+.degree-card h3 {
   margin: 0 0 14px;
   color: #086343;
   font-size: 30px;
@@ -264,13 +261,13 @@
   overflow: hidden;
   padding: 10px 14px;
   border: 1px solid #086343;
-  border-radius: 14px;
+  border-radius: 4px;
   background-color: #086343;
   color: #ffffff;
   font: inherit;
   font-size: 15px;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: none;
 }
 
 .degree-card-actions a::before,
@@ -283,7 +280,7 @@
   height: 100%;
   background-color: #f0eee6;
   content: '';
-  transition: width 0.35s ease;
+  transition: none;
 }
 
 .degree-card-actions a:hover::before,
@@ -349,7 +346,7 @@
   margin-bottom: 28px;
   padding: 9px 14px;
   border: 2px solid #086343;
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: transparent;
   color: #086343;
   font-size: 13px;
@@ -368,12 +365,12 @@
 }
 
 .degrees-extra-pathways a {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: none;
 }
 
 .degrees-extra-pathways a:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 24px rgba(8, 99, 67, 0.14);
+  transform: none;
+  box-shadow: none;
 }
 
 .degree-detail-hero {
@@ -405,7 +402,7 @@
   width: fit-content;
   padding: 14px 20px;
   border: 2px solid #086343;
-  border-radius: 14px;
+  border-radius: 4px;
   background-color: #086343;
   color: #ffffff;
   font: inherit;
@@ -425,7 +422,7 @@
 .degree-detail-section {
   padding: 28px;
   border: 1px solid #d7ccb0;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -494,9 +491,7 @@
   overflow: hidden;
   background-color: transparent;
   color: #086343;
-  transition:
-    color 180ms ease,
-    border-color 180ms ease;
+  transition: none;
 }
 
 .degree-next-steps .degree-detail-actions a::before,
@@ -508,7 +503,7 @@
   background-color: #086343;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 220ms ease;
+  transition: none;
 }
 
 .degree-next-steps .degree-detail-actions a:hover,
@@ -539,7 +534,7 @@
 .course-overlap-advising-note,
 .course-overlap-placeholder {
   border: 1px solid #d7ccb0;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -628,7 +623,7 @@
 .course-overlap-progress-bar {
   height: 14px;
   overflow: hidden;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #e8dec4;
 }
 
@@ -666,7 +661,7 @@
   width: min(100%, 360px);
   padding: 18px 24px;
   border: 2px solid #086343;
-  border-radius: 14px;
+  border-radius: 4px;
   background-color: #0a6f49;
   color: #ffffff;
   font: inherit;
@@ -674,7 +669,7 @@
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 16px 28px rgba(8, 99, 67, 0.22);
+  box-shadow: none;
 }
 
 .course-overlap-print-button:hover,
@@ -690,7 +685,7 @@
   margin-top: 24px;
   padding: 22px;
   border: 2px solid rgba(8, 99, 67, 0.18);
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: #f4faf2;
 }
 
@@ -707,9 +702,9 @@
 .course-overlap-group {
   overflow: hidden;
   border: 1px solid #d7ccb0;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #ffffff;
-  box-shadow: 0 14px 34px rgba(14, 38, 29, 0.08);
+  box-shadow: none;
 }
 
 .course-overlap-group-heading {
@@ -732,7 +727,7 @@
 .course-overlap-group-heading span {
   flex: 0 0 auto;
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #ffffff;
   color: #25352d;
   font-size: 13px;
@@ -826,7 +821,7 @@
 .course-overlap-chip-list a {
   padding: 10px 14px;
   border: 1px solid #086343;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #ffffff;
   color: #086343;
   font-size: 14px;
@@ -866,7 +861,7 @@
 .degree-skill-chips span {
   padding: 10px 14px;
   border: 1px solid #d7ccb0;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #ffffff;
   color: #086343;
   font-size: 14px;
@@ -923,7 +918,7 @@
   min-height: 150px;
   padding: 18px;
   border: 1px solid #d7ccb0;
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: #f5f0e8;
   color: #086343;
   text-decoration: none;
@@ -962,7 +957,7 @@
 .career-card {
   padding: 20px;
   border: 1px solid #d7ccb0;
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: #f5f0e8;
 }
 
@@ -1008,7 +1003,7 @@
 .job-stat-card {
   padding: 18px;
   border: 1px solid #d7ccb0;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #f5f0e8;
 }
 
@@ -1040,7 +1035,7 @@
   margin-top: 18px;
   padding: 20px;
   border: 1px solid #d7ccb0;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -1191,7 +1186,7 @@
   margin-top: 18px;
   padding: 18px;
   border: 1px solid #d7ccb0;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #fff9e8;
 }
 
@@ -1206,7 +1201,7 @@
 .tampa-income-list li {
   padding: 13px 16px;
   border: 2px solid #086343;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #e8f2ec;
   color: #086343;
   font-weight: 700;
@@ -1219,7 +1214,7 @@
   gap: 24px;
   margin: 42px 0 24px;
   padding: 28px;
-  border-radius: 20px;
+  border-radius: 4px;
   background-color: #eae1bf;
 }
 
@@ -1257,7 +1252,7 @@
   justify-content: space-between;
   padding: 22px;
   border: 2px solid #d7ccb0;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #ffffff;
   color: #086343;
   text-decoration: none;
@@ -1294,7 +1289,7 @@
   margin: 42px 0 42px;
   padding: 30px;
   border: 2px solid #086343;
-  border-radius: 22px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -1375,7 +1370,7 @@
   align-content: space-between;
   min-height: 100px;
   padding: 18px;
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: #eae1bf;
 }
 
@@ -1437,7 +1432,7 @@
   display: inline-flex;
   width: fit-content;
   padding: 7px 10px;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #b42318;
   color: #ffffff;
   font-size: 12px;
@@ -1459,7 +1454,7 @@
   width: fit-content;
   padding: 10px 13px;
   border: 2px solid #086343;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #f0eee6;
   color: #086343;
   font: inherit;
@@ -1484,7 +1479,7 @@
   width: fit-content;
   padding: 10px 13px;
   border: 2px solid #086343;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #f0eee6;
   color: #086343;
   font: inherit;
@@ -1492,7 +1487,7 @@
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  transition: none;
 }
 
 .future-resource-button::before,
@@ -1505,7 +1500,7 @@
   height: 100%;
   background-color: #086343;
   content: '';
-  transition: width 0.35s ease;
+  transition: none;
 }
 
 .future-resource-button:hover::before,
@@ -1558,9 +1553,9 @@
 
 .future-degree-text-panel {
   padding: 18px;
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.45);
-  box-shadow: 0 8px 20px rgba(8, 99, 67, 0.08);
+  box-shadow: none;
 }
 
 .future-resource-button,
@@ -1572,7 +1567,7 @@
   display: inline-flex;
   width: fit-content;
   padding: 7px 10px;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #a3332b;
   color: #ffffff;
   font-size: 12px;
@@ -1587,7 +1582,7 @@
   margin: 0 0 14px;
   padding: 10px 13px;
   border: 2px solid #086343;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #f0eee6;
   color: #086343;
   font: inherit;
@@ -1613,21 +1608,18 @@
   align-content: space-between;
   padding: 20px;
   border: 2px solid #086343;
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: #ece1bc;
   color: #086343;
   text-decoration: none;
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease,
-    background-color 0.22s ease;
+  transition: none;
 }
 
 .pathway-card:hover {
   background-color: #ffffff;
-  box-shadow: 0 14px 30px rgba(8, 99, 67, 0.16);
+  box-shadow: none;
   text-decoration: none;
-  transform: scale(1.035);
+  transform: none;
 }
 
 .pathway-card h2 {
@@ -1662,7 +1654,7 @@
   min-height: 260px;
   padding: 24px;
   border: 2px solid #086343;
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: #ece1bc;
   color: #086343;
 }
@@ -1689,14 +1681,14 @@
   width: fit-content;
   padding: 10px 13px;
   border: 1px solid #086343;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #086343;
   color: #ffffff;
   font-size: 13px;
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
-  transition: color 0.3s ease;
+  transition: none;
 }
 
 .minor-card a::before {
@@ -1708,7 +1700,7 @@
   height: 100%;
   background-color: #f0eee6;
   content: '';
-  transition: width 0.35s ease;
+  transition: none;
 }
 
 .minor-card a:hover::before {
@@ -1723,7 +1715,7 @@
 .degree-contact-section {
   margin: 0 0 28px;
   padding: 28px;
-  border-radius: 20px;
+  border-radius: 4px;
   background-color: #eae1bf;
 }
 
@@ -1751,9 +1743,9 @@
   margin: 34px 0 0;
   padding: 18px;
   border: 2px solid #086343;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #ffffff;
-  box-shadow: 0 16px 40px rgba(8, 99, 67, 0.18);
+  box-shadow: none;
 }
 
 .compare-bar-label {
@@ -1777,7 +1769,7 @@
   gap: 8px;
   min-height: 36px;
   padding: 8px 11px;
-  border-radius: 999px;
+  border-radius: 4px;
   font-size: 14px;
   font-weight: 700;
 }
@@ -1825,7 +1817,7 @@
 .degree-comparison-empty a {
   padding: 11px 14px;
   border: 2px solid #086343;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #086343;
   color: #ffffff;
   font: inherit;
@@ -1858,7 +1850,7 @@
   max-width: 880px;
   padding: 34px;
   border: 2px solid #086343;
-  border-radius: 22px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -1885,7 +1877,7 @@
   margin: 0 0 28px;
   padding: 28px;
   border: 2px solid rgba(8, 99, 67, 0.28);
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #f4faf2;
 }
 
@@ -1923,9 +1915,9 @@
 .major-switch-advising-grid article {
   padding: 20px;
   border: 1px solid #d7ccb0;
-  border-radius: 12px;
+  border-radius: 4px;
   background-color: #ffffff;
-  box-shadow: 0 12px 26px rgba(14, 38, 29, 0.08);
+  box-shadow: none;
 }
 
 .major-switch-path-card h3,
@@ -1968,7 +1960,7 @@
   align-items: center;
   padding: 12px 16px;
   border: 2px solid #086343;
-  border-radius: 14px;
+  border-radius: 4px;
   background-color: #086343;
   color: #ffffff;
   font-size: 14px;
@@ -1986,7 +1978,7 @@
 .degree-comparison-table {
   overflow: hidden;
   border: 2px solid #086343;
-  border-radius: 18px;
+  border-radius: 4px;
   background-color: #ffffff;
 }
 
@@ -2241,7 +2233,7 @@
   .course-overlap-print-report {
     display: block;
     color: #111111;
-    font-family: Arial, sans-serif;
+    font-family: "Amarna", sans-serif;
   }
 
   .course-overlap-print-report h2 {
@@ -2283,4 +2275,18 @@
     font-size: 12px;
     line-height: 1.35;
   }
+}
+
+/* Interdisciplinary cards share the computing-card layout and actions. */
+.degree-card h3 {
+  overflow-wrap: anywhere;
+}
+.degree-card, .compare-chip { min-width: 0; overflow-wrap: anywhere; }
+#interdisciplinary { scroll-margin-top: 2rem; }
+.degree-card-actions > * { white-space: normal; }
+
+.interdisciplinary-detail-page .degree-detail-hero h1 {
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }

@@ -7,16 +7,13 @@ import {
   MessageCircleQuestion,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import classroomImage from '../../assets/bellini.jpeg';
-import quizImage from '../../assets/quiz.avif';
 import '../../styles/dashboard.css';
 import '../../styles/highSchoolDashboard.css';
-import { loadPublicQuizResult } from '../../utils/publicQuizSession';
 
 const launchSteps = [
   {
     title: 'Find your starting point',
-    text: 'Use the intake quiz to connect your interests, strengths, favorite subjects, and career goals to possible Bellini College programs.',
+    text: 'Explore degrees to connect your interests, strengths, favorite subjects, and career goals to possible Bellini College programs.',
   },
   {
     title: 'Explore degree paths',
@@ -35,13 +32,13 @@ const launchSteps = [
     text: 'Keep track of questions for admissions, advising, parents, or future campus visits as you narrow down your options.',
   },
   {
-    title: 'Build your transition plan',
-    text: 'Add majors from the degree explorer, include your quiz recommendations, write notes and questions, then print or save your summary as a PDF.',
+    title: 'Plan your next steps',
+    text: 'Make a list of programs that interest you and questions to discuss with admissions or advising.',
   },
 ];
 
 const readinessItems = [
-  'If you have not already done so - take the intake quiz to find possible major matches.',
+  'Explore degree options to find programs that match your interests.',
   'Make a list of your top liked majors.',
   'Review degree details and career outlooks.',
   'Write down any questions you have.',
@@ -49,8 +46,6 @@ const readinessItems = [
 ];
 
 function ProspectiveStudentDashboard() {
-  const quizResult = loadPublicQuizResult();
-  const hasPreviousQuizResult = Boolean(quizResult);
 
   function handleSectionLinkClick(
     event: MouseEvent<HTMLAnchorElement>,
@@ -58,7 +53,7 @@ function ProspectiveStudentDashboard() {
   ) {
     event.preventDefault();
     document.getElementById(sectionId)?.scrollIntoView({
-      behavior: 'smooth',
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
       block: 'start',
     });
   }
@@ -108,20 +103,12 @@ function ProspectiveStudentDashboard() {
           >
             Tool Box
           </a>
-          <Link to="/high-school/transition-planner">
-            View Planner
-          </Link>
         </nav>
       </header>
 
       <section className="high-school-hero scroll-reveal" id="start">
         <h1>planning, redefined</h1>
-
-        <img
-          className="high-school-hero-image"
-          src={classroomImage}
-          alt="Bellini College classroom"
-        />
+        <div className="high-school-hero-image picture-placeholder" aria-label="Reserved dashboard picture space">Picture placeholder</div>
 
         <div className="high-school-hero-copy">
           <p className="dashboard-eyebrow">High School / Prospective Student</p>
@@ -150,57 +137,19 @@ function ProspectiveStudentDashboard() {
         </div>
       </section>
 
-      <section className="dashboard-quiz-section scroll-reveal" id="intake-quiz">
+      <section className="dashboard-quiz-section scroll-reveal coming-soon-area" id="intake-quiz">
         <div className="dashboard-section-rule"></div>
         <div className="high-school-feature-row">
           <div>
             <p className="dashboard-eyebrow">Intake quiz</p>
-            <h2>Tell us what you like to build, solve, and study</h2>
-            <p>
-              Not sure which computing major matches your interests? Answer a few quick questions to explore 
-              possible Bellini College programs, compare degree options, and prepare next steps for admissions or advising.
-            </p>
-            <div className="dashboard-quiz-actions">
-              <Link className="dashboard-quiz-button compact" to="/quiz">
-                <ClipboardList size={20} aria-hidden="true" />
-                Take the quiz
-              </Link>
-              {hasPreviousQuizResult ? (
-                <Link className="dashboard-quiz-button compact secondary" to="/quiz/results">
-                  <BookOpenCheck size={20} aria-hidden="true" />
-                  View previous result
-                </Link>
-              ) : (
-                <span
-                  className="dashboard-disabled-result-control"
-                  tabIndex={0}
-                  aria-describedby="previous-result-tooltip"
-                >
-                  <button
-                    className="dashboard-quiz-button compact secondary"
-                    type="button"
-                    disabled
-                  >
-                    <BookOpenCheck size={20} aria-hidden="true" />
-                    View previous result
-                  </button>
-                  <span
-                    className="dashboard-disabled-result-tooltip"
-                    id="previous-result-tooltip"
-                    role="tooltip"
-                  >
-                    Finish the quiz first to generate a recommendation.
-                  </span>
-                </span>
-              )}
-            </div>
+            <h2>Intake quiz — Coming soon</h2>
+            <p>Personalized program recommendations are coming soon.</p>
+            <button className="dashboard-quiz-button compact dashboard-quiz-button-disabled-red" type="button" disabled>
+              <ClipboardList size={20} aria-hidden="true" />
+              Coming soon
+            </button>
           </div>
-
-          <img
-            className="dashboard-quiz-image"
-            src={quizImage}
-            alt="Students reviewing college planning materials"
-          />
+          <div className="dashboard-quiz-image picture-placeholder" aria-label="Reserved quiz picture space">Picture placeholder</div>
         </div>
       </section>
 
@@ -238,18 +187,6 @@ function ProspectiveStudentDashboard() {
 
           <Link
             className="dashboard-major-card high-school-tool-card"
-            to="/high-school/transition-planner"
-          >
-            <CalendarCheck size={30} aria-hidden="true" />
-            <span>Admissions and transition planner</span>
-            <p>
-              Save quiz recommendations, choices, questions, notes, and next
-              steps in a printable summary.
-            </p>
-          </Link>
-
-          <Link
-            className="dashboard-major-card high-school-tool-card"
             to="/high-school/parent-info"
           >
             <MessageCircleQuestion size={30} aria-hidden="true" />
@@ -259,6 +196,16 @@ function ProspectiveStudentDashboard() {
               admissions or advising conversations.
             </p>
           </Link>
+
+          <button
+            className="dashboard-major-card high-school-tool-card high-school-tool-coming-soon coming-soon-area"
+            type="button"
+            disabled
+          >
+            <CalendarCheck size={30} aria-hidden="true" />
+            <span>Admissions and transition planner</span>
+            <p>Coming soon!</p>
+          </button>
         </div>
       </section>
 
@@ -269,9 +216,8 @@ function ProspectiveStudentDashboard() {
             <p className="dashboard-eyebrow">Next Steps & Admissions Questions</p>
             <h2>Keep your exploration focused</h2>
             <p>
-              If you are done exploring the dashboard and available features in
-              the toolbox - your next step is to turn that information into a
-              simple action plan.
+              Compare your preferred degrees, review their career outlooks, and
+              prepare questions for admissions or advising.
             </p>
           </div>
 

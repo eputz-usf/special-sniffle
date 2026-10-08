@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
+import { getDegreeSource } from '../../utils/degreeSource';
 import '../../styles/degrees.css';
 
 const pathwayPrograms = [
@@ -33,7 +34,7 @@ const availableMinors = [
 
 function BachelorsMastersPathways() {
   const [searchParams] = useSearchParams();
-  const sourceDashboard = searchParams.get('from');
+  const sourceDashboard = getDegreeSource(searchParams.get('from'));
   const degreeExplorerPath = sourceDashboard
     ? `/degrees?from=${sourceDashboard}`
     : '/degrees';

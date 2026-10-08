@@ -1,0 +1,625 @@
+{
+  "checkedAt": "2026-10-08T19:50:48.092Z",
+  "results": [
+    {
+      "url": "https://usf.box.com/s/zmkmijeacm1l26zhzf1jjpqsjlm6k5qa",
+      "locations": [
+        "src/data/degrees.ts:103"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/zmkmijeacm1l26zhzf1jjpqsjlm6k5qa"
+    },
+    {
+      "url": "https://usf.box.com/s/6twh50000swm5gruk7r3m5y45q9ck1mg",
+      "locations": [
+        "src/data/degrees.ts:107"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/6twh50000swm5gruk7r3m5y45q9ck1mg"
+    },
+    {
+      "url": "https://usf.box.com/s/6m5d2ylsx639swpsiy6n9qvnlre0xxw4",
+      "locations": [
+        "src/data/degrees.ts:111"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/6m5d2ylsx639swpsiy6n9qvnlre0xxw4"
+    },
+    {
+      "url": "https://usf.box.com/s/19fmhum9p6w2nezr4f2d1hi5fdlbohvr",
+      "locations": [
+        "src/data/degrees.ts:115",
+        "src/data/highSchoolDegrees.ts:99",
+        "src/pages/degrees/DegreeDetail.tsx:700",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:69"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/19fmhum9p6w2nezr4f2d1hi5fdlbohvr"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cs-flowchart-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:119",
+        "src/data/highSchoolDegrees.ts:103",
+        "src/pages/degrees/DegreeDetail.tsx:704",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:73"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cs-flowchart-2026.pdf"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cs-curriculum-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:129",
+        "src/data/highSchoolDegrees.ts:113",
+        "src/pages/degrees/DegreeDetail.tsx:721",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:90"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cs-curriculum-2026.pdf"
+    },
+    {
+      "url": "https://catalog.usf.edu/mime/media/23/6732/Computer+Science+B.S.C.S.+-+2+Year+Plan+of+Study.pdf",
+      "locations": [
+        "src/data/degrees.ts:125",
+        "src/data/highSchoolDegrees.ts:109",
+        "src/pages/degrees/DegreeDetail.tsx:714",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:83"
+      ],
+      "status": 200,
+      "finalUrl": "https://catalog.usf.edu/mime/media/23/6732/Computer+Science+B.S.C.S.+-+2+Year+Plan+of+Study.pdf"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cse-flowchart-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:195",
+        "src/data/highSchoolDegrees.ts:176",
+        "src/pages/degrees/DegreeDetail.tsx:778",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:290"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cse-flowchart-2026.pdf"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cse-curriculum-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:201",
+        "src/data/highSchoolDegrees.ts:182",
+        "src/pages/degrees/DegreeDetail.tsx:788",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:300"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cse-curriculum-2026.pdf"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/ai-flowchart-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:267",
+        "src/data/highSchoolDegrees.ts:244",
+        "src/pages/degrees/DegreeDetail.tsx:846",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:460"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/ai-flowchart-2026.pdf"
+    },
+    {
+      "url": "https://usflearn.instructure.com/courses/2040876/files/202229912/download?download_frd=1",
+      "locations": [
+        "src/data/degrees.ts:134",
+        "src/data/highSchoolDegrees.ts:118",
+        "src/pages/degrees/DegreeDetail.tsx:728",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:97"
+      ],
+      "status": 200,
+      "finalUrl": "https://login.microsoftonline.com/741bf7de-e2e5-46df-8d67-82607df9deaa/saml2?SAMLRequest=fZJPTxsxEMXvfIqV795%2FbHaDlUQKRIhIUCISOHBBXnsMlrx26rFL%2B%2B1xNq2gB3Idz5vfmzeeIR%2FMni1jeLMP8DMChuz3YCyy8WFOorfMcdTILB8AWRBsu7y7ZXVesr13wQlnyBfJaQVHBB%2B0syRbr%2BbkpYNOCdF0dCrPS9qoCdC%2Bqnta91LU%2FfS8VZOWZE%2FgMWnmJI1IQsQIa4uB25BKZd3SqqTldFddsEnJmuqZZKu0h7Y8jKq3EPbIisK4V23zQQvv0KngrNEWcuGGomuqXnUSKNQwoU0rVTLUJld1W3ZSXUjgvDhsV5Ns%2BW%2BFK2cxDuC34H9pAY8Pt5%2BoiMoA9zbXyaePIkR%2FJI0exlEk2%2FyN71Jbqe3r6eT6YxOym91uQzf32x1ZzA5z2JiHXxzQp8ij%2FVnxVTI7Hv9Hgq1XG2e0%2BJNdOz%2Fw8L2XKq%2FGipZUja0sWtyD0EqDTOkY496vPPAAc5L4QIrFEfr%2FJ1ucfQA%3D&SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&Signature=ViontJm%2Fresr2QYbpKiThPUmCh4kr%2BX%2F%2FghawS8zLNdIyGSuJ2cFvCH%2BphSlT97eDal%2BRJ5FXxcvnLr3Gobxy%2B%2F8O6nN15E3ud%2F%2BKEduAh3uoPBLvCAdSIT4Xr9twyIXMHE9YnyvpFvz4YnWgqFnOby21idkMpLr%2BuCx0YQmupWq5Y%2BXxMJ63iVfWyd4rlQXzRYJxzt81sDLuWWeC1%2FIGWqD3Lc2g0OHNPPc1AonMLc0IOLJr%2FUGWvhYsamxAOO5iiOx0gHBOM%2FigSkTpIUDxyvNhYJaJxwBk7CfhVkEhzqyLXyGFABSfLPBskZyidDWvYJ7iJre1hRjxzPMyv45Sw%3D%3D"
+    },
+    {
+      "url": "https://catalog.usf.edu/mime/media/23/6729/Artificial+Intelligence+B.S.A.I.+-+2+Year+Plan+of+Study.pdf",
+      "locations": [
+        "src/data/degrees.ts:273",
+        "src/data/highSchoolDegrees.ts:250",
+        "src/pages/degrees/DegreeDetail.tsx:856",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:470"
+      ],
+      "status": 200,
+      "finalUrl": "https://catalog.usf.edu/mime/media/23/6729/Artificial+Intelligence+B.S.A.I.+-+2+Year+Plan+of+Study.pdf"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/ai-curriculum-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:277",
+        "src/data/highSchoolDegrees.ts:254",
+        "src/pages/degrees/DegreeDetail.tsx:863",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:477"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/ai-curriculum-2026.pdf"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cys-flowchart-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:341",
+        "src/data/highSchoolDegrees.ts:316",
+        "src/pages/degrees/DegreeDetail.tsx:928",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:645"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cys-flowchart-2026.pdf"
+    },
+    {
+      "url": "https://catalog.usf.edu/mime/media/23/6737/Cybersecurity+B.S.C.Y.S.+-+2+Year+Plan+of+Study.pdf",
+      "locations": [
+        "src/data/degrees.ts:347",
+        "src/data/highSchoolDegrees.ts:322",
+        "src/pages/degrees/DegreeDetail.tsx:938",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:655"
+      ],
+      "status": 200,
+      "finalUrl": "https://catalog.usf.edu/mime/media/23/6737/Cybersecurity+B.S.C.Y.S.+-+2+Year+Plan+of+Study.pdf"
+    },
+    {
+      "url": "https://usflearn.instructure.com/courses/2040876/files/202229924/download?download_frd=1",
+      "locations": [
+        "src/data/degrees.ts:282",
+        "src/data/highSchoolDegrees.ts:259",
+        "src/pages/degrees/DegreeDetail.tsx:870",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:484"
+      ],
+      "status": 200,
+      "finalUrl": "https://login.microsoftonline.com/741bf7de-e2e5-46df-8d67-82607df9deaa/saml2?SAMLRequest=fZJPbxshEMXv%2FRQr7uwfujEbZFtyY1W1lLZW7PbQS4VhSJBYcBhI229fvE6U9FBfh3nze%2FOGOcrRHcUqpwd%2FB48ZMFW%2FR%2BdRTA8LkqMXQaJF4eUIKJISu9XnW8HqVhxjSEEFR95ILiskIsRkgyfVZr0gP3mn1XvTMWoGzmlvVEcPnA9UaT3IXjLNJCPVd4hYNAtSRhQhYoaNxyR9KqWWzWjX0nbYd9fiqhU9%2B0GqddnDepkm1UNKRxRN48K99fVoVQwYTAreWQ%2B1CmPD%2B%2B5guAYKDK5oP9OGDnrG6cBmLdfmWoOUzWm7Ymb1ssJN8JhHiDuIT1bBt7vbV1RG40BGX9viM2aVcjyTJg%2FTKFJtn%2BP7YL22%2Fv5ycodzE4pP%2B%2F2Wbr%2Fu9mQ5P80RUx5xeUJfIk%2F2581byfx8%2FC8Ftllvg7PqT%2FUxxFGm%2F3vp6m6qWE3N1CqyxyMoayzoko5z4ddNBJlgQQofSLM8Q%2F%2F9ZMt3fwE%3D&SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&Signature=Q44M09XNtHNzzwqkEuW46Z79bpRCX9w3Hzr9kpH%2Fi7qMIEm4QL8BiBrDX%2FSOOahi6NWPjNRQP64dI64gtvztcPc%2BcZunbMbGzfNZfbFYDK4G%2B%2Bjsin9CYB3BhwTs%2FvtNAa%2Bl4YECmzTYLkVzUTc%2FCEa89NPgs1M2ZK8EWE5YzBd8QjCFKp6kDCbIvI1hTskctT9HgPdtHSuaKrnfi5Y%2FyQkmf%2BeoJRfPHuutn%2F5VT4pZXoBxrfaB3sLArSlaXIdMOf2vb%2FRJrpFd3sgtOc0fy14IwMoJasyu27VIdOjGd2MHNZpZIbLktVMfMiG8r1OCmvZxoG5KgaT9AwqLDJoL4A%3D%3D"
+    },
+    {
+      "url": "https://usf.box.com/s/oitafm3n17hf3ok0wsa2dppkoei8sy4q",
+      "locations": [
+        "src/data/degrees.ts:263",
+        "src/data/highSchoolDegrees.ts:240",
+        "src/pages/degrees/DegreeDetail.tsx:842",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:456"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/oitafm3n17hf3ok0wsa2dppkoei8sy4q"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cys-curriculum-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:351",
+        "src/data/highSchoolDegrees.ts:326",
+        "src/pages/degrees/DegreeDetail.tsx:945",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:662"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/cys-curriculum-2026.pdf"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/it-flowchart-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:421",
+        "src/data/highSchoolDegrees.ts:393",
+        "src/pages/degrees/DegreeDetail.tsx:1011",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:846"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/it-flowchart-2026.pdf"
+    },
+    {
+      "url": "https://usf.box.com/s/aed8ui6i6bxltaeylljbal6ez5o3vj7r",
+      "locations": [
+        "src/data/degrees.ts:337",
+        "src/data/highSchoolDegrees.ts:312",
+        "src/pages/degrees/DegreeDetail.tsx:924",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:641"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/aed8ui6i6bxltaeylljbal6ez5o3vj7r"
+    },
+    {
+      "url": "https://usflearn.instructure.com/courses/2040876/files/211397678/download?download_frd=1",
+      "locations": [
+        "src/data/degrees.ts:356",
+        "src/data/highSchoolDegrees.ts:331",
+        "src/pages/degrees/DegreeDetail.tsx:952",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:669"
+      ],
+      "status": 200,
+      "finalUrl": "https://login.microsoftonline.com/741bf7de-e2e5-46df-8d67-82607df9deaa/saml2?SAMLRequest=fZJBb9swDIXv%2BxWG7rJlz7EdIQmQNRgWoN2CJtthl0GRqFaALGWitG7%2FforTot1huVJ8%2FB4ftUAx2hNfp%2Fjo7uFnAozF79E65NPDkqTguBdokDsxAvIo%2BX59d8ubkvFT8NFLb8kbyXWFQIQQjXek2G6W5EfzHtSsbhjVc61pO7SSirY70qNmom9ZP6vZQIpvEDBrliSPyELEBFuHUbiYS6zpaM0oGw71nM8Yb5vvpNjkPYwTcVI9xnhCXlXWPxhXjkYGj15H76xxUEo%2FVn1bH3WvgEIDM9p2StNBdT0dmo71Ss8VCFGdt2tIsX5Z4cY7TCOEPYRfRsLX%2B9tXVEJtQQRXmuwzJBlTuJAmD9MoUuye4%2FtgnDLu4Xpyx0sT8k%2BHw47uvuwPZLU4z%2BFTHmF1Rl8jT%2FYX1VvJ4nL8zxm23ey8NfJP8dGHUcT%2Fe6nLeqoYRfXUypPDE0ijDaicjrX%2B6SaAiLAkmQ%2BkWl2g%2F36y1bu%2F&SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&Signature=8NkHIc55Ov8zponl7MVfYsn3WNrcMIWxd9dMe0x1xEoFPkLphAIT%2Fk9QGNU%2FGr2KCrC5t89fmfNgwwNrGT%2F3Z1IPtSOkdsMuG3su73poyIGabhZG9SN7%2BprOV%2BM%2BCqxd7Z41s5rSpsFu5DyjsnYuULy6UkIUDAEyptB6Ot2jPLVu7YvD2Ln5Et3Vk19rddSoJBo5eamMCfZWBmvcCDfF8fxlcsVy9N45HJDqeMGK7ob4GpMneHF6OxDBW0k%2B2pM8N81MrMwMuXrAngKyzndiQ793mF8p1wPW09slYr07F8XCaQIzPT%2FxrY%2Ba5%2FUzxadNMC1qbYcwIXLHDwDJtNslQg%3D%3D"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/it-curriculum-2026.pdf",
+      "locations": [
+        "src/data/degrees.ts:431",
+        "src/data/highSchoolDegrees.ts:403",
+        "src/pages/degrees/DegreeDetail.tsx:1028",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:863"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/documents/academic-pdfs/2026/it-curriculum-2026.pdf"
+    },
+    {
+      "url": "https://catalog.usf.edu/mime/media/23/6735/Information+Technology+B.S.I.T.+-+2+Year+Plan+of+Study.pdf",
+      "locations": [
+        "src/data/degrees.ts:427",
+        "src/data/highSchoolDegrees.ts:399",
+        "src/pages/degrees/DegreeDetail.tsx:1021",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:856"
+      ],
+      "status": 200,
+      "finalUrl": "https://catalog.usf.edu/mime/media/23/6735/Information+Technology+B.S.I.T.+-+2+Year+Plan+of+Study.pdf"
+    },
+    {
+      "url": "https://usf.box.com/s/jbvyp3m2br29tu3nyp27imtz0xj6skgo",
+      "locations": [
+        "src/data/degrees.ts:417",
+        "src/data/highSchoolDegrees.ts:389",
+        "src/pages/degrees/DegreeDetail.tsx:1007",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:842"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/jbvyp3m2br29tu3nyp27imtz0xj6skgo"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=14013&returnto=5248",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:35"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=14013&returnto=5248"
+    },
+    {
+      "url": "https://usflearn.instructure.com/courses/2040876/files/202229694?wrap=1",
+      "locations": [
+        "src/data/degrees.ts:436",
+        "src/data/highSchoolDegrees.ts:408",
+        "src/pages/degrees/DegreeDetail.tsx:1035",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:870"
+      ],
+      "status": 200,
+      "finalUrl": "https://login.microsoftonline.com/741bf7de-e2e5-46df-8d67-82607df9deaa/saml2?SAMLRequest=fZJBbxoxEIXv%2FRUr373rXRZYLEAiQVWRkhYF0kMvkdceJ5a8NvXYTfvva5ZWSQ%2FlOp4335s3XqIY7IlvUnxxD%2FA9Acbi52Ad8vFhRVJw3As0yJ0YAHmU%2FLC5v%2BNNyfgp%2BOilt%2BSd5LpCIEKIxjtS7LYr8iSZ1q2aMtrqXtO2nkzoom8WtJ9Areuu66ZMk%2BIrBMyaFckjshAxwc5hFC7mEmtmtGaUdcd6waeMt5NvpNjmPYwTcVS9xHhCXlXWPxtXDkYGj15H76xxUEo%2FVPO27vVcAYUGprSdKU07NZvTrpmxudILBUJU5%2B0aUmz%2BrnDrHaYBwgHCDyPh8eHuDZVQWxDBlSb7DEnGFC6k0cM4ihT7P%2FHdGKeMe76eXH9pQv7peNzT%2FZfDkayX5zl8zCOsz%2Bhr5NH%2BsnovWV6O%2FznDdtu9t0b%2BKj76MIj4fy91WY8Vo6geW3lyeAJptAGV07HWv94GEBFWJPOBVOsL9N9Ptv7wGw%3D%3D&SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&Signature=5WWKlDppOpY4bty26pJXGblIXtqXjo3Mg3f%2Fqomu40hMkqiR5s%2B3HUaHOI2G%2Buz31uHK%2FI00kOFGUwiC7G%2B4fpEROQfNxtXRJu2fbGGQWgOpakwDxs3G3wYh5%2FKhBlqjWtqxN5%2F%2BGTv9q7WFAhQHdycyAmGTd53Ia%2FAZmcshUVEjTGBqACc3ErGOpItbj%2BZbdickBjvYKsRaO3JYuVJXF5WxSKvdfh%2FWSArcdK8fNXMcqP94xUqlmsQbJxYs7Rtz8ty4mS9XbkF3ELpd0yskp%2BGiaXs47xjBORoGpZO9FmqKsTL%2BMRLwzhCXZpzL7mzr4FylUOxXhuyHbjVm4d2kDg%3D%3D"
+    },
+    {
+      "url": "https://usf.box.com/s/h4zaqcaf6192e1kof8sjmnc8j5ojf8b1",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:27"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/h4zaqcaf6192e1kof8sjmnc8j5ojf8b1"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=14014",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:57"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=14014"
+    },
+    {
+      "url": "https://usf.box.com/s/oarwgaex45jq7jlqlkalvx1tpid9yp0t",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:31"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/oarwgaex45jq7jlqlkalvx1tpid9yp0t"
+    },
+    {
+      "url": "https://usf.box.com/s/hvwyxa9ijszxndq4zzftj9d4x1wtm1r5",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:49"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/hvwyxa9ijszxndq4zzftj9d4x1wtm1r5"
+    },
+    {
+      "url": "https://usf.box.com/s/35ovjdf515yhpzh00yu6u459thdamboj",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:53"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/35ovjdf515yhpzh00yu6u459thdamboj"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=14015&returnto=5248",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:79"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=14015&returnto=5248"
+    },
+    {
+      "url": "https://usf.box.com/s/82wezpx5wzi3y19an4freplz25fh83wl",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:71"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/82wezpx5wzi3y19an4freplz25fh83wl"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16474&returnto=5248",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:101"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16474&returnto=5248"
+    },
+    {
+      "url": "https://usf.box.com/s/a3v5qtks4p76vmlqwhe4z18ru6w8e61e",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:75"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/a3v5qtks4p76vmlqwhe4z18ru6w8e61e"
+    },
+    {
+      "url": "https://usf.box.com/s/tqrkhr3t9h5hvzmeus1yn4ary20mmu9t",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:93"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/tqrkhr3t9h5hvzmeus1yn4ary20mmu9t"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16475&returnto=5248",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:123"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16475&returnto=5248"
+    },
+    {
+      "url": "https://usf.box.com/s/aewcolvy39s2lgpfarp4e1d2zdn3jct2",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:97"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/aewcolvy39s2lgpfarp4e1d2zdn3jct2"
+    },
+    {
+      "url": "https://usf.box.com/s/4c6czbk3gum95tcs9dog3yh3jvcrt4yv",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:115"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/4c6czbk3gum95tcs9dog3yh3jvcrt4yv"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16476&returnto=5248",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:145"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16476&returnto=5248"
+    },
+    {
+      "url": "https://usf.box.com/s/ozdzm16qmk014e074q13zqy4lfp3q7u8",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:119"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/ozdzm16qmk014e074q13zqy4lfp3q7u8"
+    },
+    {
+      "url": "https://usf.box.com/s/9jcps8zlpwnsdoqk75caudb3d31stu8e",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:137"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/9jcps8zlpwnsdoqk75caudb3d31stu8e"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16477&returnto=5248",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:167"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16477&returnto=5248"
+    },
+    {
+      "url": "https://usf.box.com/s/xeasr561c85wxix0he7q5dyv03qwxg5s",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:141"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/xeasr561c85wxix0he7q5dyv03qwxg5s"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Amarna:wght@100..700&family=Anton&family=Epilogue:wght@300;400;500;600;700&family=Saira:wght@300;400;500;600;700;800&display=swap",
+      "locations": [
+        "src/index.css:1"
+      ],
+      "status": 200,
+      "finalUrl": "https://fonts.googleapis.com/css2?family=Amarna:wght@100..700&family=Anton&family=Epilogue:wght@300;400;500;600;700&family=Saira:wght@300;400;500;600;700;800&display=swap"
+    },
+    {
+      "url": "https://catalog.usf.edu/content.php?catoid=25&navoid=4350",
+      "locations": [
+        "src/pages/degrees/BachelorsMastersPathways.tsx:25",
+        "src/pages/degrees/BachelorsMastersPathways.tsx:31",
+        "src/pages/highSchool/degrees/HighSchoolBachelorsMastersPathways.tsx:24",
+        "src/pages/highSchool/degrees/HighSchoolBachelorsMastersPathways.tsx:30"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/content.php?catoid=25&navoid=4350"
+    },
+    {
+      "url": "https://usf.box.com/s/jsfy92z2bno3p7qohq9ingp33qjj2u5q",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:163"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/jsfy92z2bno3p7qohq9ingp33qjj2u5q"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=13067",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1200",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:1317"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=13067"
+    },
+    {
+      "url": "https://usf.box.com/s/ire2lmvxupjcntf2tvcote2sxl92bvso",
+      "locations": [
+        "src/data/highSchoolFutureDegreeOptions.ts:159"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.app.box.com/s/ire2lmvxupjcntf2tvcote2sxl92bvso"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16995",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1381",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:1650"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=16995"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscs.aspx",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1176",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:1208"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscs.aspx"
+    },
+    {
+      "url": "https://usf.to/BS-MS-Pathway",
+      "locations": [
+        "src/pages/degrees/BachelorsMastersPathways.tsx:8",
+        "src/pages/degrees/BachelorsMastersPathways.tsx:12",
+        "src/pages/degrees/BachelorsMastersPathways.tsx:16",
+        "src/pages/highSchool/degrees/HighSchoolBachelorsMastersPathways.tsx:7",
+        "src/pages/highSchool/degrees/HighSchoolBachelorsMastersPathways.tsx:11",
+        "src/pages/highSchool/degrees/HighSchoolBachelorsMastersPathways.tsx:15"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bs-to-ms-pathway.aspx"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscse.aspx",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1357",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:1526"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscse.aspx"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1540",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:1871"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=13990",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1564",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:1997"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=13990"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscys.aspx",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1745",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:2204"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bscys.aspx"
+    },
+    {
+      "url": "https://www.usf.edu/business/undergraduate/advising/permit.aspx",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1701",
+        "src/pages/degrees/DegreeDetail.tsx:1709",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:2298",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:2306"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/business/undergraduate/advising/permit.aspx"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=13068",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1769",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:2357"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=13068"
+    },
+    {
+      "url": "https://usf.az1.qualtrics.com/jfe/form/SV_5oTNUpfPEwdfeya",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1721",
+        "src/pages/degrees/DegreeDetail.tsx:1920",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:2318",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:2674"
+      ],
+      "status": 200,
+      "finalUrl": "https://usf.az1.qualtrics.com/jfe/form/SV_5oTNUpfPEwdfeya"
+    },
+    {
+      "url": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=13071",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1969",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:2714"
+      ],
+      "status": 202,
+      "finalUrl": "https://catalog.usf.edu/preview_program.php?catoid=25&poid=13071"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsit.aspx",
+      "locations": [
+        "src/pages/degrees/DegreeDetail.tsx:1945",
+        "src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx:2568"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsit.aspx"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/",
+      "locations": [
+        "src/pages/highSchool/degrees/HighSchoolParentInfo.tsx:14",
+        "src/pages/highSchool/degrees/HighSchoolParentInfo.tsx:47"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/",
+      "locations": [
+        "src/pages/highSchool/degrees/HighSchoolParentInfo.tsx:21"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/advising-support.aspx",
+      "locations": [
+        "src/pages/highSchool/degrees/HighSchoolParentInfo.tsx:28"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/advising-support.aspx"
+    },
+    {
+      "url": "https://www.usf.edu/admissions/freshmen/admission-information/dates-deadlines.aspx",
+      "locations": [
+        "src/pages/highSchool/degrees/HighSchoolParentInfo.tsx:35",
+        "src/pages/highSchool/degrees/HighSchoolParentInfo.tsx:56"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/admissions/freshmen/admission-information/dates-deadlines.aspx"
+    },
+    {
+      "url": "https://www.usf.edu/ai-cybersecurity-computing/academics/student-opportunities/index.aspx",
+      "locations": [
+        "src/pages/highSchool/degrees/HighSchoolParentInfo.tsx:65"
+      ],
+      "status": 200,
+      "finalUrl": "https://www.usf.edu/ai-cybersecurity-computing/academics/student-opportunities/index.aspx"
+    }
+  ]
+}

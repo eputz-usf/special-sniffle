@@ -1,0 +1,241 @@
+/* Shared visual refinements: preserve layout and typography. */
+.pathways-page {
+  background: #f5f0e8;
+  animation: none;
+}
+
+:is(
+  .degree-detail-grid article, .degree-detail-section,
+  .degree-detail-hero a, .degree-detail-actions a, .degree-detail-actions button,
+  .degree-catalog-action a, .degree-tag-list span, .degree-skill-chips span,
+  .resource-card, .career-card, .job-stat-card, .employment-trend-card,
+  .job-market-explanation, .tampa-income-list li, .future-degree-section,
+  .future-degree-card, .future-degree-status, .future-resource-button,
+  .future-degree-button, .future-degree-text-panel, .pathway-card,
+  .minor-card, .minor-card a, .degree-contact-section,
+  .degree-compare-next a, .degree-comparison-empty, .degree-comparison-empty a,
+  .degree-comparison-table, .parent-info-grid > div,
+  .parent-info-faq-list details, .parent-info-question-list li
+) {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+:is(
+  .degree-next-steps .degree-detail-actions a, .degree-catalog-action a,
+  .future-resource-button, .future-degree-button, .pathway-card, .minor-card a
+) {
+  transition: none;
+}
+
+:is(
+  .degree-next-steps .degree-detail-actions a, .degree-catalog-action a,
+  .future-resource-button, .future-degree-button, .minor-card a
+)::before {
+  display: none;
+}
+
+.pathway-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+:is(.pathway-card:hover span, .minor-card a:hover) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.future-degree-text-panel {
+  background-color: #f5f0e8;
+}
+
+.degree-card {
+  border-radius: 4px;
+  border-color: #c8bd9b;
+}
+
+.degrees-filters button,
+.degree-card-actions a,
+.degree-card-actions button,
+.degree-back-link,
+.compare-bar-actions button,
+.compare-chip,
+.compare-empty {
+  border-radius: 4px;
+}
+
+.degree-card-actions a,
+.degree-card-actions button,
+.degrees-extra-pathways a {
+  transition: none;
+}
+
+.degree-card-actions a::before,
+.degree-card-actions button::before {
+  display: none;
+}
+
+.degree-card-actions a:hover,
+.degree-card-actions button:not(:disabled):hover {
+  background-color: #f0eee6;
+  color: #086343;
+}
+
+.degree-planner-notice {
+  align-self: center;
+  padding: 10px 14px;
+  color: #4c6054;
+  font-size: 15px;
+}
+
+.degrees-extra-pathways a,
+.degrees-extra-pathways a:hover {
+  border-radius: 4px;
+  transform: none;
+  box-shadow: none;
+}
+
+.degrees-extra-pathways a:hover small {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.degrees-quiz-callout {
+  border-radius: 0;
+  border-top: 1px solid #c8bd9b;
+  border-bottom: 1px solid #c8bd9b;
+  background-color: transparent;
+}
+
+.degree-compare-bar {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+:is(a, button):focus-visible {
+  outline: 3px solid #086343;
+  outline-offset: 3px;
+}
+
+/* Use this shared treatment for every upcoming feature. */
+.coming-soon-area.coming-soon-area,
+.coming-soon-area.coming-soon-area:hover {
+  background-color: #eceeed;
+  border-color: #a9afac;
+  color: #505854;
+}
+
+.coming-soon-area :is(h1, h2, h3, h4, p, span, small),
+.coming-soon-area .dashboard-eyebrow {
+  color: #505854;
+}
+
+.coming-soon-area .dashboard-section-rule {
+  background-color: #a9afac;
+}
+
+.coming-soon-area .dashboard-quiz-button:disabled,
+.degree-planner-notice,
+.coming-soon-notice,
+.future-degree-status,
+.future-resource-button.disabled,
+.future-resource-button.disabled:hover {
+  background-color: #eceeed;
+  border-color: #a9afac;
+  color: #505854;
+}
+
+.coming-soon-notice {
+  display: inline-block;
+  padding: 10px 14px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  padding: 12px 20px;
+  background: #ffffff;
+  color: #086343;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+main:focus {
+  outline: none;
+}
+
+.status-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.status-page a,
+.status-page button {
+  display: inline-block;
+  margin: 12px 16px 12px 0;
+  padding: 12px;
+}
+
+/* Keep labels and resource URLs readable on narrow screens and at high zoom. */
+.degree-card,
+.comparison-row > div,
+.dashboard-step-card,
+.dashboard-major-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-nav {
+  flex-wrap: wrap;
+}
+
+.comparison-degree-name {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .comparison-degree-name {
+    display: block;
+    margin-bottom: 8px;
+    color: #086343;
+    font-weight: 700;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Retain column headings for assistive technology when comparison rows stack. */
+@media (max-width: 720px) {
+  .comparison-header {
+    display: grid;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* Keep upcoming Toolbox labels readable when dashboard styles load later. */
+.dashboard-major-card.coming-soon-area :is(p, span) {
+  color: #343c38;
+}
+.dashboard-major-card.coming-soon-area p {
+  font-weight: 600;
+}

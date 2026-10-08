@@ -9,8 +9,6 @@ import {
   Upload,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import classroomImage from '../assets/bellini.jpeg';
-import quizImage from '../assets/quiz.avif';
 import '../styles/dashboard.css';
 
 type DashboardTemplateProps = {
@@ -18,18 +16,15 @@ type DashboardTemplateProps = {
   intro: string;
   dashboardLabel?: string;
   pathHeading?: string;
-  quizPath?: string;
-  quizDisabled?: boolean;
   quizNavLabel?: string;
   quizEyebrow?: string;
-  quizButtonLabel?: string;
   comingSoonMode?: boolean;
-  quizResultsPath?: string;
+  quizAtEnd?: boolean;
   blankToolCards?: boolean;
   blankRemainingToolCards?: boolean;
   blankAfterSecondaryToolCards?: boolean;
-  transferPlannerPath?: string;
-  transferReadinessPath?: string;
+  uniformToolCards?: boolean;
+  transferToolsComingSoon?: boolean;
   degreeToolPath?: string;
   degreeToolTitle?: string;
   degreeToolText?: string;
@@ -51,6 +46,7 @@ type DashboardTemplateProps = {
   careerToolExternalHref?: string;
   careerToolIcon?: 'briefcase' | 'upload';
   careerToolUndecided?: boolean;
+  hideFinalNav?: boolean;
   finalNavPath?: string;
   finalNavLabel?: string;
   steps?: DashboardStep[];
@@ -78,7 +74,7 @@ type DashboardToolCard = 'degree' | 'secondary' | 'tertiary' | 'career' | 'extra
 const dashboardSteps: DashboardStep[] = [
   {
     title: 'Find your starting point',
-    text: 'Use the intake quiz to connect your goals, background, and questions to possible programs and support resources.',
+    text: 'Explore degree options to connect your goals, background, and questions to possible programs and support resources.',
   },
   {
     title: 'Explore degree paths',
@@ -103,10 +99,10 @@ const dashboardSteps: DashboardStep[] = [
 ];
 
 const planningPlaceholders = [
-  'Specified text to be put there.',
-  'Specified text to be put there.',
-  'Specified text to be put there.',
-  'Specified text to be put there.',
+  'Coming soon.',
+  'Coming soon.',
+  'Coming soon.',
+  'Coming soon.',
 ];
 
 const transferNextSteps = [
@@ -120,7 +116,7 @@ const transferNextSteps = [
   },
   {
     title: 'Next',
-    text: 'Take the transfer intake quiz, compare degrees, review the Transfer Readiness Guide, save notes in the Transfer Planner, and check official USF transfer resources.',
+    text: 'Compare degrees, check official USF transfer resources, and prepare questions for advising.',
   },
 ];
 
@@ -129,25 +125,22 @@ function DashboardTemplate({
   intro,
   dashboardLabel = 'General Dashboard',
   pathHeading = 'Move from questions to a clearer plan',
-  quizPath = '/quiz',
-  quizDisabled = false,
   quizNavLabel = 'Intake Quiz',
   quizEyebrow = 'Intake quiz',
-  quizButtonLabel = 'Take the quiz',
   comingSoonMode = false,
-  quizResultsPath,
+  quizAtEnd = false,
   blankToolCards = false,
   blankRemainingToolCards = false,
   blankAfterSecondaryToolCards = false,
-  transferPlannerPath,
-  transferReadinessPath,
+  uniformToolCards = false,
+  transferToolsComingSoon = false,
   degreeToolPath = '/degrees',
   degreeToolTitle = 'Degree Infographics and Comparison',
   degreeToolText = 'Explore degree options at Bellini College and compare two programs side by side to see which path best fits your interests, goals, and next steps.',
   degreeToolComingSoon,
   secondaryToolPath,
-  secondaryToolTitle = 'Specified text to be put there',
-  secondaryToolText = 'Specified text to be put there.',
+  secondaryToolTitle = 'Coming soon',
+  secondaryToolText = 'Coming soon.',
   tertiaryToolPath,
   tertiaryToolTitle = 'Transition Planner',
   tertiaryToolText = 'A future general planning tool can organize recommendations, questions, notes, and next actions in one place.',
@@ -162,6 +155,7 @@ function DashboardTemplate({
   careerToolExternalHref,
   careerToolIcon = 'briefcase',
   careerToolUndecided = false,
+  hideFinalNav = false,
   finalNavPath,
   finalNavLabel,
   steps = dashboardSteps,
@@ -172,18 +166,18 @@ function DashboardTemplate({
   planningReminder,
 }: DashboardTemplateProps) {
   const shouldDisableDegreeTool = degreeToolComingSoon ?? comingSoonMode;
-  const isTransferDashboard = Boolean(transferPlannerPath);
+  const isTransferDashboard = transferToolsComingSoon;
   const planningItems = customPlanningItems ?? (isTransferDashboard
     ? transferNextSteps
     : planningPlaceholders);
   const resolvedPlanningHeading =
     planningHeading ??
-    (isTransferDashboard ? 'Transfer Next Steps' : 'Specified text to be put there');
+    (isTransferDashboard ? 'Transfer Next Steps' : 'Prepare for Advising');
   const resolvedPlanningText =
     planningText ??
     (isTransferDashboard
       ? 'Turn your transfer research into a short action plan before applying or meeting with advising.'
-      : 'Specified text to be put there.');
+      : 'Compare degree options and prepare questions for advising.');
   const resolvedPlanningReminder =
     planningReminder ??
     (isTransferDashboard
@@ -204,7 +198,7 @@ function DashboardTemplate({
   ) {
     return (
       <button
-        className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool"
+        className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool coming-soon-area"
         key={key}
         type="button"
         disabled
@@ -378,7 +372,7 @@ function DashboardTemplate({
     if (careerToolUndecided) {
       return (
         <button
-          className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool"
+          className="dashboard-major-card dashboard-placeholder-tool dashboard-undecided-tool coming-soon-area"
           key={key ?? careerToolTitle}
           type="button"
         >
@@ -414,7 +408,7 @@ function DashboardTemplate({
   ) {
     event.preventDefault();
     document.getElementById(sectionId)?.scrollIntoView({
-      behavior: 'smooth',
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
       block: 'start',
     });
   }
@@ -437,6 +431,24 @@ function DashboardTemplate({
 
     return () => observer.disconnect();
   }, []);
+
+  const quizSection = (
+    <section className="dashboard-quiz-section scroll-reveal coming-soon-area" id="intake-quiz">
+      <div className="dashboard-section-rule"></div>
+      <div className="dashboard-feature-row">
+        <div>
+          <p className="dashboard-eyebrow">{quizEyebrow}</p>
+          <h2>Intake quiz — Coming soon</h2>
+          <p>Personalized program recommendations are coming soon.</p>
+          <button className="dashboard-quiz-button compact dashboard-quiz-button-disabled-red" type="button" disabled>
+            <ClipboardList size={20} aria-hidden="true" />
+            Coming soon
+          </button>
+        </div>
+        <div className="dashboard-quiz-image picture-placeholder" aria-label="Reserved quiz picture space">Picture placeholder</div>
+      </div>
+    </section>
+  );
 
   return (
     <main className="dashboard-page general-dashboard">
@@ -464,11 +476,9 @@ function DashboardTemplate({
           >
             Tool Box
           </a>
-          {finalNavPath ? (
+          {hideFinalNav ? null : finalNavPath ? (
             <Link to={finalNavPath}>{finalNavLabel ?? 'Profile'}</Link>
-          ) : transferPlannerPath ? (
-            <Link to={transferPlannerPath}>Transition planner</Link>
-          ) : (
+          ) : transferToolsComingSoon ? null : (
             <a
               href="#planner"
               onClick={(event) => handleSectionLinkClick(event, 'planner')}
@@ -481,11 +491,7 @@ function DashboardTemplate({
 
       <section className="dashboard-hero general-dashboard-hero scroll-reveal">
         <h1>{headline}</h1>
-        <img
-          className="dashboard-hero-image"
-          src={classroomImage}
-          alt="Modern classroom"
-        />
+        <div className="dashboard-hero-image picture-placeholder" aria-label="Reserved dashboard picture space">Picture placeholder</div>
         <div className="dashboard-intro general-dashboard-intro">
           <p className="dashboard-eyebrow">{dashboardLabel}</p>
           <p>{intro}</p>
@@ -510,50 +516,7 @@ function DashboardTemplate({
         </div>
       </section>
 
-      <section className="dashboard-quiz-section scroll-reveal" id="intake-quiz">
-        <div className="dashboard-section-rule"></div>
-        <div className="dashboard-feature-row">
-          <div>
-            <p className="dashboard-eyebrow">{quizEyebrow}</p>
-            <h2>Tell us what you want to explore next</h2>
-            <p>
-              Take a short quiz to help us recommend programs, resources, and
-              next steps based on your goals and background.
-            </p>
-            <div className="dashboard-quiz-actions">
-              {quizDisabled ? (
-                <button
-                  className="dashboard-quiz-button compact dashboard-quiz-button-disabled-red"
-                  type="button"
-                  disabled
-                >
-                  <ClipboardList size={20} aria-hidden="true" />
-                  {comingSoonMode ? 'Coming Soon' : quizButtonLabel}
-                </button>
-              ) : (
-                <Link className="dashboard-quiz-button compact" to={quizPath}>
-                  <ClipboardList size={20} aria-hidden="true" />
-                  {quizButtonLabel}
-                </Link>
-              )}
-              {quizResultsPath && (
-                <Link
-                  className="dashboard-quiz-button compact secondary"
-                  to={quizResultsPath}
-                >
-                  View results
-                </Link>
-              )}
-            </div>
-          </div>
-
-          <img
-            className="dashboard-quiz-image"
-            src={quizImage}
-            alt="Classroom for intake quiz"
-          />
-        </div>
-      </section>
+      {!quizAtEnd && quizSection}
 
       <section className="dashboard-majors-section scroll-reveal" id="majors">
         <div className="dashboard-section-rule dashboard-section-rule-light"></div>
@@ -565,7 +528,7 @@ function DashboardTemplate({
         <div
           className={`dashboard-major-cards dashboard-tool-grid${
             blankAfterSecondaryToolCards ? ' dashboard-tool-grid-balanced' : ''
-          }`}
+          }${uniformToolCards ? ' dashboard-tool-grid-uniform' : ''}`}
         >
           {blankToolCards || blankRemainingToolCards || blankAfterSecondaryToolCards ? (
             Array.from({
@@ -592,41 +555,29 @@ function DashboardTemplate({
             <>
               {renderToolCard('degree', 'degree')}
 
-              {transferReadinessPath ? (
-                <Link className="dashboard-major-card" to={transferReadinessPath}>
-                  <FileText size={30} aria-hidden="true" />
-                  <span>Transfer Readiness Guide</span>
-                  <p>
-                    Review transfer terms, planning expectations, and what to
-                    prepare before checking credits or meeting with advising.
-                  </p>
-                </Link>
+              {transferToolsComingSoon && careerToolCard}
+
+              {transferToolsComingSoon ? (
+                renderComingSoonToolCard('transfer-readiness', <FileText size={30} aria-hidden="true" />, 'Transfer Readiness Guide', 'Coming soon!')
               ) : secondaryToolPath ? (
                 renderToolCard('secondary', 'secondary')
               ) : (
                 renderToolCard('secondary', 'secondary-placeholder')
               )}
 
-              {transferPlannerPath ? (
-                <Link className="dashboard-major-card" to={transferPlannerPath}>
-                  <CalendarCheck size={30} aria-hidden="true" />
-                  <span>Transfer Planner</span>
-                  <p>
-                    Save transfer details, notes, advising questions, and course
-                    lists in one printable planning summary.
-                  </p>
-                </Link>
+              {transferToolsComingSoon ? (
+                renderComingSoonToolCard('transfer-planner', <CalendarCheck size={30} aria-hidden="true" />, 'Transfer Planner', 'Coming soon!')
               ) : tertiaryToolPath ? (
                 renderToolCard('tertiary', 'tertiary')
               ) : (
                 renderToolCard('tertiary', 'tertiary-placeholder')
               )}
 
-              {careerToolUndecided ? (
+              {!transferToolsComingSoon && (careerToolUndecided ? (
                 renderToolCard('career', 'career-placeholder')
               ) : (
                 careerToolCard
-              )}
+              ))}
             </>
           )}
         </div>
@@ -664,6 +615,7 @@ function DashboardTemplate({
           </ul>
         </div>
       </section>
+      {quizAtEnd && quizSection}
     </main>
   );
 }

@@ -1,21 +1,11 @@
-import { useState, type ReactNode } from 'react';
+import InterdisciplinaryDegreeDetail from '../../components/InterdisciplinaryDegreeDetail';
+import { getHighSchoolFutureDegreeOptionBySlug } from '../../data/highSchoolFutureDegreeOptions';
+import { type ReactNode } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { getDegreeBySlug } from '../../data/degrees';
 import type { UserType } from '../../types/user';
-import { isUserType } from '../../utils/userTypes';
-import {
-  addCurrentUsfProfileMajor,
-  loadCurrentUsfProfileMajors,
-  removeCurrentUsfProfileMajor,
-} from '../../utils/currentUsfProfileMajors';
-import {
-  addBelliniStudentProfileMajor,
-  loadBelliniStudentProfileMajors,
-  removeBelliniStudentProfileMajor,
-} from '../../utils/belliniStudentProfileMajors';
+import { getDegreeSource, getDegreeUserType } from '../../utils/degreeSource';
 import '../../styles/degrees.css';
-
-const USER_TYPE_STORAGE_KEY = 'cicUserType';
 
 type CompareFeatureNoteProps = {
   degreeName: string;
@@ -36,15 +26,9 @@ type AdvisorQuestionsSectionProps = {
   interestAreas: string;
 };
 
-function getSavedUserType() {
-  const savedUserType = window.localStorage.getItem(USER_TYPE_STORAGE_KEY);
-
-  return isUserType(savedUserType) ? savedUserType : 'transfer-student';
-}
-
 function useDegreeExplorerPath() {
   const [searchParams] = useSearchParams();
-  const sourceDashboard = searchParams.get('from');
+  const sourceDashboard = getDegreeSource(searchParams.get('from'));
 
   return sourceDashboard ? `/degrees?from=${sourceDashboard}` : '/degrees';
 }
@@ -62,70 +46,6 @@ function DegreeExplorerLink({
     <Link className={className} to={degreeExplorerPath}>
       {children}
     </Link>
-  );
-}
-
-type AddToProfileActionProps = {
-  slug: string;
-  name: string;
-};
-
-function AddToProfileAction({ slug, name }: AddToProfileActionProps) {
-  const [searchParams] = useSearchParams();
-  const savedUserType = getSavedUserType();
-  const isBelliniStudentSource =
-    searchParams.get('from') === 'current-bellini-student' ||
-    savedUserType === 'current-bellini-student';
-  const shouldShow =
-    searchParams.get('from') === 'current-usf-student' ||
-    savedUserType === 'current-usf-student' ||
-    isBelliniStudentSource;
-  const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
-    loadCurrentUsfProfileMajors().map((major) => major.slug),
-  );
-  const [belliniProfileMajorSlugs, setBelliniProfileMajorSlugs] = useState(() =>
-    loadBelliniStudentProfileMajors().map((major) => major.slug),
-  );
-  const activeProfileMajorSlugs = isBelliniStudentSource
-    ? belliniProfileMajorSlugs
-    : profileMajorSlugs;
-  const isAdded = activeProfileMajorSlugs.includes(slug);
-
-  if (!shouldShow) {
-    return null;
-  }
-
-  function handleAddToProfile() {
-    if (isBelliniStudentSource) {
-      if (isAdded) {
-        const nextMajors = removeBelliniStudentProfileMajor(slug);
-        setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
-        return;
-      }
-
-      const nextMajors = addBelliniStudentProfileMajor({ slug, name });
-      setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
-      return;
-    }
-
-    if (isAdded) {
-      const nextMajors = removeCurrentUsfProfileMajor(slug);
-      setProfileMajorSlugs(nextMajors.map((major) => major.slug));
-      return;
-    }
-
-    const nextMajors = addCurrentUsfProfileMajor({ slug, name });
-    setProfileMajorSlugs(nextMajors.map((major) => major.slug));
-  }
-
-  return (
-    <button
-      className={isAdded ? 'planner-selected' : ''}
-      type="button"
-      onClick={handleAddToProfile}
-    >
-      {isAdded ? 'Remove from Profile' : 'Add to Profile'}
-    </button>
   );
 }
 
@@ -176,7 +96,8 @@ function buildAdvisorQuestionGroups({
 }
 
 function AdvisorQuestionsSection(props: AdvisorQuestionsSectionProps) {
-  const [userType] = useState<UserType>(() => getSavedUserType());
+  const [searchParams] = useSearchParams();
+  const userType = getDegreeUserType(getDegreeSource(searchParams.get('from')));
   const questionGroups = buildAdvisorQuestionGroups(props);
   const selectedQuestions =
     questionGroups.find((group) => group.userType === userType)?.questions ??
@@ -630,8 +551,7 @@ function CareerOutlookSection({
               viewBox={marketData.chartViewBox ?? '0 0 720 300'}
             >
               <title id={`${slug}-employment-trend-title`}>
-                Employment trend for {degreeName}-related jobs in Tampa Bay
-                from 2023 to 2030
+                {`Employment trend for ${degreeName}-related jobs in Tampa Bay from 2023 to 2030`}
               </title>
               {marketData.employmentYAxis.map((tick) => (
                 <g key={tick.label}>
@@ -679,9 +599,7 @@ function CareerOutlookSection({
                   key={point.year}
                   r="7"
                 >
-                  <title>
-                    {point.year}: {point.jobs} jobs
-                  </title>
+                  <title>{`${point.year}: ${point.jobs} jobs`}</title>
                 </circle>
               ))}
               {marketData.employmentTrend.map((point) => (
@@ -1156,7 +1074,6 @@ function ComputerScienceDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
-          <AddToProfileAction slug="computer-science" name="Computer Science" />
         </div>
       </section>
 
@@ -1320,10 +1237,6 @@ function ComputerScienceEngineeringDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
-          <AddToProfileAction
-            slug="computer-science-and-engineering"
-            name="Computer Science and Engineering"
-          />
         </div>
       </section>
 
@@ -1505,10 +1418,6 @@ function ArtificialIntelligenceDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
-          <AddToProfileAction
-            slug="artificial-intelligence"
-            name="Artificial Intelligence"
-          />
         </div>
       </section>
 
@@ -1628,7 +1537,7 @@ function ArtificialIntelligenceDegreeDetail() {
       </section>
 
       <CareerOutlookSection
-        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/ .aspx"
+        careerInfoUrl="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx"
         degreeName="Artificial Intelligence"
         intro="Artificial Intelligence can support careers focused on machine learning, data-driven systems, model evaluation, intelligent applications, and AI infrastructure."
         slug="artificial-intelligence"
@@ -1691,7 +1600,6 @@ function CybersecurityDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
-          <AddToProfileAction slug="cybersecurity" name="Cybersecurity" />
         </div>
       </section>
 
@@ -1897,10 +1805,6 @@ function InformationTechnologyDegreeDetail() {
 
         <div className="degree-detail-actions">
           <a href="#official-resources">View Official Requirements</a>
-          <AddToProfileAction
-            slug="information-technology"
-            name="Information Technology"
-          />
         </div>
       </section>
 
@@ -2076,6 +1980,8 @@ function InformationTechnologyDegreeDetail() {
 function DegreeDetail() {
   const { degreeSlug } = useParams();
   const degree = getDegreeBySlug(degreeSlug);
+  const option = getHighSchoolFutureDegreeOptionBySlug(degreeSlug);
+  if (option) return <InterdisciplinaryDegreeDetail option={option} highSchool={false} />;
 
   if (!degree) {
     return (
@@ -2161,9 +2067,8 @@ function DegreeDetail() {
           ))}
         </ul>
         <div className="degree-detail-actions">
-          <Link to="/transfer/quiz">Take Degree Fit Quiz</Link>
+          <span className="coming-soon-notice">Intake quiz — Coming soon</span>
           <DegreeExplorerLink>Compare More Programs</DegreeExplorerLink>
-          <AddToProfileAction slug={degree.slug} name={degree.name} />
         </div>
       </section>
 

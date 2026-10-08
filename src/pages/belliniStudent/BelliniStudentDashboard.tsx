@@ -10,8 +10,8 @@ const belliniStudentDashboardSteps = [
     text: 'Look at CS, Artificial Intelligence, Cybersecurity, Computer Engineering, and related computing options as distinct paths instead of treating them as interchangeable.',
   },
   {
-    title: 'Check course overlap',
-    text: 'Use your completed programming, math, systems, security, data, and hardware courses to see what may still count and what could add time if you switch.',
+    title: 'Explore coursework and skills',
+    text: 'Read degree details to understand the topics, skills, and academic focus of each program.',
   },
   {
     title: 'Map the decision tradeoffs',
@@ -33,16 +33,16 @@ const belliniMajorChangeNextStepItems = [
     text: 'Pick your current major and one possible Bellini major. Review what changes in focus, coursework, skills, and advising questions.',
   },
   {
-    title: 'Check course overlap',
-    text: 'Mark completed courses in the overlap checklist and print the checked-course list for advising.',
+    title: 'Explore degree details',
+    text: 'Review the coursework, skills, and career directions for each major you are considering.',
   },
   {
     title: 'Review requirements',
-    text: 'Use the Major Change Guide to check GPA, grades, attempts, prerequisites, Canvas, Archivum, and paperwork.',
+    text: 'Follow official catalog links in the degree explorer and confirm requirements with Bellini advising.',
   },
   {
     title: 'Meet with advising',
-    text: 'Bring your comparison, checked courses, questions, and timeline concerns so advising can review the switch.',
+    text: 'Bring the degrees you compared and your questions about requirements and graduation timing to advising.',
   },
 ];
 
@@ -53,31 +53,28 @@ function BelliniStudentDashboard() {
       headline="Major Planning, Redefined"
       intro="For current Bellini College students already in computing who are unsure whether to stay in CS, move to Artificial Intelligence, move to Cybersecurity, move to Computer Engineering, or consider another computing-related option, this dashboard helps organize the comparison before advising."
       pathHeading="Think through a possible Bellini computing major change"
-      quizPath="/bellini-student/quiz"
-      quizResultsPath="/bellini-student/quiz/results"
       degreeToolPath="/degrees?from=current-bellini-student"
       degreeToolTitle="Degree Explorer for Major Changes"
       degreeToolText="Compare CS, Artificial Intelligence, Cybersecurity, Computer Engineering, and related Bellini computing majors before deciding what to discuss with advising."
-      secondaryToolPath="/bellini-student/course-overlap"
       secondaryToolTitle="Course Overlap Planner"
-      secondaryToolText="Choose a Bellini major, open its four-year plan placeholder, and check off completed courses once the course list is added from the official PDF."
-      tertiaryToolPath="/bellini-student/profile"
+      secondaryToolText="Coming soon!"
       tertiaryToolTitle="Profile"
-      tertiaryToolText="Save programs under consideration, transcript documents, advising notes, questions, and printable details for a Bellini major-change conversation."
-      extraToolPath="/bellini-student/transcript"
+      tertiaryToolText="Coming soon!"
       extraToolTitle="Transcript Upload and Course Extraction"
-      extraToolText="Upload a transcript PDF or paste transcript text to extract course rows, review credits and grades, and save a summary to your Bellini profile."
+      extraToolText="Coming soon!"
       extraToolIcon="upload"
-      careerToolPath="/bellini-student/major-change-guide"
       careerToolTitle="Major Change Guide"
-      careerToolText="Use a step-by-step guide for requirements, Canvas resources, Archivum advising, change-of-major paperwork, and degree progression tools."
+      careerToolText="Coming soon!"
       blankAfterSecondaryToolCards
-      toolCardOrder={['career', 'tertiary', 'degree', 'secondary', 'extra']}
-      finalNavPath="/bellini-student/profile"
-      finalNavLabel="Profile"
+      toolCardOrder={['degree', 'career', 'tertiary', 'secondary', 'extra']}
+      uniformToolCards
+      comingSoonMode
+      quizNavLabel="Intake Quiz"
+      degreeToolComingSoon={false}
+      hideFinalNav
       steps={belliniStudentDashboardSteps}
       planningHeading="Next Steps for a Bellini Major Change"
-      planningText="Use these steps after exploring the tools above to turn interest in another Bellini major into an advising-ready case."
+      planningText="Use the degree explorer to compare your options and prepare questions for Bellini advising."
       planningItems={belliniMajorChangeNextStepItems}
       planningReminder="Next step before paperwork: confirm your course overlap, GPA and grade requirements, attempts, Degree Works details, and graduation timeline with Bellini College advising."
     />

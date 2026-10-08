@@ -1,137 +1,37 @@
-# Production Access and Services Request
+# Bellini Degree Explorer Beta: Access and Decisions Needed
 
-## Project
+Updated October 7, 2026. This document describes the current public degree-explorer beta.
 
-CIC Support Platform — a student-facing platform for degree exploration, recommendations, planning, profiles, and transcript-based tools.
+## Current Architecture
 
-This document separates the production needs into paid services, work I can do independently, and work that requires collaboration with USF or the project sponsor.
+The application serves degree content and comparisons from a static React/Vite build. No database, document storage, student records, email service, authentication provider, or backend secrets are needed for this scope. Former profile/transcript infrastructure has been removed from the application.
 
-## 1. Services That May Require Payment
+## Questions and Access Needed from the Webmaster
 
-Some services offer free tiers, but a production application used by many students will likely need a paid plan. USF may already have licenses or approved alternatives, so these should not be purchased until the university confirms what is available.
+- [ ] Confirm the CMS and hosting platform and whether it supports the built app.
+- [ ] Confirm the production URL and folder path.
+- [ ] Choose a dedicated section, iframe, or direct CMS integration.
+- [ ] Confirm app-scoped route fallback support or agree an alternative routing strategy.
+- [ ] Provide a staging location and agreed method for delivering releases.
+- [ ] Provide approved branding, header/footer requirements, and accessibility requirements.
+- [ ] Decide which groups/routes and coming-soon cards should appear publicly.
+- [ ] Decide indexing and analytics requirements.
+- [ ] Identify deployment ownership, rollback procedure, and support contact.
 
-- [ ] **Production database and file storage**
-  - Current option: Supabase
-  - Used for student accounts, profiles, quiz data, transcripts, and backend functions
-  - Production needs may include higher usage limits, backups, and separate staging and production projects
+## Decisions Needed from Bellini Content Owners
 
-- [ ] **Website hosting**
-  - Possible options: USF hosting, Azure, AWS, Vercel, Netlify, Cloudflare Pages, or AWS Amplify
-  - The cost depends on traffic, storage, and whether USF already provides hosting
+- [ ] Assign an academic content reviewer and ongoing content owner.
+- [ ] Confirm program availability, catalog-year context, and planned-program wording.
+- [ ] Review course, career, salary, and comparison content for accuracy.
+- [ ] Confirm approved beta name and public entry page.
+- [ ] Approve publication after staging and accessibility review.
 
-- [ ] **Domain name and DNS**
-  - A USF subdomain may be provided without a separate project cost
-  - A commercial domain would normally have an annual fee
+## Budget and Services
 
-- [ ] **Monitoring and error reporting**
-  - Possible options: Azure Application Insights, Sentry, or Datadog
-  - Free plans may be enough during testing; production volume may require payment
+Use the existing university website infrastructure if the webmaster confirms it supports this app. A separate paid database, upload service, email provider, or domain is not required for the current beta. Ask about additional hosting cost only if existing hosting cannot support the agreed integration.
 
-- [ ] **Production email delivery**
-  - Possible options: a USF mail relay, Amazon SES, Postmark, or SendGrid
-  - Used for verification, password recovery, and notifications
+## Future Features
 
-- [ ] **Security and bot protection**
-  - Possible options: Cloudflare, Turnstile, or hCaptcha
-  - Basic protection may be free, while advanced firewall and traffic controls may require payment
+If private student profiles, uploads, personalized records, or restricted access return, define and review their authentication, ownership, retention, security, privacy, and service requirements separately before implementation.
 
-- [ ] **Document malware scanning**
-  - Needed if users can upload transcripts or other files
-  - This may be provided by university infrastructure or a paid cloud-security service
-
-- [ ] **Accessibility and security testing tools**
-  - Automated tools may have free versions
-  - A professional accessibility audit or penetration test will normally require funding or university staff time
-
-### Funding Questions
-
-- What services does USF already provide or license?
-- Which department will pay for services that are not already available?
-- Who will own the billing accounts and approve increased usage?
-- What monthly or annual operating budget is available?
-
-## 2. Work I Can Do
-
-I can complete the following development work once the required accounts, technical information, and approvals are provided.
-
-- [ ] Replace the placeholder login with the approved authentication integration
-- [ ] Connect records and uploaded files to each authenticated user
-- [ ] Rewrite database security rules so users can access only their own information
-- [ ] Separate development, staging, and production configuration
-- [ ] Remove sensitive student information from unnecessary browser storage
-- [ ] Secure transcript uploads with file validation, size limits, and automatic deletion rules
-- [ ] Add rate limits and CAPTCHA to public forms and uploads
-- [ ] Bundle the PDF-processing library with the application instead of downloading code at runtime
-- [ ] Add automated tests for important student workflows
-- [ ] Fix current lint and performance issues
-- [ ] Reduce the application bundle size and improve loading performance
-- [ ] Add error handling and privacy-safe production logging
-- [ ] Create automated build and deployment checks
-- [ ] Add accessibility improvements identified during testing
-- [ ] Document deployment, backup, recovery, and maintenance procedures
-- [ ] Keep application code and configuration organized in the approved GitHub or GitLab repository
-
-## 3. Work That Requires Collaboration
-
-These items require decisions, access, approval, or information from the professor, USF departments, or other project stakeholders. I cannot complete them independently.
-
-### Professor or Project Sponsor
-
-- [ ] Confirm the intended users and production scope
-- [ ] Identify the university department that will own the application
-- [ ] Identify the project budget and approve service costs
-- [ ] Introduce the development team to the correct USF technical and administrative contacts
-- [ ] Decide who will maintain the application after launch
-- [ ] Assign a content owner to keep degree requirements, deadlines, and links accurate
-
-### USF Identity Management or IT
-
-- [ ] Provide a Microsoft Entra ID application for USF Single Sign-On
-- [ ] Provide separate test and production login settings
-- [ ] Decide which student and staff roles the application may recognize
-- [ ] Provide an approved hosting environment or approve an external provider
-- [ ] Provide a USF domain or subdomain and configure DNS and HTTPS
-- [ ] Provide or approve a source-code organization and deployment process
-- [ ] Provide an approved method for storing production secrets and credentials
-
-### USF Security, Privacy, and Legal/FERPA Teams
-
-- [ ] Review the application before it collects real student data
-- [ ] Approve the database, storage, hosting, email, and monitoring vendors
-- [ ] Define which student information may be collected
-- [ ] Define transcript and profile retention and deletion rules
-- [ ] Define who may access student information
-- [ ] Establish incident-reporting and breach-response procedures
-- [ ] Review required privacy notices, consent language, and terms of use
-- [ ] Approve the use of analytics and monitoring tools
-
-### Registrar, Advising, and Student-System Owners
-
-- [ ] Confirm whether the application may access Banner/OASIS, DegreeWorks, Canvas, or other student systems
-- [ ] Provide approved APIs, data feeds, documentation, and test accounts where available
-- [ ] Provide official degree, course, prerequisite, and transfer-equivalency data
-- [ ] Review recommendation and transcript features for academic accuracy
-- [ ] Confirm that the platform clearly distinguishes guidance from official advising decisions
-- [ ] Assign someone to review academic content when university requirements change
-
-### Infrastructure and Support Teams
-
-- [ ] Configure production hosting, backups, monitoring, and alert recipients
-- [ ] Provide a support mailbox or ticketing system
-- [ ] Establish an escalation contact for outages and security incidents
-- [ ] Help perform accessibility, load, and security testing
-- [ ] Approve the final production launch and rollback plan
-
-## Recommended Order
-
-1. Confirm the project owner, intended users, scope, and budget with the professor.
-2. Meet with USF IT, Identity Management, Security, and Privacy representatives.
-3. Decide whether Supabase and external hosting are approved or whether USF systems must be used.
-4. Obtain test access to Microsoft Single Sign-On and any approved student-data systems.
-5. Complete authentication, database security, upload security, testing, and deployment work.
-6. Complete privacy, accessibility, security, and academic-content reviews.
-7. Launch a limited pilot before opening the platform to many users.
-
-## Important Current Limitation
-
-The application is currently an MVP. Its login is a placeholder, and some database records and uploads rely on anonymous browser sessions. Real student data should **not** be collected until USF authentication, user-specific permissions, security controls, and privacy approval are in place.
+The detailed question list and task checklist are in [beta-webmaster-handoff.md](beta-webmaster-handoff.md).

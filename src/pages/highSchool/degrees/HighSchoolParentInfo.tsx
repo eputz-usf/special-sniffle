@@ -30,7 +30,7 @@ const prospectiveStudentFaqs = [
   {
     question: 'What should I do after reviewing the degree options?',
     answer:
-      'Take the intake quiz, compare your top majors, review career outlooks, and write down your remaining questions. When you are ready, check USF Admissions for application dates, materials deadlines, and scholarship information.',
+      'Compare your top majors, review career outlooks, and write down your remaining questions. When you are ready, check USF Admissions for application dates, materials deadlines, and scholarship information.',
     sourceUrl:
       'https://www.usf.edu/admissions/freshmen/admission-information/dates-deadlines.aspx',
   },
@@ -57,12 +57,12 @@ const parentTips = [
   },
   {
     label: 'Tip',
-    text: 'Encourage exploration. Quiz recommendations are starting points, not final decisions.',
+    text: 'Encourage exploration by comparing programs, interests, and career goals.',
   },
   {
     label: 'Info',
     text: 'Bellini College highlights hands-on opportunities including ReliaQuest Labs, undergraduate research, and industry internships.',
-    sourceUrl: 'https://www.usf.edu/ai-cybersecurity-computing/academics/student-opportunities/exp-learning.aspx',
+    sourceUrl: 'https://www.usf.edu/ai-cybersecurity-computing/academics/student-opportunities/index.aspx',
   },
 ];
 

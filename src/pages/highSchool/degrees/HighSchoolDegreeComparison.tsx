@@ -1,3 +1,4 @@
+import { highSchoolInterdisciplinaryContent } from '../../../data/highSchoolInterdisciplinaryContent';
 import { Link, useSearchParams } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import type { Degree } from '../../../data/highSchoolDegrees';
@@ -31,7 +32,7 @@ function isFutureDegreeOption(
 
 function renderCareerOptions(degree: ComparableDegree) {
   if (isFutureDegreeOption(degree)) {
-    return 'Career information coming soon';
+    return highSchoolInterdisciplinaryContent[degree.slug].career;
   }
 
   if (!degree.careerOptions) {
@@ -81,7 +82,7 @@ function getOfficialResources(degree: ComparableDegree) {
     return [
       ...degree.planningResources,
       {
-        label: 'Program Details',
+        label: 'Degree Details and Classes',
         url: degree.programUrl,
       },
     ];
@@ -101,7 +102,7 @@ function getOfficialResources(degree: ComparableDegree) {
 
 function getSimpleCategory(degree: ComparableDegree) {
   if (isFutureDegreeOption(degree)) {
-    return degree.focus;
+    return highSchoolInterdisciplinaryContent[degree.slug].focus;
   }
 
   const simpleCategories = {
@@ -109,7 +110,7 @@ function getSimpleCategory(degree: ComparableDegree) {
     'AI/Data': 'AI and data',
     Cybersecurity: 'Online safety and security',
     'IT/Systems': 'Technology support and systems',
-    'Business + Interdisciplinary': 'Technology and another subject',
+    'Interdisciplinary': 'Technology and another subject',
   };
 
   return simpleCategories[degree.category];
@@ -117,7 +118,7 @@ function getSimpleCategory(degree: ComparableDegree) {
 
 function getBestFor(degree: ComparableDegree) {
   if (isFutureDegreeOption(degree)) {
-    return degree.goodFit;
+    return highSchoolInterdisciplinaryContent[degree.slug].cardBestFor;
   }
 
   return degree.bestFor;
@@ -125,7 +126,7 @@ function getBestFor(degree: ComparableDegree) {
 
 function renderSkills(degree: ComparableDegree) {
   if (isFutureDegreeOption(degree)) {
-    return degree.focus;
+    return renderList(highSchoolInterdisciplinaryContent[degree.slug].skills);
   }
 
   return degree.skills;
@@ -133,7 +134,7 @@ function renderSkills(degree: ComparableDegree) {
 
 function renderGoodFit(degree: ComparableDegree) {
   if (isFutureDegreeOption(degree)) {
-    return <p>{degree.goodFit}</p>;
+    return renderList(highSchoolInterdisciplinaryContent[degree.slug].fit);
   }
 
   return renderList(degree.goodFit);
@@ -142,8 +143,8 @@ function renderGoodFit(degree: ComparableDegree) {
 function renderNextSteps(degree: ComparableDegree) {
   if (isFutureDegreeOption(degree)) {
     return renderList([
-      'Review the available plans of study.',
-      'Confirm official electives and requirements with Bellini College advising.',
+      'Look at the class plans.',
+      'Ask a Bellini advisor which classes and plans fit you.',
     ]);
   }
 
@@ -155,6 +156,7 @@ function getDegreeForComparison(slug: string | undefined) {
 }
 
 const comparisonFields: ComparisonField[] = [
+  { label: 'Availability', render: (degree) => isFutureDegreeOption(degree) ? 'Ask an advisor if you can apply for this program now.' : 'Confirm current admissions status with advising.' },
   {
     label: 'Degree name',
     render: (degree) => degree.name,
@@ -201,11 +203,11 @@ const comparisonFields: ComparisonField[] = [
           {resources.map((resource) => (
             <a
               href={resource.url}
-              key={`${degree.slug}-${resource.label}`}
+              key={`${degree.slug}-${isFutureDegreeOption(degree) ? resource.label.replace('Plan of Study', 'Class Plan') : resource.label}`}
               rel="noreferrer"
               target="_blank"
             >
-              {resource.label}
+              {isFutureDegreeOption(degree) ? resource.label.replace('Plan of Study', 'Class Plan') : resource.label}
             </a>
           ))}
         </div>
@@ -233,7 +235,7 @@ function HighSchoolDegreeComparison() {
             Choose exactly two different degrees from the Degree Explorer to
             view a side-by-side comparison.
           </p>
-          <Link to="/high-school/degrees">Compare Different Degrees</Link>
+          <Link to={firstDegree && secondDegree && (isFutureDegreeOption(firstDegree) || isFutureDegreeOption(secondDegree)) ? "/high-school/degrees#interdisciplinary" : "/high-school/degrees"}>Compare Different Degrees</Link>
         </section>
       </main>
     );
@@ -241,7 +243,7 @@ function HighSchoolDegreeComparison() {
 
   return (
     <main className="degrees-page">
-      <Link className="degree-back-link" to="/high-school/degrees">
+      <Link className="degree-back-link" to={firstDegree && secondDegree && (isFutureDegreeOption(firstDegree) || isFutureDegreeOption(secondDegree)) ? "/high-school/degrees#interdisciplinary" : "/high-school/degrees"}>
         Back to Degree Explorer
       </Link>
 
@@ -252,24 +254,24 @@ function HighSchoolDegreeComparison() {
         </h1>
       </section>
 
-      <section className="degree-comparison-table" aria-label="Degree comparison">
-        <div className="comparison-row comparison-header">
-          <div>Section</div>
-          <div>{firstDegree.name}</div>
-          <div>{secondDegree.name}</div>
+      <section className="degree-comparison-table" role="table" aria-label="Degree comparison">
+        <div className="comparison-row comparison-header" role="row">
+          <div role="columnheader">Section</div>
+          <div role="columnheader" id="comparison-first">{firstDegree.name}</div>
+          <div role="columnheader" id="comparison-second">{secondDegree.name}</div>
         </div>
 
         {comparisonFields.map((field) => (
-          <div className="comparison-row" key={field.label}>
-            <div className="comparison-label">{field.label}</div>
-            <div>{field.render(firstDegree)}</div>
-            <div>{field.render(secondDegree)}</div>
+          <div className="comparison-row" role="row" key={field.label}>
+            <div className="comparison-label" role="rowheader" id={`comparison-${field.label.replaceAll(' ', '-')}`}>{field.label}</div>
+            <div role="cell" aria-labelledby={`comparison-first comparison-${field.label.replaceAll(' ', '-')}`}><span className="comparison-degree-name">{firstDegree.name}</span>{field.render(firstDegree)}</div>
+            <div role="cell" aria-labelledby={`comparison-second comparison-${field.label.replaceAll(' ', '-')}`}><span className="comparison-degree-name">{secondDegree.name}</span>{field.render(secondDegree)}</div>
           </div>
         ))}
       </section>
 
       <section className="degree-compare-next">
-        <Link to="/high-school/degrees">Compare Different Degrees</Link>
+        <Link to={firstDegree && secondDegree && (isFutureDegreeOption(firstDegree) || isFutureDegreeOption(secondDegree)) ? "/high-school/degrees#interdisciplinary" : "/high-school/degrees"}>Compare Different Degrees</Link>
       </section>
     </main>
   );

@@ -4,6 +4,7 @@ import type { Degree } from '../../data/degrees';
 import { getDegreeBySlug } from '../../data/degrees';
 import type { HighSchoolFutureDegreeOption } from '../../data/highSchoolFutureDegreeOptions';
 import { getHighSchoolFutureDegreeOptionBySlug } from '../../data/highSchoolFutureDegreeOptions';
+import { getDegreeSource } from '../../utils/degreeSource';
 import '../../styles/degrees.css';
 
 type ComparableDegree = Degree | HighSchoolFutureDegreeOption;
@@ -123,7 +124,7 @@ function getCredential(degree: ComparableDegree) {
 
 function getCategory(degree: ComparableDegree) {
   return isFutureDegreeOption(degree)
-    ? 'Business + Interdisciplinary'
+    ? 'Interdisciplinary'
     : degree.category;
 }
 
@@ -136,12 +137,12 @@ function getOverview(degree: ComparableDegree) {
 }
 
 function getSkills(degree: ComparableDegree) {
-  return isFutureDegreeOption(degree) ? degree.focus : degree.skills;
+  return isFutureDegreeOption(degree) ? 'Program-specific skills pending academic review.' : degree.skills;
 }
 
 function getSampleTopics(degree: ComparableDegree) {
   return isFutureDegreeOption(degree)
-    ? degree.focus.split(' + ')
+    ? ['Coursework details pending academic review.']
     : degree.sampleTopics;
 }
 
@@ -166,7 +167,7 @@ function renderGoodFit(degree: ComparableDegree) {
 
 function renderSampleTopics(degree: ComparableDegree) {
   return isFutureDegreeOption(degree)
-    ? renderList(degree.focus.split(' + '))
+    ? renderList(['Coursework details pending academic review.'])
     : renderList(degree.sampleTopics);
 }
 
@@ -192,9 +193,6 @@ function renderSwitchPath(degree: ComparableDegree) {
           <dd>{skills.length ? skills.join(', ') : getSkills(degree)}</dd>
         </div>
       </dl>
-      <Link to={`/bellini-student/course-overlap/${degree.slug}`}>
-        Check course overlap
-      </Link>
     </article>
   );
 }
@@ -270,6 +268,7 @@ function getDegreeForComparison(slug: string | undefined) {
 }
 
 const comparisonFields: ComparisonField[] = [
+  { label: 'Availability', render: (degree) => isFutureDegreeOption(degree) ? 'Admissions status pending confirmation.' : 'Confirm current admissions status with advising.' },
   {
     label: 'Degree name',
     render: (degree) => degree.name,
@@ -343,7 +342,7 @@ const comparisonFields: ComparisonField[] = [
 
 function DegreeComparison() {
   const [searchParams] = useSearchParams();
-  const sourceDashboard = searchParams.get('from');
+  const sourceDashboard = getDegreeSource(searchParams.get('from'));
   const isBelliniStudentSource = sourceDashboard === 'current-bellini-student';
   const degreeSourceSuffix = sourceDashboard ? `?from=${sourceDashboard}` : '';
   const firstDegree = getDegreeForComparison(
@@ -356,7 +355,7 @@ function DegreeComparison() {
     (firstDegree && isFutureDegreeOption(firstDegree)) ||
     (secondDegree && isFutureDegreeOption(secondDegree));
   const degreeExplorerPath = comparedInterdisciplinaryMajor
-    ? `/degrees/future-options${degreeSourceSuffix}`
+    ? `/degrees${degreeSourceSuffix}#interdisciplinary`
     : `/degrees${degreeSourceSuffix}`;
   const degreeExplorerLabel = comparedInterdisciplinaryMajor
     ? 'Back to Interdisciplinary Computing Majors'
@@ -394,18 +393,18 @@ function DegreeComparison() {
       {isBelliniStudentSource &&
         renderMajorSwitchPicture(firstDegree, secondDegree)}
 
-      <section className="degree-comparison-table" aria-label="Degree comparison">
-        <div className="comparison-row comparison-header">
-          <div>Section</div>
-          <div>{firstDegree.name}</div>
-          <div>{secondDegree.name}</div>
+      <section className="degree-comparison-table" role="table" aria-label="Degree comparison">
+        <div className="comparison-row comparison-header" role="row">
+          <div role="columnheader">Section</div>
+          <div role="columnheader" id="comparison-first">{firstDegree.name}</div>
+          <div role="columnheader" id="comparison-second">{secondDegree.name}</div>
         </div>
 
         {comparisonFields.map((field) => (
-          <div className="comparison-row" key={field.label}>
-            <div className="comparison-label">{field.label}</div>
-            <div>{field.render(firstDegree)}</div>
-            <div>{field.render(secondDegree)}</div>
+          <div className="comparison-row" role="row" key={field.label}>
+            <div className="comparison-label" role="rowheader" id={`comparison-${field.label.replaceAll(' ', '-')}`}>{field.label}</div>
+            <div role="cell" aria-labelledby={`comparison-first comparison-${field.label.replaceAll(' ', '-')}`}><span className="comparison-degree-name">{firstDegree.name}</span>{field.render(firstDegree)}</div>
+            <div role="cell" aria-labelledby={`comparison-second comparison-${field.label.replaceAll(' ', '-')}`}><span className="comparison-degree-name">{secondDegree.name}</span>{field.render(secondDegree)}</div>
           </div>
         ))}
       </section>

@@ -4,8 +4,8 @@ import {
   GraduationCap,
   University,
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
-import { saveUserType } from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
+import { userSessionStore } from '../utils/userSession';
 import type { UserTypeOption } from '../types/user';
 import { userTypeOptions } from '../utils/userTypes';
 
@@ -13,14 +13,14 @@ function SelectUserType() {
   const navigate = useNavigate();
 
   async function handleUserTypeSelection(userType: UserTypeOption) {
-    await saveUserType(userType.id);
-    navigate(userType.requiresUsfLogin ? '/login' : userType.dashboardRoute);
+    await userSessionStore.saveUserType(userType.id);
+    navigate(userType.dashboardRoute);
   }
 
   return (
     <main className="user-select-page">
       <h1>Select User Group</h1>
-      <p>Select one of the groups that best fits you to get to continue to the dashboard!</p>
+      <p>Choose the group that best fits you to explore relevant degrees and resources.</p>
       <section>
         <ul className="user-type-list">
           {userTypeOptions.map((userType) => (
@@ -61,9 +61,6 @@ function SelectUserType() {
           ))}
         </ul>
       </section>
-      <Link className="temporary-dashboard-link" to="/dashboard/general">
-        View General Dashboard Template
-      </Link>
     </main>
   );
 }

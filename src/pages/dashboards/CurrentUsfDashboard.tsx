@@ -2,8 +2,8 @@ import DashboardTemplate from '../../components/DashboardTemplate';
 
 const currentUsfDashboardSteps = [
   {
-    title: 'Start with your current record',
-    text: 'Note your current USF college, major, class standing, completed credits, and any courses that may matter if you switch into Bellini College.',
+    title: 'Review your current record in USF systems',
+    text: 'Check your current college, major, class standing, and completed credits in official USF systems before exploring Bellini programs.',
   },
   {
     title: 'Explore possible computing majors',
@@ -14,12 +14,12 @@ const currentUsfDashboardSteps = [
     text: 'Use comparison tools to see how programs differ before assuming one major will make the best use of credits you have already completed.',
   },
   {
-    title: 'Save programs and questions',
-    text: 'Add programs to your profile and write down questions about catalog year, Degree Works, credit applicability, permits, and time to graduation.',
+    title: 'Identify programs and questions',
+    text: 'Identify programs of interest and write down questions about catalog year, Degree Works, credit applicability, permits, and time to graduation.',
   },
   {
     title: 'Prepare for advising',
-    text: 'Bring your unofficial transcript, Degree Works view, completed course list, and saved profile notes to a USF advisor for official guidance.',
+    text: 'Gather your unofficial transcript and Degree Works view from official USF systems, and bring them with your questions to an advisor.',
   },
   {
     title: 'Confirm before making changes',
@@ -34,15 +34,15 @@ const currentUsfRecommendedNextSteps = [
   },
   {
     title: 'Organize your USF course history',
-    text: 'Use your Degree Works view, unofficial transcript, and completed course list to identify math, science, programming, statistics, database, networking, and repeated courses that need review.',
+    text: 'Review your course history in official USF systems and ask an advisor which completed courses may apply to a Bellini major.',
   },
   {
     title: 'Compare target Bellini majors',
-    text: 'Use the degree explorer and intake quiz results to narrow your major options, then note prerequisite gaps, course sequencing concerns, and questions about catalog year.',
+    text: 'Use the degree explorer to narrow your major options, then note prerequisite gaps, course sequencing concerns, and questions about catalog year.',
   },
   {
     title: 'Prepare for Bellini advising',
-    text: 'Bring your saved profile, transcript details, programs of interest, and specific questions about credit applicability, permits, excess hours, and time to graduation.',
+    text: 'Bring the degrees you compared and questions about credit applicability, permits, excess hours, and time to graduation to Bellini advising.',
   },
 ];
 
@@ -53,28 +53,24 @@ function CurrentUsfDashboard() {
       headline="Learning, Redefined"
       intro="For current USF students in another college who may be interested in switching into a Bellini College computing major, this dashboard helps you explore degree options, compare possible paths, and think through how your completed coursework might fit before your next advising conversation."
       pathHeading="Explore a switch into Bellini College with your USF coursework in mind"
-      quizPath="/current-usf/quiz"
-      quizResultsPath="/current-usf/quiz/results"
       degreeToolPath="/degrees?from=current-usf-student"
       degreeToolTitle="Degree Explorer for Current USF Students"
       degreeToolText="Compare Bellini computing majors with your current USF coursework and advising questions in mind."
-      secondaryToolPath="/profile"
       secondaryToolTitle="Your Profile"
-      secondaryToolText="Track your college, coursework, programs of interest, and advising questions."
-      tertiaryToolPath="/current-usf/readiness-guide"
+      secondaryToolText="Coming soon!"
       tertiaryToolTitle="Transferring into Bellini Guide"
-      tertiaryToolText="Use a guide-style workspace for course fit, timing, and advising preparation."
-      extraToolPath="/current-usf/course-overlap"
+      tertiaryToolText="Coming soon!"
       extraToolTitle="Course Overlap Planner"
-      extraToolText="Choose a Bellini major and check completed USF courses against its requirement list before advising confirms applicability."
-      careerToolPath="/current-usf/transcript"
+      extraToolText="Coming soon!"
       careerToolIcon="upload"
       careerToolTitle="Transcript Upload"
-      careerToolText="Paste or upload transcript text to extract courses, credits, grades, and advising checkpoints before meeting with Bellini advising."
+      careerToolText="Coming soon!"
       toolCardOrder={['degree', 'secondary', 'tertiary', 'career', 'extra']}
       blankAfterSecondaryToolCards
-      finalNavPath="/profile"
-      finalNavLabel="Profile"
+      uniformToolCards
+      comingSoonMode
+      degreeToolComingSoon={false}
+      hideFinalNav
       steps={currentUsfDashboardSteps}
       planningHeading="Recommended Next Steps"
       planningText="Use these steps to prepare before you request a change of major from another USF college into a Bellini College program."

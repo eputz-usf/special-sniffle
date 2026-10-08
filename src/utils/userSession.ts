@@ -10,12 +10,19 @@ export type UserSessionStore = {
 
 const localUserSessionStore: UserSessionStore = {
   async saveUserType(userType) {
-    localStorage.setItem(userTypeKey, userType);
+    try {
+      localStorage.setItem(userTypeKey, userType);
+    } catch {
+      // Public navigation remains available when browser storage is blocked.
+    }
   },
   async getUserType() {
-    const savedUserType = localStorage.getItem(userTypeKey);
-
-    return isUserType(savedUserType) ? savedUserType : null;
+    try {
+      const savedUserType = localStorage.getItem(userTypeKey);
+      return isUserType(savedUserType) ? savedUserType : null;
+    } catch {
+      return null;
+    }
   },
 };
 

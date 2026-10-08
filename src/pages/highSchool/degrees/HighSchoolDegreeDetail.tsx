@@ -1,3 +1,5 @@
+import InterdisciplinaryDegreeDetail from '../../../components/InterdisciplinaryDegreeDetail';
+import { getHighSchoolFutureDegreeOptionBySlug } from '../../../data/highSchoolFutureDegreeOptions';
 import { Link, useParams } from 'react-router-dom';
 import { getDegreeBySlug } from '../../../data/highSchoolDegrees';
 import '../../../styles/degrees.css';
@@ -1151,9 +1153,7 @@ function ComputerScienceHighSchoolDegreeDetail() {
                   key={point.year}
                   r="7"
                 >
-                  <title>
-                    {point.year}: {point.jobs} jobs
-                  </title>
+                  <title>{`${point.year}: ${point.jobs} jobs`}</title>
                 </circle>
               ))}
               {computerScienceEmploymentTrend.map((point) => (
@@ -1469,9 +1469,7 @@ function ComputerScienceEngineeringHighSchoolDegreeDetail() {
                     key={point.year}
                     r="7"
                   >
-                    <title>
-                      {point.year}: {point.jobs} jobs
-                    </title>
+                    <title>{`${point.year}: ${point.jobs} jobs`}</title>
                   </circle>
                 ))}
                 {computerScienceEngineeringEmploymentTrend.map((point) => (
@@ -1820,9 +1818,7 @@ function ArtificialIntelligenceHighSchoolDegreeDetail() {
                   key={point.year}
                   r="7"
                 >
-                  <title>
-                    {point.year}: {point.jobs} jobs
-                  </title>
+                  <title>{`${point.year}: ${point.jobs} jobs`}</title>
                 </circle>
               ))}
               {artificialIntelligenceEmploymentTrend.map((point) => (
@@ -1872,7 +1868,7 @@ function ArtificialIntelligenceHighSchoolDegreeDetail() {
         <BeyondTheClassroom />
         <div className="degree-detail-actions">
           <a
-            href="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/ .aspx"
+            href="https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/bsai.aspx"
             rel="noreferrer"
             target="_blank"
           >
@@ -2153,9 +2149,7 @@ function CybersecurityHighSchoolDegreeDetail() {
                   key={point.year}
                   r="7"
                 >
-                  <title>
-                    {point.year}: {point.jobs} jobs
-                  </title>
+                  <title>{`${point.year}: ${point.jobs} jobs`}</title>
                 </circle>
               ))}
               {cybersecurityEmploymentTrend.map((point) => (
@@ -2519,9 +2513,7 @@ function InformationTechnologyHighSchoolDegreeDetail() {
                   key={point.year}
                   r="7"
                 >
-                  <title>
-                    {point.year}: {point.jobs} jobs
-                  </title>
+                  <title>{`${point.year}: ${point.jobs} jobs`}</title>
                 </circle>
               ))}
               {informationTechnologyEmploymentTrend.map((point) => (
@@ -2733,6 +2725,8 @@ function InformationTechnologyHighSchoolDegreeDetail() {
 function HighSchoolDegreeDetail() {
   const { degreeSlug } = useParams();
   const degree = getDegreeBySlug(degreeSlug);
+  const option = getHighSchoolFutureDegreeOptionBySlug(degreeSlug);
+  if (option) return <InterdisciplinaryDegreeDetail option={option} highSchool={true} />;
 
   if (!degree) {
     return (
@@ -2818,7 +2812,7 @@ function HighSchoolDegreeDetail() {
           ))}
         </ul>
         <div className="degree-detail-actions">
-          <Link to="/quiz">Take Degree Fit Quiz</Link>
+          <span className="coming-soon-notice">Intake quiz — Coming soon</span>
           <Link to="/high-school/degrees">Compare More Programs</Link>
         </div>
       </section>

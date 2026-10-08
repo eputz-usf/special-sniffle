@@ -2,6 +2,8 @@ export type HighSchoolFutureDegreeOption = {
   slug: string;
   name: string;
   focus: string;
+  cardDescription: string;
+  cardBestFor: string;
   description: string;
   goodFit: string;
   planningResources: {
@@ -15,6 +17,8 @@ export type HighSchoolFutureDegreeOption = {
 export const plannedHighSchoolFutureDegreeOptions = [
   {
     slug: 'computer-science-and-criminology',
+    cardBestFor: 'Cybercrime, digital investigations, public safety',
+    cardDescription: 'Combines computing with criminology to explore technology, crime, and justice.',
     name: 'BS in Computer Science and Criminology',
     focus: 'Computing + Criminology + Cybercrime',
     description:
@@ -37,6 +41,8 @@ export const plannedHighSchoolFutureDegreeOptions = [
   },
   {
     slug: 'computer-science-and-interdisciplinary-social-sciences',
+    cardBestFor: 'Technology and society, community data, social impact',
+    cardDescription: 'Combines computing with social sciences to explore people, communities, and public systems.',
     name: 'BS in Computer Science and Interdisciplinary Social Sciences',
     focus: 'Computing + Social Sciences + People',
     description:
@@ -59,6 +65,8 @@ export const plannedHighSchoolFutureDegreeOptions = [
   },
   {
     slug: 'computer-science-and-business-accountancy-and-analytics',
+    cardBestFor: 'Accounting technology, financial data, auditing',
+    cardDescription: 'Connects computing with accounting and analytics for financial systems and reporting.',
     name: 'BS in Computer Science and Business: Accountancy and Analytics Concentration',
     focus: 'Computing + Accounting + Analytics',
     description:
@@ -81,6 +89,8 @@ export const plannedHighSchoolFutureDegreeOptions = [
   },
   {
     slug: 'computer-science-and-business-analytics-and-information-systems',
+    cardBestFor: 'Business data, information systems, technology consulting',
+    cardDescription: 'Connects computing with business analytics and information systems to support decisions and operations.',
     name: 'BS in Computer Science and Business: Business Analytics and Information Systems Concentration',
     focus: 'Computing + Business Analytics + Information Systems',
     description:
@@ -103,6 +113,8 @@ export const plannedHighSchoolFutureDegreeOptions = [
   },
   {
     slug: 'computer-science-and-business-digital-marketing-and-analytics',
+    cardBestFor: 'Digital marketing, customer data, web analytics',
+    cardDescription: 'Connects computing with digital marketing and analytics to understand customers and campaigns.',
     name: 'BS in Computer Science and Business: Digital Marketing and Analytics Concentration',
     focus: 'Computing + Digital Marketing + Analytics',
     description:
@@ -125,6 +137,8 @@ export const plannedHighSchoolFutureDegreeOptions = [
   },
   {
     slug: 'computer-science-and-business-fintech',
+    cardBestFor: 'Financial apps, payments, banking technology',
+    cardDescription: 'Connects computing with finance to explore technology in banking, payments, and financial services.',
     name: 'BS in Computer Science and Business: Fintech Concentration',
     focus: 'Computing + Finance + Financial Technology',
     description:
@@ -147,6 +161,8 @@ export const plannedHighSchoolFutureDegreeOptions = [
   },
   {
     slug: 'computer-science-and-business-supply-chain-management',
+    cardBestFor: 'Logistics, inventory systems, operations data',
+    cardDescription: 'Connects computing with supply chain management to improve logistics and business operations.',
     name: 'BS in Computer Science and Business: Supply Chain Management Concentration',
     focus: 'Computing + Supply Chain + Operations',
     description:
@@ -174,3 +190,20 @@ export function getHighSchoolFutureDegreeOptionBySlug(slug: string | undefined) 
     (degree) => degree.slug === slug,
   );
 }
+
+
+export const interdisciplinaryDegrees = plannedHighSchoolFutureDegreeOptions.map((option) => ({
+  slug: option.slug,
+  name: option.name,
+  credential: 'BS',
+  category: 'Interdisciplinary' as const,
+  bestFor: option.cardBestFor,
+  description: option.cardDescription,
+  skills: 'Program-specific skills pending academic review.',
+  overview: option.description,
+  goodFit: [option.goodFit],
+  sampleTopics: ['Coursework details pending academic review.'],
+  nextSteps: ['Confirm admissions status, catalog year, requirements, and electives with Bellini advising.'],
+  officialLinks: { plans: option.planningResources },
+  status: option.status,
+}));

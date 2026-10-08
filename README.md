@@ -1,130 +1,107 @@
 # CIC Support Platform MVP
 
+A React and TypeScript beta for exploring USF Bellini College computing degrees and preparing for advising. The platform supports the larger CIC-funded initiative with dashboards tailored to prospective students, transfer students, current USF students outside Bellini, and current Bellini students considering a degree change.
+
+## Current Features
+
+| User group | Available in the beta | Coming soon |
+| --- | --- | --- |
+| High school / prospective students | Degree explorer, degree comparisons, career information, bachelor's/master's pathways, integrated interdisciplinary cards, and parent information | Admissions and transition planner |
+| Non-USF / transfer students | Transfer dashboard and degree exploration resources | Transfer readiness guide and planner |
+| Current USF students outside Bellini | Dashboard and degree explorer | Profile, readiness guide, transcript upload, and course overlap tools |
+| Current Bellini students | Degree Explorer for Major Changes, including degree details and comparisons | Major change guide, profile, course overlap planner, transcript upload and course extraction |
+
+Intake quizzes and personalized program recommendations are **coming soon** across the beta. Both explorers include the main five programs and seven planned interdisciplinary degrees/concentrations, with filters, details, official planning resources, and two-program comparisons. The Interdisciplinary Computing Majors shortcut opens a separate page containing only the anticipated 2027 Economics and Anthropology degrees, with incomplete-content labels. Admissions status and academic content await Bellini approval. Advisor and staff dashboards are not part of the current routed user flow.
+
 ## Run Locally
 
-```bash
-npm install
-npm run dev
-```
+Use Node.js 22.12 or later in the Node 22 line and npm (`.nvmrc` selects Node 22). The repository includes an npm lockfile.
 
-Then open the local Vite URL shown in the terminal, usually:
+1. Install dependencies:
 
-```text
-http://localhost:5173
-```
+   ```bash
+   npm ci
+   ```
 
-For a production check:
+2. Start the development server:
 
-```bash
-npm run build
-```
+   ```bash
+   npm run dev
+   ```
 
-## Project Overview
+   Open the URL printed in the terminal, usually `http://localhost:5173`.
 
-This project is an MVP for a role-based support platform connected to the larger CIC-funded initiative. The goal of the platform is to help different user groups access relevant resources, recommendations, planning tools, and profile-supported next steps through personalized dashboards.
+The current beta runs without Supabase or environment variables.
 
-The MVP focuses on user group onboarding, placeholder login routing for USF-connected users, saved user group information, personalized dashboards, degree exploration, guided recommendation flows, and planning/profile persistence. The recommendation system begins as a rule-based decision-tree model and can later be expanded into a more advanced AI-supported system.
+### Available Commands
 
----
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the Vite development server |
+| `npm run build` | Run the TypeScript build and generate production assets in `dist/` |
+| `npm run preview` | Preview the production build locally after building |
+| `npm run lint` | Run ESLint |
+| `npm run test` | Run explorer and public-route regression checks |
+| `npm run check:links` | Check syntax of external URLs in source |
+| `npm run check:links -- --online` | Refresh the online link report for manual review |
+| `npm run check` | Run lint, tests, URL checks, and the production build |
 
-## Project Goal
+Regression checks cover direct explorer links, degree pages, comparisons, disabled Bellini tools, and unavailable-page recovery. Browser usability and accessibility checks remain part of the pre-launch review.
 
-The main goal of this MVP is to create a working platform where users can:
+## User Flow and Authentication
 
-- Create an account or log in
-- Select their user group during first-time onboarding
-- Have their user group saved to their account
-- Automatically land on their correct role-based dashboard after login
-- View personalized resources, recommendations, and progress
-- Use a guided recommendation flow to find relevant support
-- Save planning/profile information for the same browser session in the prototype
+The entry page at `/` lets users select one of four groups. The selected group is saved in `localStorage`.
 
----
+- High school/prospective and non-USF/transfer users go directly to their dashboard.
+- Current USF and Bellini users also go directly to their selected dashboard.
+- Legacy `/login`, `/signup`, and `/home` URLs redirect to user-group selection.
 
-## User Groups
+This public beta has no login or account creation. Degree exploration is available without authentication. Direct `/degrees` links default to Bellini context; recognized `from` parameters select the appropriate dashboard and advising questions.
 
-The current MVP is planned around these user groups:
+## Prototype Persistence
 
-1. High school students / prospective students
-2. Transfer students from community or state colleges
-3. Current USF students in another college who may be interested in switching into a Bellini computing major
-4. Current Bellini College students considering switching degrees
-5. Academic advisors / college staff
-   
----
+The selected user group is stored in browser `localStorage`. Bellini profile saving, document uploads, transcript extraction, and course overlap planning are not available in this beta. Their pages, persistence helpers, Supabase schemas, and document function have been removed; their dashboard cards are disabled and labeled “Coming soon.”
 
-## MVP User Flow
+Degree exploration, degree details, filters, and side-by-side comparisons remain available. No backend setup is required for these features.
 
-The platform begins with user group selection. Users are routed based on whether they are external prospective users or current USF-connected users.
+## Project Structure
 
 ```text
-Select User Group
-        ↓
-High School / Prospective Student OR Transfer Student?
-        ↓
-Go Directly to Role-Based Dashboard
-
-Current USF Student OR Current Bellini College Student?
-        ↓
-USF Login Placeholder
-        ↓
-Go to Role-Based Dashboard
-        ↓
-View Features, Resources, Recommendations, and Progress
+src/
+  App.tsx                 Application routes and shared header
+  components/             Shared dashboard components
+  pages/                  Group selection, login, dashboards, and degree pages
+    belliniStudent/       Bellini dashboard
+    highSchool/           Prospective-student degree and parent resources
+  data/                   Degree content
+  utils/                  User-group selection and prototype session helpers
+  styles/                 Feature styles
+docs/                    Production planning documents
 ```
 
----
+## Production Readiness
 
-## Authentication and Prototype Persistence
+This is a development prototype and is **not ready to accept real student data**. The explorer is public and has no authentication requirement. The current beta does not provide student profiles or document uploads.
 
-For current USF students, the prototype assumes that real login would eventually be handled through USF's existing Microsoft authentication system. The app does not implement real Microsoft login or replace USF identity management.
+Production preparation and required institutional access are tracked in:
 
-Instead, this MVP uses a placeholder login step to represent where USF authentication would happen in a full implementation.
+- [Production readiness checklist](docs/production-readiness-checklist.md)
+- [Production access request](docs/production-access-request.md)
 
-Supabase supports backend data needs for prototype advising and planning features. For flows without real account creation, the app uses an anonymous browser `session_id` so progress can be remembered on the same browser/device.
+The current production documents describe the static beta and the remaining hosting and review work. Review academic planning content with official USF resources and advising before making degree decisions.
 
-Current Supabase-backed prototype areas include:
+## Beta Handoff and Content Maintenance
 
-- Public high school/prospective quiz sessions, responses, and results
-- Transfer quiz sessions, responses, and results
-- High school transition planner data
-- Current USF profile data and programs added to profile
+- [Webmaster questions and task checklist](docs/beta-webmaster-handoff.md)
+- [Local readiness results and remaining checks](docs/beta-local-readiness-report.md)
+- [Content sources, review status, and update instructions](docs/content-review.md)
 
-Relevant schema files:
+The app currently assumes hosting at the website root. Configure the final asset base, router base, and app-scoped route fallback after the webmaster confirms the production URL. Publish the generated `dist/` contents through the approved host; local dev/preview servers are not production hosting. Google Fonts is currently loaded from `fonts.googleapis.com` and `fonts.gstatic.com`; the webmaster must approve those origins or supply approved locally hosted fonts.
 
-- `supabase/public-quiz-schema.sql`
-- `supabase/transfer-quiz-schema-update.sql`
-- `supabase/current-usf-profile-schema.sql`
+## Interdisciplinary Content Maintenance
 
-For a future USF production version, Current USF profile data should be tied to the student's authenticated USF identity instead of only an anonymous browser session.
+Maintain the seven program identifiers, names, availability labels, descriptions, interests, catalog URLs, and study plans in `src/data/highSchoolFutureDegreeOptions.ts`. Its normalized cards feed both degree datasets; do not add generic business or duplicate interdisciplinary records. Both explorers use the same resources, and comparisons resolve the canonical slugs. Program-specific skills and coursework stay explicitly pending until approved. Economics and Anthropology are displayed on the separate future-options page, excluded from comparison until their content and inclusion are approved.
 
----
+Record academic approvals and source checks in [content-review.md](docs/content-review.md). See [interdisciplinary-degree-card-tasks.md](docs/interdisciplinary-degree-card-tasks.md) for implementation and browser verification status.
 
-## Development Log
-
-A development log is maintained to track daily progress on the project.  
-The log includes completed updates, design changes, feature additions, routing changes, dashboard work, and next steps.
-
-This helps document how the MVP is being built over time and makes it easier for collaborators, supervisors, and lab members to review recent progress.
-
-The development log currently includes updates for:
-
-- Project setup and initial React/Vite/TypeScript structure
-- Temporary account access and user group selection flow
-- USF login placeholder direction
-- Role-based dashboard routing
-- Prospective/high school dashboard template work
-- Degree detail pages and catalog link additions
-- High school degree explorer, comparison, quiz recommendations, and transition planner
-- Interdisciplinary Computer Science future options
-- Transfer dashboard, transfer quiz, and transfer planning tools
-- Current USF dashboard, profile page, Add to Profile flow, and Supabase profile persistence
-
-The development log should be updated regularly as new features are added.
-
----
-## Current Status
-
-The project is currently in active MVP development. The main app flow, user group selection, role-based dashboards, high school degree explorer, quiz recommendation flow, transition planner, transfer student tools, and Current USF profile flow are in progress.
-
-Recent work has focused on Current USF student support: wiring the shared degree pages so this group uses `Add to Profile`, moving the Current USF profile into `src/pages/USF/`, saving profile data and programs of interest through Supabase with an anonymous `session_id`, and documenting that this is prototype persistence rather than a replacement for USF Microsoft authentication.
+High-school interdisciplinary wording lives in `src/data/highSchoolInterdisciplinaryContent.ts`. Use short sentences, familiar words, and explanations of new terms. Keep official names, program identifiers, and resource URLs shared; shared-group detail wording remains in `src/data/interdisciplinaryDetailContent.ts`.

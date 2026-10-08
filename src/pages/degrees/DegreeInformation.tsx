@@ -1,21 +1,9 @@
+import { filterDegrees } from '../../utils/degreeFilters';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { degrees } from '../../data/degrees';
-import {
-  addTransferPlannerMajor,
-  loadTransferPlannerMajors,
-  removeTransferPlannerMajor,
-} from '../../utils/transferPlannerMajors';
-import {
-  addCurrentUsfProfileMajor,
-  loadCurrentUsfProfileMajors,
-  removeCurrentUsfProfileMajor,
-} from '../../utils/currentUsfProfileMajors';
-import {
-  addBelliniStudentProfileMajor,
-  loadBelliniStudentProfileMajors,
-  removeBelliniStudentProfileMajor,
-} from '../../utils/belliniStudentProfileMajors';
+import { getDegreeSource } from '../../utils/degreeSource';
+import { addComparisonSlug, buildComparisonPath } from '../../utils/degreeComparison';
 import '../../styles/degrees.css';
 
 const filters = [
@@ -24,21 +12,8 @@ const filters = [
   'AI/Data',
   'Cybersecurity',
   'IT/Systems',
+  'Interdisciplinary',
 ] as const;
-
-const futureDegreeSlugs = new Set([
-  'computer-science-and-business',
-  'computer-science-and-criminology',
-  'computer-science-and-interdisciplinary-social-sciences',
-]);
-
-const completedDegreePages = new Set([
-  'computer-science',
-  'computer-science-and-engineering',
-  'artificial-intelligence',
-  'cybersecurity',
-  'information-technology',
-]);
 
 const dashboardRoutesBySource = {
   general: '/dashboard/general#majors',
@@ -50,11 +25,9 @@ const dashboardRoutesBySource = {
 function DegreeInformation() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const sourceDashboard = searchParams.get('from');
+  const sourceDashboard = getDegreeSource(searchParams.get('from'));
   const isGeneralSource = sourceDashboard === 'general';
-  const isCurrentUsfStudentSource = sourceDashboard === 'current-usf-student';
   const isBelliniStudentSource = sourceDashboard === 'current-bellini-student';
-  const isProfileSource = isCurrentUsfStudentSource || isBelliniStudentSource;
   const degreeSourceSuffix = sourceDashboard ? `?from=${sourceDashboard}` : '';
   const dashboardBackRoute =
     sourceDashboard &&
@@ -68,26 +41,9 @@ function DegreeInformation() {
   );
   const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
   const [compareMessage, setCompareMessage] = useState('');
-  const [plannerMajorSlugs, setPlannerMajorSlugs] = useState(() =>
-    loadTransferPlannerMajors().map((major) => major.slug),
-  );
-  const [profileMajorSlugs, setProfileMajorSlugs] = useState(() =>
-    loadCurrentUsfProfileMajors().map((major) => major.slug),
-  );
-  const [belliniProfileMajorSlugs, setBelliniProfileMajorSlugs] = useState(() =>
-    loadBelliniStudentProfileMajors().map((major) => major.slug),
-  );
 
   const visibleDegrees = useMemo(() => {
-    const currentDegrees = degrees.filter(
-      (degree) => !futureDegreeSlugs.has(degree.slug),
-    );
-
-    if (activeFilter === 'All') {
-      return currentDegrees;
-    }
-
-    return currentDegrees.filter((degree) => degree.category === activeFilter);
+    return filterDegrees(degrees, activeFilter);
   }, [activeFilter]);
 
   const selectedDegrees = compareSlugs
@@ -95,20 +51,9 @@ function DegreeInformation() {
     .filter((degree) => degree !== undefined);
 
   function handleAddToCompare(slug: string) {
-    setCompareMessage('');
-
-    if (compareSlugs.includes(slug)) {
-      return;
-    }
-
-    if (compareSlugs.length >= 2) {
-      setCompareMessage(
-        'You can only compare two degrees at a time. Remove one to add another.',
-      );
-      return;
-    }
-
-    setCompareSlugs((currentSlugs) => [...currentSlugs, slug]);
+    const next = addComparisonSlug(compareSlugs, slug);
+    setCompareMessage(next.message);
+    setCompareSlugs(next.slugs);
   }
 
   function handleRemoveFromCompare(slug: string) {
@@ -124,67 +69,10 @@ function DegreeInformation() {
   }
 
   function handleCompareDegrees() {
-    if (compareSlugs.length !== 2) {
-      return;
-    }
-
-    const compareParams = new URLSearchParams({
-      first: compareSlugs[0],
-      second: compareSlugs[1],
-    });
-
-    if (sourceDashboard) {
-      compareParams.set('from', sourceDashboard);
-    }
-
-    navigate(`/degrees/compare?${compareParams.toString()}`);
+    const path = buildComparisonPath(compareSlugs, sourceDashboard);
+    if (path) navigate(path);
   }
 
-  function handleAddToPlanner(degree: (typeof degrees)[number]) {
-    if (plannerMajorSlugs.includes(degree.slug)) {
-      const nextMajors = removeTransferPlannerMajor(degree.slug);
-      setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
-      return;
-    }
-
-    const nextMajors = addTransferPlannerMajor({
-      slug: degree.slug,
-      name: degree.name,
-    });
-
-    setPlannerMajorSlugs(nextMajors.map((major) => major.slug));
-  }
-
-  function handleAddToProfile(degree: (typeof degrees)[number]) {
-    if (isBelliniStudentSource) {
-      if (belliniProfileMajorSlugs.includes(degree.slug)) {
-        const nextMajors = removeBelliniStudentProfileMajor(degree.slug);
-        setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
-        return;
-      }
-
-      const nextMajors = addBelliniStudentProfileMajor({
-        slug: degree.slug,
-        name: degree.name,
-      });
-
-      setBelliniProfileMajorSlugs(nextMajors.map((major) => major.slug));
-      return;
-    }
-
-    if (profileMajorSlugs.includes(degree.slug)) {
-      const nextMajors = removeCurrentUsfProfileMajor(degree.slug);
-      setProfileMajorSlugs(nextMajors.map((major) => major.slug));
-      return;
-    }
-
-    const nextMajors = addCurrentUsfProfileMajor({
-      slug: degree.slug,
-      name: degree.name,
-    });
-
-    setProfileMajorSlugs(nextMajors.map((major) => major.slug));
-  }
 
   return (
     <main className="degrees-page">
@@ -198,7 +86,7 @@ function DegreeInformation() {
             Back to Dashboard
           </Link>
         </div>
-        <h1>Explore Bellini College Degrees</h1>
+        <h1>Explore Bellini College Degrees and Interdisciplinary Majors</h1>
         <p>
           Review Bellini College computing programs, compare academic focus
           areas, and identify which paths are worth discussing with admissions
@@ -206,10 +94,8 @@ function DegreeInformation() {
         </p>
         <p>
           {isBelliniStudentSource
-            ? 'Use Add to Compare to see what may change if you switch between two Bellini majors, including focus, coursework direction, skills, advising questions, and course-overlap next steps. You can also save programs to your profile.'
-            : `Use Add to Compare for a side-by-side review, or save programs to your ${
-                isProfileSource ? 'profile.' : 'transfer planner.'
-              }`}
+            ? 'Use Add to Compare to see what may change if you switch between two Bellini majors, including focus, coursework direction, skills, and advising questions.'
+            : 'Use Add to Compare on two programs for a side-by-side review of their focus, skills, and next steps.'}
         </p>
       </section>
 
@@ -219,6 +105,7 @@ function DegreeInformation() {
             className={filter === activeFilter ? 'active' : ''}
             key={filter}
             type="button"
+            aria-pressed={filter === activeFilter}
             onClick={() => setActiveFilter(filter)}
           >
             {filter}
@@ -226,14 +113,19 @@ function DegreeInformation() {
         ))}
       </section>
 
-      <section className="degree-grid" id="degree-grid">
-        {visibleDegrees.map((degree) => (
+      <p role="status" aria-live="polite">{visibleDegrees.length} programs shown · {activeFilter}</p>
+      {[false, true].map((interdisciplinary) => {
+        const groupDegrees = visibleDegrees.filter((degree) => Boolean(degree.status) === interdisciplinary);
+        if (!groupDegrees.length) return null;
+        return <section key={String(interdisciplinary)} id={interdisciplinary ? 'interdisciplinary' : 'degree-grid'} aria-labelledby={interdisciplinary ? 'interdisciplinary-heading' : 'main-degrees-heading'}>
+          <h2 id={interdisciplinary ? 'interdisciplinary-heading' : 'main-degrees-heading'}>{interdisciplinary ? 'Interdisciplinary Computing Majors' : 'Computing Degrees'}</h2>
+          {interdisciplinary && <><p>Explore a computing foundation connected to business, criminology, and social sciences, and discuss these interdisciplinary paths with advising.</p><p>Planned options for exploration; availability and academic content await confirmation. Elective information is coming soon.</p></>}
+      <div className="degree-grid">
+        {groupDegrees.map((degree) => (
           <article className="degree-card" key={degree.name}>
             <div>
               <p className="degree-category">{degree.category}</p>
-              <h2>
-                {degree.name}
-              </h2>
+              <h3>{degree.name}</h3>
               <p className="degree-best-for">Best for: {degree.bestFor}</p>
               <p>{degree.description}</p>
             </div>
@@ -241,15 +133,7 @@ function DegreeInformation() {
             <div>
               <p className="degree-skills">Skills: {degree.skills}</p>
                 <div className="degree-card-actions">
-                {completedDegreePages.has(degree.slug) ? (
-                  <Link to={`/degrees/${degree.slug}${degreeSourceSuffix}`}>
-                    Learn More
-                  </Link>
-                ) : (
-                  <button className="placeholder-button" type="button">
-                    Learn More
-                  </button>
-                )}
+                <Link to={`/degrees/${degree.slug}${degreeSourceSuffix}`}>Learn More</Link>
                 <button
                   className={
                     compareSlugs.includes(degree.slug) ? 'compare-selected' : ''
@@ -262,48 +146,14 @@ function DegreeInformation() {
                     ? 'Selected'
                     : 'Add to Compare'}
                 </button>
-                {isProfileSource ? (
-                  <button
-                    className={
-                      (
-                        isBelliniStudentSource
-                          ? belliniProfileMajorSlugs
-                          : profileMajorSlugs
-                      ).includes(degree.slug)
-                        ? 'planner-selected'
-                        : ''
-                    }
-                    disabled={isGeneralSource}
-                    type="button"
-                    onClick={() => handleAddToProfile(degree)}
-                  >
-                    {(
-                      isBelliniStudentSource
-                        ? belliniProfileMajorSlugs
-                        : profileMajorSlugs
-                    ).includes(degree.slug)
-                      ? 'Remove from Profile'
-                      : 'Add to Profile'}
-                  </button>
-                ) : (
-                  <button
-                    className={
-                      plannerMajorSlugs.includes(degree.slug) ? 'planner-selected' : ''
-                    }
-                    disabled={isGeneralSource}
-                    type="button"
-                    onClick={() => handleAddToPlanner(degree)}
-                  >
-                    {plannerMajorSlugs.includes(degree.slug)
-                      ? 'Remove from Planner'
-                      : 'Add to Planner'}
-                  </button>
-                )}
               </div>
             </div>
           </article>
         ))}
-      </section>
+      </div>
+
+        </section>;
+      })}
 
       <section className="degrees-extra-pathways" aria-label="Extra pathways">
         <Link
@@ -317,26 +167,16 @@ function DegreeInformation() {
           className="active-link"
           to={`/degrees/future-options${degreeSourceSuffix}`}
         >
-          <span>Interdisciplinary Computing Majors / Future Degree Options</span>
-          <small>View list</small>
+          <span>Anticipated Degrees for 2027</span>
+          <small>View future degree options</small>
         </Link>
       </section>
 
-      <section className="degrees-quiz-callout">
+      <section className="degrees-quiz-callout coming-soon-area">
         <div>
-          <h2>Not sure which degree fits you?</h2>
-          <p>
-            Use the intake quiz if you want a quick recommendation before
-            reviewing catalog requirements or transfer-credit questions.
-          </p>
+          <h2>Intake quiz — Coming soon</h2>
+          <p>Personalized program recommendations are coming soon.</p>
         </div>
-        {isGeneralSource ? (
-          <button type="button" disabled>
-            Start Quiz
-          </button>
-        ) : (
-          <Link to="/transfer/quiz">Start Quiz</Link>
-        )}
       </section>
 
       <p className="degrees-disclaimer">
@@ -346,7 +186,7 @@ function DegreeInformation() {
       </p>
 
       {(compareSlugs.length > 0 || compareMessage) && (
-        <section className="degree-compare-bar" aria-label="Degree comparison">
+        <section className="degree-compare-bar" aria-label="Degree comparison" aria-live="polite" aria-atomic="true">
           <div>
             <p className="compare-bar-label">Comparing:</p>
             <div className="compare-selection-list">
@@ -367,7 +207,7 @@ function DegreeInformation() {
               )}
             </div>
             {compareMessage && (
-              <p className="compare-warning">{compareMessage}</p>
+              <p className="compare-warning" role="status">{compareMessage}</p>
             )}
           </div>
 

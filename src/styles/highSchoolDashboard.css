@@ -58,7 +58,7 @@
   height: 420px;
   margin: 0 0 0 auto;
   overflow: hidden;
-  border-radius: 28px 0 0 28px;
+  border-radius: 4px;
   object-fit: cover;
 }
 
@@ -79,7 +79,7 @@
   min-height: 300px;
   padding: 30px;
   border: 1px solid rgba(8, 98, 66, 0.22);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #f8f4ea;
 }
 
@@ -119,7 +119,7 @@
   min-height: 58px;
   margin-top: 34px;
   padding: 14px 22px;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .dashboard-quiz-actions {
@@ -159,7 +159,7 @@
   width: max-content;
   max-width: 260px;
   padding: 10px 12px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #15251b;
   color: #ffffff;
   font-size: 14px;
@@ -168,9 +168,7 @@
   pointer-events: none;
   text-align: center;
   transform: translateX(-50%) translateY(4px);
-  transition:
-    opacity 160ms ease,
-    transform 160ms ease;
+  transition: none;
 }
 
 .dashboard-disabled-result-control:hover .dashboard-disabled-result-tooltip,
@@ -198,7 +196,7 @@
   min-height: 440px;
   gap: 20px;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .high-school-tool-card span {
@@ -206,9 +204,25 @@
   font-size: clamp(24px, 2vw, 31px);
 }
 
+.high-school-tool-coming-soon,
+.high-school-tool-coming-soon:hover {
+  background-color: #e5e9e6;
+  border: 2px dashed #8b9c92;
+  color: #4c6054;
+  transform: none;
+}
+
+.high-school-tool-coming-soon {
+  align-content: start;
+}
+
+.high-school-tool-coming-soon p {
+  color: #4c6054;
+}
+
 .high-school-tool-card img {
   height: 180px;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .high-school-tool-card .tool-card-arrow {
@@ -233,7 +247,7 @@
 .placeholder-tool-card small {
   margin-top: auto;
   padding: 7px 10px;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #b41f2a;
   color: #ffffff;
   font-size: 12px;
@@ -309,7 +323,7 @@
   position: relative;
   padding: 18px 18px 18px 48px;
   border: 1px solid rgba(8, 98, 66, 0.2);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #ffffff;
   color: #203126;
   font-size: 18px;
@@ -323,7 +337,7 @@
   left: 20px;
   width: 12px;
   height: 12px;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #086242;
 }
 
@@ -350,14 +364,9 @@
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(8, 98, 66, 0.2);
-  border-radius: 8px;
-  background:
-    linear-gradient(90deg, transparent 0 38px, rgba(180, 31, 42, 0.25) 38px 40px, transparent 40px),
-    repeating-linear-gradient(180deg, #fffdf7 0 31px, #dce8df 32px),
-    #fffdf7;
-  box-shadow:
-    0 16px 34px rgba(8, 98, 66, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  border-radius: 4px;
+  background: #fffdf7;
+  box-shadow: none;
 }
 
 .transition-planner-card {
@@ -385,8 +394,7 @@
   left: 13px;
   width: 13px;
   height: calc(100% - 36px);
-  background:
-    radial-gradient(circle, rgba(8, 98, 66, 0.35) 0 3px, transparent 4px) 0 0 / 13px 42px;
+  background: #fffdf7;
   pointer-events: none;
 }
 
@@ -431,7 +439,7 @@
   width: fit-content;
   padding: 5px 10px;
   border: 1px solid rgba(8, 98, 66, 0.18);
-  border-radius: 8px 8px 0 0;
+  border-radius: 4px;
   background-color: #e8f1e7;
   color: #15251b;
   font-size: 15px;
@@ -461,7 +469,7 @@
   min-height: 44px;
   padding: 8px 10px 8px 14px;
   border: 1px solid rgba(8, 98, 66, 0.16);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.68);
   color: #15251b;
   font-size: 16px;
@@ -471,7 +479,7 @@
 .transition-planner-major-list button,
 .transition-planner-major-empty a {
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: transparent;
   font: inherit;
   font-size: 14px;
@@ -504,7 +512,7 @@
   gap: 12px;
   padding: 12px 14px;
   border: 1px solid rgba(8, 98, 66, 0.16);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.62);
 }
 
@@ -520,10 +528,8 @@
 .transition-planner-field textarea {
   width: 100%;
   border: 1px solid rgba(8, 98, 66, 0.2);
-  border-radius: 8px;
-  background:
-    repeating-linear-gradient(180deg, transparent 0 30px, rgba(8, 98, 66, 0.16) 31px),
-    rgba(255, 255, 255, 0.72);
+  border-radius: 4px;
+  background: #fffdf7;
   color: #15251b;
   font: inherit;
   font-size: 16px;
@@ -553,7 +559,7 @@
 .transition-planner-fieldset {
   padding: 16px 16px 18px;
   border: 1px solid rgba(8, 98, 66, 0.16);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.62);
 }
 
@@ -583,7 +589,7 @@
   display: inline-flex;
   width: fit-content;
   padding: 4px 8px;
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #e8f1e7;
   color: #086242;
   font-size: 12px;
@@ -606,7 +612,7 @@
   align-items: center;
   gap: 8px;
   min-height: 44px;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 15px;
   font-weight: 800;
 }
@@ -646,12 +652,9 @@
   width: min(100%, 520px);
   padding: 26px;
   border: 2px solid #086242;
-  border-radius: 8px;
-  background:
-    linear-gradient(90deg, transparent 0 34px, rgba(180, 31, 42, 0.18) 34px 36px, transparent 36px),
-    repeating-linear-gradient(180deg, #fffdf7 0 31px, #dce8df 32px),
-    #fffdf7;
-  box-shadow: 0 24px 70px rgba(8, 35, 24, 0.3);
+  border-radius: 4px;
+  background: #fffdf7;
+  box-shadow: none;
 }
 
 .transition-confirmation-icon {
@@ -660,7 +663,7 @@
   height: 48px;
   place-items: center;
   border: 1px solid rgba(180, 31, 42, 0.24);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #fff4cf;
   color: #a3332b;
 }
@@ -691,7 +694,7 @@
   min-height: 44px;
   padding: 10px 14px;
   border: 2px solid #086242;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: transparent;
   color: #086242;
   font: inherit;
@@ -767,7 +770,7 @@
   flex: 0 0 auto;
   padding: 7px 10px;
   border: 1px solid rgba(180, 31, 42, 0.38);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #fff2f3;
   color: #b41f2a;
   font: inherit;
@@ -814,7 +817,7 @@
   justify-content: center;
   padding: 6px 10px;
   border: 1px solid rgba(0, 103, 71, 0.22);
-  border-radius: 999px;
+  border-radius: 4px;
   background-color: #eaf7f1;
   color: #006747;
   font-size: 12px;
@@ -877,7 +880,7 @@
   padding: 9px 12px;
   overflow: hidden;
   border: 2px solid #086242;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #086242;
   color: #ffffff;
   font-size: 14px;
@@ -906,7 +909,7 @@
   gap: 10px;
   padding: 14px;
   border: 1px solid rgba(8, 98, 66, 0.16);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #f8f7f0;
 }
 
@@ -931,7 +934,7 @@
   min-height: 40px;
   padding: 9px 12px;
   border: 2px solid #086242;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: transparent;
   color: #086242;
   font-size: 14px;
@@ -960,7 +963,7 @@
   margin-left: -20px;
   padding: 14px;
   border: 1px solid rgba(8, 98, 66, 0.14);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #eef4e8;
 }
 
@@ -988,7 +991,7 @@
   gap: 6px;
   padding: 7px 10px;
   border: 1px solid rgba(180, 31, 42, 0.38);
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #fff2f3;
   color: #b41f2a;
   font: inherit;
