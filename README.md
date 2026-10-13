@@ -85,15 +85,16 @@ This is a development prototype and is **not ready to accept real student data**
 
 Production preparation and required institutional access are tracked in:
 
-- [Production readiness checklist](docs/production-readiness-checklist.md)
-- [Production access request](docs/production-access-request.md)
+- [Beta checklist and required approvals](docs/beta_checklist.md)
+- [Documentation guide](docs/README.md)
 
-The current production documents describe the static beta and the remaining hosting and review work. Review academic planning content with official USF resources and advising before making degree decisions.
+The beta checklist describes the static beta and the remaining hosting and review work. Review academic planning content with official USF resources and advising before making degree decisions.
 
 ## Beta Handoff and Content Maintenance
 
-- [Webmaster questions and task checklist](docs/beta-webmaster-handoff.md)
-- [Local readiness results and remaining checks](docs/beta-local-readiness-report.md)
+- [Webmaster questions and task checklist](docs/beta_checklist.md)
+- [Latest verification, handoff limitations, and owner actions](docs/beta-verification-2026-10-12.md)
+- [Earlier local readiness results](docs/beta-verification-2026-10-12.md#earlier-local-readiness-review)
 - [Content sources, review status, and update instructions](docs/content-review.md)
 
 The app currently assumes hosting at the website root. Configure the final asset base, router base, and app-scoped route fallback after the webmaster confirms the production URL. Publish the generated `dist/` contents through the approved host; local dev/preview servers are not production hosting. Google Fonts is currently loaded from `fonts.googleapis.com` and `fonts.gstatic.com`; the webmaster must approve those origins or supply approved locally hosted fonts.
@@ -102,6 +103,6 @@ The app currently assumes hosting at the website root. Configure the final asset
 
 Maintain the seven program identifiers, names, availability labels, descriptions, interests, catalog URLs, and study plans in `src/data/highSchoolFutureDegreeOptions.ts`. Its normalized cards feed both degree datasets; do not add generic business or duplicate interdisciplinary records. Both explorers use the same resources, and comparisons resolve the canonical slugs. Program-specific skills and coursework stay explicitly pending until approved. Economics and Anthropology are displayed on the separate future-options page, excluded from comparison until their content and inclusion are approved.
 
-Record academic approvals and source checks in [content-review.md](docs/content-review.md). See [interdisciplinary-degree-card-tasks.md](docs/interdisciplinary-degree-card-tasks.md) for implementation and browser verification status.
+Record academic approvals and source checks in [content-review.md](docs/content-review.md). See [interdisciplinary-degree-card-tasks.md](docs/content-review.md#interdisciplinary-implementation) for implementation and browser verification status.
 
 High-school interdisciplinary wording lives in `src/data/highSchoolInterdisciplinaryContent.ts`. Use short sentences, familiar words, and explanations of new terms. Keep official names, program identifiers, and resource URLs shared; shared-group detail wording remains in `src/data/interdisciplinaryDetailContent.ts`.

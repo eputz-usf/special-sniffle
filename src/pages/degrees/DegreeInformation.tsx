@@ -94,7 +94,7 @@ function DegreeInformation() {
         </p>
         <p>
           {isBelliniStudentSource
-            ? 'Use Add to Compare to see what may change if you switch between two Bellini majors, including focus, coursework direction, skills, and advising questions.'
+            ? 'Use Add to Compare to explore two Bellini majors’ focus, sample topics, skills, and questions to discuss with advising before requesting a major change.'
             : 'Use Add to Compare on two programs for a side-by-side review of their focus, skills, and next steps.'}
         </p>
       </section>

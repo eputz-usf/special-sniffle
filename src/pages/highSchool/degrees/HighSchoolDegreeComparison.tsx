@@ -252,6 +252,12 @@ function HighSchoolDegreeComparison() {
         <h1>
           Compare Degrees: {firstDegree.name} vs. {secondDegree.name}
         </h1>
+        <p>
+          Use this page to explore degree options. It does not check which of
+          your credits count toward a degree or which classes you still need.
+          It does not promise admission, a major change, or a graduation date.
+          Ask a USF advisor to review your credits and help you plan.
+        </p>
       </section>
 
       <section className="degree-comparison-table" role="table" aria-label="Degree comparison">

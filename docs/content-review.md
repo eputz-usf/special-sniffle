@@ -1,8 +1,9 @@
-# Degree Content Review Record
+# Academic content sources and maintenance
 
-Review started October 7, 2026. This is a technical/source review, not academic approval.
+Updated October 12, 2026. Technical/source preparation is complete; Bellini academic approval is pending. Task status is maintained in [beta_checklist.md](beta_checklist.md).
 
-## Sources Checked
+## Source record
+
 
 The official [Bellini undergraduate overview](https://www.usf.edu/ai-cybersecurity-computing/academics/undergraduate/index.aspx) and the following program pages were inspected:
 
@@ -20,84 +21,73 @@ The overview describes interdisciplinary programs separately and gives estimated
 
 The parent-information experiential-learning link was corrected to the official [Student Opportunities overview](https://www.usf.edu/ai-cybersecurity-computing/academics/student-opportunities/index.aspx).
 
-## External-Link Review
+## Verification and approval
 
-[external-link-report.json](external-link-report.json) records HTTP status, final URL, and source locations for each public external reference. An HTTP success does not establish academic accuracy or prove that a PDF/catalog page is usable. Some responses are HTTP 202 interstitials; catalog content and authenticated Canvas resources need human review.
+| Review | Evidence/status |
+| --- | --- |
+| Main-degree sources | Official pages above reviewed October 7. On October 8 the user confirmed prior verification of detailed coursework, career/salary figures, catalog years and planning-resource applicability. This is user attestation, not a new independent audit. |
+| Seven interdisciplinary summaries | Prepared October 8 from user-supplied catalog text after some official pages returned access challenges. Names/resources are shared; fit guidance and course-derived skills are editorial summaries. Detailed academic rules remain behind catalog links. No unsupported salary or regional employment figures were added. |
+| Comparison wording | Editorial review completed October 9; see [comparison review](#comparison-wording-review). |
+| Academic content owner | Awaiting Bellini assignment. |
+| Academic approval/reviewer/date | Pending. |
 
-Run `npm run check:links` for syntax checks. Run `npm run check:links -- --online` to refresh the network report.
+Bellini must approve program coverage (including whether Computer Engineering belongs in the beta), names, admissions status, descriptions, skills, career context, pathways/minors, high-school simplifications, planning-resource applicability and comparison wording. Confirm Economics/Anthropology inclusion and estimated 2027 timing. Record the owner, reviewer, approval date and review interval here.
 
-## Review Still Needed
+### Supplied-content cautions
 
-- [ ] Confirm the beta's program coverage, including Computer Engineering.
-- [ ] Verify every course list, credit total, prerequisite, sample plan, and academic requirement.
-- [ ] Confirm the catalog year for each catalog link. URLs contain different catalog identifiers and should not be assumed to describe the same year.
-- [ ] Verify all salary, employment, and growth figures against the stated source, time period, and geography.
-- [ ] Confirm current availability and labeling for each interdisciplinary/future option.
-- [ ] Review bachelor's/master's pathway and minor descriptions.
-- [ ] Manually inspect catalog interstitials, PDFs, Box links, and Canvas resources.
-- [ ] Approve comparison and advising language as exploration guidance.
-- [ ] Assign an academic content owner and review interval.
+- Criminology: supplied prerequisites repeated the Physics I label; the summary uses the unambiguous major-core Physics I/II list.
+- Interdisciplinary Social Sciences: specialization examples and career interests are exploration guidance, not verified employment outcomes.
+- Business concentrations: broader-degree career examples must not be treated as guaranteed concentration outcomes. Accountancy uses corporate accounting systems context; Digital Marketing uses marketing systems context; Supply Chain uses supply chain analysis. Fintech's broader-program blockchain career example does not establish blockchain coursework.
+- Accountancy's official catalog returned an access challenge; its summary uses user-supplied text. Business Analytics uses the corrected supplied catalog text.
+- Shared comparisons may retain missing-information labels even when Learn More summaries exist; review before filling them.
 
-**Academic content owner:** awaiting assignment by Bellini.
+## External resources
 
-**Last technical/source review:** October 8, 2026 (user-supplied interdisciplinary catalog text and technical checks; academic approval pending).
+[external-link-report.json](external-link-report.json) retains status codes, final URLs and source locations. HTTP success does not establish accuracy or usability; HTTP 202 interstitials, PDFs, Box plans and authenticated Canvas resources may need human inspection.
 
-**Academic approval date:** pending.
+Run `npm run check:links` for URL syntax or `npm run check:links -- --online` to refresh the network report.
 
-## Updating Content
+## Content maintenance
 
-1. Update shared degree-card content in `src/data/degrees.ts` and prospective-student content in `src/data/highSchoolDegrees.ts` as appropriate.
-2. Update planned/interdisciplinary options in `src/data/highSchoolFutureDegreeOptions.ts`.
-3. Review matching detail-page content in `src/pages/degrees/DegreeDetail.tsx` and `src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx`; these contain separate coursework and career sections.
-4. Review comparison pages and bachelor's/master's pathway pages for matching changes.
-5. Run `npm run check` and refresh the online link report when URLs change.
-6. Record the source, catalog year, change, reviewer, and review date here.
-7. Have the appointed content owner approve the release before publication.
+| File | Content |
+| --- | --- |
+| `src/data/degrees.ts`, `src/data/highSchoolDegrees.ts` | Main-degree cards and audience content |
+| `src/data/highSchoolFutureDegreeOptions.ts` | Canonical interdisciplinary identifiers, names, summaries, catalog and planning links |
+| `src/data/interdisciplinaryDetailContent.ts` | Shared interdisciplinary details |
+| `src/data/highSchoolInterdisciplinaryContent.ts` | Plain-language high-school cards, details and comparisons |
+| `src/pages/degrees/DegreeDetail.tsx`, `src/pages/highSchool/degrees/HighSchoolDegreeDetail.tsx` | Main-degree coursework/career details |
 
-## Interdisciplinary Integration — October 8, 2026
+For an update: change the relevant data and matching detail/comparison/pathway pages; preserve shared names and resource identifiers; run `npm run check`; refresh link checks when URLs change. Record the source, catalog year, change and reviewer/date here, then obtain content-owner approval before publication.
 
-Technical implementation reuses the seven existing entries and their catalog/Box planning sources in `src/data/highSchoolFutureDegreeOptions.ts`; source content has not received new academic validation. Both explorers now display those records once, with planned/coming-soon labels, degree/concentration names, details, and comparisons. Unreviewed skills/coursework are explicitly pending rather than derived from focus labels.
+## Comparison wording review
 
-Economics and Anthropology remain informational notes with the existing estimated 2027 timing and incomplete-content labels, excluded from selectable cards pending inclusion approval. No publication performed.
+Completed October 9, 2026. Editorial review only; Bellini academic approval remains pending.
 
-Academic approval remains required for exact names, launch/admissions status, catalog years, applicability of every two-/four-year plan, descriptions/interests, skills, comparison content, and the inclusion/timing of Economics and Anthropology. The existing official catalog and Box URLs are preserved; automated rendering validates destinations in app content, not academic correctness or external document usability.
+| Coverage | Findings and resolution |
+| --- | --- |
+| Shared comparison, Bellini context | Replaced predictive “What Changes If You Switch,” “Coursework shift,” and “Expect more emphasis” with program topics and advising questions. Explicitly distinguishes topic similarity from course equivalency or applicable credits. |
+| Shared comparison, other USF/transfer contexts | Added limits: no credit evaluation, determination of remaining requirements, eligibility confirmation or guaranteed change/timeline. Refer students to advising. |
+| High-school comparison | Added plain-language limits on credits, remaining classes, admission, major changes and graduation dates. |
+| Explorer/detail invitations | Removed Bellini's personal-forecast wording; retained invitations describing program exploration. |
+| Program-specific content | Reviewed fields for all 12 selectable programs. Replaced Computer Science and Engineering's unavailable transition-analyzer next step with advising review. Corrected interdisciplinary templates so pending coursework is not an expected shift. |
+| Invalid selections | Retained recovery instructions for missing, unknown or duplicate programs. |
 
-### Computer Science and Criminology content — October 8, 2026
+Automated rendering covers 66 distinct program pairs in five audience/source contexts (330 renders), including notices and the Bellini equivalency caution. Economics and Anthropology are not selectable comparison programs.
 
-Learn More content now summarizes catalog text supplied by the user: 120 total credits, core/elective structure, upper-division progression, GPA/grade/attempt requirements, residency, capstone, internship/research opportunities, and the BS-to-MS pathway. Stored in `src/data/interdisciplinaryDetailContent.ts`. Skills are derived from explicitly listed courses. Fit/preparation text is editorial exploration guidance. No salary or regional employment figures were supplied or added. The copied prerequisite text repeats the Physics I label for the second physics prerequisite; the summary uses the unambiguous major-core Physics I/II list instead. Catalog year, admissions status, planning-resource applicability, and academic approval still require confirmation.
+No degree requirements, credit equivalencies, admissions rules, catalog years or external documents were newly validated by this review. Task status is in [beta_checklist.md](beta_checklist.md).
 
-### Computer Science and Interdisciplinary Social Sciences — October 8, 2026
+## Interdisciplinary implementation
 
-Both Learn More pages now summarize user-supplied catalog text: the 120-credit degree, computing/social-science foundations, example specialization areas, skills inferred from listed courses, and internship/research/BS-to-MS opportunities. Fit and career framing are editorial guidance, not verified employment outcomes. Detailed course, elective, GPA, and progression rules remain accessible through the existing official catalog link rather than repeated on the page, following user direction. No salary or regional employment claims were added. Catalog year and academic approval remain pending.
+Implementation completed October 8, 2026. Current review tasks live in [beta_checklist.md](beta_checklist.md); this file records the implemented behavior rather than duplicating task checkboxes.
 
-### Accountancy and Analytics concentration — October 8, 2026
+Both explorers show five main programs and seven interdisciplinary options: Criminology, Interdisciplinary Social Sciences, and the Computer Science and Business concentrations Accountancy and Analytics, Business Analytics and Information Systems, Digital Marketing and Analytics, Fintech, and Supply Chain Management.
 
-Both Learn More versions summarize the catalog text supplied by the user after the official URL returned an access challenge. Content covers the 120-credit Computer Science and Business degree, accounting concentration focus, computing/business foundations, fit/preparation, course-derived skills, and internship/research/BS-to-MS opportunities. Corporate accounting systems analyst is attributed to the broader program; other concentrations’ career examples are not presented as accounting outcomes. Detailed coursework, elective, grading, GPA, and sequencing rules remain behind the existing catalog link. No salary or regional employment claims were added. Academic approval and catalog-year applicability remain pending.
+- Shared identifiers/resources feed both explorers. “All” shows 12 cards; “Interdisciplinary” shows seven. Cards use concise summaries; official catalog links hold detailed requirements.
+- All seven have audience-specific details, context-preserving navigation and two-program comparison support. Selection prevents duplicates and more than two programs; removal and clearing are available.
+- High-school descriptions explain unfamiliar terms separately from shared-group wording. Unsupported employment figures remain unavailable.
+- Economics and Anthropology appear only on the separate anticipated-2027 pages, with estimated timing/incomplete-content labels; neither is selectable for comparison.
+- Card display is not confirmation of admissions availability. Removed card/detail availability notes do not replace Bellini review.
 
-### Business Analytics and Information Systems concentration — October 8, 2026
+Maintenance files are listed above. Shared layouts are `src/components/InterdisciplinaryDegreeDetail.tsx` and `src/components/AnticipatedDegreeOptions.tsx`; regression coverage is in `tests/interdisciplinary.test.mjs`.
 
-Both Learn More versions now summarize the corrected user-supplied catalog text. The overview, fit/preparation, and skills reflect the computing/business foundation and the concentration’s database design, data mining/predictive analytics, statistical programming, big data, and Python courses. Internship/research/BS-to-MS opportunities are retained. Career framing describes study-related interests without inventing job outcomes or salary figures. Detailed coursework, elective, progression, GPA, and grading rules remain behind the existing official catalog link. Layout, audience-specific ordering, colors, and smaller titles remain consistent with the other updated interdisciplinary pages. Academic approval and catalog-year applicability remain pending.
-
-### Digital Marketing and Analytics concentration — October 8, 2026
-
-Both Learn More versions summarize the user-supplied catalog text. Content covers the 120-credit degree, computing/business foundation, marketing principles/research, digital marketing, marketing analytics, and marketing technology and AI. Fit/preparation and skills derive from these listed subjects. Marketing systems analyst is attributed to the broader degree rather than guaranteed as a concentration outcome. Internship/research/BS-to-MS opportunities are retained; detailed course lists, elective, grade, and progression rules remain behind the existing catalog link. No salary or regional employment claims were added. Academic approval and catalog-year applicability remain pending.
-
-### Fintech concentration — October 8, 2026
-
-Both Learn More versions summarize user-supplied catalog text: the 120-credit degree, computing/business foundation, financial institutions/markets, financial modeling/analytics, fintech foundations, big data/machine learning in finance, and algorithmic trading. Fit/preparation and skills derive from listed subjects. Fintech analyst, blockchain developer, and financial software engineer are attributed to the broader program; no blockchain coursework is inferred. Internship/research/BS-to-MS opportunities are retained. Detailed requirements remain behind the existing official catalog link. No salary or regional employment figures were added. Academic approval and catalog-year applicability remain pending.
-
-### Supply Chain Management concentration — October 8, 2026
-
-Both Learn More versions summarize user-supplied catalog text: the 120-credit degree, computing/business foundation, global sourcing, global commerce, logistics/physical distribution, and supply chain analytics. Fit/preparation and skills derive from the listed subjects. Supply chain analyst is attributed to the broader program; salary and regional employment claims are not added. Internship/research/BS-to-MS opportunities are retained. Detailed coursework, elective, grade, and progression rules remain behind the existing official catalog link. All seven interdisciplinary programs now have supplied-content Learn More summaries. Academic approval and catalog-year applicability remain pending.
-
-### High-school interdisciplinary language — October 8, 2026
-
-All seven high-school cards, Learn More pages, and interdisciplinary comparison fields now use a separate plain-language content layer. Computing/business/social-science subjects are preserved while terms such as concentration, fintech, supply chain, logistics, auditing, and algorithmic trading are explained. Resource labels, compare instructions, advising questions, and the anticipated-2027 page use simpler wording. Official names and URLs remain shared. No detailed requirement tables, elective placeholders, admissions notes on cards, or unavailable tools were added. Editorial simplifications and course-derived skills remain subject to academic review. Shared-group content is retained.
-
-### Checklist reconciliation — October 8, 2026
-
-Academic-preparation checkboxes now separate completed source summaries, URL checks, comparison advising cautions, and recorded source context from the remaining detailed source verification, full comparison wording review, and exact catalog-year confirmation. Earlier integration notes are historical: card/detail availability notes and elective placeholders were subsequently removed at the user’s request; Economics and Anthropology are now separate anticipated-2027 cards. Technical progress does not establish Bellini academic approval.
-
-### User-confirmed source checks — October 8, 2026
-
-The user confirmed that detailed main-degree coursework, career/salary information, and planning resources were checked when added, and that all catalog years are correct. The corresponding source-verification and catalog-year/applicability tasks in `beta_checklist.md` are marked complete based on that confirmation. This records prior verification reported by the user, rather than a new independent audit in this session. Bellini’s final academic approval remains separate and pending.
+Academic review must approve names, status, descriptions, skills, career/opportunity framing, high-school wording and future-option inclusion. General sample keyboard/layout checks passed by user report; screen-reader and exhaustive audience/direct-link/history coverage remain open. See [verification](beta-verification-2026-10-12.md).

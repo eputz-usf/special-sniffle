@@ -147,13 +147,17 @@ function getSampleTopics(degree: ComparableDegree) {
 }
 
 function getCourseworkSnapshot(degree: ComparableDegree) {
+  if (isFutureDegreeOption(degree)) {
+    return 'Coursework details pending academic review.';
+  }
+
   const topics = getSampleTopics(degree);
 
   if (topics.length === 0) {
-    return 'Review the official flowchart to confirm the coursework shift.';
+    return 'Review the official catalog and discuss coursework with advising.';
   }
 
-  return `Expect more emphasis on ${topics
+  return `Sample program topics include ${topics
     .slice(0, 3)
     .join(', ')
     .toLowerCase()}.`;
@@ -176,7 +180,7 @@ function renderSwitchPath(degree: ComparableDegree) {
 
   return (
     <article className="major-switch-path-card">
-      <p className="degrees-eyebrow">If you move toward</p>
+      <p className="degrees-eyebrow">Program to explore</p>
       <h3>{degree.name}</h3>
       <p>{getOverview(degree)}</p>
       <dl>
@@ -185,11 +189,11 @@ function renderSwitchPath(degree: ComparableDegree) {
           <dd>{getBestFor(degree)}</dd>
         </div>
         <div>
-          <dt>Coursework shift</dt>
+          <dt>Sample program topics</dt>
           <dd>{getCourseworkSnapshot(degree)}</dd>
         </div>
         <div>
-          <dt>Skills signal</dt>
+          <dt>Skills students may build</dt>
           <dd>{skills.length ? skills.join(', ') : getSkills(degree)}</dd>
         </div>
       </dl>
@@ -209,13 +213,12 @@ function renderMajorSwitchPicture(
       <div>
         <p className="degrees-eyebrow">Major change lens</p>
         <h2 id="major-switch-picture-title">
-          What Changes If You Switch Between These Majors
+          What to Discuss Before Changing Majors
         </h2>
         <p>
-          Use this section to move beyond the degree names. A Bellini major
-          change can shift the courses you still need, the skills your transcript
-          emphasizes, the career stories you can tell, and the advising questions
-          you should bring before submitting paperwork.
+          Compare the programs’ academic focus and use these questions to
+          prepare for advising. The summaries describe programs; they do not
+          determine what would change for your academic record.
         </p>
       </div>
 
@@ -226,19 +229,19 @@ function renderMajorSwitchPicture(
 
       <div className="major-switch-advising-grid">
         <article>
-          <h3>What may stay useful</h3>
+          <h3>Prior coursework to discuss</h3>
           <p>
-            Programming, math, systems, data, security, and hardware coursework
-            may still support the new direction, but each course needs to be
-            checked against the target major requirements.
+            Ask advising to review your completed courses against the target
+            major requirements. Similar topics or skills do not establish course
+            equivalency or show that credits will count toward that major.
           </p>
         </article>
         <article>
-          <h3>What may change</h3>
+          <h3>Requirements and timing to discuss</h3>
           <p>
-            The switch can change prerequisite chains, upper-level course
-            sequencing, elective choices, GPA or grade checks, repeated-attempt
-            review, and expected graduation timing.
+            Ask about prerequisites, course sequencing and availability,
+            electives, GPA and grade requirements, course-attempt limits, and
+            possible effects on graduation timing.
           </p>
         </article>
         <article>
@@ -246,7 +249,8 @@ function renderMajorSwitchPicture(
           <p>
             Ask which completed courses count, which requirements would still
             remain, whether any course attempts create a problem, and whether the
-            new plan can still fit the approved timeline.
+            major is available to you and how a change could affect your
+            graduation timeline.
           </p>
         </article>
       </div>
@@ -388,6 +392,12 @@ function DegreeComparison() {
         <h1>
           Compare Degrees: {firstDegree.name} vs. {secondDegree.name}
         </h1>
+        <p>
+          This comparison is for exploration. It does not evaluate your credits,
+          determine remaining requirements, or confirm eligibility to change
+          majors. A major change or graduation timeline is not guaranteed.
+          Confirm how your courses apply and any proposed degree plan with USF advising.
+        </p>
       </section>
 
       {isBelliniStudentSource &&

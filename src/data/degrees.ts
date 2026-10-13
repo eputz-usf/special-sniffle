@@ -186,7 +186,7 @@ export const degrees: Degree[] = [
     sampleTopics: ['Systems programming', 'Engineering design', 'Software foundations'],
     nextSteps: [
       'Compare this option with Computer Science.',
-      'Use the transition analyzer later if you are switching from another major.',
+      'Ask advising to review your completed courses, major-change eligibility, and possible effects on graduation timing.',
     ],
     officialLinks: {
       flowcharts: [

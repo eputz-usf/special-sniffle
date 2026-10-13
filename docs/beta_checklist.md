@@ -10,25 +10,25 @@ This checklist applies to the current beta. Adding accounts, private profiles, o
 
 ## Status and Work Order
 
-Updated October 8, 2026. The document is grouped by what can be done now, what needs an answer or approval, and what happens after staging. Completed work is checked. Section G’s implementation is done; manual browser review and academic approval are tracked separately.
+Updated October 12, 2026. The document is grouped by what can be done now, what needs an answer or approval, and what happens after staging. Completed work is checked. Section G’s implementation is done; manual browser review and academic approval are tracked separately.
 
 Next focus: accessibility and browser checks (D), technical verification (E), remaining content/source preparation (C), and handoff preparation. See [beta-local-readiness-report.md](beta-local-readiness-report.md) for the earlier local review and [content-review.md](content-review.md) for later content updates.
 
 ## 1. Work We Can Focus On Now
 
-**Work now completion: 63% — 27 of 43 tasks completed; 16 remaining.**
+**Work now completion: 86% — 37 of 43 tasks completed; 6 remaining.**
 
 Based on the checkboxes in section 1, including completed section G and handoff preparation. Each checkbox counts equally; this measures completed tasks, not time or effort. Items awaiting answers/approval and final launch checks are excluded. Update these figures when checkbox statuses change.
 
 | Work area | Completed / total | Completion |
 | --- | --- | --- |
 | B. Public Beta Experience | 7/7 | 100% |
-| C. Academic Content Preparation | 7/8 | 88% |
-| D. Accessibility and Usability | 2/8 | 25% |
-| E. Performance and Technical Quality | 6/11 | 55% |
+| C. Academic Content Preparation | 8/8 | 100% |
+| D. Accessibility and Usability | 6/8 | 75% |
+| E. Performance and Technical Quality | 7/11 | 64% |
 | F. Documentation | 3/3 | 100% |
 | G. Interdisciplinary Degree Cards | 2/2 | 100% |
-| Prepare the Handoff Package | 0/4 | 0% |
+| Prepare the Handoff Package | 4/4 | 100% |
 
 These tasks can proceed in the standalone app without hosting decisions. Browser checks require an available browser session; academic preparation does not replace final approval.
 
@@ -49,19 +49,19 @@ These tasks can proceed in the standalone app without hosting decisions. Browser
 - [x] Finish source verification of detailed main-degree coursework, career/salary figures, and the applicability/usability of planning resources.
 - [x] Clearly distinguish anticipated 2027 options; record that other interdisciplinary admissions status still needs Bellini confirmation.
 - [x] Add advising-confirmation wording to comparisons and keep official course/credit decisions with advising.
-- [ ] Complete a page-by-page comparison wording review for implied credit evaluations or guaranteed degree-change outcomes.
+- [x] Complete a page-by-page comparison wording review for implied credit evaluations or guaranteed degree-change outcomes. See [review record](comparison-wording-review.md) (October 9, 2026); academic approval remains pending.
 - [x] Record official source URLs, supplied catalog context, and technical/source review dates in `content-review.md`.
 - [x] Confirm the exact catalog year and applicability of each catalog/planning resource; a catalog identifier alone does not establish its year.
 
 ### D. Accessibility and Usability — WORK NOW
 
 - [x] Add comparison-table roles and mobile degree labels, filter state semantics, skip navigation, and route focus.
-- [ ] Complete manual heading, landmark, label, and image-alternative review across published pages.
-- [ ] Test the full explorer journey using only a keyboard, including filters and comparisons.
+- [x] Complete manual heading, landmark, label, and image-alternative review across published pages. User reports completing the prescribed manual review with no issues; see verification record for scope.
+- [x] Test the full explorer journey using only a keyboard, including filters and comparisons. User reports completing the prescribed manual review with no issues; see verification record for scope.
 - [x] Implement shared focus styles and reduced-motion handling.
-- [ ] Verify visible focus, readable contrast, and reduced-motion behavior in a browser.
-- [ ] Check the interface at 200% zoom and on narrow mobile screens.
-- [ ] Run automated accessibility checks and address findings; perform manual checks as well.
+- [x] Verify visible focus, readable contrast, and reduced-motion behavior in a browser. User reports completing the prescribed manual review with no issues; see verification record for scope.
+- [x] Check the interface at 200% zoom and on narrow mobile screens. User reports completing the prescribed manual review with no issues; see verification record for scope.
+- [ ] Run automated accessibility checks and address findings; perform manual checks as well. User-reported desktop comparison Lighthouse scan: 100/100, 25 passed audits. Exact comparison URL/report not yet recorded; compatible-element ARIA best-practice item needs inspection. User also reported a degree-page score of 100/100 with 22 passed audits; exact route and device mode remain unconfirmed. Dashboard also scored 100/100 per user report. Remaining page/mobile scan coverage and screen-reader checks are open.
 - [ ] Test screen-reader navigation on representative dashboard, degree-detail, and comparison pages.
 
 ### E. Performance and Technical Quality — WORK NOW
@@ -70,9 +70,9 @@ These tasks can proceed in the standalone app without hosting decisions. Browser
 - [x] Document the supported Node.js version used for builds and retain the npm lockfile.
 - [x] Optimize the large USF logo and split page code into separately loaded chunks.
 - [ ] Confirm image quality and loading performance visually on target devices.
-- [ ] Measure loading performance on a mobile connection and optimize where needed.
-- [ ] Check for browser console errors and failed asset requests.
-- [ ] Verify degree filtering, selecting two degrees, removing selections, and comparison navigation.
+- [ ] Measure loading performance on a mobile connection and optimize where needed. Prospective-dashboard mobile Lighthouse baseline: 91, LCP 2.6 s, TBT 0 ms, CLS 0.089; no run warnings. Font discovery optimized; updated-build dashboard rescan: 93, FCP 1.8 s, LCP 2.7 s, TBT 0 ms, CLS 0.089. Updated high-school explorer/detail scans: 91/90, LCP 3.2/3.3 s, TBT 0 ms and CLS 0. Comparison performance scan skipped at the user’s request; shared/Bellini-route coverage and target-device visual checks remain pending. See October 12 verification record.
+- [ ] Check for browser console errors and failed asset requests. User reports no console errors after refresh and filter/comparison interaction. No failed requests were recorded in the two supplied explorer/detail performance reports; full interactive Network check remains pending.
+- [x] Verify degree filtering, selecting two degrees, removing selections, and comparison navigation. User confirmed the keyboard explorer journey passed with no issues; recorded in the October 12 verification report.
 - [ ] Verify direct links, query parameters, page refreshes, browser back/forward, and navigation from a fresh browser session.
 - [x] Add meaningful automated regression checks for the critical explorer journey where practical.
 - [x] Review dependency vulnerabilities and resolve findings relevant to the deployed app.
@@ -87,7 +87,7 @@ These tasks can proceed in the standalone app without hosting decisions. Browser
 ### G. Interdisciplinary Degree Cards — DONE; ACADEMIC REVIEW PENDING
 
 - [x] Display the seven interdisciplinary majors/concentrations as cards matching the main five in both the high-school and shared degree explorers.
-- [x] Implement shared identifiers/resources, filters, detail links, two-program comparisons, audience navigation, and automated regression checks from [interdisciplinary-degree-card-tasks.md](interdisciplinary-degree-card-tasks.md).
+- [x] Implement shared identifiers/resources, filters, detail links, two-program comparisons, audience navigation, and automated regression checks from [interdisciplinary implementation record](content-review.md#interdisciplinary-implementation).
 
 Completed October 8, 2026. All seven Learn More pages now use the supplied catalog information, with separate plain-language content for high-school students. Cards use short summaries; detailed coursework and requirements remain behind official catalog links. The future-options shortcut opens only the two anticipated 2027 Economics and Anthropology cards. Section order and colors follow the main five. `npm run check` passes with 21 tests.
 
@@ -95,12 +95,14 @@ Implementation is done. Required manual browser checks remain in section D and t
 
 ### Prepare the Handoff Package — WORK NOW
 
-- [ ] Prepare the source repository or source archive, including `package.json` and `package-lock.json`.
-- [ ] Prepare a short record of build, lint, functionality, and accessibility checks, with staging checks to be added later.
-- [ ] Prepare known limitations and the list of “Coming soon” features.
-- [ ] Review the archive to exclude `node_modules/`, `.env.local`, credentials, private files, local machine files, and unnecessary development artifacts.
+- [x] Prepare the source repository or source archive, including `package.json` and `package-lock.json`.
+- [x] Prepare a short record of build, lint, functionality, and accessibility checks, with staging checks to be added later.
+- [x] Prepare known limitations and the list of “Coming soon” features.
+- [x] Review the archive to exclude `node_modules/`, `.env.local`, credentials, private files, local machine files, and unnecessary development artifacts.
 
-Content-update and build instructions can be prepared now. Final publishing and rollback instructions depend on the hosting answers.
+Prepared October 12: [verification, limitations, and owner actions](beta-verification-2026-10-12.md); source archive at `handoff/bellini-beta-source-2026-10-12.zip`, with reviewed manifest and SHA-256 checksum. Browser access was not approved, so D/E browser tasks remain open. Local `npm run check` passed with 22 tests.
+
+Content-update and build instructions are available in the README and content-review record. Final publishing and rollback instructions depend on the hosting answers.
 
 ## 2. Awaiting Answers, Access, or Approval
 

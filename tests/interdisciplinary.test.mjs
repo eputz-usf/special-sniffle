@@ -107,3 +107,24 @@ test('high-school interdisciplinary text is distinct and keeps all seven names a
     for (const paragraph of plain[option.slug].overview) assert.ok(html.includes(paragraph.replaceAll('&', '&amp;')));
   }
 });
+
+test('every program pair keeps credit and major-change decisions with advising for every audience', () => {
+  let reviewed = 0;
+  for (const audience of audiences) {
+    const sources = audience.high ? ['prospective-student'] : [null, 'current-bellini-student', 'current-usf-student', 'transfer-student'];
+    for (const source of sources) for (let i = 0; i < audience.data.length; i++) for (let j = i + 1; j < audience.data.length; j++) {
+      const html = render(audience.comparison, `${audience.base}/compare?first=${audience.data[i].slug}&second=${audience.data[j].slug}${source ? `&from=${source}` : ''}`);
+      assert.match(html, /role="table"/);
+      assert.match(html, audience.high ? /does not check which of/ : /does not evaluate your credits/);
+      assert.match(html, audience.high ? /does not promise admission, a major change, or a graduation date/ : /major change or graduation timeline is not guaranteed/);
+      assert.doesNotMatch(html, /Expect more emphasis|Coursework shift|What Changes If You Switch|transition analyzer/);
+      if (!audience.high && (!source || source === 'current-bellini-student')) {
+        assert.match(html, /Similar topics or skills do not establish course/);
+        assert.match(html, /What to Discuss Before Changing Majors/);
+        assert.doesNotMatch(html, /include coursework details pending/i);
+      }
+      reviewed++;
+    }
+  }
+  assert.equal(reviewed, 330);
+});

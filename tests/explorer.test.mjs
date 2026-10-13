@@ -85,7 +85,7 @@ test('valid comparison has labeled rows, degree names, and no retired overlap li
   const html = renderPage(DegreeComparison, '/degrees/compare?first=computer-science&second=artificial-intelligence&from=current-bellini-student');
   assert.match(html, /role="table"/);
   assert.match(html, /role="rowheader"/);
-  assert.match(html, /What Changes If You Switch Between These Majors/);
+  assert.match(html, /What to Discuss Before Changing Majors/);
   assert.match(html, /comparison-degree-name/);
   assert.doesNotMatch(html, /bellini-student\/course-overlap/);
 });
