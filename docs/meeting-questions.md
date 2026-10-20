@@ -87,19 +87,6 @@ Answers / reviewer / follow-up date:
 
 Answers / owner / follow-up date:
 
-> 
-
-## 7. Publication approval and next steps
-
-- [ ] Who gives final permission to publish the beta?
-- [ ] What staging checks, content/branding approvals, accessibility reviews, and handoff items must be complete before that permission is given?
-- [ ] Who will confirm the final public entry URL and approved routes/features before publication?
-- [ ] Who will publish the release and verify it on the production website?
-
-Answers / approver / follow-up date:
-
-> 
-
 ## Decisions and contacts to record before leaving
 
 | Item | Decision / contact | Follow-up owner and date |
