@@ -1,6 +1,4 @@
-# Bellini Degree Explorer Beta: Webmaster Meeting Questions
-
-Prepared for October 20, 2026, from [beta_checklist.md](beta_checklist.md). This meeting sheet collects the webmaster questions and follow-ups needed to resolve hosting, review, and launch dependencies. The original checklist remains the task-status record.
+# Bellini Degree Explorer Beta
 
 ## Project context to share
 
