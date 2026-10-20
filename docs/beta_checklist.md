@@ -49,7 +49,7 @@ These tasks can proceed in the standalone app without hosting decisions. Browser
 - [x] Finish source verification of detailed main-degree coursework, career/salary figures, and the applicability/usability of planning resources.
 - [x] Clearly distinguish anticipated 2027 options; record that other interdisciplinary admissions status still needs Bellini confirmation.
 - [x] Add advising-confirmation wording to comparisons and keep official course/credit decisions with advising.
-- [x] Complete a page-by-page comparison wording review for implied credit evaluations or guaranteed degree-change outcomes. See [review record](comparison-wording-review.md) (October 9, 2026); academic approval remains pending.
+- [x] Complete a page-by-page comparison wording review for implied credit evaluations or guaranteed degree-change outcomes. See [review record](content-review.md#comparison-wording-review) (October 9, 2026); academic approval remains pending.
 - [x] Record official source URLs, supplied catalog context, and technical/source review dates in `content-review.md`.
 - [x] Confirm the exact catalog year and applicability of each catalog/planning resource; a catalog identifier alone does not establish its year.
 
