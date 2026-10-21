@@ -91,6 +91,9 @@ The verification record describes the static beta, available test evidence, and 
 
 ## Beta Handoff and Content Maintenance
 
+- [Application infrastructure](docs/infrastructure.md)
+- [Troubleshooting and repair](docs/troubleshooting.md)
+
 - [Latest verification, handoff limitations, and owner actions](docs/beta-verification.md)
 - [Earlier local readiness results](docs/beta-verification.md#earlier-local-readiness-review)
 - [Content sources, review status, and update instructions](docs/content-review.md)
