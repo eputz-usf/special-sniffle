@@ -2,7 +2,7 @@
 
 For maintainers of the current static Bellini Degree Explorer beta. Reviewed against the source on October 20, 2026. Commands run from the repository root. This guide describes repair procedures; it is not evidence that a new verification run has passed.
 
-See [infrastructure.md](infrastructure.md) for architecture and hosting assumptions, [content-review.md](content-review.md) for content ownership, and [beta-verification.md](beta-verification.md) for recorded checks.
+See [infrastructure.md](infrastructure.md) for application architecture, [content-review.md](content-review.md) for content ownership, and [beta-verification.md](beta-verification.md) for recorded checks.
 
 ## Start by locating the problem
 
@@ -11,13 +11,12 @@ Record the affected URL, audience, steps to reproduce, expected/actual behavior,
 | Symptom | First place to investigate | Primary owner |
 | --- | --- | --- |
 | Install, lint, type-check, or test failure | Terminal output and named source file | Application maintainer |
-| Blank page or “We couldn’t load this page” | Console, failed entry/chunk requests | Application maintainer; hosting team if deployment-specific |
-| Links work inside the app but fail on refresh | Host routing/fallback | Webmaster/deployment team |
-| Missing images, fonts, or styling only after deployment | Asset paths, response types, site policy | Hosting team with application maintainer |
+| Blank page or “We couldn’t load this page” | Console, failed entry/chunk requests | Application maintainer |
+| Missing images, fonts, or styling | Asset paths and response types | Application maintainer |
 | Incorrect text, resource link, or comparison field | Dataset and page rendering source | Application maintainer and academic reviewer |
 | Unexpected dashboard context | Route family and `from` parameter | Application maintainer |
 
-Reproduce locally using the same source revision where possible. A local development success does not prove a deployed path, caching rule, or site policy is correct.
+Reproduce locally using the same source revision where possible. Record whether the failure occurs in development or production-build preview.
 
 ## Dependency installation or development server fails
 
@@ -72,22 +71,10 @@ npm run build
 
 **Repair according to the failure:**
 
-- **File opened with `file://`:** Serve the build through HTTP using `npm run preview` after building, or use the intended static host. Do not open `dist/index.html` directly from disk.
-- **JavaScript/CSS returns 404:** Check the deployment folder, Vite asset base, and whether the complete `dist/` output was uploaded.
-- **JavaScript request returns HTML or a MIME-type error:** The host may be rewriting a missing asset to `index.html`. Correct missing asset paths and the fallback policy; an HTTP 200 alone does not prove the right file was returned.
-- **Old HTML references removed hashed chunks:** Have the hosting team restore a consistent release or redeploy the complete build and correct entry-HTML caching. A hard reload can help diagnose stale browser cache, but it is not the permanent release fix.
-- **Content Security Policy refusal:** Give the blocked origin/directive to the hosting team. Align the asset/font implementation with approved policy rather than broadly disabling policy.
+- **File opened with `file://`:** Serve the build through HTTP using `npm run preview` after building. Do not open `dist/index.html` directly from disk.
 - **Application exception:** Trace the stack to the component/data change. Repair the invalid lookup or rendering assumption and check affected audiences and program combinations.
 
-**Verify:** Build and preview locally, then verify the repaired release on the actual host. Open the previously failing route directly and through normal navigation, including a fresh browser session. Confirm response types and Console errors are correct.
-
-## Direct links or refreshes fail on the website
-
-**Diagnose:** Compare in-app navigation with a direct request to `/degrees/computer-science` and the same route under the actual deployment prefix. A server 404 before React loads is different from the app’s “Page not found” screen.
-
-**Repair — hosting team:** Configure fallback to the app entry HTML for application routes, scoped to the app’s website section. Preserve actual asset requests and unrelated pages. If deployed below the root, review Vite’s `base` in `vite.config.ts`, the router `basename` in `src/main.tsx`, and root-relative URLs such as the favicon. Changing only one path setting can leave navigation or assets broken. Hash routing is an alternative only if explicitly chosen and implemented by the team.
-
-**Verify:** Test direct links, refresh, query parameters, back/forward, and asset requests on the actual host. Local Vite routing support is not evidence that the website host has the same fallback.
+**Verify:** Build and preview locally. Open the previously failing route directly and through normal navigation, including a fresh browser session. Confirm response types and Console errors are correct.
 
 ## Wrong audience, back link, or lost selection
 
@@ -137,21 +124,18 @@ The online command writes `docs/external-link-report.json`. Inspect status codes
 
 **Diagnose:** Separate intentional “Picture placeholder” areas from broken `<img>` requests. Inspect Network for missing assets, blocked Google Fonts, wrong response types, or mixed content. Inspect the element’s styles at the failing viewport/zoom. If the app is embedded in a website, check for CSS collisions or duplicate navigation.
 
-**Repair:** Use approved images and meaningful alternative text. Update imports/paths to match exact filenames and retain appropriate dimensions. The bundled logo is `src/assets/usflogo-optimized.png`. Google Fonts are linked in `index.html`; the hosting team handles approval/policy or an approved local-font replacement. Layout sources include `src/index.css` and `src/styles/`.
+**Repair:** Use approved images and meaningful alternative text. Update imports/paths to match exact filenames and retain appropriate dimensions. The bundled logo is `src/assets/usflogo-optimized.png`. Google Fonts are linked in `index.html`; check whether their requests succeed and whether an approved replacement is needed. Layout sources include `src/index.css` and `src/styles/`.
 
-For an iframe or CMS integration, the hosting team should coordinate sizing, scrolling, framing policy, and style scope. Disabled “Coming soon” cards are intentional; do not activate them as a cosmetic fix.
 
 **Verify:** Inspect a narrow mobile viewport, desktop, and 200% zoom. Check keyboard focus, headings/labels, and contrast after layout changes. After image/font changes, repeat relevant loading measurements; compare equivalent routes and conditions rather than treating one Lighthouse score as a universal result.
 
 ## Repair verification and release handoff
 
-Before handing a code repair to the deployment team:
+Before handing over a code repair:
 
 1. Record the cause, affected files, fix, and any academic review needed.
 2. Run the relevant checks; for source repairs, use `npm run check` before handoff and preview the production build where browser behavior is involved.
 3. Reproduce the original steps and confirm the intended behavior, including relevant audience variants and invalid-input recovery.
 4. Share the commit/release identifier and concise test evidence. Update documentation if the architecture or operating steps changed.
-
-The webmaster/deployment team owns publishing, host verification, and rollback. For a deployment failure, give them the failed route/request, release identifier, and comparison with local preview. Rollback should restore a consistent known-good build (HTML and assets together) using their established process. No host-specific rollback procedure is defined by this repository.
 
 If a credential or private student information is discovered, stop distributing the affected material and notify the responsible owner. Revoke/rotate exposed credentials before treating file removal as a fix; removing the current file does not remove prior Git history. This beta should not accept real transcript uploads or student accounts.

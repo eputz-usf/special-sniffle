@@ -21,13 +21,11 @@ Open the URL printed in the terminal.
 | `npm run build` | Generate production files in `dist/`. |
 | `npm run preview` | Preview the production build locally. |
 
-The webmaster/deployment team handles hosting. Deploy the complete `dist/` output; subfolder paths and direct-link routing may need host-specific configuration. See [infrastructure](docs/infrastructure.md) for details.
-
 ## Where to find information
 
 | Need | Document |
 | --- | --- |
-| Architecture, routes, storage, and hosting requirements | [Infrastructure](docs/infrastructure.md) |
+| Architecture, routes, and storage | [Infrastructure](docs/infrastructure.md) |
 | Diagnose and repair problems | [Troubleshooting](docs/troubleshooting.md) |
 | Reasons for implementation choices | [Design rationale](docs/design-rationale.md) |
 | Academic sources, approvals, and content update locations | [Content review](docs/content-review.md) |

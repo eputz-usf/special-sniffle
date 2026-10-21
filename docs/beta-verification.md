@@ -6,7 +6,6 @@ Updated October 20, 2026 for repository handoff. Test measurements below retain 
 
 - The project owner’s checklist marks the listed accessibility/usability and performance/technical-quality tasks complete. Performance/technical quality was marked complete at the owner’s request on October 20. Supporting evidence and its limits are documented below.
 - Keep unavailable features visible as disabled, clearly labeled “Coming soon” cards. Profiles, transcript uploads, planners, quizzes, and personalized recommendations are outside the implemented beta.
-- The webmaster owns hosting, staging, integration, and deployment, with Eric providing technical review. Host-specific configuration, deployed-route verification, and publishing/rollback procedures belong to the receiving team.
 - Academic approval and a named academic content owner remain unrecorded. See [content review](content-review.md) for the material requiring review.
 - Remaining developer handoff work includes infrastructure, troubleshooting, and design-rationale documentation; an image-needs list; collaborator invitations; and handoff correspondence.
 - No staging or production deployment or publication approval has been recorded in the evidence reviewed.
@@ -27,7 +26,7 @@ Tests cover public context/storage recovery, explorer/details, selection and com
 | Dashboard Lighthouse Accessibility | User reported 100/100 | Exact route/device/export absent. |
 | Console | User reported no red errors after refresh and filter/add/remove/comparison journey | Interactive failed-request check not confirmed. |
 
-The retained browser evidence is user-reported; no agent-run browser pass is claimed. The current checklist marks the listed accessibility and technical tasks complete, including direct-link/history and target-device checks. Separate reports for those later completions are not attached. Screen-reader coverage and exhaustive automated page/mobile coverage are not established by the retained evidence. The receiving team should verify relevant behavior on the deployed host.
+The retained browser evidence is user-reported; no agent-run browser pass is claimed. The current checklist marks the listed accessibility and technical tasks complete, including direct-link/history and target-device checks. Separate reports for those later completions are not attached. Screen-reader coverage and exhaustive automated page/mobile coverage are not established by the retained evidence.
 
 ## Mobile performance
 
@@ -50,7 +49,7 @@ Explorer/detail reports contain no HTTP 4xx/5xx or status-zero requests for thei
 
 The October 12 source archive, manifest, and checksum were removed during handoff cleanup because they were outdated. Use the cleaned source repository for handoff; any future archive must be generated and reviewed from the current source.
 
-Some audience dashboards still contain picture placeholders. Anisha will supply the image-needs list; the webmaster/Alessandra will coordinate approved images and replacement. Academic review and final published scope remain subject to the receiving team’s review. External-font policy, final URL/path, website integration, and deployment details are for the hosting team to resolve. Ongoing academic-content and user-support contacts have not been recorded.
+Some audience dashboards still contain picture placeholders and require approved images. Academic review remains pending. Ongoing academic-content and user-support contacts have not been recorded.
 
 ## Repository privacy and cleanup
 

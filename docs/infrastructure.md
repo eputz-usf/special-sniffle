@@ -1,6 +1,6 @@
 # Application infrastructure
 
-Reviewed against the repository source on October 20, 2026. This document describes the current public beta and its deployment requirements. Production host details are owned by the receiving webmaster/development team and are not yet recorded here.
+Reviewed against the repository source on October 20, 2026. This document describes the current public beta’s application structure and build workflow.
 
 ## Overview
 
@@ -103,7 +103,7 @@ Both explorer datasets incorporate the canonical interdisciplinary records. The 
 
 ## External dependencies and data boundaries
 
-- **Fonts:** `index.html` requests Amarna, Anton, and Saira through `fonts.googleapis.com`; font files are served from `fonts.gstatic.com`. These are browser requests to external origins. The hosting team must account for them in site policy or provide approved replacements.
+- **Fonts:** `index.html` requests Amarna, Anton, and Saira through `fonts.googleapis.com`; font files are served from `fonts.gstatic.com`. These are browser requests to external origins.
 - **Academic resources:** ordinary links open official USF pages, catalogs, Box study plans, Canvas resources, and other referenced pages. These resources are not imported into a database by the app; some destinations may require authentication or show access challenges.
 - **Advising email:** `mailto:` links hand off to the visitor’s email application. The app has no email-delivery service.
 - **Development link checks:** `npm run check:links` checks source URL syntax locally. The optional `--online` flag sends requests to the URLs found in source and writes `docs/external-link-report.json`. This is a development script, not a browser runtime API.
@@ -126,20 +126,9 @@ npm run build
 npm run preview
 ```
 
-`build` runs TypeScript project checks followed by Vite bundling. Vite writes the entry HTML, bundled CSS/JavaScript, and copied public assets to `dist/`. Lazy page imports create additional JavaScript chunks. The optimized logo is imported from `src/assets/`; `public/favicon.svg` is a public asset. Deploy the complete build together, including its chunks.
+`build` runs TypeScript project checks followed by Vite bundling. Vite writes the entry HTML, bundled CSS/JavaScript, and copied public assets to `dist/`. Lazy page imports create additional JavaScript chunks. The optimized logo is imported from `src/assets/`; `public/favicon.svg` is a public asset.
 
 `npm run check` runs lint, Node/server-rendering regression tests, source URL syntax checks, and a production build. It does not run browser end-to-end, screen-reader, or deployed-host checks. `npm run dev` and `npm run preview` are local tools, not production servers. Build dependencies and generated output are ignored by Git.
-
-## Deployment boundary and hosting assumptions
-
-The receiving webmaster/development team owns hosting, staging, website integration, deployment configuration, and release/rollback procedures. This section communicates application requirements rather than choosing their platform.
-
-- The current Vite configuration has no custom `base`, and `BrowserRouter` has no `basename`; the app currently assumes the website root. A subfolder deployment requires reviewing the asset base, router base, and explicit root-relative URLs such as the favicon.
-- BrowserRouter uses normal URL paths. Direct requests and refreshes on app routes need the host to serve the app entry HTML, with any fallback limited to the app’s section and without swallowing asset requests or unrelated website pages. If the platform cannot support this, routing needs an agreed adaptation.
-- HTTPS, content security policy, caching, approved font origins, and embedding restrictions are host responsibilities. If the team selects iframe or direct CMS integration, layout, focus, framing, and style compatibility require verification in that environment.
-- Serve assets with suitable content types and ensure the new entry HTML and its referenced versioned chunks remain consistent during releases. The final URL and host-specific process should be recorded by the deployment team when known.
-
-No host, staging URL, production URL, deployment automation, or live monitoring configuration is defined by this repository. Their absence does not require a backend for the current features.
 
 ## Scope of future infrastructure
 
