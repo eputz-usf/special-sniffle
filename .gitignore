@@ -26,5 +26,5 @@ dist-ssr
 .env
 .env.local
 
-# Local project checklist
-/docs/beta_checklist.md
+# Private local documents, configuration, and experimental setup
+/local-private/

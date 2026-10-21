@@ -1,6 +1,6 @@
 # Academic content sources and maintenance
 
-Updated October 12, 2026. Technical/source preparation is complete; Bellini academic approval is pending. Task status is maintained in [beta_checklist.md](beta_checklist.md).
+Updated October 12, 2026. Technical/source preparation is complete; Bellini academic approval is pending.
 
 ## Source record
 
@@ -74,11 +74,11 @@ Completed October 9, 2026. Editorial review only; Bellini academic approval rema
 
 Automated rendering covers 66 distinct program pairs in five audience/source contexts (330 renders), including notices and the Bellini equivalency caution. Economics and Anthropology are not selectable comparison programs.
 
-No degree requirements, credit equivalencies, admissions rules, catalog years or external documents were newly validated by this review. Task status is in [beta_checklist.md](beta_checklist.md).
+No degree requirements, credit equivalencies, admissions rules, catalog years or external documents were newly validated by this review.
 
 ## Interdisciplinary implementation
 
-Implementation completed October 8, 2026. Current review tasks live in [beta_checklist.md](beta_checklist.md); this file records the implemented behavior rather than duplicating task checkboxes.
+Implementation completed October 8, 2026. This section records implemented behavior; academic review requirements are described above.
 
 Both explorers show five main programs and seven interdisciplinary options: Criminology, Interdisciplinary Social Sciences, and the Computer Science and Business concentrations Accountancy and Analytics, Business Analytics and Information Systems, Digital Marketing and Analytics, Fintech, and Supply Chain Management.
 
@@ -90,4 +90,4 @@ Both explorers show five main programs and seven interdisciplinary options: Crim
 
 Maintenance files are listed above. Shared layouts are `src/components/InterdisciplinaryDegreeDetail.tsx` and `src/components/AnticipatedDegreeOptions.tsx`; regression coverage is in `tests/interdisciplinary.test.mjs`.
 
-Academic review must approve names, status, descriptions, skills, career/opportunity framing, high-school wording and future-option inclusion. General sample keyboard/layout checks passed by user report; screen-reader and exhaustive audience/direct-link/history coverage remain open. See [verification](beta-verification-2026-10-12.md).
+Academic review must approve names, status, descriptions, skills, career/opportunity framing, high-school wording and future-option inclusion. General sample keyboard/layout checks passed by user report; screen-reader and exhaustive audience/direct-link/history coverage remain open. See [verification](beta-verification.md).
