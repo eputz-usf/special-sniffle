@@ -1,12 +1,13 @@
-# Documentation guide
+# Documentation
 
-| Document | Sections/purpose |
+Start with the [project README](../README.md) for setup and build commands.
+
+| File | What it covers |
 | --- | --- |
-| [troubleshooting.md](troubleshooting.md) | Diagnosis, repair procedures, verification, and escalation for common problems |
-| [infrastructure.md](infrastructure.md) | Application architecture, routes, data/state flow, dependencies, build workflow, and hosting requirements |
-| [content-review.md](content-review.md) | Academic sources, approval status, maintenance, comparison wording review and interdisciplinary implementation |
-| [beta-verification.md](beta-verification.md) | Build checks, accessibility/browser evidence, mobile performance, handoff limitations and earlier local review |
-| [external-link-report.json](external-link-report.json) | Generated link-check evidence |
-| `performance/` | Original Lighthouse reports |
-
-Comparison wording and interdisciplinary records are maintained in `content-review.md`; earlier local-readiness evidence is retained in `beta-verification.md`. Build/run instructions and feature scope live in the project [README](../README.md).
+| [Infrastructure](infrastructure.md) | How the app is structured and deployed. |
+| [Troubleshooting](troubleshooting.md) | How to diagnose and fix common problems. |
+| [Design rationale](design-rationale.md) | Why the app works this way. |
+| [Content review](content-review.md) | Academic sources, content updates, and pending approvals. |
+| [Beta verification](beta-verification.md) | Recorded test results and known limitations. |
+| [Link report](external-link-report.json) | Results of external-link checks. |
+| [Performance reports](performance/) | Original Lighthouse loading-performance reports. |
