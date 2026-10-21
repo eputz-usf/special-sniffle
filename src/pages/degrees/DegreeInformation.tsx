@@ -174,7 +174,7 @@ function DegreeInformation() {
 
       <section className="degrees-quiz-callout coming-soon-area">
         <div>
-          <h2>Intake quiz — Coming soon</h2>
+          <h2>Major Interest Finder — Coming soon</h2>
           <p>Personalized program recommendations are coming soon.</p>
         </div>
       </section>

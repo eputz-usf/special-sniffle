@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import usfLogo from './assets/usflogo-optimized.png';
 import NotFound from './pages/NotFound';
+import usfLogo from './lib/usf.png';
+import belliniBlackLogo from './lib/bellini-logo-black.png';
 import RouteAccessibility from './components/RouteAccessibility';
 
 const BelliniStudentDashboard = lazy(() => import('./pages/belliniStudent/BelliniStudentDashboard'));
@@ -28,6 +29,8 @@ function App() {
   const isSelectingUserType =
     location.pathname === '/' || location.pathname === '/select-user-type';
   const isDashboard = location.pathname.startsWith('/dashboard');
+  const isDegreePage = location.pathname === '/degrees' || location.pathname.startsWith('/degrees/')
+    || location.pathname === '/high-school/degrees' || location.pathname.startsWith('/high-school/degrees/');
 
   return (
     <>
@@ -39,7 +42,13 @@ function App() {
           <Link className="site-logo" to="/">
             Degree Explorer
           </Link>
-          <img className="usf-logo" src={usfLogo} alt="University of South Florida" width={640} height={360} />
+          <img
+            className={`usf-logo${isDegreePage ? ' bellini-degree-logo' : ''}`}
+            src={isDegreePage ? belliniBlackLogo : usfLogo}
+            alt={isDegreePage ? 'University of South Florida Bellini College of Artificial Intelligence, Cybersecurity and Computing' : 'University of South Florida'}
+            width={isDegreePage ? 1077 : 794}
+            height={isDegreePage ? 294 : 478}
+          />
         </header>
       )}
 

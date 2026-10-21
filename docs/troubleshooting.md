@@ -124,7 +124,7 @@ The online command writes `docs/external-link-report.json`. Inspect status codes
 
 **Diagnose:** Separate intentional “Picture placeholder” areas from broken `<img>` requests. Inspect Network for missing assets, blocked Google Fonts, wrong response types, or mixed content. Inspect the element’s styles at the failing viewport/zoom. If the app is embedded in a website, check for CSS collisions or duplicate navigation.
 
-**Repair:** Use approved images and meaningful alternative text. Update imports/paths to match exact filenames and retain appropriate dimensions. The bundled logo is `src/assets/usflogo-optimized.png`. Google Fonts are linked in `index.html`; check whether their requests succeed and whether an approved replacement is needed. Layout sources include `src/index.css` and `src/styles/`.
+**Repair:** Use approved images and meaningful alternative text. Update imports/paths to match exact filenames and retain appropriate dimensions. The header logo is `src/lib/usf.png`; preserve its proportions and transparency. Check lettering contrast against the header background. Google Fonts are linked in `index.html`; check whether their requests succeed and whether an approved replacement is needed. Layout sources include `src/index.css` and `src/styles/`.
 
 
 **Verify:** Inspect a narrow mobile viewport, desktop, and 200% zoom. Check keyboard focus, headings/labels, and contrast after layout changes. After image/font changes, repeat relevant loading measurements; compare equivalent routes and conditions rather than treating one Lighthouse score as a universal result.

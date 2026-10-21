@@ -126,7 +126,7 @@ npm run build
 npm run preview
 ```
 
-`build` runs TypeScript project checks followed by Vite bundling. Vite writes the entry HTML, bundled CSS/JavaScript, and copied public assets to `dist/`. Lazy page imports create additional JavaScript chunks. The optimized logo is imported from `src/assets/`; `public/favicon.svg` is a public asset.
+`build` runs TypeScript project checks followed by Vite bundling. Vite writes the entry HTML, bundled CSS/JavaScript, and copied public assets to `dist/`. Lazy page imports create additional JavaScript chunks. The header logo is imported from `src/lib/usf.png`; `public/favicon.svg` remains a public asset.
 
 `npm run check` runs lint, Node/server-rendering regression tests, source URL syntax checks, and a production build. It does not run browser end-to-end, screen-reader, or deployed-host checks. `npm run dev` and `npm run preview` are local tools, not production servers. Build dependencies and generated output are ignored by Git.
 

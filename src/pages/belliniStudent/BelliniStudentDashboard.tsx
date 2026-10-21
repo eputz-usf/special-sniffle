@@ -69,7 +69,7 @@ function BelliniStudentDashboard() {
       toolCardOrder={['degree', 'career', 'tertiary', 'secondary', 'extra']}
       uniformToolCards
       comingSoonMode
-      quizNavLabel="Intake Quiz"
+      quizNavLabel="Major Interest Finder"
       degreeToolComingSoon={false}
       hideFinalNav
       steps={belliniStudentDashboardSteps}

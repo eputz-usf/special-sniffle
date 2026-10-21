@@ -92,10 +92,10 @@ function ProspectiveStudentDashboard() {
             Start
           </a>
           <a
-            href="#intake-quiz"
-            onClick={(event) => handleSectionLinkClick(event, 'intake-quiz')}
+            href="#major-interest-finder"
+            onClick={(event) => handleSectionLinkClick(event, 'major-interest-finder')}
           >
-            Intake Quiz
+            Major Interest Finder
           </a>
           <a
             href="#toolbox"
@@ -137,19 +137,19 @@ function ProspectiveStudentDashboard() {
         </div>
       </section>
 
-      <section className="dashboard-quiz-section scroll-reveal coming-soon-area" id="intake-quiz">
+      <section className="dashboard-quiz-section scroll-reveal coming-soon-area" id="major-interest-finder">
         <div className="dashboard-section-rule"></div>
         <div className="high-school-feature-row">
           <div>
-            <p className="dashboard-eyebrow">Intake quiz</p>
-            <h2>Intake quiz — Coming soon</h2>
+            <p className="dashboard-eyebrow">Major Interest Finder</p>
+            <h2>Major Interest Finder — Coming soon</h2>
             <p>Personalized program recommendations are coming soon.</p>
             <button className="dashboard-quiz-button compact dashboard-quiz-button-disabled-red" type="button" disabled>
               <ClipboardList size={20} aria-hidden="true" />
               Coming soon
             </button>
           </div>
-          <div className="dashboard-quiz-image picture-placeholder" aria-label="Reserved quiz picture space">Picture placeholder</div>
+          <div className="dashboard-quiz-image picture-placeholder" aria-label="Reserved Major Interest Finder picture space">Picture placeholder</div>
         </div>
       </section>
 

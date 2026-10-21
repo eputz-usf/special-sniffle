@@ -76,7 +76,7 @@ Shared components and styles provide consistent dashboard and degree interaction
 
 ## 10. Performance changes with retained evidence
 
-Page modules load lazily to avoid loading every page module at entry. The app uses an optimized logo, and font discovery was improved by moving Google Fonts loading into the HTML with preconnect hints. Original Lighthouse reports remain available as a baseline.
+Page modules load lazily to avoid loading every page module at entry. The header uses the supplied transparent USF logo without an added background. Font discovery was improved by moving Google Fonts loading into the HTML with preconnect hints. Original Lighthouse reports remain available as a baseline.
 
 **Tradeoffs:** Lazy page loading introduces chunk requests that must remain consistent with the deployed entry HTML. Google Fonts introduce external requests. A Lighthouse run is evidence for its tested route and conditions, not a guarantee for every device or future release.
 

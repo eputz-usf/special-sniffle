@@ -125,8 +125,8 @@ function DashboardTemplate({
   intro,
   dashboardLabel = 'General Dashboard',
   pathHeading = 'Move from questions to a clearer plan',
-  quizNavLabel = 'Intake Quiz',
-  quizEyebrow = 'Intake quiz',
+  quizNavLabel = 'Major Interest Finder',
+  quizEyebrow = 'Major Interest Finder',
   comingSoonMode = false,
   quizAtEnd = false,
   blankToolCards = false,
@@ -433,19 +433,19 @@ function DashboardTemplate({
   }, []);
 
   const quizSection = (
-    <section className="dashboard-quiz-section scroll-reveal coming-soon-area" id="intake-quiz">
+    <section className="dashboard-quiz-section scroll-reveal coming-soon-area" id="major-interest-finder">
       <div className="dashboard-section-rule"></div>
       <div className="dashboard-feature-row">
         <div>
           <p className="dashboard-eyebrow">{quizEyebrow}</p>
-          <h2>Intake quiz — Coming soon</h2>
+          <h2>Major Interest Finder — Coming soon</h2>
           <p>Personalized program recommendations are coming soon.</p>
           <button className="dashboard-quiz-button compact dashboard-quiz-button-disabled-red" type="button" disabled>
             <ClipboardList size={20} aria-hidden="true" />
             Coming soon
           </button>
         </div>
-        <div className="dashboard-quiz-image picture-placeholder" aria-label="Reserved quiz picture space">Picture placeholder</div>
+        <div className="dashboard-quiz-image picture-placeholder" aria-label="Reserved Major Interest Finder picture space">Picture placeholder</div>
       </div>
     </section>
   );
@@ -465,8 +465,8 @@ function DashboardTemplate({
             Start
           </a>
           <a
-            href="#intake-quiz"
-            onClick={(event) => handleSectionLinkClick(event, 'intake-quiz')}
+            href="#major-interest-finder"
+            onClick={(event) => handleSectionLinkClick(event, 'major-interest-finder')}
           >
             {quizNavLabel}
           </a>

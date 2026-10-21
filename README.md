@@ -36,6 +36,7 @@ Open the URL printed in the terminal.
 
 ```text
 src/
+  lib/              Supplied USF logo
   main.tsx          App startup and browser router
   App.tsx           Routes and shared header
   pages/            Audience dashboards, explorers, details, and comparisons
@@ -44,7 +45,6 @@ src/
   utils/            Audience context, storage, filters, and comparison helpers
   types/            Shared TypeScript types
   styles/           Page and component styles; global styles in src/index.css
-  assets/           Images imported by the app
 public/             Public assets, including the favicon
 docs/               Handoff guides, content review, and verification reports
   performance/      Original Lighthouse reports

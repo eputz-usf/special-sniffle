@@ -40,6 +40,22 @@ p {
   border-bottom: 1px solid #201d18;
 }
 
+.usf-logo {
+  display: block;
+  flex: 0 1 200px;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 8px;
+  object-fit: contain;
+}
+
+.bellini-degree-logo {
+  flex-basis: 320px;
+  width: 320px;
+}
+
 .site-header.user-select-header {
   background-color: #086242;
   border-bottom-color: #086242;
@@ -128,15 +144,6 @@ nav.site-section-nav {
 .site-section-nav a:hover::after,
 .site-section-nav a:focus-visible::after {
   transform: scaleX(1);
-}
-
-.usf-logo {
-  display: block;
-  flex: 0 0 auto;
-  width: 110px;
-  height: auto;
-  object-fit: contain;
-  transform: translateX(18px);
 }
 
 nav {
@@ -582,11 +589,6 @@ form > button[type="submit"] {
 
   .site-section-nav a {
     font-size: 16px;
-  }
-
-  .usf-logo {
-    width: 76px;
-    transform: none;
   }
 
   main {

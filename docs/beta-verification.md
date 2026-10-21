@@ -5,7 +5,7 @@ Updated October 20, 2026 for repository handoff. Test measurements below retain 
 ## Current handoff status
 
 - The project owner’s checklist marks the listed accessibility/usability and performance/technical-quality tasks complete. Performance/technical quality was marked complete at the owner’s request on October 20. Supporting evidence and its limits are documented below.
-- Keep unavailable features visible as disabled, clearly labeled “Coming soon” cards. Profiles, transcript uploads, planners, quizzes, and personalized recommendations are outside the implemented beta.
+- Keep unavailable features visible as disabled, clearly labeled “Coming soon” cards. Profiles, transcript uploads, planners, the Major Interest Finder, and personalized recommendations are outside the implemented beta.
 - Academic approval and a named academic content owner remain unrecorded. See [content review](content-review.md) for the material requiring review.
 - Remaining developer handoff work includes infrastructure, troubleshooting, and design-rationale documentation; an image-needs list; collaborator invitations; and handoff correspondence.
 - No staging or production deployment or publication approval has been recorded in the evidence reviewed.

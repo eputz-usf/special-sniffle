@@ -2812,7 +2812,7 @@ function HighSchoolDegreeDetail() {
           ))}
         </ul>
         <div className="degree-detail-actions">
-          <span className="coming-soon-notice">Intake quiz — Coming soon</span>
+          <span className="coming-soon-notice">Major Interest Finder — Coming soon</span>
           <Link to="/high-school/degrees">Compare More Programs</Link>
         </div>
       </section>
